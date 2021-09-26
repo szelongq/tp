@@ -308,7 +308,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *  `  | user                                       | can see everything                                                                                                    | feel like I am in charge.                                                                                                 |
 | `* *  `  | user dealing with confidential information | have some form of authentication                                                                                      | ensure only authorized personnel are allowed to access the data.                                                          |
 | `* *  `  | user                                       | mark important days such as payday                                                                                    | manage my work more effectively.                                                                                          |
-*{More to be added}*
+
 
 ### Use cases
 
@@ -344,11 +344,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. The user interface is designed such that it should be able to comfortably fit the information of at least 50 employees. 
-5. The application should be usable offline. 
-6. The application should respond within 2 seconds within the users’ command. 
-7. The application should only allow authorized personnel to have access to the application’s data.
-8. The application should secure any files it produces.
+4. User interface should be able to comfortably fit the information of at least 50 employees. 
+5. Should be usable offline. 
+6. Should respond within 2 seconds within the users’ command. 
+7. Should only allow authorized personnel to have access to the application’s data.
+8. Should secure any files it produces.
 
 ### Glossary
 
