@@ -11,7 +11,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Lim Boon Hai
 
-<img src="images/profile/boonhaii.png" width="200px">
+<img src="images/boonhaii.png" width="200px">
 
 [[github](https://github.com/boonhaii)]
 [[portfolio](team/boonhaii.md)]
@@ -21,7 +21,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Ng Wee Han
 
-<img src="images/profile/beefham.png" width="200px">
+<img src="images/beefham.png" width="200px">
 
 [[github](http://github.com/beefham)]
 [[portfolio](team/beefham.md)]
@@ -31,7 +31,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Sim Rui En, Daniel
 
-<img src="images/profile/danielsimre.png" width="200px">
+<img src="images/danielsimre.png" width="200px">
 
 [[github](http://github.com/danielsimre)]
 [[portfolio](team/danielsimre.md)]
@@ -41,7 +41,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Quek Sze Long
 
-<img src="images/profile/szelongq.png" width="200px">
+<img src="images/szelongq.png" width="200px">
 
 [[github](http://github.com/szelongq)]
 [[portfolio](team/szelongq.md)]
@@ -51,10 +51,10 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Wan Wei Kiat
 
-<img src="images/profile/1waykiat.png" width="200px">
+<img src="images/1waykiat.png" width="200px">
 
 [[github](http://github.com/1waykiat)]
 [[portfolio](team/1waykiat.md)]
 
 * Role: Documentation Manager
-* Responsibilities: Manages the update of documentation.
+* Responsibilities: Manages the updating of the documentations.
