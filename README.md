@@ -1,4 +1,4 @@
-[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/AY2122S1-CS2103T-F11-3/tp/actions)
+[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/nus-cs2103-AY2122S1/tp/actions)
 
 ![Ui](docs/images/Ui.png)
 
@@ -13,5 +13,3 @@
   * To allow users to quickly assess the balance of work between employees.
 
 * For the detailed documentation of this project, see the **[HeRon Product Website](https://ay2122s1-cs2103t-f11-3.github.io/tp/)**.
-
-* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
