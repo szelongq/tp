@@ -154,6 +154,18 @@ Exits the program.
 
 Format: `exit`
 
+### Calculating salary : `calculate` `[to be implemented in v1.2]`
+
+Calculate and display the monthly salary of the specified employee.
+
+Format: `calculate INDEX`
+* Calculate and displays the monthly salary of the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Example:
+* `find Betsy` followed by `calculate 2` gets the salary of the 2nd employee in the results of the `find` command.
+
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -165,8 +177,6 @@ AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
 </div>
-
-### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
 
