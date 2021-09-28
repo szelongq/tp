@@ -9,51 +9,52 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Lim Boon Hai
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/boonhaii.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/boonhaii)]
+[[portfolio](team/boonhaii.md)]
 
-* Role: Project Advisor
+* Role: UI/UX Designer
+* Responsibilities: Designs the user interface of the application.
 
-### Jane Doe
+### Ng Wee Han
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/beefham.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/beefham)]
+[[portfolio](team/beefham.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Scheduling/Issue Tracking Manager
+* Responsibilities: Manages deadlines and tracks the progress of issues assigned to each member.
 
-### Johnny Doe
+### Sim Rui En, Daniel
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/danielsimre.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/danielsimre)]
+[[portfolio](team/danielsimre.md)]
 
-* Role: Developer
-* Responsibilities: Data
+* Role: Testing Manager
+* Responsibilities: Manages and advise on testing related issues.
 
-### Jean Doe
+### Quek Sze Long
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/szelongq.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/szelongq)]
+[[portfolio](team/szelongq.md)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Role: Code Quality Manager
+* Responsibilities: Manages and advise on code quality related issues.
 
-### James Doe
+### Wan Wei Kiat
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/1waykiat.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/1waykiat)]
+[[portfolio](team/1waykiat.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Documentation Manager
+* Responsibilities: Manages the updating of the documentations.
