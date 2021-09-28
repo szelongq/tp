@@ -74,9 +74,9 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding an employee: `add`
 
-Adds a person to the address book.
+Adds an employee to the address book.
 
 Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVES s/SALARY hw/HOURSWORKED [t/TAG]…​`
 
@@ -129,20 +129,20 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting an employee : `delete`
 
-Deletes the specified person from the application.
+Deletes the specified employee from the application.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The index cannot exceed the length of the person list.
+* The index cannot exceed the length of the employee list.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd employee in the address book.
+* `find Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
