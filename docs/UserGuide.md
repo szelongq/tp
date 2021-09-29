@@ -117,10 +117,17 @@ Find employees using the specified field, checking if their information field co
 Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SALARY]  [t/TAG]...`
 
 * At least one field should be specified.
+* The keyword search is not case-sensitive.
 * For each field, you can search using multiple keywords.
-  * For example, find n/John Mike r/Manager will return all employees with the role "Manager" with the names John or Mike.
-* You can query employees who meet the specified condition for the number of leaves by entering l/<LEAVES (for less than LEAVES) or l/>LEAVES (for more than LEAVES)
-  * For example, enter "find l/>5" to find all employees who still have more than 5 leaves remaining.
+  * For example, `find n/John Mike r/Manager` will return all employees with the role "Manager" and with the names John or Mike.
+* You can query employees who meet the specified condition for the number of leaves by entering `l/<LEAVES` (for less than LEAVES) or `l/>LEAVES` (for more than LEAVES)
+  * For example, enter `find l/>5` to find all employees who still have more than 5 leaves remaining.
+
+Examples:
+* `find n/John` returns `john` and `John Doe`
+* `find n/alex david l/<3` returns `Alex Yeoh`, `David Li` as long as they have less than 3 leaves left.<br>
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+
 
 ### Deleting a person : `delete`
 
