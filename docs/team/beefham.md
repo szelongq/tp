@@ -1,6 +1,6 @@
 ---
 layout: page
-title: John Doe's Project Portfolio Page
+title: Wee Han's Project Portfolio Page
 ---
 
 ### Project: HeRon
