@@ -341,9 +341,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User request to list employees
+1. User requests to list employees
 2. HeRon shows list of employees
-3. User request to edit a specific employee on the list
+3. User requests to edit a specific employee on the list
 4. HeRon replaces the data of the employee based on the user's specified inputs
 5. HeRon displays employee data of the edited employee to user
 
@@ -451,8 +451,9 @@ testers are expected to do more *exploratory* testing.
     4. Test case: `edit 1 p/91234567 s/2000`<br>
         Expected: First employee's phone number and salary is updated as `91234567` and `2000` respectively together. Details of edited contact shown in the status message. Timestamp in the status bar is updated.
 
-    5. Other incorrect edit commands to try: `edit x` (where x is larger than list size), `edit 1 s/-200` (salary should not be negative) etc.
+    5. Other incorrect edit commands to try: `edit x` (where x is larger than list size), `edit 1 s/-200` (salary should not be negative) etc. <br>
         Expected: No employee data is being edited. Error details shown in the status message. Status bar remains the same.
+   
 2. _{ possibly more test cases? …​ }_
 
 ### Saving data
