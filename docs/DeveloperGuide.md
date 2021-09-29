@@ -273,9 +273,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
 | `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
+| `* * *`  | user                                       | add a new employee             |                                                                        |
+| `* * *`  | user                                       | delete an employee             | remove entries that I no longer need                                   |
+| `* * *`  | user                                       | find an employee by name       | locate details of persons without having to go through the entire list |
+| `* * *`  | user        git ad                               | find an employee by phone no.  |                                                                        |
 | `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
 | `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
 
@@ -283,16 +284,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `HeRon` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a person**
 
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  HeRon shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  HeRon deletes the person
 
     Use case ends.
 
@@ -307,6 +308,36 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. AddressBook shows an error message.
 
       Use case resumes at step 2.
+
+**Use Case: Finding a person**
+
+**MSS**
+
+1.  User requests to list persons
+2.  HeRon shows a list of persons
+3.  User requests to find all persons with a given query (name, phone, tags, and other valid queries)
+4.  HeRon shows a list of persons with that given name
+    
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given query does not match any user in HeRon
+    
+    * 3a1. HeRon shows an error message
+      
+      Use case resumes at step 2.
+     
+* 4a. The given query is invalid (because it contains a tag that cannot be understood)
+
+    * 4a1. HeRon shows an error message.
+    
+      Use case resumes at step 2.
+    
 
 *{More to be added}*
 
