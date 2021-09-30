@@ -331,6 +331,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+* 3b. The number of leaves to be added is invalid. (If the input is not a positive integer)
+
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
 **Use case: Remove leaves from an employee**
 
 **MSS**
@@ -354,9 +360,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-* 3b. The number of leaves to be removed is greater than the amount of leaves the employee actually has.
+* 3b. The number of leaves to be removed is invalid. (If the input is not a positive integer)
 
     * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The number of leaves to be removed is greater than the amount of leaves the employee actually has.
+
+    * 3c1. HeRon shows an error message.
 
       Use case resumes at step 2.
 
