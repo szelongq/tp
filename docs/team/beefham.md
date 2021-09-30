@@ -5,8 +5,9 @@ title: Wee Han's Project Portfolio Page
 
 ### Project: HeRon
 
-HeRon is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+HeRon is a desktop application for HR managers to assist in managing HR administrative tasks such as tracking leaves and offs, calculating pay and updating payroll information.
 
+HeRon is a project adapted from AddressBook - Level 3.
 Given below are my contributions to the project.
 
 * **New Feature**:
