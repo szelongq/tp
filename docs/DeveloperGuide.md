@@ -313,7 +313,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `HeRon` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Delete an employee**
 
 **MSS**
 
@@ -355,7 +355,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. HeRon shows an error message.
 
       Use case resumes at step 2.
       
@@ -425,6 +425,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given query does not match any user in HeRon
+
+    * 3a1. HeRon shows an error message
+
+      Use case resumes at step 2.
+
+* 3b. The given query is invalid (because it contains a tag that cannot be understood)
+
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+    
 **Use case: Edit an employee**
 
 **MSS**
@@ -483,6 +501,60 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. HeRon shows an error message.
 
         Use case resumes at step 2.
+
+**Use case: Adding a Tag to an employee**
+
+**MSS**
+1. User searches for a certain employee.
+2. HeRon returns the results of the search.
+3. User tags the specified employees with a specified tag.
+4. Tag is added to the employee.
+
+   Use case ends.
+
+* 2a. The list is empty. 
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 3.
+
+* 3b. The given tag is invalid.
+
+    * 3b1. HeRon shows an error message.
+    
+        Use case resumes at step 3.
+
+**Use case: Updating details of group of employees with specified tag.**
+
+**MSS**
+1. User searches for employees with specified tag.
+2. HeRon returns the results of the search.
+3. User updates the details of the specified employees.
+4. Employees in the group tag have their details updated.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The result list is empty.
+
+  Use case ends.
+
+* 3a. The given corresponding tag of the detail(s) to be updated is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 3.
+
+* 3b. The given detail(s) to be updated is invalid.
+
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 3.
 
 *{More to be added}*
 
