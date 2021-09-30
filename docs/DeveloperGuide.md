@@ -312,7 +312,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `HeRon` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a person**
 
@@ -336,15 +336,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. AddressBook shows an error message.
 
       Use case resumes at step 2.
-    
-**Use case: Calculate an employee's salary**
+
+**Use case: Edit an employee**
 
 **MSS**
 
-1.  User requests to list employees
-2.  HeRon shows a list of employees
-3.  User requests to calculate the salary of a specific employee in the list
-4.  HeRon calculates and displays the salary of that employee
+1. User requests to list employees
+2. HeRon shows list of employees
+3. User requests to edit a specific employee on the list
+4. HeRon replaces the data of the employee based on the user's specified inputs
+5. HeRon displays employee data of the edited employee to user
 
     Use case ends.
 
@@ -352,13 +353,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
 
-  Use case ends.
+    Use case ends.
 
 * 3a. The given index is invalid.
 
     * 3a1. HeRon shows an error message.
+    
+        Use case resumes at step 2.
+* 3b. No field has been provided
 
-      Use case resumes at step 2.
+    * 3b1. HeRon shows an error message informing user about the lack of a field
+    
+        Use case resumes at step 2.
+* 3c. Input into field is invalid
+
+    * 3c1. HeRon shows an error message informing user about which field has invalid input and why it is invalid
+
+        Use case resumes at step 2.
+
 
 *{More to be added}*
 
@@ -377,6 +389,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Salary**: Monthly salary payout to employees
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -421,7 +434,27 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+2. _{ more test cases …​ }_
+
+### Editing an employee
+
+1. Editing an employee while list of employees are shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple employees in the list.
+
+    2. Test case: `edit 1 n/Tsang Wei Ooi`<br>
+        Expected: First employee's name is updated with `Tsang Wei Ooi`. Details of the edited employee is shown in status message. Timestamp in the status bar is updated.
+
+    3. Test case: `edit`<br>
+        Expected: No data is being edited. Error details shown in status message. Status bar remains the same.
+
+    4. Test case: `edit 1 p/91234567 s/2000`<br>
+        Expected: First employee's phone number and salary is updated as `91234567` and `2000` respectively together. Details of edited contact shown in the status message. Timestamp in the status bar is updated.
+
+    5. Other incorrect edit commands to try: `edit x` (where x is larger than list size), `edit 1 s/-200` (salary should not be negative) etc. <br>
+        Expected: No employee data is being edited. Error details shown in the status message. Status bar remains the same.
+   
+2. _{ possibly more test cases? …​ }_
 
 ### Saving data
 
