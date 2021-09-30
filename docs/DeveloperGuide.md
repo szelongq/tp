@@ -380,7 +380,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list is empty.
 
   Use case ends.
-  
+
 * 3a. The given index is invalid.
 
     * 3a1. HeRon shows an error message.
@@ -392,13 +392,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3b1. HeRon shows an error message informing user about the lack of a field
     
         Use case resumes at step 2.
-    
+
 * 3c. Input into field is invalid
 
     * 3c1. HeRon shows an error message informing user about which field has invalid input and why it is invalid
 
         Use case resumes at step 2.
 
+**Use Case: Finding a person**
+
+**MSS**
+
+1.  User requests to list persons
+2.  HeRon shows a list of persons
+3.  User requests to find all persons with a given query (name, phone, tags, and other valid queries)
+4.  HeRon shows a list of persons with that given name
+    
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given query does not match any user in HeRon
+    
+    * 3a1. HeRon shows an error message
+      
+      Use case resumes at step 2.
+     
+* 3b. The given query is invalid (because it contains a tag that cannot be understood)
+
+    * 3b1. HeRon shows an error message.
+    
+      Use case resumes at step 2.
+    
 **Use case: Calculate an employee's salary**
 
 **MSS**
