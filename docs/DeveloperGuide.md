@@ -319,9 +319,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  HeRon shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  HeRon deletes the person
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+    
+**Use case: Add leaves to an employee**
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to add a certain number of leaves to a specific employee in the list
+4.  HeRon adds the leaves to the employee
 
     Use case ends.
 
@@ -336,7 +359,48 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. AddressBook shows an error message.
 
       Use case resumes at step 2.
+    
+* 3b. The number of leaves to be added is invalid. (If the input is not a positive integer)
 
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: Remove leaves from an employee**
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to remove a certain number of leaves from a specific employee in the list
+4.  HeRon removes the leaves from the employee
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The number of leaves to be removed is invalid. (If the input is not a positive integer)
+
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The number of leaves to be removed is greater than the amount of leaves the employee actually has.
+
+    * 3c1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+    
 **Use case: Edit an employee**
 
 **MSS**
@@ -412,6 +476,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Salary**: Monthly salary payout to employees
+* **Leave**: Refers to a day when an employee has permission to be absent from work
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -475,7 +540,7 @@ testers are expected to do more *exploratory* testing.
 
     5. Other incorrect edit commands to try: `edit x` (where x is larger than list size), `edit 1 s/-200` (salary should not be negative) etc. <br>
         Expected: No employee data is being edited. Error details shown in the status message. Status bar remains the same.
-   
+       
 2. _{ possibly more test cases? …​ }_
 
 ### Saving data
