@@ -17,7 +17,7 @@ HeRon is a desktop application for HR managers to assist in managing HR administ
 
 2. Download the latest `HeRon.jar` from [here](#).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Copy the file to the folder you want to use as the _home folder_ for your HeRon.
 
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
@@ -96,7 +96,7 @@ Format: `list`
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book.
+Edits an existing person in the employee book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SALARY] [h/HOURS_WORKED] [t/TAG]…​`
 
@@ -143,7 +143,7 @@ Format: `delete INDEX`
 * The index cannot exceed the length of the employee list.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd employee in the address book.
+* `list` followed by `delete 2` deletes the 2nd employee in the employee book.
 * `find Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
 
 ### Add number of leaves for an employee : `addLeaves`
@@ -158,7 +158,7 @@ Format: `addLeaves INDEX NO_OF_DAYS`
 * The number of days **must be a positive integer** 1, 2, 3, …
 
 Examples:
-* `list` followed by `addLeaves 3 4` adds 4 days of leave to the 3rd employee in the address book.
+* `list` followed by `addLeaves 3 4` adds 4 days of leave to the 3rd employee in the employee book.
 * `find Sam` followed by `addLeaves 1 1` adds 1 day of leave to the 1st person in the results of the `find` command.
 
 ### Remove number of leaves for an employee : `removeLeaves`
@@ -173,12 +173,12 @@ Format: `removeLeaves INDEX NO_OF_DAYS`
 * The number of days **must be a positive integer** 1, 2, 3, …
 
 Examples:
-* `list` followed by `removeLeaves 2 1` removes 1 day of leave from the 2nd employee in the address book.
+* `list` followed by `removeLeaves 2 1` removes 1 day of leave from the 2nd employee in the employee book.
 * `find Anthony` followed by `removeLeaves 4 2` removes 2 days of leave from the 4th person in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the employee book.
 
 Format: `clear`
 
@@ -206,10 +206,10 @@ HeRon data are saved in the hard disk automatically after any command that chang
 
 ### Editing the data file
 
-HeRon data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+HeRon data are saved as a JSON file `[JAR file location]/data/HeRon.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
+If your changes to the data file makes its format invalid, HeRon will discard all data and start with an empty data file at the next run.
 </div>
 
 _Details coming soon ..._
@@ -219,7 +219,7 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HeRon home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
