@@ -312,7 +312,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `HeRon` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a person**
 
@@ -371,6 +371,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
         Use case resumes at step 2.
 
+**Use case: Calculate an employee's salary**
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to calculate the salary of a specific employee in the list
+4.  HeRon calculates and displays the salary of that employee
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+    Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+        Use case resumes at step 2.
 
 *{More to be added}*
 
