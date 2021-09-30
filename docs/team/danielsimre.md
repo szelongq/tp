@@ -17,4 +17,4 @@ Given below are my contributions to the project.
   * User Guide:
     * Added documentation for the commands `addLeaves` and `removeLeaves`.
   * Developer Guide:
-    * Added use cases for`addLeaves` and `removeLeaves` commands.
+    * Added use cases for `addLeaves` and `removeLeaves` commands.
