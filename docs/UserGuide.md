@@ -145,6 +145,36 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Add number of leaves for an employee : `addLeaves`
+
+Adds the specified number of days to the current leave quota (number of days of leave left) of a chosen employee.
+
+Format: `addLeaves INDEX NO_OF_DAYS`
+
+* Adds the specified number to the number of leaves of the employee at the specified `INDEX`. 
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …
+* The number of days **must be a positive integer** 1, 2, 3, …
+
+Examples:
+* `list` followed by `addLeaves 3 4` adds 4 days of leave to the 3rd employee in the address book.
+* `find Sam` followed by `addLeaves 1 1` adds 1 day of leave to the 1st person in the results of the `find` command.
+
+### Remove number of leaves for an employee : `removeLeaves`
+
+Removes the specified number of days from the current leave quota (number of days of leave left) of a chosen employee.
+
+Format: `removeLeaves INDEX NO_OF_DAYS`
+
+* Removes the specified number from the number of leaves of the employee at the specified `INDEX`. 
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …
+* The number of days **must be a positive integer** 1, 2, 3, …
+
+Examples:
+* `list` followed by `removeLeaves 2 1` removes 1 day of leave from the 2nd employee in the address book.
+* `find Anthony` followed by `removeLeaves 4 2` removes 2 days of leave from the 4th person in the results of the `find` command.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -197,6 +227,8 @@ _Details coming soon ..._
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add Leaves** | `addLeaves INDEX NO_OF_DAYS` <br> e.g., `addLeaves 1 2`
+**Remove Leaves** | `removeLeaves INDEX NO_OF_DAYS` <br> e.g., `removeLeaves 4 1`
 **Clear** | `clear`
 **Calculate** | `calculate INDEX`<br> e.g., `calculate 3`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
