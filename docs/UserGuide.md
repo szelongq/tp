@@ -81,7 +81,7 @@ Adds an employee to the employee book.
 Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVES s/SALARY hw/HOURSWORKED [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A employee can have any number of tags (including 0)
+An employee can have any number of tags (including 0)
 </div>
 
 Examples:
@@ -94,7 +94,7 @@ Shows a list of all employees in the employee book.
 
 Format: `list`
 
-### Editing a employee : `edit`
+### Editing an employee : `edit`
 
 Edits an existing employee in the employee book.
 
