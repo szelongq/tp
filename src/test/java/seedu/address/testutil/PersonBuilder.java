@@ -3,11 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -25,6 +21,10 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private Role role;
+    private Leaves leaves;
+    private Salary salary;
+    private HoursWorked hoursWorked;
     private Set<Tag> tags;
 
     /**
@@ -89,8 +89,40 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Role} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRole(String role) {
+        this.role = new Role(role);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Leaves} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withLeaves(String leaves) {
+        this.leaves = new Leaves(leaves);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Salary} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withSalary(String salary) {
+        this.salary = new Salary(salary);
+        return this;
+    }
+
+    /**
+     * Sets the {@code HoursWorked} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withHoursWorked(String hoursWorked) {
+        this.hoursWorked = new HoursWorked(hoursWorked);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
     }
 
 }
