@@ -145,7 +145,8 @@ class JsonAdaptedPerson {
         final Salary modelSalary = new Salary(salary);
 
         if (hoursWorked == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, HoursWorked.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    HoursWorked.class.getSimpleName()));
         }
         if (!HoursWorked.isValidHours(hoursWorked)) {
             throw new IllegalValueException(HoursWorked.MESSAGE_CONSTRAINTS);

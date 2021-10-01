@@ -67,7 +67,9 @@ public class Person {
         return role;
     }
 
-    public Leaves getLeaves() {return leaves; }
+    public Leaves getLeaves() {
+        return leaves;
+    }
 
     public Salary getSalary() {
         return salary;
