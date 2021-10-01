@@ -9,10 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -93,6 +90,66 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String roleName} into a {@code Role}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code roleName} is invalid.
+     */
+    public static Role parseRole(String roleName) throws ParseException {
+        requireNonNull(roleName);
+        String trimmedRole = roleName.trim();
+        if (!Role.isValidRole(trimmedRole)) {
+            throw new ParseException(Role.MESSAGE_CONSTRAINTS);
+        }
+        return new Role(trimmedRole);
+    }
+
+    /**
+     * Parses a {@code String amount} into a {@code Leaves}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static Leaves parseLeaves(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!Leaves.isValidLeaves(trimmedAmount)) {
+            throw new ParseException(Leaves.MESSAGE_CONSTRAINTS);
+        }
+        return new Leaves(trimmedAmount);
+    }
+
+    /**
+     * Parses a {@code String amount} into a {@code Salary}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static Salary parseSalary(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!Salary.isValidSalary(trimmedAmount)) {
+            throw new ParseException(Salary.MESSAGE_CONSTRAINTS);
+        }
+        return new Salary(trimmedAmount);
+    }
+
+    /**
+     * Parses a {@code String amount} into a {@code HoursWorked}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static HoursWorked parseHoursWorked(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!HoursWorked.isValidHours(trimmedAmount)) {
+            throw new ParseException(HoursWorked.MESSAGE_CONSTRAINTS);
+        }
+        return new HoursWorked(trimmedAmount);
     }
 
     /**
