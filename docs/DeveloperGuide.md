@@ -260,7 +260,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * is a HR manager of a small company (10 - 50 employees)
 * is the only one in charge of handling HR
 * has a need to manage information on all employees
-* prefer desktop apps over other types
+* prefers desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
@@ -279,17 +279,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                       | add a new employee                                                                                                    |                                                                                                                           |
 | `* * *`  | user                                       | delete an employee                                                                                                    | remove entries that I no longer need.                                                                                     |
 | `* * * ` | user                                       | edit an employee's data                                                                                               |                                                                                                                           |
-| `* * *`  | user with many employees in the app        | search for an employee's data easily                                                                                  | locate details of persons without having to go through the entire list.                                                   |
+| `* * *`  | user with many employees in the app        | search for an employee's data easily                                                                                  | locate details of employees without having to go through the entire list.                                                   |
 | `* * *`  | user                                       | keep track of my employee's current leaves                                                                            | determine if a given employee's request for leave is valid.                                                               |
 | `* * *`  | user                                       | update leaves for certain employees                                                                                   | have a more accurate count of their remaining leaves.                                                                     |
 | `* * *`  | user                                       | keep track of an employee's unpaid leaves                                                                             | know how much to deduct from their monthly salary.                                                                        |
 | `* * *`  | user                                       | get all the offs and leaves that every employee has                                                                   | get those with remaining leaves to clear them before the end of the year.                                                 |
 | `* * *`  | user                                       | calculate the pay of all employees and view them easily                                                               | make it easier to complete administrative tasks.                                                                          |
-| `* * *`  | user                                       | have an application to account for factors like unpiad leave and overtime when calculating salary                     | reduce chances of errors by manual calculations.                                                                          |
+| `* * *`  | user                                       | have an application to account for factors like unpaid leave and overtime when calculating salary                     | reduce chances of errors by manual calculations.                                                                          |
 | `* * *`  | user                                       | keep track of employees which I have not paid yet                                                                     | ensure all employees are paid.                                                                                            |
 | `* * *`  | user                                       | get all the overtime that every employee has done for the month                                                       | keep track of each employee and analyze the amount of overtime being done in the company.                                 |
 | `* * *`  | organized user                             | group up employees into specified groups                                                                              | sort through them easily with color coding and tags.                                                                      |
-| `* *  `  | user                                       | input a schedule for an employee                                                                                      | keep track of how many hours they are intending to work.                                                                  |
+| `* *  `  | user                                       | input a schedule for an employee                                                                                      | keep track of how many hours he/she are intending to work.                                                                  |
 | `* *  `  | user                                       | schedule employees and their work schedules                                                                           | ensure they hit the minimum work quota and all employees are working equally.                                             |
 | `* *  `  | user in a company that does shift work     | see the schedule for the week                                                                                         | have a rough idea of how to assign people to shifts.                                                                      |
 | `* *  `  | user                                       | generate a work schedule according to certain specified rules                                                         | do not have to make one manually while ensuring it abides by the rules.                                                   |
@@ -321,10 +321,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list persons
-2.  HeRon shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  HeRon deletes the person
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to delete a specific employee in the list
+4.  HeRon deletes the employee
 
     Use case ends.
 
@@ -404,30 +404,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
       
-**Use Case: Finding a person**
+**Use Case: Finding an employee**
 
 **MSS**
 
-1.  User requests to list persons
-2.  HeRon shows a list of persons
-3.  User requests to find all persons with a given query (name, phone, tags, and other valid queries)
-4.  HeRon shows a list of persons with that given name
-
-* 2a. The list is empty.
-
-  Use case ends.
-  
-* 3a. The given query does not match any user in HeRon
-
-    * 3a1. HeRon shows an error message
-
-      Use case resumes at step 2.
-
-* 3b. The given query is invalid (because it contains a tag that cannot be understood)
-
-    * 3b1. HeRon shows an error message.
-
-      Use case resumes at step 2.
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to find all employees with a given query (name, phone, tags, and other valid queries)
+4.  HeRon shows a list of employees with that given name
 
 **Extensions**
 
