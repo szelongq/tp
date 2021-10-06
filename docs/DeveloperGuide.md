@@ -257,13 +257,17 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* is a HR manager of a small company (10 - 50 employees)
+* is the only one in charge of handling HR
+* has a need to manage information on all employees
+* prefers desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: 
+* More convenient to manage employees’ information than a typical mouse/GUI driven app. 
+* Able to quickly assess the balance of work between employees.
 
 
 ### User stories
@@ -275,17 +279,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                       | add a new employee                                                                                                    |                                                                                                                           |
 | `* * *`  | user                                       | delete an employee                                                                                                    | remove entries that I no longer need.                                                                                     |
 | `* * * ` | user                                       | edit an employee's data                                                                                               |                                                                                                                           |
-| `* * *`  | user with many employees in the app        | search for an employee's data easily                                                                                  | locate details of persons without having to go through the entire list.                                                   |
+| `* * *`  | user with many employees in the app        | search for an employee's data easily                                                                                  | locate details of employees without having to go through the entire list.                                                   |
 | `* * *`  | user                                       | keep track of my employee's current leaves                                                                            | determine if a given employee's request for leave is valid.                                                               |
 | `* * *`  | user                                       | update leaves for certain employees                                                                                   | have a more accurate count of their remaining leaves.                                                                     |
 | `* * *`  | user                                       | keep track of an employee's unpaid leaves                                                                             | know how much to deduct from their monthly salary.                                                                        |
 | `* * *`  | user                                       | get all the offs and leaves that every employee has                                                                   | get those with remaining leaves to clear them before the end of the year.                                                 |
 | `* * *`  | user                                       | calculate the pay of all employees and view them easily                                                               | make it easier to complete administrative tasks.                                                                          |
-| `* * *`  | user                                       | have an application to account for factors like unpiad leave and overtime when calculating salary                     | reduce chances of errors by manual calculations.                                                                          |
+| `* * *`  | user                                       | have an application to account for factors like unpaid leave and overtime when calculating salary                     | reduce chances of errors by manual calculations.                                                                          |
 | `* * *`  | user                                       | keep track of employees which I have not paid yet                                                                     | ensure all employees are paid.                                                                                            |
 | `* * *`  | user                                       | get all the overtime that every employee has done for the month                                                       | keep track of each employee and analyze the amount of overtime being done in the company.                                 |
 | `* * *`  | organized user                             | group up employees into specified groups                                                                              | sort through them easily with color coding and tags.                                                                      |
-| `* *  `  | user                                       | input a schedule for an employee                                                                                      | keep track of how many hours they are intending to work.                                                                  |
+| `* *  `  | user                                       | input a schedule for an employee                                                                                      | keep track of how many hours he/she are intending to work.                                                                  |
 | `* *  `  | user                                       | schedule employees and their work schedules                                                                           | ensure they hit the minimum work quota and all employees are working equally.                                             |
 | `* *  `  | user in a company that does shift work     | see the schedule for the week                                                                                         | have a rough idea of how to assign people to shifts.                                                                      |
 | `* *  `  | user                                       | generate a work schedule according to certain specified rules                                                         | do not have to make one manually while ensuring it abides by the rules.                                                   |
@@ -309,7 +313,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *  `  | user dealing with confidential information | have some form of authentication                                                                                      | ensure only authorized personnel are allowed to access the data.                                                          |
 | `* *  `  | user                                       | mark important days such as payday                                                                                    | manage my work more effectively.                                                                                          |
 
-
 ### Use cases
 
 (For all use cases below, the **System** is the `HeRon` and the **Actor** is the `user`, unless specified otherwise)
@@ -319,9 +322,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list employees
-2.  AddressBook shows a list of employees
+2.  HeRon shows a list of employees
 3.  User requests to delete a specific employee in the list
-4.  AddressBook deletes the employee
+4.  HeRon deletes the employee
 
     Use case ends.
 
@@ -333,67 +336,101 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. HeRon shows an error message.
 
       Use case resumes at step 2.
     
-
-**Use case: Adding a Tag to an employee**
+**Use case: Add leaves to an employee**
 
 **MSS**
-1. User searches for a certain employee.
-2. AddressBook returns the results of the search.
-3. User tags the specified employees with a specified tag.
-4. Tag is added to the employee.
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to add a certain number of leaves to a specific employee in the list
+4.  HeRon adds the leaves to the employee
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty. 
+* 2a. The list is empty.
 
   Use case ends.
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. HeRon shows an error message.
 
-      Use case resumes at step 3.
+      Use case resumes at step 2.
+      
+* 3b. The number of leaves to be added is invalid. (If the input is not a positive integer)
 
-* 3b. The given tag is invalid.
+    * 3b1. HeRon shows an error message.
 
-    * 3b1. AddressBook shows an error message.
-    
-        Use case resumes at step 3.
-
-**Use case: Updating details of group of employees with specified tag.**
+      Use case resumes at step 2.
+      
+**Use case: Remove leaves from an employee**
 
 **MSS**
-1. User searches for employees with specified tag.
-2. AddressBook returns the results of the search.
-3. User updates the details of the specified employees.
-4. Employees in the group tag have their details updated.
 
-   Use case ends.
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to remove a certain number of leaves from a specific employee in the list
+4.  HeRon removes the leaves from the employee
+
+    Use case ends.
 
 **Extensions**
 
-* 2a. The result list is empty.
+* 2a. The list is empty.
+
+  Use case ends.
+  
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The number of leaves to be removed is invalid. (If the input is not a positive integer)
+
+    * 3b1. HeRon shows an error message.
+    
+      Use case resumes at step 2.
+
+* 3c. The number of leaves to be removed is greater than the amount of leaves the employee actually has.
+
+    * 3c1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+      
+**Use Case: Finding an employee**
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to find all employees with a given query (name, phone, tags, and other valid queries)
+4.  HeRon shows a list of employees with that given name
+
+**Extensions**
+
+* 2a. The list is empty.
 
   Use case ends.
 
-* 3a. The given corresponding tag of the detail(s) to be updated is invalid.
+* 3a. The given query does not match any user in HeRon
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. HeRon shows an error message
 
-      Use case resumes at step 3.
+      Use case resumes at step 2.
 
-* 3b. The given detail(s) to be updated is invalid.
+* 3b. The given query is invalid (because it contains a tag that cannot be understood)
 
-    * 3b1. AddressBook shows an error message.
+    * 3b1. HeRon shows an error message.
 
-      Use case resumes at step 3.
-
+      Use case resumes at step 2.
+    
 **Use case: Edit an employee**
 
 **MSS**
@@ -410,24 +447,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
 
-    Use case ends.
+  Use case ends.
 
 * 3a. The given index is invalid.
 
     * 3a1. HeRon shows an error message.
     
         Use case resumes at step 2.
+    
 * 3b. No field has been provided
 
     * 3b1. HeRon shows an error message informing user about the lack of a field
     
         Use case resumes at step 2.
+
 * 3c. Input into field is invalid
 
     * 3c1. HeRon shows an error message informing user about which field has invalid input and why it is invalid
 
         Use case resumes at step 2.
-
+    
 **Use case: Calculate an employee's salary**
 
 **MSS**
@@ -451,6 +490,60 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
         Use case resumes at step 2.
 
+**Use case: Adding a Tag to an employee**
+
+**MSS**
+1. User searches for a certain employee.
+2. HeRon returns the results of the search.
+3. User tags the specified employees with a specified tag.
+4. Tag is added to the employee.
+
+   Use case ends.
+
+* 2a. The list is empty. 
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 3.
+
+* 3b. The given tag is invalid.
+
+    * 3b1. HeRon shows an error message.
+    
+        Use case resumes at step 3.
+
+**Use case: Updating details of group of employees with specified tag.**
+
+**MSS**
+1. User searches for employees with specified tag.
+2. HeRon returns the results of the search.
+3. User updates the details of the specified employees.
+4. Employees in the group tag have their details updated.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The result list is empty.
+
+  Use case ends.
+
+* 3a. The given corresponding tag of the detail(s) to be updated is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 3.
+
+* 3b. The given detail(s) to be updated is invalid.
+
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 3.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -469,6 +562,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Salary**: Monthly salary payout to employees
+* **Leave**: Refers to a day when an employee has permission to be absent from work
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -532,7 +626,7 @@ testers are expected to do more *exploratory* testing.
 
     5. Other incorrect edit commands to try: `edit x` (where x is larger than list size), `edit 1 s/-200` (salary should not be negative) etc. <br>
         Expected: No employee data is being edited. Error details shown in the status message. Status bar remains the same.
-   
+       
 2. _{ possibly more test cases? …​ }_
 
 ### Saving data
