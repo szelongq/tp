@@ -31,7 +31,7 @@ public class Leaves {
     public static boolean isValidLeaves(String test) {
         try {
             int amount = Integer.parseInt(test);
-            return amount > 0;
+            return amount >= 0;
         } catch (NumberFormatException e) {
             return false;
         }
