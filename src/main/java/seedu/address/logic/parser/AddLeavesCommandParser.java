@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddLeavesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Leaves;
 
 /**
  * Parses input arguments and creates a new AddLeavesCommand object.
@@ -56,7 +57,7 @@ public class AddLeavesCommandParser implements Parser<AddLeavesCommand> {
                     AddLeavesCommand.MESSAGE_USAGE));
         }
 
-        return new AddLeavesCommand(index, numberOfLeaves);
+        return new AddLeavesCommand(index, new Leaves(numberOfLeavesString));
     }
 
 }

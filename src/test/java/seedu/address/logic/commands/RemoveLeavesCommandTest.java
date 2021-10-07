@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Leaves;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -20,18 +21,18 @@ public class RemoveLeavesCommandTest {
 
     @Test
     public void execute() {
-        int numberOfLeaves = 3;
+        Leaves leaves = new Leaves("3");
 
-        assertCommandFailure(new AddLeavesCommand(INDEX_FIRST_PERSON, numberOfLeaves), model,
-                String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), numberOfLeaves));
+        assertCommandFailure(new AddLeavesCommand(INDEX_FIRST_PERSON, leaves), model,
+                String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), leaves));
     }
 
     @Test
     public void equals() {
-        final AddLeavesCommand standardCommand = new AddLeavesCommand(INDEX_FIRST_PERSON, VALID_LEAVES_AMY);
+        final AddLeavesCommand standardCommand = new AddLeavesCommand(INDEX_FIRST_PERSON, new Leaves(VALID_LEAVES_AMY));
 
         // Same values -> returns true
-        AddLeavesCommand commandWithSameValues = new AddLeavesCommand(INDEX_FIRST_PERSON, VALID_LEAVES_AMY);
+        AddLeavesCommand commandWithSameValues = new AddLeavesCommand(INDEX_FIRST_PERSON, new Leaves(VALID_LEAVES_AMY));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // Same object -> returns true
@@ -44,9 +45,9 @@ public class RemoveLeavesCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // Different index -> returns false
-        assertFalse(standardCommand.equals(new AddLeavesCommand(INDEX_SECOND_PERSON, VALID_LEAVES_AMY)));
+        assertFalse(standardCommand.equals(new AddLeavesCommand(INDEX_SECOND_PERSON, new Leaves(VALID_LEAVES_AMY))));
 
         // Different number of leaves -> returns false
-        assertFalse(standardCommand.equals(new AddLeavesCommand(INDEX_FIRST_PERSON, VALID_LEAVES_BOB)));
+        assertFalse(standardCommand.equals(new AddLeavesCommand(INDEX_FIRST_PERSON, new Leaves(VALID_LEAVES_BOB))));
     }
 }

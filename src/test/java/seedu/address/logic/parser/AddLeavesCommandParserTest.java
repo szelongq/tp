@@ -11,16 +11,17 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddLeavesCommand;
+import seedu.address.model.person.Leaves;
 
 public class AddLeavesCommandParserTest {
     private final AddLeavesCommandParser parser = new AddLeavesCommandParser();
-    private final int validNumberOfLeaves = 3;
+    private final String validNumberOfLeaves = "3";
 
     @Test
     public void parse_indexSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_LEAVES + validNumberOfLeaves;
-        AddLeavesCommand expectedCommand = new AddLeavesCommand(targetIndex, validNumberOfLeaves);
+        AddLeavesCommand expectedCommand = new AddLeavesCommand(targetIndex, new Leaves(validNumberOfLeaves));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

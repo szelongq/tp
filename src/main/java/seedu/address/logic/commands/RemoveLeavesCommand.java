@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Leaves;
 
 /**
  * Removes some number of leaves from an employee in HeRon.
@@ -12,7 +13,7 @@ import seedu.address.model.Model;
 public class RemoveLeavesCommand extends Command {
 
     public static final String COMMAND_WORD = "removeLeaves";
-    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Number of leaves: %2$d";
+    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Number of leaves: %2$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes leaves from the employee identified "
             + "by the index number used in the last person listing. "
@@ -23,24 +24,24 @@ public class RemoveLeavesCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 l/2";
 
     private final Index index;
-    private final int numberOfLeaves;
+    private final Leaves leaves;
 
     /**
      * Creates a RemoveLeavesCommand instance.
      * @param index of the person in the filtered employee list to remove leaves from
-     * @param numberOfLeaves that are to be added to the employee
+     * @param leaves that are to be added to the employee
      */
-    public RemoveLeavesCommand(Index index, int numberOfLeaves) {
-        requireAllNonNull(index, numberOfLeaves);
+    public RemoveLeavesCommand(Index index, Leaves leaves) {
+        requireAllNonNull(index, leaves);
 
         this.index = index;
-        this.numberOfLeaves = numberOfLeaves;
+        this.leaves = leaves;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         throw new CommandException(
-                String.format(MESSAGE_ARGUMENTS, index.getOneBased(), numberOfLeaves));
+                String.format(MESSAGE_ARGUMENTS, index.getOneBased(), leaves));
     }
 
     @Override
@@ -58,6 +59,6 @@ public class RemoveLeavesCommand extends Command {
         // State check
         RemoveLeavesCommand e = (RemoveLeavesCommand) other;
         return index.equals(e.index)
-                && numberOfLeaves == e.numberOfLeaves;
+                && leaves.equals(e.leaves);
     }
 }

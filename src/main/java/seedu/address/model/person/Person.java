@@ -22,17 +22,20 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Leaves leaves;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Leaves leaves,
+                  Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.leaves = leaves;
         this.tags.addAll(tags);
     }
 
@@ -50,6 +53,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Leaves getLeaves() {
+        return leaves;
     }
 
     /**
@@ -92,6 +99,7 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getLeaves().equals(getLeaves())
                 && otherPerson.getTags().equals(getTags());
     }
 
@@ -110,7 +118,9 @@ public class Person {
                 .append("; Email: ")
                 .append(getEmail())
                 .append("; Address: ")
-                .append(getAddress());
+                .append(getAddress())
+                .append("; Number of Leaves: ")
+                .append(getLeaves());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {

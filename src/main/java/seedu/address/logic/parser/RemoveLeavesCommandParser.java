@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.RemoveLeavesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Leaves;
 
 /**
  * Parses input arguments and creates a new RemoveLeavesCommand object.
@@ -56,6 +57,6 @@ public class RemoveLeavesCommandParser implements Parser<RemoveLeavesCommand> {
                     RemoveLeavesCommand.MESSAGE_USAGE));
         }
 
-        return new RemoveLeavesCommand(index, numberOfLeaves);
+        return new RemoveLeavesCommand(index, new Leaves(numberOfLeavesString));
     }
 }

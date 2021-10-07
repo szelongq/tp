@@ -11,16 +11,17 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RemoveLeavesCommand;
+import seedu.address.model.person.Leaves;
 
 public class RemoveLeavesCommandParserTest {
     private final RemoveLeavesCommandParser parser = new RemoveLeavesCommandParser();
-    private final int validNumberOfLeaves = 3;
+    private final String validNumberOfLeaves = "3";
 
     @Test
     public void parse_indexSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_LEAVES + validNumberOfLeaves;
-        RemoveLeavesCommand expectedCommand = new RemoveLeavesCommand(targetIndex, validNumberOfLeaves);
+        RemoveLeavesCommand expectedCommand = new RemoveLeavesCommand(targetIndex, new Leaves(validNumberOfLeaves));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
