@@ -7,9 +7,13 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HoursWorked;
+import seedu.address.model.person.Leaves;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Role;
+import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -36,6 +40,10 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
+        descriptor.setRole(person.getRole());
+        descriptor.setLeaves(person.getLeaves());
+        descriptor.setSalary(person.getSalary());
+        descriptor.setHoursWorked(person.getHoursWorked());
         descriptor.setTags(person.getTags());
     }
 
@@ -70,6 +78,39 @@ public class EditPersonDescriptorBuilder {
         descriptor.setAddress(new Address(address));
         return this;
     }
+
+    /**
+     * Sets the {@code Role} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withRole(String role) {
+        descriptor.setRole(new Role(role));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Leaves} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withLeaves(String leaves) {
+        descriptor.setLeaves(new Leaves(leaves));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Salary} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withSalary(String salary) {
+        descriptor.setSalary(new Salary(salary));
+        return this;
+    }
+
+    /**
+     * Sets the {@code HoursWorked} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withHoursWorked(String hours) {
+        descriptor.setHoursWorked(new HoursWorked(hours));
+        return this;
+    }
+
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
