@@ -3,6 +3,10 @@ package seedu.address.model.person;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * Tests that a {@code Person}'s {@code Phone} matches any of the keywords given.
+ * Phones match if their values are exactly the same.
+ */
 public class PhoneNumberMatchesPredicate implements Predicate<Person> {
     private final List<String> keyNumbers;
 
