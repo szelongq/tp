@@ -21,9 +21,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HoursWorked;
+import seedu.address.model.person.Leaves;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Role;
+import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -97,9 +101,17 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+
+        // Temporary Purposes to avoid compilation error using Gradle.
+        Role updatedRole = new Role("role");
+        Leaves updatedLeaves = new Leaves("20");
+        Salary updatedSalary = new Salary("20");
+        HoursWorked updatedHoursWorked = new HoursWorked("20");
+
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRole, updatedLeaves,
+                updatedSalary, updatedHoursWorked, updatedTags);
     }
 
     @Override
