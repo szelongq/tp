@@ -71,10 +71,10 @@ public class AddressBookParser {
             return new HelpCommand();
 
         case AddLeavesCommand.COMMAND_WORD:
-            return new AddLeavesCommand();
+            return new AddLeavesCommandParser().parse(arguments);
 
         case RemoveLeavesCommand.COMMAND_WORD:
-            return new RemoveLeavesCommand();
+            return new RemoveLeavesCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

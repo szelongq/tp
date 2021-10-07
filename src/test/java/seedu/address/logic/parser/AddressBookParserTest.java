@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVES;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -92,12 +93,18 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addLeaves() throws Exception {
-        assertTrue(parser.parseCommand(AddLeavesCommand.COMMAND_WORD) instanceof AddLeavesCommand);
+        final int numberOfLeaves = 3;
+        AddLeavesCommand command = (AddLeavesCommand) parser.parseCommand(AddLeavesCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVES + numberOfLeaves);
+        assertEquals(new AddLeavesCommand(INDEX_FIRST_PERSON, numberOfLeaves), command);
     }
 
     @Test
     public void parseCommand_removeLeaves() throws Exception {
-        assertTrue(parser.parseCommand(RemoveLeavesCommand.COMMAND_WORD) instanceof RemoveLeavesCommand);
+        final int numberOfLeaves = 3;
+        RemoveLeavesCommand command = (RemoveLeavesCommand) parser.parseCommand(RemoveLeavesCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVES + numberOfLeaves);
+        assertEquals(new RemoveLeavesCommand(INDEX_FIRST_PERSON, numberOfLeaves), command);
     }
 
     @Test
