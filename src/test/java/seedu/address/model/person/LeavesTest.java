@@ -1,10 +1,10 @@
 package seedu.address.model.person;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class LeavesTest {
 
@@ -16,14 +16,11 @@ public class LeavesTest {
     @Test
     public void constructor_invalidLeaves_throwsIllegalArgumentException() {
         // Not an integer
-        assertThrows(IllegalArgumentException.class, Leaves.MESSAGE_CONSTRAINTS,
-                () -> new Leaves("."));
-        assertThrows(IllegalArgumentException.class, Leaves.MESSAGE_CONSTRAINTS,
-                () -> new Leaves("1.1"));
+        assertThrows(IllegalArgumentException.class, Leaves.MESSAGE_CONSTRAINTS, () -> new Leaves("."));
+        assertThrows(IllegalArgumentException.class, Leaves.MESSAGE_CONSTRAINTS, () -> new Leaves("1.1"));
 
         // Negative integer
-        assertThrows(IllegalArgumentException.class, Leaves.MESSAGE_CONSTRAINTS,
-                () -> new Leaves("-1"));
+        assertThrows(IllegalArgumentException.class, Leaves.MESSAGE_CONSTRAINTS, () -> new Leaves("-1"));
     }
 
     @Test
