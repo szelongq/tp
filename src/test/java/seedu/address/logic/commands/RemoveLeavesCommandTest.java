@@ -8,24 +8,14 @@ import seedu.address.model.person.Leaves;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.address.logic.commands.AddLeavesCommand.MESSAGE_ARGUMENTS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVES_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVES_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 public class RemoveLeavesCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-    @Test
-    public void execute() {
-        Leaves leaves = new Leaves("3");
-
-        assertCommandFailure(new AddLeavesCommand(INDEX_FIRST_PERSON, leaves), model,
-                String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), leaves));
-    }
 
     @Test
     public void equals() {

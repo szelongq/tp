@@ -10,5 +10,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_INVALID_INTEGER_INPUT = "Please input a valid positive integer! \n%1$s";
-
+    public static final String MESSAGE_INVALID_REMOVELEAVES_INPUT = "Employee has less than %1$s leaves!";
 }

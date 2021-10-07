@@ -1,11 +1,16 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Leaves;
+import seedu.address.model.person.Person;
+
+import java.util.List;
 
 /**
  * Removes some number of leaves from an employee in HeRon.
@@ -13,7 +18,6 @@ import seedu.address.model.person.Leaves;
 public class RemoveLeavesCommand extends Command {
 
     public static final String COMMAND_WORD = "removeLeaves";
-    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Number of leaves: %2$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes leaves from the employee identified "
             + "by the index number used in the last person listing. "
@@ -22,6 +26,8 @@ public class RemoveLeavesCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "l/NO_OF_DAYS (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 l/2";
+    public static final String MESSAGE_SUCCESS =
+            "Leaves successfully removed, current leaves are: %1$s";
 
     private final Index index;
     private final Leaves leaves;
@@ -40,8 +46,27 @@ public class RemoveLeavesCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        throw new CommandException(
-                String.format(MESSAGE_ARGUMENTS, index.getOneBased(), leaves));
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Person personToEdit = lastShownList.get(index.getZeroBased());
+        Person editedPerson;
+        try {
+            editedPerson = new Person(
+                    personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
+                    personToEdit.getLeaves().removeLeaves(leaves), personToEdit.getTags());
+        } catch (IllegalArgumentException iae) {
+            throw new CommandException(
+                    String.format(Messages.MESSAGE_INVALID_REMOVELEAVES_INPUT, leaves));
+        }
+
+        model.setPerson(personToEdit, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.getLeaves()));
     }
 
     @Override

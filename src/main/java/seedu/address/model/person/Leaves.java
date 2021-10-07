@@ -38,6 +38,33 @@ public class Leaves {
         }
     }
 
+    /**
+     * Returns an updated Leaves object with the specified number of leaves added.
+     *
+     * @param leaves The amount of leaves to be added.
+     * @return An updated Leaves object.
+     */
+    public Leaves addLeaves(Leaves leaves) {
+        int updatedValue = value + leaves.value;
+        return new Leaves(String.valueOf(updatedValue));
+    }
+
+    /**
+     * Returns an updated Leaves object with the specified number of leaves removed.
+     *
+     * @param leaves The amount of leaves to be removed.
+     * @return An updated Leaves object.
+     * @throws IllegalArgumentException if the amount of leaves to be removed
+     * is greater than the current amount of leaves.
+     */
+    public Leaves removeLeaves(Leaves leaves) {
+        int updatedValue = value - leaves.value;
+        if (updatedValue < 0) {
+            throw new IllegalArgumentException();
+        }
+        return new Leaves(String.valueOf(updatedValue));
+    }
+
 
     @Override
     public String toString() {
