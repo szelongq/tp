@@ -26,12 +26,12 @@ public class Salary {
     }
 
     /**
-     * Returns true if a given string is a positive numerical value.
+     * Returns true if a given numerical string is non-negative.
      */
     public static boolean isValidSalary(String test) {
         try {
             int amount = Integer.parseInt(test);
-            return amount > 0;
+            return amount >= 0;
         } catch (NumberFormatException e) {
             return false;
         }

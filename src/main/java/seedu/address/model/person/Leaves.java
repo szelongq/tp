@@ -26,7 +26,7 @@ public class Leaves {
     }
 
     /**
-     * Returns true if a given leave is a positive numerical value.
+     * Returns true if a given numerical string is non-negative.
      */
     public static boolean isValidLeaves(String test) {
         try {

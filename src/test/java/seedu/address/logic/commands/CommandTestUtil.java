@@ -2,11 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -53,14 +49,14 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String ROLE_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ROLE_AMY;
-    public static final String ROLE_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ROLE_BOB;
-    public static final String LEAVES_DESC_AMY = " " + PREFIX_ADDRESS + VALID_LEAVES_AMY;
-    public static final String LEAVES_DESC_BOB = " " + PREFIX_ADDRESS + VALID_LEAVES_BOB;
-    public static final String SALARY_DESC_AMY = " " + PREFIX_ADDRESS + VALID_SALARY_AMY;
-    public static final String SALARY_DESC_BOB = " " + PREFIX_ADDRESS + VALID_SALARY_BOB;
-    public static final String HOURSWORKED_DESC_AMY = " " + PREFIX_ADDRESS + VALID_HOURSWORKED_AMY;
-    public static final String HOURSWORKED_DESC_BOB = " " + PREFIX_ADDRESS + VALID_HOURSWORKED_BOB;
+    public static final String ROLE_DESC_AMY = " " + PREFIX_ROLE + VALID_ROLE_AMY;
+    public static final String ROLE_DESC_BOB = " " + PREFIX_ROLE + VALID_ROLE_BOB;
+    public static final String LEAVES_DESC_AMY = " " + PREFIX_LEAVES + VALID_LEAVES_AMY;
+    public static final String LEAVES_DESC_BOB = " " + PREFIX_LEAVES + VALID_LEAVES_BOB;
+    public static final String SALARY_DESC_AMY = " " + PREFIX_SALARY + VALID_SALARY_AMY;
+    public static final String SALARY_DESC_BOB = " " + PREFIX_SALARY + VALID_SALARY_BOB;
+    public static final String HOURSWORKED_DESC_AMY = " " + PREFIX_HOURSWORKED + VALID_HOURSWORKED_AMY;
+    public static final String HOURSWORKED_DESC_BOB = " " + PREFIX_HOURSWORKED + VALID_HOURSWORKED_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 

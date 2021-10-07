@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's worked hours in the employee book.
- * Guarantees: immutable; is valid as declared in {@link #isValidHours(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidHoursWorked(String)}
  */
 public class HoursWorked {
 
@@ -21,17 +21,17 @@ public class HoursWorked {
      */
     public HoursWorked(String amount) {
         requireNonNull(amount);
-        checkArgument(isValidHours(amount), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidHoursWorked(amount), MESSAGE_CONSTRAINTS);
         this.value = Integer.parseInt(amount);
     }
 
     /**
-     * Returns true if a given string is a valid name for a role.
+     * Returns true if a given numerical string is non-negative.
      */
-    public static boolean isValidHours(String test) {
+    public static boolean isValidHoursWorked(String test) {
         try {
             int amount = Integer.parseInt(test);
-            return amount > 0;
+            return amount >= 0;
         } catch (NumberFormatException e) {
             return false;
         }

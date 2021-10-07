@@ -148,7 +148,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     HoursWorked.class.getSimpleName()));
         }
-        if (!HoursWorked.isValidHours(hoursWorked)) {
+        if (!HoursWorked.isValidHoursWorked(hoursWorked)) {
             throw new IllegalValueException(HoursWorked.MESSAGE_CONSTRAINTS);
         }
         final HoursWorked modelHoursWorked = new HoursWorked(hoursWorked);

@@ -153,7 +153,7 @@ public class ParserUtil {
     public static HoursWorked parseHoursWorked(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
-        if (!HoursWorked.isValidHours(trimmedAmount)) {
+        if (!HoursWorked.isValidHoursWorked(trimmedAmount)) {
             throw new ParseException(HoursWorked.MESSAGE_CONSTRAINTS);
         }
         return new HoursWorked(trimmedAmount);
