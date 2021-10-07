@@ -17,7 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.Salary;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -32,8 +32,7 @@ public class CalculatePayCommandTest {
         Person personToCalculatePay = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         CalculatePayCommand calculatePayCommand = new CalculatePayCommand(INDEX_FIRST_PERSON);
 
-        // Temporarily replace calculated pay result with phone number
-        Phone calculatedPay = personToCalculatePay.getPhone();
+        Salary calculatedPay = personToCalculatePay.getSalary();
         String expectedMessage =
                 String.format(CalculatePayCommand.MESSAGE_CALCULATE_PAY_SUCCESS, calculatedPay);
 
@@ -55,8 +54,7 @@ public class CalculatePayCommandTest {
         Person personToCalculatePay = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         CalculatePayCommand calculatePayCommand = new CalculatePayCommand(INDEX_FIRST_PERSON);
 
-        // Temporarily replace calculated pay result with phone number
-        Phone calculatedPay = personToCalculatePay.getPhone();
+        Salary calculatedPay = personToCalculatePay.getSalary();
         String expectedMessage =
                 String.format(CalculatePayCommand.MESSAGE_CALCULATE_PAY_SUCCESS, calculatedPay);
 
