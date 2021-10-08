@@ -22,20 +22,29 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final Leaves leaves;
     private final Set<Tag> tags = new HashSet<>();
+
+    // Employee fields
+    private final Role role;
+    private final Leaves leaves;
+    private final Salary salary;
+    private final HoursWorked hoursWorked;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Leaves leaves,
-                  Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+
+    public Person(Name name, Phone phone, Email email, Address address, Role role, Leaves leaves, Salary salary,
+                  HoursWorked hoursWorked, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.role = role;
         this.leaves = leaves;
+        this.salary = salary;
+        this.hoursWorked = hoursWorked;
         this.tags.addAll(tags);
     }
 
@@ -55,8 +64,20 @@ public class Person {
         return address;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     public Leaves getLeaves() {
         return leaves;
+    }
+
+    public Salary getSalary() {
+        return salary;
+    }
+
+    public HoursWorked getHoursWorked() {
+        return hoursWorked;
     }
 
     /**
@@ -99,14 +120,16 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getRole().equals(getRole())
                 && otherPerson.getLeaves().equals(getLeaves())
+                && otherPerson.getSalary().equals(getSalary())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
     }
 
     @Override
@@ -119,8 +142,14 @@ public class Person {
                 .append(getEmail())
                 .append("; Address: ")
                 .append(getAddress())
-                .append("; Number of Leaves: ")
-                .append(getLeaves());
+                .append("; Role: ")
+                .append(getRole())
+                .append("; Leaves: ")
+                .append(getLeaves())
+                .append("; Salary: ")
+                .append(getSalary())
+                .append("; Hours Worked: ")
+                .append(getHoursWorked());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {

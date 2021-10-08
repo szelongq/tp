@@ -27,6 +27,9 @@ public class Leaves {
 
     /**
      * Returns true if a given leave is a non-negative numerical value.
+     *
+     * @param test The string input that is to be parsed into an integer.
+     * @return True if the string is a non-negative integer, false otherwise.
      */
     public static boolean isValidLeaves(String test) {
         requireNonNull(test);
@@ -65,7 +68,6 @@ public class Leaves {
         return new Leaves(String.valueOf(updatedValue));
     }
 
-
     @Override
     public String toString() {
         return Integer.toString(value);
@@ -77,5 +79,4 @@ public class Leaves {
                 || (other instanceof Leaves // instanceof handles nulls
                 && value == ((Leaves) other).value); // state check
     }
-
 }

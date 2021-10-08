@@ -57,7 +57,8 @@ public class RemoveLeavesCommand extends Command {
         try {
             editedPerson = new Person(
                     personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                    personToEdit.getLeaves().removeLeaves(leaves), personToEdit.getTags());
+                    personToEdit.getRole(), personToEdit.getLeaves().removeLeaves(leaves), personToEdit.getSalary(),
+                    personToEdit.getHoursWorked(), personToEdit.getTags());
         } catch (IllegalArgumentException iae) {
             throw new CommandException(
                     String.format(Messages.MESSAGE_INVALID_REMOVELEAVES_INPUT, leaves));

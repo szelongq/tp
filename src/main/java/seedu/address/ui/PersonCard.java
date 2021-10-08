@@ -39,7 +39,13 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label role;
+    @FXML
     private Label leaves;
+    @FXML
+    private Label salary;
+    @FXML
+    private Label hoursWorked;
     @FXML
     private FlowPane tags;
 
@@ -54,7 +60,10 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        leaves.setText("Leaves: " + person.getLeaves().toString());
+        role.setText(person.getRole().value);
+        leaves.setText(String.format("Leaves Remaining: %s", person.getLeaves().toString()));
+        salary.setText(String.format("Salary: %s", person.getSalary().toString()));
+        hoursWorked.setText(String.format("Hours Worked: %s", person.getHoursWorked().toString()));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

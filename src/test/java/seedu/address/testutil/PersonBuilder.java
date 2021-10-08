@@ -5,10 +5,13 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leaves;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Role;
+import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -21,13 +24,19 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_LEAVES = "3";
+    public static final String DEFAULT_ROLE = "HeRon Developer";
+    public static final String DEFAULT_LEAVES = "0";
+    public static final String DEFAULT_SALARY = "5000";
+    public static final String DEFAULT_HOURSWORKED = "70";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private Role role;
     private Leaves leaves;
+    private Salary salary;
+    private HoursWorked hoursWorked;
     private Set<Tag> tags;
 
     /**
@@ -38,7 +47,10 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        role = new Role(DEFAULT_ROLE);
         leaves = new Leaves(DEFAULT_LEAVES);
+        salary = new Salary(DEFAULT_SALARY);
+        hoursWorked = new HoursWorked(DEFAULT_HOURSWORKED);
         tags = new HashSet<>();
     }
 
@@ -50,7 +62,10 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        role = personToCopy.getRole();
         leaves = personToCopy.getLeaves();
+        salary = personToCopy.getSalary();
+        hoursWorked = personToCopy.getHoursWorked();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -95,6 +110,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Role} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRole(String role) {
+        this.role = new Role(role);
+        return this;
+    }
+
+    /**
      * Sets the {@code Leaves} of the {@code Person} that we are building.
      */
     public PersonBuilder withLeaves(String leaves) {
@@ -102,8 +125,24 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Salary} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withSalary(String salary) {
+        this.salary = new Salary(salary);
+        return this;
+    }
+
+    /**
+     * Sets the {@code HoursWorked} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withHoursWorked(String hoursWorked) {
+        this.hoursWorked = new HoursWorked(hoursWorked);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, leaves, tags);
+        return new Person(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
     }
 
 }
