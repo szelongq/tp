@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS_WORKED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -34,8 +34,6 @@ import seedu.address.model.person.Role;
 import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
-import javax.swing.text.html.Option;
-
 /**
  * Edits the details of an existing person in the address book.
  */
@@ -54,7 +52,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ROLE + "ROLE] "
             + "[" + PREFIX_LEAVES + "LEAVES] "
             + "[" + PREFIX_SALARY + "SALARY] "
-            + "[" + PREFIX_HOURS_WORKED + "HOURS_WORKED] "
+            + "[" + PREFIX_HOURSWORKED + "HOURS_WORKED] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -152,6 +150,7 @@ public class EditCommand extends Command {
         private Leaves leaves;
         private Salary salary;
         private HoursWorked hoursWorked;
+
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
