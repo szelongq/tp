@@ -51,7 +51,7 @@ public class RemoveLeavesCommandParser implements Parser<RemoveLeavesCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
                     RemoveLeavesCommand.MESSAGE_USAGE), nfe);
         }
-        // If a negative integer is given
+        // If a non-positive integer is given
         if (numberOfLeaves <= 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
                     RemoveLeavesCommand.MESSAGE_USAGE));
