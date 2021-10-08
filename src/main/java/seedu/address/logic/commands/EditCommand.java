@@ -141,6 +141,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private Leaves leaves;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -154,6 +155,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setLeaves(toCopy.leaves);
             setTags(toCopy.tags);
         }
 
@@ -194,6 +196,14 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setLeaves(Leaves leaves) {
+            this.leaves = leaves;
+        }
+
+        public Optional<Leaves> getLeaves() {
+            return Optional.ofNullable(leaves);
         }
 
         /**

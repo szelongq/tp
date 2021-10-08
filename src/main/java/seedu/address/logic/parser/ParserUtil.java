@@ -100,6 +100,8 @@ public class ParserUtil {
     }
 
     /**
+<<<<<<< HEAD
+=======
      * Parses a {@code String roleName} into a {@code Role}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -115,6 +117,7 @@ public class ParserUtil {
     }
 
     /**
+>>>>>>> master
      * Parses a {@code String amount} into a {@code Leaves}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -130,6 +133,8 @@ public class ParserUtil {
     }
 
     /**
+<<<<<<< HEAD
+=======
      * Parses a {@code String amount} into a {@code Salary}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -160,6 +165,7 @@ public class ParserUtil {
     }
 
     /**
+>>>>>>> master
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
