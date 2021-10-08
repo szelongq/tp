@@ -33,6 +33,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
+
     public Person(Name name, Phone phone, Email email, Address address, Role role, Leaves leaves, Salary salary,
                   HoursWorked hoursWorked, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
@@ -120,6 +121,8 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getRole().equals(getRole())
+                && otherPerson.getLeaves().equals(getLeaves())
+                && otherPerson.getSalary().equals(getSalary())
                 && otherPerson.getTags().equals(getTags());
     }
 

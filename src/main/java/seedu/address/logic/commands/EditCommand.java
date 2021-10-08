@@ -3,8 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -45,6 +49,10 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_ROLE + "ROLE] "
+            + "[" + PREFIX_LEAVES + "LEAVES] "
+            + "[" + PREFIX_SALARY + "SALARY] "
+            + "[" + PREFIX_HOURSWORKED + "HOURS_WORKED] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -101,17 +109,14 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-
-        // Temporary Purposes to avoid compilation error using Gradle.
-        Role updatedRole = new Role("role");
-        Leaves updatedLeaves = new Leaves("20");
-        Salary updatedSalary = new Salary("20");
-        HoursWorked updatedHoursWorked = new HoursWorked("20");
-
+        Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
+        Leaves updatedLeaves = editPersonDescriptor.getLeaves().orElse(personToEdit.getLeaves());
+        Salary updatedSalary = editPersonDescriptor.getSalary().orElse(personToEdit.getSalary());
+        HoursWorked updatedHours = editPersonDescriptor.getHoursWorked().orElse(personToEdit.getHoursWorked());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRole, updatedLeaves,
-                updatedSalary, updatedHoursWorked, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
+                updatedRole, updatedLeaves, updatedSalary, updatedHours, updatedTags);
     }
 
     @Override
@@ -141,6 +146,11 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private Role role;
+        private Leaves leaves;
+        private Salary salary;
+        private HoursWorked hoursWorked;
+
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -154,6 +164,10 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setRole(toCopy.role);
+            setLeaves(toCopy.leaves);
+            setSalary(toCopy.salary);
+            setHoursWorked(toCopy.hoursWorked);
             setTags(toCopy.tags);
         }
 
@@ -161,7 +175,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
         }
 
         public void setName(Name name) {
@@ -194,6 +208,38 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setRole(Role role) {
+            this.role = role;
+        }
+
+        public Optional<Role> getRole() {
+            return Optional.ofNullable(role);
+        }
+
+        public void setLeaves(Leaves leaves) {
+            this.leaves = leaves;
+        }
+
+        public Optional<Leaves> getLeaves() {
+            return Optional.ofNullable(leaves);
+        }
+
+        public void setSalary(Salary salary) {
+            this.salary = salary;
+        }
+
+        public Optional<Salary> getSalary() {
+            return Optional.ofNullable(salary);
+        }
+
+        public void setHoursWorked(HoursWorked hours) {
+            this.hoursWorked = hours;
+        }
+
+        public Optional<HoursWorked> getHoursWorked() {
+            return Optional.ofNullable(hoursWorked);
         }
 
         /**
@@ -232,6 +278,10 @@ public class EditCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
+                    && getRole().equals(e.getRole())
+                    && getLeaves().equals(e.getLeaves())
+                    && getSalary().equals(e.getSalary())
+                    && getHoursWorked().equals(e.getHoursWorked())
                     && getTags().equals(e.getTags());
         }
     }
