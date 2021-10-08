@@ -115,7 +115,7 @@ public class EditCommand extends Command {
         HoursWorked updatedHours = editPersonDescriptor.getHoursWorked().orElse(personToEdit.getHoursWorked());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, 
                 updatedRole, updatedLeaves, updatedSalary, updatedHours,  updatedTags);
     }
 
