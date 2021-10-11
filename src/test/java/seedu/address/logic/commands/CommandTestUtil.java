@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -75,7 +75,8 @@ public class CommandTestUtil {
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "Power-Ranger"; // '-' not allowed in role
     public static final String INVALID_LEAVES_DESC = " " + PREFIX_LEAVE + "-30"; // Cannot be negative
     public static final String INVALID_HOURLYSALARY_DESC = " " + PREFIX_HOURLYSALARY + "-3.142"; // Cannot be negative
-    public static final String INVALID_HOURSWORKED_DESC = " " + PREFIX_HOURSWORKED + "70h"; // 'h' not allowed in hoursWorked
+    public static final String INVALID_HOURSWORKED_DESC = " "
+            + PREFIX_HOURSWORKED + "70h"; // 'h' not allowed in hoursWorked
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \n";

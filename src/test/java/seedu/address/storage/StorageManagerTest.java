@@ -58,7 +58,7 @@ public class StorageManagerTest {
         storageManager.saveAddressBook(original);
         ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));
-        }
+    }
 
     @Test
     public void getAddressBookFilePath() {
