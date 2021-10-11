@@ -27,7 +27,7 @@ HeRon is a desktop application for HR managers to assist in managing HR administ
 
    * **`list`** : Lists all contacts.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/3000 hw/40` : Adds a contact named `John Doe` to the Employee Book.
+   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40` : Adds a contact named `John Doe` to the Employee Book.
 
    * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
 
@@ -78,15 +78,15 @@ Format: `help`
 
 Adds an employee to the employee book.
 
-Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVES s/SALARY hw/HOURSWORKED [t/TAG]…​`
+Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVES s/HOURLYSALARY hw/HOURSWORKED [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 An employee can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/3000 hw/40`
-* `add n/Betsy Crowe t/friend r/Designer s/5000 hw/60  l/21  e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40`
+* `add n/Betsy Crowe t/friend r/Designer s/25 hw/60  l/21  e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 ### Listing all employees : `list`
 
@@ -227,7 +227,7 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVES s/SALARY hw/HOURSWORKED [t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/3000 hw/40 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVES s/SALARY hw/HOURSWORKED [t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 t/friend t/colleague`
 **Add Leaves** | `addLeaves INDEX NO_OF_DAYS` <br> e.g., `addLeaves 1 2`
 **Remove Leaves** | `removeLeaves INDEX NO_OF_DAYS` <br> e.g., `removeLeaves 4 1`
 **Clear** | `clear`
