@@ -35,6 +35,7 @@ public class Role {
      * Returns true if a given string is a valid name for a role.
      */
     public static boolean isValidRole(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 

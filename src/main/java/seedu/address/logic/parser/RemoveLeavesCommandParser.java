@@ -3,13 +3,13 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INTEGER_INPUT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.RemoveLeavesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Leaves;
+import seedu.address.model.person.Leave;
 
 /**
  * Parses input arguments and creates a new RemoveLeavesCommand object.
@@ -28,7 +28,7 @@ public class RemoveLeavesCommandParser implements Parser<RemoveLeavesCommand> {
     public RemoveLeavesCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_LEAVES);
+                PREFIX_LEAVE);
 
         Index index;
         try {
@@ -38,7 +38,7 @@ public class RemoveLeavesCommandParser implements Parser<RemoveLeavesCommand> {
                     RemoveLeavesCommand.MESSAGE_USAGE), ive);
         }
 
-        String numberOfLeavesString = argMultimap.getValue(PREFIX_LEAVES).orElse("");
+        String numberOfLeavesString = argMultimap.getValue(PREFIX_LEAVE).orElse("");
         // If prefix is missing
         if (numberOfLeavesString.equals("")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -57,6 +57,6 @@ public class RemoveLeavesCommandParser implements Parser<RemoveLeavesCommand> {
                     RemoveLeavesCommand.MESSAGE_USAGE));
         }
 
-        return new RemoveLeavesCommand(index, new Leaves(numberOfLeavesString));
+        return new RemoveLeavesCommand(index, new Leave(numberOfLeavesString));
     }
 }

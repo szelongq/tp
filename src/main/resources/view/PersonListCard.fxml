@@ -35,8 +35,8 @@
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
       </VBox>
       <VBox>
-      <Label fx:id="leaves" styleClass="cell_small_label" text="\$leaves" />
-      <Label fx:id="salary" styleClass="cell_small_label" text="\$salary" />
+      <Label fx:id="leave" styleClass="cell_small_label" text="\$leave" />
+      <Label fx:id="hourlySalary" styleClass="cell_small_label" text="\$hourlySalary" />
       <Label fx:id="hoursWorked" styleClass="cell_small_label" text="\$hoursWorked" />
       </VBox>
     </VBox>

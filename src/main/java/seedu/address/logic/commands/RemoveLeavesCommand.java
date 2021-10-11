@@ -9,7 +9,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Leaves;
+import seedu.address.model.person.Leave;
 import seedu.address.model.person.Person;
 
 /**
@@ -30,18 +30,18 @@ public class RemoveLeavesCommand extends Command {
             "Leaves successfully removed, current leaves are: %1$s";
 
     private final Index index;
-    private final Leaves leaves;
+    private final Leave leave;
 
     /**
      * Creates a RemoveLeavesCommand instance.
      * @param index of the person in the filtered employee list to remove leaves from
-     * @param leaves that are to be added to the employee
+     * @param leave that are to be added to the employee
      */
-    public RemoveLeavesCommand(Index index, Leaves leaves) {
-        requireAllNonNull(index, leaves);
+    public RemoveLeavesCommand(Index index, Leave leave) {
+        requireAllNonNull(index, leave);
 
         this.index = index;
-        this.leaves = leaves;
+        this.leave = leave;
     }
 
     @Override
@@ -57,11 +57,11 @@ public class RemoveLeavesCommand extends Command {
         try {
             editedPerson = new Person(
                     personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                    personToEdit.getRole(), personToEdit.getLeaves().removeLeaves(leaves), personToEdit.getSalary(),
+                    personToEdit.getRole(), personToEdit.getLeaves().removeLeaves(leave), personToEdit.getSalary(),
                     personToEdit.getHoursWorked(), personToEdit.getTags());
         } catch (IllegalArgumentException iae) {
             throw new CommandException(
-                    String.format(Messages.MESSAGE_INVALID_REMOVELEAVES_INPUT, leaves));
+                    String.format(Messages.MESSAGE_INVALID_REMOVELEAVES_INPUT, leave));
         }
 
         model.setPerson(personToEdit, editedPerson);
@@ -85,6 +85,6 @@ public class RemoveLeavesCommand extends Command {
         // State check
         RemoveLeavesCommand e = (RemoveLeavesCommand) other;
         return index.equals(e.index)
-                && leaves.equals(e.leaves);
+                && leave.equals(e.leave);
     }
 }

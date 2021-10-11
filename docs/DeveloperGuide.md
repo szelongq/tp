@@ -280,12 +280,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                       | delete an employee                                                                                                    | remove entries that I no longer need.                                                                                     |
 | `* * * ` | user                                       | edit an employee's data                                                                                               |                                                                                                                           |
 | `* * *`  | user with many employees in the app        | search for an employee's data easily                                                                                  | locate details of employees without having to go through the entire list.                                                   |
-| `* * *`  | user                                       | keep track of my employee's current leaves                                                                            | determine if a given employee's request for leave is valid.                                                               |
-| `* * *`  | user                                       | update leaves for certain employees                                                                                   | have a more accurate count of their remaining leaves.                                                                     |
-| `* * *`  | user                                       | keep track of an employee's unpaid leaves                                                                             | know how much to deduct from their monthly salary.                                                                        |
-| `* * *`  | user                                       | get all the offs and leaves that every employee has                                                                   | get those with remaining leaves to clear them before the end of the year.                                                 |
+| `* * *`  | user                                       | keep track of my employee's current leave                                                                            | determine if a given employee's request for leave is valid.                                                               |
+| `* * *`  | user                                       | update leave for certain employees                                                                                   | have a more accurate count of their remaining leave.                                                                     |
+| `* * *`  | user                                       | keep track of an employee's unpaid leave                                                                             | know how much to deduct from their monthly hourlySalary.                                                                        |
+| `* * *`  | user                                       | get all the offs and leave that every employee has                                                                   | get those with remaining leave to clear them before the end of the year.                                                 |
 | `* * *`  | user                                       | calculate the pay of all employees and view them easily                                                               | make it easier to complete administrative tasks.                                                                          |
-| `* * *`  | user                                       | have an application to account for factors like unpaid leave and overtime when calculating salary                     | reduce chances of errors by manual calculations.                                                                          |
+| `* * *`  | user                                       | have an application to account for factors like unpaid leave and overtime when calculating hourlySalary                     | reduce chances of errors by manual calculations.                                                                          |
 | `* * *`  | user                                       | keep track of employees which I have not paid yet                                                                     | ensure all employees are paid.                                                                                            |
 | `* * *`  | user                                       | get all the overtime that every employee has done for the month                                                       | keep track of each employee and analyze the amount of overtime being done in the company.                                 |
 | `* * *`  | organized user                             | group up employees into specified groups                                                                              | sort through them easily with color coding and tags.                                                                      |
@@ -340,14 +340,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
     
-**Use case: Add leaves to an employee**
+**Use case: Add leave to an employee**
 
 **MSS**
 
 1.  User requests to list employees
 2.  HeRon shows a list of employees
-3.  User requests to add a certain number of leaves to a specific employee in the list
-4.  HeRon adds the leaves to the employee
+3.  User requests to add a certain number of leave to a specific employee in the list
+4.  HeRon adds the leave to the employee
 
     Use case ends.
 
@@ -363,20 +363,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
       
-* 3b. The number of leaves to be added is invalid. (If the input is not a positive integer)
+* 3b. The number of leave to be added is invalid. (If the input is not a positive integer)
 
     * 3b1. HeRon shows an error message.
 
       Use case resumes at step 2.
       
-**Use case: Remove leaves from an employee**
+**Use case: Remove leave from an employee**
 
 **MSS**
 
 1.  User requests to list employees
 2.  HeRon shows a list of employees
-3.  User requests to remove a certain number of leaves from a specific employee in the list
-4.  HeRon removes the leaves from the employee
+3.  User requests to remove a certain number of leave from a specific employee in the list
+4.  HeRon removes the leave from the employee
 
     Use case ends.
 
@@ -392,13 +392,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-* 3b. The number of leaves to be removed is invalid. (If the input is not a positive integer)
+* 3b. The number of leave to be removed is invalid. (If the input is not a positive integer)
 
     * 3b1. HeRon shows an error message.
     
       Use case resumes at step 2.
 
-* 3c. The number of leaves to be removed is greater than the amount of leaves the employee actually has.
+* 3c. The number of leave to be removed is greater than the amount of leave the employee actually has.
 
     * 3c1. HeRon shows an error message.
 
@@ -467,14 +467,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
         Use case resumes at step 2.
     
-**Use case: Calculate an employee's salary**
+**Use case: Calculate an employee's hourlySalary**
 
 **MSS**
 
 1.  User requests to list employees
 2.  HeRon shows a list of employees
-3.  User requests to calculate the salary of a specific employee in the list
-4.  HeRon calculates and displays the salary of that employee
+3.  User requests to calculate the hourlySalary of a specific employee in the list
+4.  HeRon calculates and displays the hourlySalary of that employee
 
     Use case ends.
 
@@ -561,7 +561,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Salary**: Monthly salary payout to employees
+* **Salary**: Monthly hourlySalary payout to employees
 * **Leave**: Refers to a day when an employee has permission to be absent from work
 
 --------------------------------------------------------------------------------------------------------------------
@@ -622,9 +622,9 @@ testers are expected to do more *exploratory* testing.
         Expected: No data is being edited. Error details shown in status message. Status bar remains the same.
 
     4. Test case: `edit 1 p/91234567 s/2000`<br>
-        Expected: First employee's phone number and salary is updated as `91234567` and `2000` respectively together. Details of edited contact shown in the status message. Timestamp in the status bar is updated.
+        Expected: First employee's phone number and hourlySalary is updated as `91234567` and `2000` respectively together. Details of edited contact shown in the status message. Timestamp in the status bar is updated.
 
-    5. Other incorrect edit commands to try: `edit x` (where x is larger than list size), `edit 1 s/-200` (salary should not be negative) etc. <br>
+    5. Other incorrect edit commands to try: `edit x` (where x is larger than list size), `edit 1 s/-200` (hourlySalary should not be negative) etc. <br>
         Expected: No employee data is being edited. Error details shown in the status message. Status bar remains the same.
        
 2. _{ possibly more test cases? …​ }_

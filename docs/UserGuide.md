@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-HeRon is a desktop application for HR managers to assist in managing HR administrative tasks such as tracking leaves and offs, calculating pay and updating payroll information. It is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a fast typer, HeRon can get your tasks done faster as compared to traditional GUI apps.
+HeRon is a desktop application for HR managers to assist in managing HR administrative tasks such as tracking leave and offs, calculating pay and updating payroll information. It is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a fast typer, HeRon can get your tasks done faster as compared to traditional GUI apps.
 
 
 * Table of Contents
@@ -110,7 +110,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES]
 * The value of SALARY **must be a non-negative number.**
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
+*  `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leave of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
 
 ### Locating employees by name: `find`
@@ -123,12 +123,12 @@ Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SA
 * The keyword search is not case-sensitive.
 * For each field, you can search using multiple keywords.
   * For example, `find n/John Mike r/Manager` will return all employees with the role "Manager" and with the names John or Mike.
-* You can query employees who meet the specified condition for the number of leaves by entering `l/<LEAVES` (for less than LEAVES) or `l/>LEAVES` (for more than LEAVES)
-  * For example, enter `find l/>5` to find all employees who still have more than 5 leaves remaining.
+* You can query employees who meet the specified condition for the number of leave by entering `l/<LEAVES` (for less than LEAVES) or `l/>LEAVES` (for more than LEAVES)
+  * For example, enter `find l/>5` to find all employees who still have more than 5 leave remaining.
 
 Examples:
 * `find n/John` returns `john` and `John Doe`
-* `find n/alex david l/<3` returns `Alex Yeoh`, `David Li` as long as they have less than 3 leaves left.<br>
+* `find n/alex david l/<3` returns `Alex Yeoh`, `David Li` as long as they have less than 3 leave left.<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
   
 ### Deleting an employee : `delete`
@@ -146,13 +146,13 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd employee in the employee book.
 * `find Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
 
-### Add number of leaves for an employee : `addLeaves`
+### Add number of leave for an employee : `addLeaves`
 
 Adds the specified number of days to the current leave quota (number of days of leave left) of a chosen employee.
 
 Format: `addLeaves INDEX NO_OF_DAYS`
 
-* Adds the specified number to the number of leaves of the employee at the specified `INDEX`. 
+* Adds the specified number to the number of leave of the employee at the specified `INDEX`. 
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
 * The number of days **must be a positive integer** 1, 2, 3, …
@@ -161,13 +161,13 @@ Examples:
 * `list` followed by `addLeaves 3 4` adds 4 days of leave to the 3rd employee in the employee book.
 * `find Sam` followed by `addLeaves 1 1` adds 1 day of leave to the 1st employee in the results of the `find` command.
 
-### Remove number of leaves for an employee : `removeLeaves`
+### Remove number of leave for an employee : `removeLeaves`
 
 Removes the specified number of days from the current leave quota (number of days of leave left) of a chosen employee.
 
 Format: `removeLeaves INDEX NO_OF_DAYS`
 
-* Removes the specified number from the number of leaves of the employee at the specified `INDEX`. 
+* Removes the specified number from the number of leave of the employee at the specified `INDEX`. 
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
 * The number of days **must be a positive integer** 1, 2, 3, …
@@ -188,17 +188,17 @@ Exits the program.
 
 Format: `exit`
 
-### Calculating salary : `calculate` `[to be implemented in v1.2]`
+### Calculating hourlySalary : `calculate` `[to be implemented in v1.2]`
 
-Calculate and display the monthly salary of the specified employee.
+Calculate and display the monthly hourlySalary of the specified employee.
 
 Format: `calculate INDEX`
-* Calculate and displays the monthly salary of the employee at the specified `INDEX`.
+* Calculate and displays the monthly hourlySalary of the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Example:
-* `find Betsy` followed by `calculate 2` gets the salary of the 2nd employee in the results of the `find` command.
+* `find Betsy` followed by `calculate 2` gets the hourlySalary of the 2nd employee in the results of the `find` command.
 
 ### Saving the data
 

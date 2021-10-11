@@ -9,14 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leaves;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Role;
-import seedu.address.model.person.Salary;
+import seedu.address.model.person.*;
+import seedu.address.model.person.Leave;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -123,30 +117,28 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code amount} is invalid.
      */
-    public static Leaves parseLeaves(String amount) throws ParseException {
+    public static Leave parseLeaves(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
-        if (!Leaves.isValidLeaves(trimmedAmount)) {
-            throw new ParseException(Leaves.MESSAGE_CONSTRAINTS);
+        if (!Leave.isValidLeaves(trimmedAmount)) {
+            throw new ParseException(Leave.MESSAGE_CONSTRAINTS);
         }
-        return new Leaves(trimmedAmount);
+        return new Leave(trimmedAmount);
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Parses a {@code String amount} into a {@code Salary}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code amount} is invalid.
      */
-    public static Salary parseSalary(String amount) throws ParseException {
+    public static HourlySalary parseSalary(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
-        if (!Salary.isValidSalary(trimmedAmount)) {
-            throw new ParseException(Salary.MESSAGE_CONSTRAINTS);
+        if (!HourlySalary.isValidSalary(trimmedAmount)) {
+            throw new ParseException(HourlySalary.MESSAGE_CONSTRAINTS);
         }
-        return new Salary(trimmedAmount);
+        return new HourlySalary(trimmedAmount);
     }
 
     /**

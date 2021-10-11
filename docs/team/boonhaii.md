@@ -5,7 +5,7 @@ title: Boon Hai's Project Portfolio Page
 
 ### Project: HeRon
 
-HeRon is a desktop application for HR managers to assist in managing HR administrative tasks such as tracking leaves and offs, calculating pay and updating payroll information.
+HeRon is a desktop application for HR managers to assist in managing HR administrative tasks such as tracking leave and offs, calculating pay and updating payroll information.
 
 HeRon is a project adapted from AddressBook - Level 3.
 
@@ -20,7 +20,7 @@ Given below are my contributions to the project.
   * To be updated.
 
 * **Enhancements to existing features**:
-  * Update `add` and `delete` commands to cater to new fields for HeRon, including role, leaves, salary and hours worked.
+  * Update `add` and `delete` commands to cater to new fields for HeRon, including role, leave, hourlySalary and hours worked.
 
 * **Documentation**:
   * User Guide:

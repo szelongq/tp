@@ -41,9 +41,9 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label role;
     @FXML
-    private Label leaves;
+    private Label leave;
     @FXML
-    private Label salary;
+    private Label hourlySalary;
     @FXML
     private Label hoursWorked;
     @FXML
@@ -61,8 +61,8 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         role.setText(person.getRole().value);
-        leaves.setText(String.format("Leaves Remaining: %s", person.getLeaves().toString()));
-        salary.setText(String.format("Salary: %s", person.getSalary().toString()));
+        leave.setText(String.format("Leaves Remaining: %s", person.getLeaves().toString()));
+        hourlySalary.setText(String.format("Hourly Salary: %s", person.getSalary().toString()));
         hoursWorked.setText(String.format("Hours Worked: %s", person.getHoursWorked().toString()));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

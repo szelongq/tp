@@ -6,12 +6,12 @@ import java.util.Set;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leaves;
+import seedu.address.model.person.Leave;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
-import seedu.address.model.person.Salary;
+import seedu.address.model.person.HourlySalary;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -34,8 +34,8 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Role role;
-    private Leaves leaves;
-    private Salary salary;
+    private Leave leave;
+    private HourlySalary hourlySalary;
     private HoursWorked hoursWorked;
     private Set<Tag> tags;
 
@@ -48,8 +48,8 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         role = new Role(DEFAULT_ROLE);
-        leaves = new Leaves(DEFAULT_LEAVES);
-        salary = new Salary(DEFAULT_SALARY);
+        leave = new Leave(DEFAULT_LEAVES);
+        hourlySalary = new HourlySalary(DEFAULT_SALARY);
         hoursWorked = new HoursWorked(DEFAULT_HOURSWORKED);
         tags = new HashSet<>();
     }
@@ -63,8 +63,8 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         role = personToCopy.getRole();
-        leaves = personToCopy.getLeaves();
-        salary = personToCopy.getSalary();
+        leave = personToCopy.getLeaves();
+        hourlySalary = personToCopy.getSalary();
         hoursWorked = personToCopy.getHoursWorked();
         tags = new HashSet<>(personToCopy.getTags());
     }
@@ -121,15 +121,15 @@ public class PersonBuilder {
      * Sets the {@code Leaves} of the {@code Person} that we are building.
      */
     public PersonBuilder withLeaves(String leaves) {
-        this.leaves = new Leaves(leaves);
+        this.leave = new Leave(leaves);
         return this;
     }
 
     /**
      * Sets the {@code Salary} of the {@code Person} that we are building.
      */
-    public PersonBuilder withSalary(String salary) {
-        this.salary = new Salary(salary);
+    public PersonBuilder withHourlySalary(String salary) {
+        this.hourlySalary = new HourlySalary(salary);
         return this;
     }
 
@@ -142,7 +142,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
+        return new Person(name, phone, email, address, role, leave, hourlySalary, hoursWorked, tags);
     }
 
 }

@@ -12,7 +12,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_ROLE = new Prefix("r/");
-    public static final Prefix PREFIX_LEAVES = new Prefix("l/");
-    public static final Prefix PREFIX_SALARY = new Prefix("s/");
+    public static final Prefix PREFIX_LEAVE = new Prefix("l/");
+    public static final Prefix PREFIX_HOURLYSALARY = new Prefix("s/");
     public static final Prefix PREFIX_HOURSWORKED = new Prefix("hw/");
 }

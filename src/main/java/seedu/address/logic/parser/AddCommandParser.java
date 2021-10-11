@@ -4,11 +4,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -16,15 +16,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leaves;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Role;
-import seedu.address.model.person.Salary;
+import seedu.address.model.person.*;
+import seedu.address.model.person.Leave;
 import seedu.address.model.tag.Tag;
 
 
@@ -41,10 +34,10 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_ROLE,
-                        PREFIX_LEAVES, PREFIX_SALARY, PREFIX_HOURSWORKED, PREFIX_TAG);
+                        PREFIX_LEAVE, PREFIX_HOURLYSALARY, PREFIX_HOURSWORKED, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ROLE,
-                PREFIX_LEAVES, PREFIX_SALARY, PREFIX_HOURSWORKED)
+                PREFIX_LEAVE, PREFIX_HOURLYSALARY, PREFIX_HOURSWORKED)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -55,12 +48,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
 
         Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
-        Leaves leaves = ParserUtil.parseLeaves(argMultimap.getValue(PREFIX_LEAVES).get());
-        Salary salary = ParserUtil.parseSalary(argMultimap.getValue(PREFIX_SALARY).get());
+        Leave leave = ParserUtil.parseLeaves(argMultimap.getValue(PREFIX_LEAVE).get());
+        HourlySalary hourlySalary = ParserUtil.parseSalary(argMultimap.getValue(PREFIX_HOURLYSALARY).get());
         HoursWorked hoursWorked = ParserUtil.parseHoursWorked(argMultimap.getValue(PREFIX_HOURSWORKED).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, role, leaves, salary, hoursWorked, tagList);
+        Person person = new Person(name, phone, email, address, role, leave, hourlySalary, hoursWorked, tagList);
         return new AddCommand(person);
     }
 

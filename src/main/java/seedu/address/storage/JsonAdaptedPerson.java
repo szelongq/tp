@@ -10,15 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leaves;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Role;
-import seedu.address.model.person.Salary;
+import seedu.address.model.person.*;
+import seedu.address.model.person.HourlySalary;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -129,20 +122,20 @@ class JsonAdaptedPerson {
         final Role modelRole = new Role(role);
 
         if (leaves == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Leaves.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Leave.class.getSimpleName()));
         }
-        if (!Leaves.isValidLeaves(leaves)) {
-            throw new IllegalValueException(Leaves.MESSAGE_CONSTRAINTS);
+        if (!Leave.isValidLeaves(leaves)) {
+            throw new IllegalValueException(Leave.MESSAGE_CONSTRAINTS);
         }
-        final Leaves modelLeaves = new Leaves(leaves);
+        final Leave modelLeave = new Leave(leaves);
 
         if (salary == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Salary.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, HourlySalary.class.getSimpleName()));
         }
-        if (!Salary.isValidSalary(salary)) {
-            throw new IllegalValueException(Salary.MESSAGE_CONSTRAINTS);
+        if (!HourlySalary.isValidSalary(salary)) {
+            throw new IllegalValueException(HourlySalary.MESSAGE_CONSTRAINTS);
         }
-        final Salary modelSalary = new Salary(salary);
+        final HourlySalary modelHourlySalary = new HourlySalary(salary);
 
         if (hoursWorked == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -154,8 +147,8 @@ class JsonAdaptedPerson {
         final HoursWorked modelHoursWorked = new HoursWorked(hoursWorked);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRole, modelLeaves,
-                modelSalary, modelHoursWorked, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRole, modelLeave,
+                modelHourlySalary, modelHoursWorked, modelTags);
     }
 
 }
