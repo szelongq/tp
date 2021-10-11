@@ -46,7 +46,7 @@ public class Overtime {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof HoursWorked // instanceof handles nulls
-                && value == ((HoursWorked) other).value); // state check
+                || (other instanceof Overtime // instanceof handles nulls
+                && value == ((Overtime) other).value); // state check
     }
 }
