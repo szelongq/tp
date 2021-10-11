@@ -29,11 +29,12 @@ public class Person {
     private final Leaves leaves;
     private final Salary salary;
     private final HoursWorked hoursWorked;
+    private final Overtime overtime;
 
     /**
-     * Every field must be present and not null.
+     * Constructs a {@code Person} object.
+     * All fields except for overtime must be present and not null.
      */
-
     public Person(Name name, Phone phone, Email email, Address address, Role role, Leaves leaves, Salary salary,
                   HoursWorked hoursWorked, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
@@ -45,6 +46,26 @@ public class Person {
         this.leaves = leaves;
         this.salary = salary;
         this.hoursWorked = hoursWorked;
+        this.overtime = new Overtime("0");
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Constructs a {@code Person} object with overtime.
+     * All fields, including overtime, must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Role role, Leaves leaves, Salary salary,
+                  HoursWorked hoursWorked, Overtime overtime, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.role = role;
+        this.leaves = leaves;
+        this.salary = salary;
+        this.hoursWorked = hoursWorked;
+        this.overtime = overtime;
         this.tags.addAll(tags);
     }
 
@@ -78,6 +99,10 @@ public class Person {
 
     public HoursWorked getHoursWorked() {
         return hoursWorked;
+    }
+
+    public Overtime getOvertime() {
+        return overtime;
     }
 
     /**
