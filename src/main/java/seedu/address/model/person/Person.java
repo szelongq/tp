@@ -54,7 +54,7 @@ public class Person {
      * Constructs a {@code Person} object with overtime.
      * All fields, including overtime, must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Role role, Leaves leaves, Salary salary,
+    public Person(Name name, Phone phone, Email email, Address address, Role role, Leave leaves, HourlySalary salary,
                   HoursWorked hoursWorked, Overtime overtime, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
         this.name = name;
@@ -62,8 +62,8 @@ public class Person {
         this.email = email;
         this.address = address;
         this.role = role;
-        this.leaves = leaves;
-        this.salary = salary;
+        this.leave = leaves;
+        this.hourlySalary = salary;
         this.hoursWorked = hoursWorked;
         this.overtime = overtime;
         this.tags.addAll(tags);
