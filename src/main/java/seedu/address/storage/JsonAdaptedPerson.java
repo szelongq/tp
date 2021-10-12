@@ -16,6 +16,7 @@ import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
@@ -36,6 +37,7 @@ class JsonAdaptedPerson {
     private final String leaves;
     private final String salary;
     private final String hoursWorked;
+    private final String overtime;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -46,7 +48,7 @@ class JsonAdaptedPerson {
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("role") String role, @JsonProperty("leaves") String leaves,
             @JsonProperty("salary") String salary, @JsonProperty("hoursWorked") String hoursWorked,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("overtime") String overtime, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -55,6 +57,7 @@ class JsonAdaptedPerson {
         this.leaves = leaves;
         this.salary = salary;
         this.hoursWorked = hoursWorked;
+        this.overtime = overtime;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -72,6 +75,7 @@ class JsonAdaptedPerson {
         leaves = source.getLeaves().toString();
         salary = source.getSalary().toString();
         hoursWorked = source.getHoursWorked().toString();
+        overtime = source.getOvertime().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -154,7 +158,17 @@ class JsonAdaptedPerson {
         }
         final HoursWorked modelHoursWorked = new HoursWorked(hoursWorked);
 
+        if (overtime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Overtime.class.getSimpleName()));
+        }
+        if (!Overtime.isValidOvertime(overtime)) {
+            throw new IllegalValueException(Overtime.MESSAGE_CONSTRAINTS);
+        }
+        final Overtime modelOvertime = new Overtime(overtime);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
+      
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRole, modelLeave,
                 modelHourlySalary, modelHoursWorked, modelTags);
     }
