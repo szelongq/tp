@@ -10,13 +10,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Role {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Roles should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Roles must start with an capital/non-capital alphabet, followed by any number of alphanumeric"
+                    + "characters, and it should not be blank. "
+                    + "Special characters such as brackets, hyphens, ampersands and slashes are allowed.";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * Role must start with an alphabet, which can be followed by any number of alphanumeric characters.
+     * Special characters such as brackets, hyphens, ampersands and slashes are allowed.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX =
+            "^[a-zA-Z][a-zA-Z0-9&/\\-, ]*[\\[(]?[a-zA-Z0-9&/\\-, ]*[\\[\\]()&]?[a-zA-Z0-9/&\\- ]*[)\\]]{0,2}";
 
     public final String value;
 
