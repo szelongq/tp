@@ -29,6 +29,7 @@ public class HoursWorked {
      * Returns true if a given numerical string is non-negative.
      */
     public static boolean isValidHoursWorked(String test) {
+        requireNonNull(test);
         try {
             int amount = Integer.parseInt(test);
             return amount >= 0;

@@ -7,7 +7,7 @@
   
   Example usages:
   * To assist in managing HR administrative tasks such as:
-    * tracking leaves and offs
+    * tracking leave and offs
     * calculating overtime pay
     * updating payroll information like salaries and bank account numbers
   * To allow users to quickly assess the balance of work between employees.

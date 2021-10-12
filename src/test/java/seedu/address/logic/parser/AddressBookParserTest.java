@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -27,7 +27,7 @@ import seedu.address.logic.commands.RemoveLeavesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 //import seedu.address.model.person.NameContainsKeywordsPredicate;
 //import seedu.address.model.person.Person;
-import seedu.address.model.person.Leaves;
+import seedu.address.model.person.Leave;
 //import seedu.address.testutil.EditPersonDescriptorBuilder;
 //import seedu.address.testutil.PersonBuilder;
 //import seedu.address.testutil.PersonUtil;
@@ -96,18 +96,18 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addLeaves() throws Exception {
-        final Leaves leaves = new Leaves("3");
+        final Leave leave = new Leave("3");
         AddLeavesCommand command = (AddLeavesCommand) parser.parseCommand(AddLeavesCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVES + leaves);
-        assertEquals(new AddLeavesCommand(INDEX_FIRST_PERSON, leaves), command);
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVE + leave);
+        assertEquals(new AddLeavesCommand(INDEX_FIRST_PERSON, leave), command);
     }
 
     @Test
     public void parseCommand_removeLeaves() throws Exception {
-        final Leaves numberOfLeaves = new Leaves("3");
+        final Leave numberOfLeave = new Leave("3");
         RemoveLeavesCommand command = (RemoveLeavesCommand) parser.parseCommand(RemoveLeavesCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVES + numberOfLeaves);
-        assertEquals(new RemoveLeavesCommand(INDEX_FIRST_PERSON, numberOfLeaves), command);
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVE + numberOfLeave);
+        assertEquals(new RemoveLeavesCommand(INDEX_FIRST_PERSON, numberOfLeave), command);
     }
 
     @Test

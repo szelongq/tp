@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -39,11 +39,11 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_ROLE_AMY = "Mobile App Developer";
-    public static final String VALID_ROLE_BOB = "Front-End Developer";
+    public static final String VALID_ROLE_BOB = "Front End Developer";
     public static final String VALID_LEAVES_AMY = "20";
     public static final String VALID_LEAVES_BOB = "15";
-    public static final String VALID_SALARY_AMY = "10000";
-    public static final String VALID_SALARY_BOB = "2000";
+    public static final String VALID_HOURLYSALARY_AMY = "33.33";
+    public static final String VALID_HOURLYSALARY_BOB = "9.33";
     public static final String VALID_HOURSWORKED_AMY = "80";
     public static final String VALID_HOURSWORKED_BOB = "40";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -59,10 +59,10 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String ROLE_DESC_AMY = " " + PREFIX_ROLE + VALID_ROLE_AMY;
     public static final String ROLE_DESC_BOB = " " + PREFIX_ROLE + VALID_ROLE_BOB;
-    public static final String LEAVES_DESC_AMY = " " + PREFIX_LEAVES + VALID_LEAVES_AMY;
-    public static final String LEAVES_DESC_BOB = " " + PREFIX_LEAVES + VALID_LEAVES_BOB;
-    public static final String SALARY_DESC_AMY = " " + PREFIX_SALARY + VALID_SALARY_AMY;
-    public static final String SALARY_DESC_BOB = " " + PREFIX_SALARY + VALID_SALARY_BOB;
+    public static final String LEAVES_DESC_AMY = " " + PREFIX_LEAVE + VALID_LEAVES_AMY;
+    public static final String LEAVES_DESC_BOB = " " + PREFIX_LEAVE + VALID_LEAVES_BOB;
+    public static final String HOURLYSALARY_DESC_AMY = " " + PREFIX_HOURLYSALARY + VALID_HOURLYSALARY_AMY;
+    public static final String HOURLYSALARY_DESC_BOB = " " + PREFIX_HOURLYSALARY + VALID_HOURLYSALARY_BOB;
     public static final String HOURSWORKED_DESC_AMY = " " + PREFIX_HOURSWORKED + VALID_HOURSWORKED_AMY;
     public static final String HOURSWORKED_DESC_BOB = " " + PREFIX_HOURSWORKED + VALID_HOURSWORKED_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
@@ -72,6 +72,11 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE; // empty string not allowed for role
+    public static final String INVALID_LEAVES_DESC = " " + PREFIX_LEAVE + "12a"; // 'a' not allowed in leaves
+    public static final String INVALID_HOURLYSALARY_DESC =
+            " " + PREFIX_HOURLYSALARY + "90%00"; // '%' not allowed in salary
+    public static final String INVALID_HOURSWORKED_DESC = " " + PREFIX_HOURSWORKED + "90-00"; // '-' not allowed in HW
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \n";

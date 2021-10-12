@@ -26,8 +26,8 @@ public class Person {
 
     // Employee fields
     private final Role role;
-    private final Leaves leaves;
-    private final Salary salary;
+    private final Leave leave;
+    private final HourlySalary hourlySalary;
     private final HoursWorked hoursWorked;
     private final Overtime overtime;
 
@@ -35,16 +35,16 @@ public class Person {
      * Constructs a {@code Person} object.
      * All fields except for overtime must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Role role, Leaves leaves, Salary salary,
-                  HoursWorked hoursWorked, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Role role, Leave leave,
+                  HourlySalary hourlySalary, HoursWorked hoursWorked, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, role, leave, hourlySalary, hoursWorked, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.role = role;
-        this.leaves = leaves;
-        this.salary = salary;
+        this.leave = leave;
+        this.hourlySalary = hourlySalary;
         this.hoursWorked = hoursWorked;
         this.overtime = new Overtime("0");
         this.tags.addAll(tags);
@@ -54,7 +54,7 @@ public class Person {
      * Constructs a {@code Person} object with overtime.
      * All fields, including overtime, must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Role role, Leaves leaves, Salary salary,
+    public Person(Name name, Phone phone, Email email, Address address, Role role, Leave leaves, HourlySalary salary,
                   HoursWorked hoursWorked, Overtime overtime, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
         this.name = name;
@@ -62,8 +62,8 @@ public class Person {
         this.email = email;
         this.address = address;
         this.role = role;
-        this.leaves = leaves;
-        this.salary = salary;
+        this.leave = leaves;
+        this.hourlySalary = salary;
         this.hoursWorked = hoursWorked;
         this.overtime = overtime;
         this.tags.addAll(tags);
@@ -89,12 +89,12 @@ public class Person {
         return role;
     }
 
-    public Leaves getLeaves() {
-        return leaves;
+    public Leave getLeaves() {
+        return leave;
     }
 
-    public Salary getSalary() {
-        return salary;
+    public HourlySalary getSalary() {
+        return hourlySalary;
     }
 
     public HoursWorked getHoursWorked() {
@@ -154,7 +154,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
+        return Objects.hash(name, phone, email, address, role, leave, hourlySalary, hoursWorked, tags);
     }
 
     @Override
