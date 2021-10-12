@@ -40,7 +40,5 @@ public class RoleTest {
         assertTrue(Role.isValidRole("Junior Developer Stage 2")); // alphanumeric characters
         assertTrue(Role.isValidRole("Software Engineer")); // with capital letters
         assertTrue(Role.isValidRole("Software Engineer with 10 years experience and 20 years knowledge")); // long names
-        assertTrue(Role.isValidRole("power-ranger")); // contains non-alphanumeric characters
-        assertTrue(Role.isValidRole("^")); // not whitespace, slightly dubious
     }
 }
