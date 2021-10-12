@@ -16,7 +16,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.Person;
 
 /**
@@ -32,7 +31,12 @@ public class CalculatePayCommandTest {
         Person personToCalculatePay = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         CalculatePayCommand calculatePayCommand = new CalculatePayCommand(INDEX_FIRST_PERSON);
 
-        HourlySalary calculatedPay = personToCalculatePay.getSalary();
+        double hourlySalary = personToCalculatePay.getSalary().value;
+        int hoursWorked = personToCalculatePay.getHoursWorked().value;
+        int overtime = personToCalculatePay.getOvertime().value;
+        double calculatedPay = (hourlySalary * hoursWorked)
+                + CalculatePayCommand.OVERTIME_RATE * hourlySalary * overtime;
+
         String expectedMessage =
                 String.format(CalculatePayCommand.MESSAGE_CALCULATE_PAY_SUCCESS, calculatedPay);
 
@@ -54,7 +58,12 @@ public class CalculatePayCommandTest {
         Person personToCalculatePay = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         CalculatePayCommand calculatePayCommand = new CalculatePayCommand(INDEX_FIRST_PERSON);
 
-        HourlySalary calculatedPay = personToCalculatePay.getSalary();
+        double hourlySalary = personToCalculatePay.getSalary().value;
+        int hoursWorked = personToCalculatePay.getHoursWorked().value;
+        int overtime = personToCalculatePay.getOvertime().value;
+        double calculatedPay = (hourlySalary * hoursWorked)
+                + CalculatePayCommand.OVERTIME_RATE * hourlySalary * overtime;
+
         String expectedMessage =
                 String.format(CalculatePayCommand.MESSAGE_CALCULATE_PAY_SUCCESS, calculatedPay);
 
