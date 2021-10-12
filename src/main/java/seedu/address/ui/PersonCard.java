@@ -49,7 +49,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label hoursWorked;
     @FXML
-    private VBox overdueSalary;
+    private VBox calculatedSalary;
     @FXML
     private FlowPane tags;
 
@@ -68,13 +68,13 @@ public class PersonCard extends UiPart<Region> {
         leave.setText(String.format("Leaves Remaining: %s", person.getLeaves().toString()));
         hoursWorked.setText(String.format("Hours Worked: %s", person.getHoursWorked().toString()));
 
-        String salaryDue = person.getSalary().toString(); // To be replaced by calculated salary
+        String salaryDue = person.getCalculatedPay().toString(); // To be replaced by calculated salary
         if (!salaryDue.equals("0.00")) {
             Text overDueText = new Text(String.format("NOT PAID [%s]", salaryDue));
             overDueText.setFill(Color.WHITE);
             overDueText.setFont(Font.font("Open Sans Regular", 20));
-            overdueSalary.getChildren().add(overDueText);
-            overdueSalary.setStyle("-fx-background-color: #C41E3A;");
+            calculatedSalary.getChildren().add(overDueText);
+            calculatedSalary.setStyle("-fx-background-color: #C41E3A;");
         }
 
         person.getTags().stream()

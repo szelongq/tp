@@ -24,6 +24,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
@@ -113,10 +114,12 @@ public class EditCommand extends Command {
         Leave updatedLeave = editPersonDescriptor.getLeaves().orElse(personToEdit.getLeaves());
         HourlySalary updatedHourlySalary = editPersonDescriptor.getSalary().orElse(personToEdit.getSalary());
         HoursWorked updatedHours = editPersonDescriptor.getHoursWorked().orElse(personToEdit.getHoursWorked());
+        CalculatedPay updatedCalculatedPay =
+                editPersonDescriptor.getCalculatedPay().orElse(personToEdit.getCalculatedPay());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
-                updatedRole, updatedLeave, updatedHourlySalary, updatedHours, updatedTags);
+                updatedRole, updatedLeave, updatedHourlySalary, updatedHours, updatedCalculatedPay, updatedTags);
     }
 
     @Override
@@ -150,6 +153,7 @@ public class EditCommand extends Command {
         private Leave leave;
         private HourlySalary hourlySalary;
         private HoursWorked hoursWorked;
+        private CalculatedPay calculatedPay;
 
         private Set<Tag> tags;
 
@@ -168,6 +172,7 @@ public class EditCommand extends Command {
             setLeaves(toCopy.leave);
             setSalary(toCopy.hourlySalary);
             setHoursWorked(toCopy.hoursWorked);
+            setCalculatedPay(toCopy.calculatedPay);
             setTags(toCopy.tags);
         }
 
@@ -176,7 +181,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email, address, role, leave, hourlySalary, hoursWorked,
-                    tags);
+                    calculatedPay, tags);
         }
 
         public void setName(Name name) {
@@ -243,6 +248,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(hoursWorked);
         }
 
+        public void setCalculatedPay(CalculatedPay calculatedPay) {
+            this.calculatedPay = calculatedPay;
+        }
+
+        public Optional<CalculatedPay> getCalculatedPay() {
+            return Optional.ofNullable(calculatedPay);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -283,6 +296,7 @@ public class EditCommand extends Command {
                     && getLeaves().equals(e.getLeaves())
                     && getSalary().equals(e.getSalary())
                     && getHoursWorked().equals(e.getHoursWorked())
+                    && getCalculatedPay().equals(e.getCalculatedPay())
                     && getTags().equals(e.getTags());
         }
     }
