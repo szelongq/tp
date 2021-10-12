@@ -168,6 +168,7 @@ class JsonAdaptedPerson {
         final Overtime modelOvertime = new Overtime(overtime);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
+      
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRole, modelLeave,
                 modelHourlySalary, modelHoursWorked, modelTags);
     }
