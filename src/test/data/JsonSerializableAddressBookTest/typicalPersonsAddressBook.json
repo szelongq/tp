@@ -9,6 +9,7 @@
     "leaves": "14",
     "salary": "15.00",
     "hoursWorked": "70",
+    "overtime": "0",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
@@ -19,6 +20,7 @@
     "leaves": "20",
     "salary": "25.00",
     "hoursWorked": "60",
+    "overtime": "0",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
@@ -29,6 +31,7 @@
     "leaves": "11",
     "salary": "18.00",
     "hoursWorked": "67",
+    "overtime": "0",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
@@ -39,6 +42,7 @@
     "leaves": "20",
     "salary": "15.00",
     "hoursWorked": "60",
+    "overtime": "0",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
@@ -49,6 +53,7 @@
     "leaves": "20",
     "salary": "16.66",
     "hoursWorked": "50",
+    "overtime": "0",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
@@ -59,6 +64,7 @@
     "leaves": "15",
     "salary": "16.66",
     "hoursWorked": "40",
+    "overtime": "0",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
@@ -69,6 +75,7 @@
     "leaves": "8",
     "salary": "21.33",
     "hoursWorked": "55",
+    "overtime": "0",
     "tagged" : [ ]
   } ]
 }

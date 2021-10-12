@@ -73,10 +73,10 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "4owerRanger"; // non-alphabet as first character
-    public static final String INVALID_LEAVES_DESC = " " + PREFIX_LEAVE + "-30"; // Cannot be negative
-    public static final String INVALID_HOURLYSALARY_DESC = " " + PREFIX_HOURLYSALARY + "-3.142"; // Cannot be negative
-    public static final String INVALID_HOURSWORKED_DESC = " "
-            + PREFIX_HOURSWORKED + "70h"; // 'h' not allowed in hoursWorked
+    public static final String INVALID_LEAVES_DESC = " " + PREFIX_LEAVE + "12a"; // 'a' not allowed in leaves
+    public static final String INVALID_HOURLYSALARY_DESC =
+            " " + PREFIX_HOURLYSALARY + "90%00"; // '%' not allowed in salary
+    public static final String INVALID_HOURSWORKED_DESC = " " + PREFIX_HOURSWORKED + "90-00"; // '-' not allowed in HW
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \n";
