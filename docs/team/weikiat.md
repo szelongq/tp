@@ -5,7 +5,9 @@ title: Wei Kiat's Project Portfolio Page
 // Still in progress //
 ### Project: HeRon Level 3
 
-HeRon is a desktop application for Human Resource Managers in companies to increase the convenience of managing employee information
+HeRon is a desktop application for HR managers to assist in managing HR administrative tasks such as tracking leaves and offs, calculating pay and updating payroll information.
+
+HeRon is a project adapted from AddressBook - Level 3.
 
 Given below are my contributions to the project.
 
