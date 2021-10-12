@@ -8,8 +8,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Salary;
 
 
 /**
@@ -43,7 +43,7 @@ public class CalculatePayCommand extends Command {
         }
 
         Person personToCalculatePay = lastShownList.get(targetIndex.getZeroBased());
-        Salary calculatedPay = personToCalculatePay.getSalary();
+        HourlySalary calculatedPay = personToCalculatePay.getSalary();
 
         return new CommandResult(String.format(MESSAGE_CALCULATE_PAY_SUCCESS, calculatedPay));
     }

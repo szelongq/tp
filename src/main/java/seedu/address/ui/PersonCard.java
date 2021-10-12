@@ -7,6 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import seedu.address.model.person.Person;
 
 /**
@@ -41,11 +45,11 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label role;
     @FXML
-    private Label leaves;
-    @FXML
-    private Label salary;
+    private Label leave;
     @FXML
     private Label hoursWorked;
+    @FXML
+    private VBox overdueSalary;
     @FXML
     private FlowPane tags;
 
@@ -61,9 +65,18 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         role.setText(person.getRole().value);
-        leaves.setText(String.format("Leaves Remaining: %s", person.getLeaves().toString()));
-        salary.setText(String.format("Salary: %s", person.getSalary().toString()));
+        leave.setText(String.format("Leaves Remaining: %s", person.getLeaves().toString()));
         hoursWorked.setText(String.format("Hours Worked: %s", person.getHoursWorked().toString()));
+
+        String salaryDue = person.getSalary().toString(); // To be replaced by calculated salary
+        if (!salaryDue.equals("0.00")) {
+            Text overDueText = new Text(String.format("NOT PAID [%s]", salaryDue));
+            overDueText.setFill(Color.WHITE);
+            overDueText.setFont(Font.font("Open Sans Regular", 20));
+            overdueSalary.getChildren().add(overDueText);
+            overdueSalary.setStyle("-fx-background-color: #C41E3A;");
+        }
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's remaining leaves in the employee book.
  * Guarantees: immutable; is valid as declared in {@link #isValidLeaves(String)}
  */
-public class Leaves {
+public class Leave {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Leaves should only contain non-negative integers, and it should not be blank";
@@ -19,7 +19,7 @@ public class Leaves {
      *
      * @param amount A valid leave amount in days.
      */
-    public Leaves(String amount) {
+    public Leave(String amount) {
         requireNonNull(amount);
         checkArgument(isValidLeaves(amount), MESSAGE_CONSTRAINTS);
         this.value = Integer.parseInt(amount);
@@ -44,28 +44,28 @@ public class Leaves {
     /**
      * Returns an updated Leaves object with the specified number of leaves added.
      *
-     * @param leaves The amount of leaves to be added.
+     * @param leave The amount of leaves to be added.
      * @return An updated Leaves object.
      */
-    public Leaves addLeaves(Leaves leaves) {
-        int updatedValue = value + leaves.value;
-        return new Leaves(String.valueOf(updatedValue));
+    public Leave addLeaves(Leave leave) {
+        int updatedValue = value + leave.value;
+        return new Leave(String.valueOf(updatedValue));
     }
 
     /**
      * Returns an updated Leaves object with the specified number of leaves removed.
      *
-     * @param leaves The amount of leaves to be removed.
+     * @param leave The amount of leaves to be removed.
      * @return An updated Leaves object.
      * @throws IllegalArgumentException if the amount of leaves to be removed
      * is greater than the current amount of leaves.
      */
-    public Leaves removeLeaves(Leaves leaves) {
-        int updatedValue = value - leaves.value;
+    public Leave removeLeaves(Leave leave) {
+        int updatedValue = value - leave.value;
         if (updatedValue < 0) {
             throw new IllegalArgumentException();
         }
-        return new Leaves(String.valueOf(updatedValue));
+        return new Leave(String.valueOf(updatedValue));
     }
 
     @Override
@@ -76,7 +76,7 @@ public class Leaves {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Leaves // instanceof handles nulls
-                && value == ((Leaves) other).value); // state check
+                || (other instanceof Leave // instanceof handles nulls
+                && value == ((Leave) other).value); // state check
     }
 }

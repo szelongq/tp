@@ -29,6 +29,7 @@ public class HoursWorked {
      * Returns true if a given numerical string is non-negative.
      */
     public static boolean isValidHoursWorked(String test) {
+        requireNonNull(test);
         try {
             int amount = Integer.parseInt(test);
             return amount >= 0;
@@ -46,9 +47,7 @@ public class HoursWorked {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Salary // instanceof handles nulls
+                || (other instanceof HoursWorked // instanceof handles nulls
                 && value == ((HoursWorked) other).value); // state check
     }
-
 }
-
