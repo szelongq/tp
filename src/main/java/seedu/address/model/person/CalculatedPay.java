@@ -3,10 +3,12 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.commons.util.StringUtil;
+
 public class CalculatedPay {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Calculated pay should only contain non-negative values.";
+            "Calculated pay should only contain  non-negative numbers with two or less decimal places.";
 
     public final double value;
 
@@ -22,16 +24,13 @@ public class CalculatedPay {
     }
 
     /**
-     * Returns true if given numerical string is non-negative.
+     * Returns true if a given numerical string is non-negative and has
+     * two or less decimal places.
      */
     public static boolean isValidCalculatedPay(String test) {
         requireNonNull(test);
-        try {
-            double amount = Double.parseDouble(test);
-            return amount >= 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+
+        return StringUtil.isNonNegativeDoubleWithTwoOrLessDecimal(test);
     }
 
     @Override
