@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
+import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
@@ -29,6 +30,7 @@ public class PersonBuilder {
     public static final String DEFAULT_SALARY = "5000";
     public static final String DEFAULT_HOURSWORKED = "70";
 
+
     private Name name;
     private Phone phone;
     private Email email;
@@ -37,6 +39,10 @@ public class PersonBuilder {
     private Leave leave;
     private HourlySalary hourlySalary;
     private HoursWorked hoursWorked;
+
+    // When person initialized, always set pay to 0.
+    private CalculatedPay calculatedPay = new CalculatedPay("0.00");
+
     private Set<Tag> tags;
 
     /**
@@ -142,7 +148,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, role, leave, hourlySalary, hoursWorked, tags);
+        return new Person(name, phone, email, address, role, leave, hourlySalary, hoursWorked, calculatedPay, tags);
     }
 
 }
