@@ -1,6 +1,15 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.function.Predicate;
 
@@ -9,22 +18,43 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all persons in HeRon that passes the given predicate.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons who meets "
+            + "all the specified conditions and displays them as a list with index numbers.\n"
+            + "Each condition is tagged with a prefix just like the add command.\n"
+            + "For example, to search by name, use n/[name].\n"
+            + "All parameters are optional. To search by salary, use only one of the comparison operators "
+            + "'>', '<', '>=', '<=' or '=' together with a number.\n"
+            + "Parameters: "
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_ROLE + "ROLE] "
+            + "[" + PREFIX_LEAVE + "LEAVES] "
+            + "[" + PREFIX_HOURLYSALARY + "(>/>=/</<=/=)SALARY] "
+            + "[" + PREFIX_HOURSWORKED + "HOURS WORKED] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " n/Alex Ben r/CEO s/>=10";
 
     private final Predicate<Person> predicate;
 
     public FindCommand(Predicate<Person> predicate) {
         this.predicate = predicate;
+    }
+
+    /**
+     * Used for testing purposes to allow comparison of the predicates.
+     * @return The Predicate belonging to this FindCommand.
+     */
+    public Predicate<Person> getPredicate() {
+        return predicate;
     }
 
     @Override

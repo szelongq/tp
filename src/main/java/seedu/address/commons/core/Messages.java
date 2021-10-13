@@ -12,4 +12,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_INTEGER_INPUT =
             "Please input a valid positive integer when adding/removing leaves! \n%1$s";
     public static final String MESSAGE_INVALID_REMOVELEAVES_INPUT = "Employee has less than %1$s leaves!";
+    public static final String MESSAGE_INVALID_COMPARATOR =
+            "Invalid comparison operator! Use either '>', '<', '>=', '<=' or '='.";
+    public static final String MESSAGE_INVALID_FIND_SALARY_INPUT = "";
 }
