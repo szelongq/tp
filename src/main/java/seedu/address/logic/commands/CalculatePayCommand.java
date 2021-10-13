@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
@@ -37,7 +38,7 @@ public class CalculatePayCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_NOT_PAID = "The employee still has payment due. "
+    public static final String MESSAGE_NOT_PAID = "The employee still has payment due.\n"
             + "Please pay the employee first before calculating new pay.";
 
     public static final String MESSAGE_CALCULATE_PAY_SUCCESS = "Calculated Pay: %1$s";
@@ -64,17 +65,15 @@ public class CalculatePayCommand extends Command {
         /*
          * An exception is thrown if the employee to be calculated for still
          * has a previous calculated pay that has not been paid yet.
-         * Awaiting implementation of amountToPay attribute.
          */
-        /*
         if (!personToCalculatePay.isPaid()) {
             throw new CommandException(MESSAGE_NOT_PAID);
-        }*/
+        }
 
         HourlySalary salary = personToCalculatePay.getSalary();
         HoursWorked hoursWorked = personToCalculatePay.getHoursWorked();
         Overtime overtime = personToCalculatePay.getOvertime();
-        double calculatedPay = calculatePay(salary, hoursWorked, overtime);
+        CalculatedPay calculatedPay = calculatePay(salary, hoursWorked, overtime);
 
         Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
         model.setPerson(personToCalculatePay, personWithCalculatedPay);
@@ -84,28 +83,25 @@ public class CalculatePayCommand extends Command {
     }
 
 
-    private double calculatePay(HourlySalary salary, HoursWorked hoursWorked, Overtime overtime) {
-        return (salary.value * hoursWorked.value) + (OVERTIME_RATE * salary.value * overtime.value);
+    private CalculatedPay calculatePay(HourlySalary salary, HoursWorked hoursWorked, Overtime overtime) {
+        double normalPay = salary.value * hoursWorked.value;
+        double overtimePay = OVERTIME_RATE * salary.value * overtime.value;
+
+        return new CalculatedPay(Double.toString(normalPay + overtimePay));
     }
 
-    private Person createPersonWithCalculatedPay(Person personWithCalculatedPay, double calculatedPay) {
+    private Person createPersonWithCalculatedPay(Person personWithCalculatedPay, CalculatedPay newCalculatedPay) {
         Name name = personWithCalculatedPay.getName();
         Phone phone = personWithCalculatedPay.getPhone();
         Email email = personWithCalculatedPay.getEmail();
         Address address = personWithCalculatedPay.getAddress();
         Role role = personWithCalculatedPay.getRole();
         Leave leaves = personWithCalculatedPay.getLeaves();
-
-        /*
-         * Set the new calculated pay to be paid to the employee.
-         * Awaiting implementation of amountToPay attribute.
-         */
         HourlySalary salary = personWithCalculatedPay.getSalary();
-
         HoursWorked hours = personWithCalculatedPay.getHoursWorked();
         Set<Tag> tags = personWithCalculatedPay.getTags();
 
-        return new Person(name, phone, email, address, role, leaves, salary, hours, tags);
+        return new Person(name, phone, email, address, role, leaves, salary, hours, newCalculatedPay, tags);
     }
 
     @Override

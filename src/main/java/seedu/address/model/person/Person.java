@@ -121,6 +121,14 @@ public class Person {
     }
 
     /**
+     * Returns true if the person's {@code CalculatedPay} value is not zero.
+     * This means that the person still has pay that has not been paid yet.
+     */
+    public boolean isPaid() {
+        return calculatedPay.value == 0;
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
