@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
@@ -58,9 +59,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Leave leave = ParserUtil.parseLeaves(argMultimap.getValue(PREFIX_LEAVE).get());
         HourlySalary hourlySalary = ParserUtil.parseSalary(argMultimap.getValue(PREFIX_HOURLYSALARY).get());
         HoursWorked hoursWorked = ParserUtil.parseHoursWorked(argMultimap.getValue(PREFIX_HOURSWORKED).get());
+        CalculatedPay calculatedPay = new CalculatedPay("0");
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, role, leave, hourlySalary, hoursWorked, tagList);
+        Person person = new Person(name, phone, email, address, role, leave, hourlySalary, hoursWorked,
+                calculatedPay, tagList);
         return new AddCommand(person);
     }
 

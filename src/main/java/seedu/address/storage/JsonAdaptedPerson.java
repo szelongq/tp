@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
@@ -38,6 +39,7 @@ class JsonAdaptedPerson {
     private final String salary;
     private final String hoursWorked;
     private final String overtime;
+    private final String calculatedPay;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -48,7 +50,8 @@ class JsonAdaptedPerson {
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("role") String role, @JsonProperty("leaves") String leaves,
             @JsonProperty("salary") String salary, @JsonProperty("hoursWorked") String hoursWorked,
-            @JsonProperty("overtime") String overtime, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("overtime") String overtime, @JsonProperty("calculatedPay") String calculatedPay,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -58,6 +61,7 @@ class JsonAdaptedPerson {
         this.salary = salary;
         this.hoursWorked = hoursWorked;
         this.overtime = overtime;
+        this.calculatedPay = calculatedPay;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -76,6 +80,7 @@ class JsonAdaptedPerson {
         salary = source.getSalary().toString();
         hoursWorked = source.getHoursWorked().toString();
         overtime = source.getOvertime().toString();
+        calculatedPay = source.getCalculatedPay().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -167,10 +172,19 @@ class JsonAdaptedPerson {
         }
         final Overtime modelOvertime = new Overtime(overtime);
 
+        if (calculatedPay == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    CalculatedPay.class.getSimpleName()));
+        }
+        if (!CalculatedPay.isValidCalculatedPay(calculatedPay)) {
+            throw new IllegalValueException(CalculatedPay.MESSAGE_CONSTRAINTS);
+        }
+        final CalculatedPay modelCalculatedPay = new CalculatedPay(calculatedPay);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRole, modelLeave,
-                modelHourlySalary, modelHoursWorked, modelTags);
+                modelHourlySalary, modelHoursWorked, modelCalculatedPay, modelTags);
     }
 
 }
