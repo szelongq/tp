@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 import java.util.Set;
@@ -41,7 +40,7 @@ public class CalculatePayCommand extends Command {
     public static final String MESSAGE_NOT_PAID = "The employee still has payment due.\n"
             + "Please pay the employee first before calculating new pay.";
 
-    public static final String MESSAGE_CALCULATE_PAY_SUCCESS = "Calculated Pay: %1$s";
+    public static final String MESSAGE_CALCULATE_PAY_SUCCESS = "Calculated pay for person: %1$s";
 
     public static final double OVERTIME_RATE = 1.5;
 
@@ -77,9 +76,8 @@ public class CalculatePayCommand extends Command {
 
         Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
         model.setPerson(personToCalculatePay, personWithCalculatedPay);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_CALCULATE_PAY_SUCCESS, calculatedPay));
+        return new CommandResult(String.format(MESSAGE_CALCULATE_PAY_SUCCESS, personWithCalculatedPay));
     }
 
 

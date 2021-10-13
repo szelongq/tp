@@ -9,6 +9,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -16,7 +18,18 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.CalculatedPay;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.HourlySalary;
+import seedu.address.model.person.HoursWorked;
+import seedu.address.model.person.Leave;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Role;
+import seedu.address.model.tag.Tag;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -26,21 +39,46 @@ public class CalculatePayCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    private CalculatedPay calculatePay(HourlySalary salary, HoursWorked hoursWorked, Overtime overtime) {
+        double normalPay = salary.value * hoursWorked.value;
+        double overtimePay = CalculatePayCommand.OVERTIME_RATE * salary.value * overtime.value;
+
+        return new CalculatedPay(Double.toString(normalPay + overtimePay));
+    }
+
+    private Person createPersonWithCalculatedPay(Person personWithCalculatedPay, CalculatedPay newCalculatedPay) {
+        Name name = personWithCalculatedPay.getName();
+        Phone phone = personWithCalculatedPay.getPhone();
+        Email email = personWithCalculatedPay.getEmail();
+        Address address = personWithCalculatedPay.getAddress();
+        Role role = personWithCalculatedPay.getRole();
+        Leave leaves = personWithCalculatedPay.getLeaves();
+        HourlySalary salary = personWithCalculatedPay.getSalary();
+        HoursWorked hours = personWithCalculatedPay.getHoursWorked();
+        Set<Tag> tags = personWithCalculatedPay.getTags();
+
+        return new Person(name, phone, email, address, role, leaves, salary, hours, newCalculatedPay, tags);
+    }
+
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToCalculatePay = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         CalculatePayCommand calculatePayCommand = new CalculatePayCommand(INDEX_FIRST_PERSON);
 
-        double hourlySalary = personToCalculatePay.getSalary().value;
-        int hoursWorked = personToCalculatePay.getHoursWorked().value;
-        int overtime = personToCalculatePay.getOvertime().value;
-        double calculatedPay = (hourlySalary * hoursWorked)
-                + CalculatePayCommand.OVERTIME_RATE * hourlySalary * overtime;
+        HourlySalary salary = personToCalculatePay.getSalary();
+        HoursWorked hoursWorked = personToCalculatePay.getHoursWorked();
+        Overtime overtime = personToCalculatePay.getOvertime();
+        CalculatedPay calculatedPay = calculatePay(salary, hoursWorked, overtime);
+
+        Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
 
         String expectedMessage =
-                String.format(CalculatePayCommand.MESSAGE_CALCULATE_PAY_SUCCESS, calculatedPay);
+                String.format(CalculatePayCommand.MESSAGE_CALCULATE_PAY_SUCCESS, personWithCalculatedPay);
 
-        assertCommandSuccess(calculatePayCommand, model, expectedMessage, model);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setPerson(personToCalculatePay, personWithCalculatedPay);
+
+        assertCommandSuccess(calculatePayCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -58,16 +96,22 @@ public class CalculatePayCommandTest {
         Person personToCalculatePay = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         CalculatePayCommand calculatePayCommand = new CalculatePayCommand(INDEX_FIRST_PERSON);
 
-        double hourlySalary = personToCalculatePay.getSalary().value;
-        int hoursWorked = personToCalculatePay.getHoursWorked().value;
-        int overtime = personToCalculatePay.getOvertime().value;
-        double calculatedPay = (hourlySalary * hoursWorked)
-                + CalculatePayCommand.OVERTIME_RATE * hourlySalary * overtime;
+        HourlySalary salary = personToCalculatePay.getSalary();
+        HoursWorked hoursWorked = personToCalculatePay.getHoursWorked();
+        Overtime overtime = personToCalculatePay.getOvertime();
+        CalculatedPay calculatedPay = calculatePay(salary, hoursWorked, overtime);
+
+        Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
 
         String expectedMessage =
-                String.format(CalculatePayCommand.MESSAGE_CALCULATE_PAY_SUCCESS, calculatedPay);
+                String.format(CalculatePayCommand.MESSAGE_CALCULATE_PAY_SUCCESS, personWithCalculatedPay);
 
-        assertCommandSuccess(calculatePayCommand, model, expectedMessage, model);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        expectedModel.setPerson(personToCalculatePay, personWithCalculatedPay);
+
+
+        assertCommandSuccess(calculatePayCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -81,6 +125,22 @@ public class CalculatePayCommandTest {
         CalculatePayCommand calculatePayCommand = new CalculatePayCommand(outOfBoundIndex);
 
         assertCommandFailure(calculatePayCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_personIsNotPaid_throwsCommandException() {
+        Person personToCalculatePay = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        CalculatePayCommand calculatePayCommand = new CalculatePayCommand(INDEX_FIRST_PERSON);
+
+        CalculatedPay calculatedPay = new CalculatedPay("500.00");
+        Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
+
+        model.setPerson(personToCalculatePay, personWithCalculatedPay);
+
+        String expectedMessage =
+                String.format(CalculatePayCommand.MESSAGE_NOT_PAID);
+
+        assertCommandFailure(calculatePayCommand, model, expectedMessage);
     }
 
     @Test
