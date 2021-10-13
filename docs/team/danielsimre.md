@@ -5,7 +5,7 @@ title: Daniel Sim's Project Portfolio Page
 
 ### Project: HeRon
 
-HeRon is a desktop application for HR managers to assist in managing HR administrative tasks such as tracking leave and offs, calculating pay and updating payroll information. 
+HeRon is a desktop application for HR managers to assist in managing HR administrative tasks such as tracking leaves and offs, calculating pay and updating payroll information. 
 
 HeRon is a project adapted from AddressBook - Level 3. It is written in Java, and has about 10 kLoC.
 

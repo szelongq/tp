@@ -72,7 +72,7 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE; // empty string not allowed for role
+    public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "4owerRanger"; // non-alphabet as first character
     public static final String INVALID_LEAVES_DESC = " " + PREFIX_LEAVE + "12a"; // 'a' not allowed in leaves
     public static final String INVALID_HOURLYSALARY_DESC =
             " " + PREFIX_HOURLYSALARY + "90%00"; // '%' not allowed in salary
