@@ -65,4 +65,38 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if {@code s} represents a non-negative double
+     * with two or less decimal places
+     * e.g. 1.00, 2, 3.0, 6.69 <br>
+     * Will return false for any other non-null string input
+     * e.g. empty string, "1.000" (more than two decimal places), "3 0" (contains whitespace),
+     * "1 a" (contains letters)
+     * @throws NullPointerException if {@code s} is null.
+     */
+    public static boolean isNonNegativeDoubleWithTwoOrLessDecimalPlaces(String s) {
+        requireNonNull(s);
+
+        try {
+            double value = Double.parseDouble(s);
+            if (value < 0 || s.startsWith("+")) {
+                return false;
+            }
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+
+        int indexOfLastDigit = s.length() - 1;
+        int indexOfDecimalPoint = s.indexOf('.');
+        int numberOfDecimalPlaces;
+
+        if (indexOfDecimalPoint == -1) {
+            numberOfDecimalPlaces = 0;
+        } else {
+            numberOfDecimalPlaces = indexOfLastDigit - indexOfDecimalPoint;
+        }
+
+        return numberOfDecimalPlaces <= 2;
+    }
 }

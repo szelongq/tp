@@ -45,6 +45,38 @@ public class StringUtilTest {
         assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
     }
 
+    //---------------- Tests for isNonNegativeDoubleWithTwoOrLessDecimal --------------------------------------
+
+    @Test
+    public void isNonNegativeDoubleWithTwoOrLessDecimal() {
+
+        // EP: empty strings
+        assertFalse(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("")); // Boundary value
+        assertFalse(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("  "));
+
+        // EP: not a number
+        assertFalse(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("a"));
+        assertFalse(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("aaa"));
+
+        // EP: zero as prefix
+        assertTrue(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("01"));
+
+        // EP: signed numbers
+        assertFalse(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("-1"));
+        assertFalse(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("+1"));
+
+        // EP: numbers with white space
+        assertFalse(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("1 0")); // Spaces in the middle
+
+        // EP: number with more than two decimal places
+        assertFalse(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("1.000"));
+        assertFalse(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("6.789000"));
+
+        // EP: valid numbers, should return true
+        assertTrue(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("0.01")); // Boundary value
+        assertTrue(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("1"));
+    }
+
 
     //---------------- Tests for containsWordIgnoreCase --------------------------------------
 
