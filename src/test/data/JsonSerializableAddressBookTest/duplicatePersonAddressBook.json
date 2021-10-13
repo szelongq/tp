@@ -9,6 +9,7 @@
     "salary": "15.00",
     "hoursWorked": "70",
     "overtime": "0",
+    "calculatedPay": "0",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
@@ -19,6 +20,7 @@
     "leaves": "10",
     "salary": "15.00",
     "hoursWorked": "70",
-    "overtime": "0"
+    "overtime": "0",
+    "calculatedPay": "0"
   } ]
 }

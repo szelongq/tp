@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
@@ -24,7 +25,8 @@ import seedu.address.model.person.Role;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_CALCULATEDPAY = "-1";
+    private static final String INVALID_CALCULATEDPAY_CHAR = "a";
+    private static final String INVALID_CALCULATEDPAY_NEGATIVE = "-1";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_HOURLYSALARY_CHAR = "yolo";
     private static final String INVALID_HOURLYSALARY_NEGATIVE = "-3000";
@@ -35,7 +37,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_OVERTIME_CHAR = "one";
     private static final String INVALID_OVERTIME_NEGATIVE = "-2";
-    private static final String INVALID_PHONE = "+651234";  
+    private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ROLE = "Pro <Junior> Java Expert";
     private static final String INVALID_TAG = "#friend";
 
@@ -47,7 +49,7 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_LEAVES = BENSON.getLeaves().toString();
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_OVERTIME = BENSON.getOvertime().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();    
+    private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_ROLE = BENSON.getRole().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
@@ -232,7 +234,8 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_negativeOvertime_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                VALID_ROLE, VALID_LEAVES, VALID_HOURLYSALARY, VALID_HOURSWORKED, INVALID_OVERTIME_NEGATIVE, VALID_TAGS);
+                VALID_ROLE, VALID_LEAVES, VALID_HOURLYSALARY, VALID_HOURSWORKED, INVALID_OVERTIME_NEGATIVE,
+                VALID_CALCULATEDPAY, VALID_TAGS);
         String expectedMessage = Overtime.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -240,8 +243,27 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_characterInOvertime_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                VALID_ROLE, VALID_LEAVES, VALID_HOURLYSALARY, VALID_HOURSWORKED, INVALID_OVERTIME_CHAR, VALID_TAGS);
+                VALID_ROLE, VALID_LEAVES, VALID_HOURLYSALARY, VALID_HOURSWORKED, INVALID_OVERTIME_CHAR,
+                VALID_CALCULATEDPAY, VALID_TAGS);
         String expectedMessage = Overtime.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_negativeCalculatedPay_throwsIllegalValueException() {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                VALID_ROLE, VALID_LEAVES, VALID_HOURLYSALARY, VALID_HOURSWORKED, VALID_OVERTIME,
+                INVALID_CALCULATEDPAY_NEGATIVE, VALID_TAGS);
+        String expectedMessage = CalculatedPay.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_characterInCalculatedPay_throwsIllegalValueException() {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                VALID_ROLE, VALID_LEAVES, VALID_HOURLYSALARY, VALID_HOURSWORKED, VALID_OVERTIME,
+                INVALID_CALCULATEDPAY_CHAR, VALID_TAGS);
+        String expectedMessage = CalculatedPay.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

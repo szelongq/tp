@@ -17,6 +17,7 @@ public class Role {
     /*
      * Role must start with an alphabet, which can be followed by any number of alphanumeric characters.
      * Special characters such as brackets, hyphens, ampersands and slashes are allowed.
+     * Brackets are only allowed to have a nested depth of 2.
      */
     public static final String VALIDATION_REGEX =
             "^[a-zA-Z][a-zA-Z0-9&/\\-, ]*[\\[(]?[a-zA-Z0-9&/\\-, ]*[\\[\\]()&]?[a-zA-Z0-9/&\\- ]*[)\\]]{0,2}";
