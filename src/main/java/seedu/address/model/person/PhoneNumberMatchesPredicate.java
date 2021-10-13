@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Person}'s {@code Phone} matches any of the keywords given.
+ * Tests that a {@code Person}'s {@code Phone} matches the specified phone number.
  * Phones match if their values are exactly the same.
  */
 public class PhoneNumberMatchesPredicate implements Predicate<Person> {
@@ -14,6 +14,11 @@ public class PhoneNumberMatchesPredicate implements Predicate<Person> {
         this.keyNumbers = keyNumbers;
     }
 
+    /**
+     * Tests if the person given contains the given numbers in their Phone Number.
+     * @param person The person whose tags are to be tested
+     * @return True if any tags that the person has contains the exact value.
+     */
     @Override
     public boolean test(Person person) {
         String numberToTest = person.getPhone().value;

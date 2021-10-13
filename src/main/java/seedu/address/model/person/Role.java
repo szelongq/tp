@@ -9,13 +9,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Role {
 
-    public static final String MESSAGE_CONSTRAINTS = "Role can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Roles must start with an capital/non-capital alphabet, followed by any number of alphanumeric"
+                    + "characters, and it should not be blank. "
+                    + "Special characters such as brackets, hyphens, ampersands and slashes are allowed.";
 
     /*
-     * The first character of the role must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * Role must start with an alphabet, which can be followed by any number of alphanumeric characters.
+     * Special characters such as brackets, hyphens, ampersands and slashes are allowed.
+     * Brackets are only allowed to have a nested depth of 2.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX =
+            "^[a-zA-Z][a-zA-Z0-9&/\\-, ]*[\\[(]?[a-zA-Z0-9&/\\-, ]*[\\[\\]()&]?[a-zA-Z0-9/&\\- ]*[)\\]]{0,2}";
 
     public final String value;
 

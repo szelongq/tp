@@ -26,14 +26,19 @@ public class RoleTest {
         // invalid role
         assertFalse(Role.isValidRole("")); // empty string
         assertFalse(Role.isValidRole(" ")); // spaces only
+        assertFalse(Role.isValidRole("^")); // only non-alphanumeric characters
+        assertFalse(Role.isValidRole("0pProgrammers"));
+        assertFalse(Role.isValidRole(" pProgrammers")); // starts with whitespace
+        assertFalse(Role.isValidRole("Apple slicer <YO>")); // contains unsupported character '>'
 
         // valid role
         assertTrue(Role.isValidRole("software engineer smol")); // alphabets only
-        assertTrue(Role.isValidRole("12345")); // numbers only
+        assertTrue(Role.isValidRole("UI/UX Designer")); // Supports '/'
+        assertTrue(Role.isValidRole("Front-End Programmer")); // Supports '-'
+        assertTrue(Role.isValidRole("R&D Team Manager")); // Supports '&'
+        assertTrue(Role.isValidRole("Team Leader, Front-End Team (Git)")); // Supports ',' , '-', '(' and ')'
         assertTrue(Role.isValidRole("Junior Developer Stage 2")); // alphanumeric characters
         assertTrue(Role.isValidRole("Software Engineer")); // with capital letters
         assertTrue(Role.isValidRole("Software Engineer with 10 years experience and 20 years knowledge")); // long names
-        assertTrue(Role.isValidRole("power-ranger")); // contains non-alphanumeric characters
-        assertTrue(Role.isValidRole("^")); // not whitespace, slightly dubious
     }
 }

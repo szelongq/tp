@@ -13,39 +13,44 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
 
 public class JsonAdaptedPersonTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_CALCULATEDPAY_CHAR = "a";
+    private static final String INVALID_CALCULATEDPAY_NEGATIVE = "-1";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_ROLE = " ";
-    private static final String INVALID_LEAVES_CHAR = "a";
-    private static final String INVALID_LEAVES_NEGATIVE = "-14";
     private static final String INVALID_HOURLYSALARY_CHAR = "yolo";
     private static final String INVALID_HOURLYSALARY_NEGATIVE = "-3000";
     private static final String INVALID_HOURSWORKED_CHAR = "A day";
     private static final String INVALID_HOURSWORKED_NEGATIVE = "-27";
-    private static final String INVALID_CALCULATEDPAY = "-1";
+    private static final String INVALID_LEAVES_CHAR = "a";
+    private static final String INVALID_LEAVES_NEGATIVE = "-14";
+    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_OVERTIME_CHAR = "one";
+    private static final String INVALID_OVERTIME_NEGATIVE = "-2";
+    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_ROLE = "Pro <Junior> Java Expert";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final String VALID_ROLE = BENSON.getRole().toString();
-    private static final String VALID_LEAVES = BENSON.getLeaves().toString();
+    private static final String VALID_CALCULATEDPAY = BENSON.getCalculatedPay().toString();
+    private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_HOURLYSALARY = BENSON.getSalary().toString();
     private static final String VALID_HOURSWORKED = BENSON.getHoursWorked().toString();
+    private static final String VALID_LEAVES = BENSON.getLeaves().toString();
+    private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_OVERTIME = BENSON.getOvertime().toString();
-    private static final String VALID_CALCULATEDPAY = BENSON.getCalculatedPay().toString();
+    private static final String VALID_PHONE = BENSON.getPhone().toString();
+    private static final String VALID_ROLE = BENSON.getRole().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
@@ -223,6 +228,42 @@ public class JsonAdaptedPersonTest {
                 VALID_ROLE, VALID_LEAVES, VALID_HOURLYSALARY, INVALID_HOURSWORKED_CHAR, VALID_OVERTIME,
                 VALID_CALCULATEDPAY, VALID_TAGS);
         String expectedMessage = HoursWorked.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_negativeOvertime_throwsIllegalValueException() {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                VALID_ROLE, VALID_LEAVES, VALID_HOURLYSALARY, VALID_HOURSWORKED, INVALID_OVERTIME_NEGATIVE,
+                VALID_CALCULATEDPAY, VALID_TAGS);
+        String expectedMessage = Overtime.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_characterInOvertime_throwsIllegalValueException() {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                VALID_ROLE, VALID_LEAVES, VALID_HOURLYSALARY, VALID_HOURSWORKED, INVALID_OVERTIME_CHAR,
+                VALID_CALCULATEDPAY, VALID_TAGS);
+        String expectedMessage = Overtime.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_negativeCalculatedPay_throwsIllegalValueException() {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                VALID_ROLE, VALID_LEAVES, VALID_HOURLYSALARY, VALID_HOURSWORKED, VALID_OVERTIME,
+                INVALID_CALCULATEDPAY_NEGATIVE, VALID_TAGS);
+        String expectedMessage = CalculatedPay.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_characterInCalculatedPay_throwsIllegalValueException() {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                VALID_ROLE, VALID_LEAVES, VALID_HOURLYSALARY, VALID_HOURSWORKED, VALID_OVERTIME,
+                INVALID_CALCULATEDPAY_CHAR, VALID_TAGS);
+        String expectedMessage = CalculatedPay.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

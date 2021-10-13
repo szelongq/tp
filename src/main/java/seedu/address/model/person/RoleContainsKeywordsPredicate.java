@@ -3,6 +3,10 @@ package seedu.address.model.person;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * Tests that a {@code Person}'s {@code Role} contains any of the keywords given.
+ * Role match if the specified keywords are present in the role.
+ */
 public class RoleContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
@@ -11,7 +15,7 @@ public class RoleContainsKeywordsPredicate implements Predicate<Person> {
     }
 
     /**
-     * Tests if the person given contains the given keywords in their address. Not case sensitive.
+     * Tests if the person given contains the given keywords in their role. Not case sensitive.
      * @param person The person whose tags are to be tested
      * @return True if any tags that the person has contains any of the queried keywords.
      */
