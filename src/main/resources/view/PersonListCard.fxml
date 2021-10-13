@@ -38,7 +38,7 @@
         <Label fx:id="leave" styleClass="cell_small_label" text="\$leave" />
         <Label fx:id="hoursWorked" styleClass="cell_small_label" text="\$hoursWorked" />
       </VBox>
-      <VBox fx:id="overdueSalary" minHeight="13" maxWidth="40" />
+      <VBox fx:id="calculatedSalary" minHeight="13" maxWidth="40" />
     </VBox>
   </GridPane>
 </HBox>

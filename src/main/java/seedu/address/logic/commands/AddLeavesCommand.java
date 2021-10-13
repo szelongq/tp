@@ -54,7 +54,7 @@ public class AddLeavesCommand extends Command {
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
                 personToEdit.getRole(), personToEdit.getLeaves().addLeaves(leave), personToEdit.getSalary(),
-                personToEdit.getHoursWorked(), personToEdit.getTags());
+                personToEdit.getHoursWorked(), personToEdit.getCalculatedPay(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
