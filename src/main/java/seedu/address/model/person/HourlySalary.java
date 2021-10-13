@@ -35,7 +35,7 @@ public class HourlySalary {
     public static boolean isValidSalary(String test) {
         requireNonNull(test);
 
-        return StringUtil.isNonNegativeDoubleWithTwoOrLessDecimal(test);
+        return StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces(test);
     }
 
     @Override

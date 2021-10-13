@@ -30,7 +30,7 @@ public class CalculatedPay {
     public static boolean isValidCalculatedPay(String test) {
         requireNonNull(test);
 
-        return StringUtil.isNonNegativeDoubleWithTwoOrLessDecimal(test);
+        return StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces(test);
     }
 
     @Override
