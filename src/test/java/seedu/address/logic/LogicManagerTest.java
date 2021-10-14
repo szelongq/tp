@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.HOURLYSALARY_DESC_AMY
 import static seedu.address.logic.commands.CommandTestUtil.HOURSWORKED_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.LEAVES_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.OVERTIME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -85,7 +86,8 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + ROLE_DESC_AMY + LEAVES_DESC_AMY + HOURLYSALARY_DESC_AMY + HOURSWORKED_DESC_AMY;
+                + ADDRESS_DESC_AMY + ROLE_DESC_AMY + LEAVES_DESC_AMY + HOURLYSALARY_DESC_AMY + HOURSWORKED_DESC_AMY
+                + OVERTIME_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

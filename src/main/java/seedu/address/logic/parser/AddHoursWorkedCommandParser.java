@@ -41,8 +41,8 @@ public class AddHoursWorkedCommandParser implements Parser<AddHoursWorkedCommand
         }
 
         // If both prefixes are not present
-        if (argMultimap.getValue(PREFIX_HOURSWORKED).isEmpty() &&
-                argMultimap.getValue(PREFIX_OVERTIME).isEmpty()) {
+        if (argMultimap.getValue(PREFIX_HOURSWORKED).isEmpty()
+                && argMultimap.getValue(PREFIX_OVERTIME).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddHoursWorkedCommand.MESSAGE_USAGE));
         }

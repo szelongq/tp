@@ -3,7 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -12,8 +13,6 @@ import seedu.address.model.Model;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
-
-import java.util.List;
 
 /**
  * Adds hours worked and overtime hours worked to an employee in HeRon.
@@ -66,7 +65,6 @@ public class AddHoursWorkedCommand extends Command {
                 personToEdit.getCalculatedPay(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
     }

@@ -15,6 +15,7 @@ import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
@@ -163,7 +164,21 @@ public class ParserUtil {
     }
 
     /**
->>>>>>> master
+     * Parses a {@code String amount} into a {@code Overtime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static Overtime parseOvertime(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!HoursWorked.isValidHoursWorked(trimmedAmount)) {
+            throw new ParseException(Overtime.MESSAGE_CONSTRAINTS);
+        }
+        return new Overtime(trimmedAmount);
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *

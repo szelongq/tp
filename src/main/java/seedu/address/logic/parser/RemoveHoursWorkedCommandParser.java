@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INTEGER_INPUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
 
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.RemoveHoursWorkedCommand;
@@ -41,8 +40,8 @@ public class RemoveHoursWorkedCommandParser implements Parser<RemoveHoursWorkedC
         }
 
         // If both prefixes are not present
-        if (argMultimap.getValue(PREFIX_HOURSWORKED).isEmpty() &&
-                argMultimap.getValue(PREFIX_OVERTIME).isEmpty()) {
+        if (argMultimap.getValue(PREFIX_HOURSWORKED).isEmpty()
+                && argMultimap.getValue(PREFIX_OVERTIME).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RemoveHoursWorkedCommand.MESSAGE_USAGE));
         }

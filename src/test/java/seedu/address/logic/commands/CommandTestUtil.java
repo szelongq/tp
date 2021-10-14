@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -46,6 +47,8 @@ public class CommandTestUtil {
     public static final String VALID_HOURLYSALARY_BOB = "9.33";
     public static final String VALID_HOURSWORKED_AMY = "80";
     public static final String VALID_HOURSWORKED_BOB = "40";
+    public static final String VALID_OVERTIME_AMY = "5";
+    public static final String VALID_OVERTIME_BOB = "0";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -65,6 +68,8 @@ public class CommandTestUtil {
     public static final String HOURLYSALARY_DESC_BOB = " " + PREFIX_HOURLYSALARY + VALID_HOURLYSALARY_BOB;
     public static final String HOURSWORKED_DESC_AMY = " " + PREFIX_HOURSWORKED + VALID_HOURSWORKED_AMY;
     public static final String HOURSWORKED_DESC_BOB = " " + PREFIX_HOURSWORKED + VALID_HOURSWORKED_BOB;
+    public static final String OVERTIME_DESC_AMY = " " + PREFIX_OVERTIME + VALID_OVERTIME_AMY;
+    public static final String OVERTIME_DESC_BOB = " " + PREFIX_OVERTIME + VALID_OVERTIME_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -77,6 +82,7 @@ public class CommandTestUtil {
     public static final String INVALID_HOURLYSALARY_DESC =
             " " + PREFIX_HOURLYSALARY + "90%00"; // '%' not allowed in salary
     public static final String INVALID_HOURSWORKED_DESC = " " + PREFIX_HOURSWORKED + "90-00"; // '-' not allowed in HW
+    public static final String INVALID_OVERTIME_DESC = " " + PREFIX_OVERTIME + "90-00"; // '-' not allowed in overtime
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \n";

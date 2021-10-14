@@ -10,6 +10,7 @@ import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
@@ -29,6 +30,7 @@ public class PersonBuilder {
     public static final String DEFAULT_LEAVES = "0";
     public static final String DEFAULT_SALARY = "5000";
     public static final String DEFAULT_HOURSWORKED = "70";
+    public static final String DEFAULT_OVERTIME = "5";
 
 
     private Name name;
@@ -39,6 +41,7 @@ public class PersonBuilder {
     private Leave leave;
     private HourlySalary hourlySalary;
     private HoursWorked hoursWorked;
+    private Overtime overtime;
 
     // When person initialized, always set pay to 0.
     private CalculatedPay calculatedPay = new CalculatedPay("0.00");
@@ -57,6 +60,7 @@ public class PersonBuilder {
         leave = new Leave(DEFAULT_LEAVES);
         hourlySalary = new HourlySalary(DEFAULT_SALARY);
         hoursWorked = new HoursWorked(DEFAULT_HOURSWORKED);
+        overtime = new Overtime(DEFAULT_OVERTIME);
         tags = new HashSet<>();
     }
 
@@ -72,6 +76,7 @@ public class PersonBuilder {
         leave = personToCopy.getLeaves();
         hourlySalary = personToCopy.getSalary();
         hoursWorked = personToCopy.getHoursWorked();
+        overtime = personToCopy.getOvertime();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -147,8 +152,19 @@ public class PersonBuilder {
         return this;
     }
 
-    public Person build() {
-        return new Person(name, phone, email, address, role, leave, hourlySalary, hoursWorked, calculatedPay, tags);
+    /**
+     * Sets the {@code Overtime} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withOvertime(String overtime) {
+        this.overtime = new Overtime(overtime);
+        return this;
     }
 
+    /**
+     * Builds a {@code Person}.
+     */
+    public Person build() {
+        return new Person(name, phone, email, address, role, leave, hourlySalary, hoursWorked, overtime,
+                calculatedPay, tags);
+    }
 }
