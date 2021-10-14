@@ -15,4 +15,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_LEAVE = new Prefix("l/");
     public static final Prefix PREFIX_HOURLYSALARY = new Prefix("s/");
     public static final Prefix PREFIX_HOURSWORKED = new Prefix("hw/");
+    public static final Prefix PREFIX_OVERTIME = new Prefix("o/");
 }

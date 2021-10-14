@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -42,6 +43,7 @@ public class AddCommand extends Command {
             + PREFIX_LEAVE + "14 "
             + PREFIX_HOURLYSALARY + "3000 "
             + PREFIX_HOURSWORKED + "40 "
+            + PREFIX_OVERTIME + "5 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 

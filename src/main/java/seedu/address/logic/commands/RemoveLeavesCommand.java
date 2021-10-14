@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 
 import java.util.List;
 
@@ -24,10 +24,10 @@ public class RemoveLeavesCommand extends Command {
             + "Number of leaves removed cannot be greater than the amount of leaves "
             + "the employee currently has. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "l/NO_OF_DAYS (must be a positive integer) \n"
-            + "Example: " + COMMAND_WORD + " 1 l/2";
+            + PREFIX_LEAVE + "NO_OF_DAYS (must be a positive integer) \n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_LEAVE + "2";
     public static final String MESSAGE_SUCCESS =
-            "Leaves successfully removed, current leaves are: %1$s";
+            "Leaves successfully removed from person: %1$s";
 
     private final Index index;
     private final Leave leave;
@@ -58,16 +58,16 @@ public class RemoveLeavesCommand extends Command {
             editedPerson = new Person(
                     personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
                     personToEdit.getRole(), personToEdit.getLeaves().removeLeaves(leave), personToEdit.getSalary(),
-                    personToEdit.getHoursWorked(), personToEdit.getCalculatedPay(), personToEdit.getTags());
+                    personToEdit.getHoursWorked(), personToEdit.getOvertime(),
+                    personToEdit.getCalculatedPay(), personToEdit.getTags());
         } catch (IllegalArgumentException iae) {
             throw new CommandException(
-                    String.format(Messages.MESSAGE_INVALID_REMOVELEAVES_INPUT, leave));
+                    String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT, leave, "leaves"));
         }
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.getLeaves()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
     }
 
     @Override

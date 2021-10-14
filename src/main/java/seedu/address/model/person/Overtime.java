@@ -37,6 +37,32 @@ public class Overtime {
         }
     }
 
+    /**
+     * Returns an updated Overtime object with the specified number of overtime hours added.
+     *
+     * @param overtime The number of overtime hours to be added.
+     * @return An updated Overtime object.
+     */
+    public Overtime addOvertime(Overtime overtime) {
+        int updatedValue = value + overtime.value;
+        return new Overtime(String.valueOf(updatedValue));
+    }
+
+    /**
+     * Returns an updated Overtime object with the specified number of overtime hours removed.
+     *
+     * @param overtime The number of overtime hours to be removed.
+     * @return An updated Overtime object.
+     * @throws IllegalArgumentException if the number of overtime hours to be removed
+     * is greater than the current number of overtime hours.
+     */
+    public Overtime removeOvertime(Overtime overtime) {
+        int updatedValue = value - overtime.value;
+        if (updatedValue < 0) {
+            throw new IllegalArgumentException();
+        }
+        return new Overtime(String.valueOf(updatedValue));
+    }
 
     @Override
     public String toString() {

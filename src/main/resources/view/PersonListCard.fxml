@@ -37,6 +37,7 @@
       <VBox>
         <Label fx:id="leave" styleClass="cell_small_label" text="\$leave" />
         <Label fx:id="hoursWorked" styleClass="cell_small_label" text="\$hoursWorked" />
+        <Label fx:id="overtime" styleClass="cell_small_label" text="\$overtime" />
       </VBox>
       <VBox fx:id="calculatedSalary" minHeight="13" maxWidth="40" />
     </VBox>

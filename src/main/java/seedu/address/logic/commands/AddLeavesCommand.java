@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 
 import java.util.List;
 
@@ -22,10 +22,10 @@ public class AddLeavesCommand extends Command {
             + ": Adds leaves to the employee identified "
             + "by the index number used in the last person listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "l/NO_OF_DAYS (must be a positive integer) \n"
-            + "Example: " + COMMAND_WORD + " 1 l/2";
+            + PREFIX_LEAVE + "NO_OF_DAYS (must be a positive integer) \n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_LEAVE + "2";
     public static final String MESSAGE_SUCCESS =
-            "Leaves successfully added, current leaves are: %1$s";
+            "Leaves successfully added to person: %1$s";
 
     private final Index index;
     private final Leave leave;
@@ -54,12 +54,12 @@ public class AddLeavesCommand extends Command {
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
                 personToEdit.getRole(), personToEdit.getLeaves().addLeaves(leave), personToEdit.getSalary(),
-                personToEdit.getHoursWorked(), personToEdit.getCalculatedPay(), personToEdit.getTags());
+                personToEdit.getHoursWorked(), personToEdit.getOvertime(),
+                personToEdit.getCalculatedPay(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.getLeaves()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
     }
 
     @Override

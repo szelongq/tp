@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -30,6 +31,7 @@ import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
@@ -54,6 +56,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_LEAVE + "LEAVES] "
             + "[" + PREFIX_HOURLYSALARY + "SALARY] "
             + "[" + PREFIX_HOURSWORKED + "HOURS_WORKED] "
+            + "[" + PREFIX_OVERTIME + "OVERTIME] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -114,12 +117,14 @@ public class EditCommand extends Command {
         Leave updatedLeave = editPersonDescriptor.getLeaves().orElse(personToEdit.getLeaves());
         HourlySalary updatedHourlySalary = editPersonDescriptor.getSalary().orElse(personToEdit.getSalary());
         HoursWorked updatedHours = editPersonDescriptor.getHoursWorked().orElse(personToEdit.getHoursWorked());
+        Overtime updatedOvertime = editPersonDescriptor.getOvertime().orElse(personToEdit.getOvertime());
         CalculatedPay updatedCalculatedPay =
                 editPersonDescriptor.getCalculatedPay().orElse(personToEdit.getCalculatedPay());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
-                updatedRole, updatedLeave, updatedHourlySalary, updatedHours, updatedCalculatedPay, updatedTags);
+                updatedRole, updatedLeave, updatedHourlySalary, updatedHours, updatedOvertime,
+                updatedCalculatedPay, updatedTags);
     }
 
     @Override
@@ -153,6 +158,7 @@ public class EditCommand extends Command {
         private Leave leave;
         private HourlySalary hourlySalary;
         private HoursWorked hoursWorked;
+        private Overtime overtime;
         private CalculatedPay calculatedPay;
 
         private Set<Tag> tags;
@@ -181,7 +187,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email, address, role, leave, hourlySalary, hoursWorked,
-                    calculatedPay, tags);
+                    overtime, calculatedPay, tags);
         }
 
         public void setName(Name name) {
@@ -248,6 +254,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(hoursWorked);
         }
 
+        public void setOvertime (Overtime overtime) {
+            this.overtime = overtime;
+        }
+
+        public Optional<Overtime> getOvertime() {
+            return Optional.ofNullable(overtime);
+        }
+
         public void setCalculatedPay(CalculatedPay calculatedPay) {
             this.calculatedPay = calculatedPay;
         }
@@ -296,6 +310,7 @@ public class EditCommand extends Command {
                     && getLeaves().equals(e.getLeaves())
                     && getSalary().equals(e.getSalary())
                     && getHoursWorked().equals(e.getHoursWorked())
+                    && getOvertime().equals(e.getOvertime())
                     && getCalculatedPay().equals(e.getCalculatedPay())
                     && getTags().equals(e.getTags());
         }

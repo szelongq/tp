@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -42,6 +43,7 @@ public class PersonUtil {
         sb.append(PREFIX_LEAVE + person.getLeaves().toString() + " ");
         sb.append(PREFIX_HOURLYSALARY + person.getSalary().toString() + " ");
         sb.append(PREFIX_HOURSWORKED + person.getHoursWorked().toString() + " ");
+        sb.append(PREFIX_OVERTIME + person.getOvertime().toString() + " ");
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
