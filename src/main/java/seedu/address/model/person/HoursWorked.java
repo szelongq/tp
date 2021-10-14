@@ -38,6 +38,32 @@ public class HoursWorked {
         }
     }
 
+    /**
+     * Returns an updated HoursWorked object with the specified number of hours worked added.
+     *
+     * @param hoursWorked The number of hours worked to be added.
+     * @return An updated HoursWorked object.
+     */
+    public HoursWorked addHoursWorked(HoursWorked hoursWorked) {
+        int updatedValue = value + hoursWorked.value;
+        return new HoursWorked(String.valueOf(updatedValue));
+    }
+
+    /**
+     * Returns an updated HoursWorked object with the specified number of hours worked removed.
+     *
+     * @param hoursWorked The number of hours worked to be removed.
+     * @return An updated HoursWorked object.
+     * @throws IllegalArgumentException if the number of hours worked to be removed
+     * is greater than the current number of hours worked.
+     */
+    public HoursWorked removeHoursWorked(HoursWorked hoursWorked) {
+        int updatedValue = value - hoursWorked.value;
+        if (updatedValue < 0) {
+            throw new IllegalArgumentException();
+        }
+        return new HoursWorked(String.valueOf(updatedValue));
+    }
 
     @Override
     public String toString() {

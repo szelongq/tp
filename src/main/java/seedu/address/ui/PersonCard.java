@@ -49,6 +49,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label hoursWorked;
     @FXML
+    private Label overtime;
+    @FXML
     private VBox calculatedSalary;
     @FXML
     private FlowPane tags;
@@ -67,6 +69,7 @@ public class PersonCard extends UiPart<Region> {
         role.setText(person.getRole().value);
         leave.setText(String.format("Leaves Remaining: %s", person.getLeaves().toString()));
         hoursWorked.setText(String.format("Hours Worked: %s", person.getHoursWorked().toString()));
+        overtime.setText(String.format("Overtime Hours Worked: %s", person.getOvertime().toString()));
 
         String salaryDue = person.getCalculatedPay().toString(); // To be replaced by calculated salary
         if (!salaryDue.equals("0.00")) {

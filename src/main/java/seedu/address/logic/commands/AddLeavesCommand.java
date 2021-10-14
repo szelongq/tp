@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -22,8 +23,8 @@ public class AddLeavesCommand extends Command {
             + ": Adds leaves to the employee identified "
             + "by the index number used in the last person listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "l/NO_OF_DAYS (must be a positive integer) \n"
-            + "Example: " + COMMAND_WORD + " 1 l/2";
+            + PREFIX_LEAVE + "NO_OF_DAYS (must be a positive integer) \n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_LEAVE + "2";
     public static final String MESSAGE_SUCCESS =
             "Leaves successfully added, current leaves are: %1$s";
 
