@@ -59,7 +59,7 @@ public class AddHoursWorkedCommandParser implements Parser<AddHoursWorkedCommand
             throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
                     AddHoursWorkedCommand.MESSAGE_USAGE), nfe);
         }
-        // At least one of the inputs must be a non-negative integer
+        // At least one of the inputs must be a positive integer
         if (hoursWorked <= 0 && overtime <= 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
                     AddHoursWorkedCommand.MESSAGE_USAGE));

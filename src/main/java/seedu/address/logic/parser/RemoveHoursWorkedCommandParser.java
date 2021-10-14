@@ -58,7 +58,7 @@ public class RemoveHoursWorkedCommandParser implements Parser<RemoveHoursWorkedC
             throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
                     RemoveHoursWorkedCommand.MESSAGE_USAGE), nfe);
         }
-        // At least one of the inputs must be a non-negative integer
+        // At least one of the inputs must be a positive integer
         if (hoursWorked <= 0 && overtime <= 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
                     RemoveHoursWorkedCommand.MESSAGE_USAGE));
