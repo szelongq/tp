@@ -88,7 +88,7 @@ public class ImportCommand extends Command {
                 HoursWorked hoursWorked = ParserUtil.parseHoursWorked(row[7]);
                 Set<Tag> tagList = row[9].equals("")
                         ? new HashSet<>()
-                        : ParserUtil.parseTags(Arrays.asList((row[9].split(","))));
+                        : ParserUtil.parseTags(Arrays.asList((row[9].split("/"))));
 
                 Person newPerson = new Person(name, phone, email, address, role, leaves, hourlySalary, hoursWorked,
                         new CalculatedPay("0"), tagList);
