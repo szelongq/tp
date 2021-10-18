@@ -1,14 +1,6 @@
 package seedu.address.model.person;
 
 import com.opencsv.bean.CsvBindByName;
-import seedu.address.model.tag.Tag;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a PersonInput object with raw data taken from the csv file.
@@ -17,29 +9,30 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class PersonInput {
 
     // Identity fields
-    @CsvBindByName(column="Name", required = true)
+    @CsvBindByName(column = "Name", required = true)
     private String name;
-    @CsvBindByName(column="Contact Number", required = true)
+    @CsvBindByName(column = "Contact Number", required = true)
     private String phone;
-    @CsvBindByName(column="Email", required = true)
+    @CsvBindByName(column = "Email", required = true)
     private String email;
 
     // Data fields
-    @CsvBindByName(column="Address", required = true)
+    @CsvBindByName(column = "Residential Address", required = true)
     private String address;
-    @CsvBindByName(column="Remarks", required = false)
+    @CsvBindByName(column = "Tags", required = false)
     private String tags;
 
     // Employee fields
-    @CsvBindByName(column="Role", required = true)
+    @CsvBindByName(column = "Role", required = true)
     private String role;
-    @CsvBindByName(column="Leaves", required = false)
+
+    @CsvBindByName(column = "Leaves", required = false)
     private String leave;
-    @CsvBindByName(column="Salary", required = false)
+    @CsvBindByName(column = "Salary", required = false)
     private String salary;
-    @CsvBindByName(column="Hours Worked", required = false)
+    @CsvBindByName(column = "Hours Worked", required = false)
     private String hoursWorked;
-    @CsvBindByName(column="Overtime", required = false)
+    @CsvBindByName(column = "Overtime", required = false)
     private String overtime;
 
     public PersonInput(){};
@@ -52,7 +45,7 @@ public class PersonInput {
         return phone;
     }
 
-    public  String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -64,7 +57,7 @@ public class PersonInput {
         return role;
     }
 
-    public  String getLeaves() {
+    public String getLeaves() {
         return leave;
     }
 
@@ -96,7 +89,7 @@ public class PersonInput {
         this.phone = phone;
     }
 
-    public  void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -108,8 +101,8 @@ public class PersonInput {
         this.role = role;
     }
 
-    public  void setLeaves(String leave) {
-        this.leave =  leave;
+    public void setLeaves(String leave) {
+        this.leave = leave;
     }
 
     public void setSalary(String salary) {

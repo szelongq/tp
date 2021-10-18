@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import com.opencsv.bean.CsvBindByName;
 import seedu.address.model.tag.Tag;
 
 /**
