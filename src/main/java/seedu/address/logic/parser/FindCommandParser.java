@@ -22,6 +22,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.HoursEqualPredicate;
+import seedu.address.model.person.predicates.HoursLessThanEqualPredicate;
+import seedu.address.model.person.predicates.HoursLessThanPredicate;
+import seedu.address.model.person.predicates.HoursMoreThanEqualPredicate;
+import seedu.address.model.person.predicates.HoursMoreThanPredicate;
 import seedu.address.model.person.predicates.LeaveEqualPredicate;
 import seedu.address.model.person.predicates.LeaveLessThanEqualPredicate;
 import seedu.address.model.person.predicates.LeaveLessThanPredicate;
@@ -111,6 +116,11 @@ public class FindCommandParser implements Parser<FindCommand> {
             Predicate<Person> personPredicate = getLeaveComparisonPredicate(keyValue);
             filters.add(personPredicate);
         }
+        if (argMultimap.getValue(PREFIX_HOURSWORKED).isPresent()) {
+            String keyValue = argMultimap.getValue(PREFIX_HOURSWORKED).get();
+            Predicate<Person> personPredicate = getHoursComparisonPredicate(keyValue);
+            filters.add(personPredicate);
+        }
         return new FindCommand(combinePredicates(filters));
     }
 
@@ -187,7 +197,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
 
     /**
-     * Used for parsing the input given by the user for finding with respect to overtime.
+     * Used for parsing the input given by the user for finding with respect to leaves.
      *
      * @param input A string describing the condition for the overtime of the person.
      * @return A Predicate which checks if the person passes the given condition as described in the input.
@@ -215,6 +225,34 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
     }
 
+    /**
+     * Used for parsing the input given by the user for finding with respect to leaves.
+     *
+     * @param input A string describing the condition for the overtime of the person.
+     * @return A Predicate which checks if the person passes the given condition as described in the input.
+     */
+    private Predicate<Person> getHoursComparisonPredicate(String input) throws ParseException {
+        try {
+            CompareType compareType = parseComparator(input);
+            int value = Integer.parseInt(getComparisonValue(input, compareType));
+            if (compareType == CompareType.MORE_THAN) {
+                return new HoursMoreThanPredicate(value);
+            } else if (compareType == CompareType.MORE_THAN_EQUAL) {
+                return new HoursMoreThanEqualPredicate(value);
+            } else if (compareType == CompareType.EQUAL) {
+                return new HoursEqualPredicate(value);
+            } else if (compareType == CompareType.LESS_THAN) {
+                return new HoursLessThanPredicate(value);
+            } else if (compareType == CompareType.LESS_THAN_EQUAL) {
+                return new HoursLessThanEqualPredicate(value);
+            } else {
+                throw new ParseException("Invalid comparison type!");
+            }
+        } catch (NumberFormatException | StringIndexOutOfBoundsException | ParseException e) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+    }
     /**
      * Parses the initial user input and gets the type of comparison the user wants to make.
      * ">=" for more than or equal, ">" for strictly more than
