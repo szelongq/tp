@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.apache.commons.lang3.ObjectUtils;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -85,15 +86,26 @@ public class ImportCommand extends Command {
                 Email email = ParserUtil.parseEmail(input.getEmail());
                 Address address = ParserUtil.parseAddress(input.getAddress());
                 Role role = ParserUtil.parseRole(input.getRole());
-                Leave leaves = ParserUtil.parseLeaves(input.getLeaves());
-                HourlySalary hourlySalary = ParserUtil.parseSalary(input.getSalary());
-                HoursWorked hoursWorked = ParserUtil.parseHoursWorked(input.getHoursWorked());
-                Set<Tag> tagList = input.getTags().equals("")
+
+                Leave leaves = input.getLeaves() == null
+                        ? new Leave("0")
+                        : ParserUtil.parseLeaves(input.getLeaves());
+
+                HourlySalary hourlySalary = input.getSalary() == null
+                        ? new HourlySalary("0")
+                        : ParserUtil.parseSalary(input.getSalary());
+
+                HoursWorked hoursWorked = input.getHoursWorked() == null
+                        ? new HoursWorked("0")
+                        : ParserUtil.parseHoursWorked(input.getHoursWorked());
+
+                Set<Tag> tagList = input.getTags() == null
                         ? new HashSet<>()
                         : ParserUtil.parseTags(Arrays.asList(input.getTags().split("/")));
+
                 newPersonList.add(new Person(name, phone, email, address, role, leaves, hourlySalary, hoursWorked,
                         new CalculatedPay("0"), tagList));
-            } catch (ParseException e) {
+            } catch (ParseException | NullPointerException e) {
                 throw new CommandException("Error while parsing file.");
             }
         }

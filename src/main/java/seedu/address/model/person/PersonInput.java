@@ -11,8 +11,8 @@ import java.util.Set;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
- * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a PersonInput object with raw data taken from the csv file.
+ * Used as an intermediate object before converting this object into a person object to be used by the AddressBook.
  */
 public class PersonInput {
 
@@ -33,13 +33,13 @@ public class PersonInput {
     // Employee fields
     @CsvBindByName(column="Role", required = true)
     private String role;
-    @CsvBindByName(column="Leaves", required = true)
+    @CsvBindByName(column="Leaves", required = false)
     private String leave;
-    @CsvBindByName(column="Salary", required = true)
+    @CsvBindByName(column="Salary", required = false)
     private String salary;
-    @CsvBindByName(column="Hours Worked", required = true)
+    @CsvBindByName(column="Hours Worked", required = false)
     private String hoursWorked;
-    @CsvBindByName(column="Overtime", required = true)
+    @CsvBindByName(column="Overtime", required = false)
     private String overtime;
 
     public PersonInput(){};
