@@ -19,10 +19,15 @@ import java.util.function.Predicate;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.LeaveEqualPredicate;
+import seedu.address.model.person.predicates.LeaveLessThanEqualPredicate;
+import seedu.address.model.person.predicates.LeaveLessThanPredicate;
+import seedu.address.model.person.predicates.LeaveMoreThanEqualPredicate;
+import seedu.address.model.person.predicates.LeaveMoreThanPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.OvertimeEqualPredicate;
 import seedu.address.model.person.predicates.OvertimeLessThanEqualPredicate;
 import seedu.address.model.person.predicates.OvertimeLessThanPredicate;
@@ -101,6 +106,11 @@ public class FindCommandParser implements Parser<FindCommand> {
             Predicate<Person> personPredicate = getOvertimeComparisonPredicate(keyValue);
             filters.add(personPredicate);
         }
+        if (argMultimap.getValue(PREFIX_LEAVE).isPresent()) {
+            String keyValue = argMultimap.getValue(PREFIX_LEAVE).get();
+            Predicate<Person> personPredicate = getLeaveComparisonPredicate(keyValue);
+            filters.add(personPredicate);
+        }
         return new FindCommand(combinePredicates(filters));
     }
 
@@ -167,6 +177,35 @@ public class FindCommandParser implements Parser<FindCommand> {
                 return new OvertimeLessThanPredicate(value);
             } else if (compareType == CompareType.LESS_THAN_EQUAL) {
                 return new OvertimeLessThanEqualPredicate(value);
+            } else {
+                throw new ParseException("Invalid comparison type!");
+            }
+        } catch (NumberFormatException | StringIndexOutOfBoundsException | ParseException e) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Used for parsing the input given by the user for finding with respect to overtime.
+     *
+     * @param input A string describing the condition for the overtime of the person.
+     * @return A Predicate which checks if the person passes the given condition as described in the input.
+     */
+    private Predicate<Person> getLeaveComparisonPredicate(String input) throws ParseException {
+        try {
+            CompareType compareType = parseComparator(input);
+            int value = Integer.parseInt(getComparisonValue(input, compareType));
+            if (compareType == CompareType.MORE_THAN) {
+                return new LeaveMoreThanPredicate(value);
+            } else if (compareType == CompareType.MORE_THAN_EQUAL) {
+                return new LeaveMoreThanEqualPredicate(value);
+            } else if (compareType == CompareType.EQUAL) {
+                return new LeaveEqualPredicate(value);
+            } else if (compareType == CompareType.LESS_THAN) {
+                return new LeaveLessThanPredicate(value);
+            } else if (compareType == CompareType.LESS_THAN_EQUAL) {
+                return new LeaveLessThanEqualPredicate(value);
             } else {
                 throw new ParseException("Invalid comparison type!");
             }

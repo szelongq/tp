@@ -4,10 +4,10 @@ import java.util.function.Predicate;
 
 import seedu.address.model.person.Person;
 
-public class OvertimeMoreThanEqualPredicate implements Predicate<Person> {
+public class LeaveMoreThanEqualPredicate implements Predicate<Person> {
     private final int value;
 
-    public OvertimeMoreThanEqualPredicate(int value) {
+    public LeaveMoreThanEqualPredicate(int value) {
         this.value = value;
     }
 
@@ -18,13 +18,13 @@ public class OvertimeMoreThanEqualPredicate implements Predicate<Person> {
      */
     @Override
     public boolean test(Person person) {
-        return person.getOvertime().value >= this.value;
+        return person.getLeaves().value >= this.value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof OvertimeMoreThanEqualPredicate // instanceof handles nulls
-                && value == ((OvertimeMoreThanEqualPredicate) other).value); // state check
+                || (other instanceof LeaveMoreThanEqualPredicate // instanceof handles nulls
+                && value == ((LeaveMoreThanEqualPredicate) other).value); // state check
     }
 }
