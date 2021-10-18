@@ -14,7 +14,7 @@ public class HoursEqualPredicate implements Predicate<Person> {
     /**
      * Tests if the person given has worked a number of hours equal to the given value.
      * @param person The person whose hours worked is to be tested
-     * @return true if the person's number of hours worked is more than or equal the given value.
+     * @return true if the person's number of hours worked is equal the given value.
      */
     @Override
     public boolean test(Person person) {

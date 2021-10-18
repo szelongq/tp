@@ -12,9 +12,9 @@ public class LeaveLessThanEqualPredicate implements Predicate<Person> {
     }
 
     /**
-     * Tests if the person given has a overtime less than or equal the given value.
-     * @param person The person whose overtime is to be tested
-     * @return true if the person's overtime is less than or equal the given value.
+     * Tests if the person given has a number of leaves less than or equal the given value.
+     * @param person The person whose number of leaves is to be tested
+     * @return true if the person's number of leaves is less than or equal the given value.
      */
     @Override
     public boolean test(Person person) {

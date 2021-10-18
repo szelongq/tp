@@ -12,7 +12,7 @@ public class HoursLessThanEqualPredicate implements Predicate<Person> {
     }
 
     /**
-     * Tests if the person given has worked hours less than or equal the given value.
+     * Tests if the person given has worked a number of hours less than or equal the given value.
      * @param person The person whose hours worked is to be tested
      * @return true if the person's number of hours worked is less than or equal the given value.
      */
