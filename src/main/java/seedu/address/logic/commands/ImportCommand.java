@@ -1,23 +1,32 @@
 package seedu.address.logic.commands;
 
-import com.opencsv.CSVReaderBuilder;
-import com.opencsv.exceptions.CsvException;
+import com.opencsv.bean.CsvToBeanBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
-import com.opencsv.CSVReader;
-import seedu.address.model.ModelManager;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.CalculatedPay;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.HourlySalary;
+import seedu.address.model.person.HoursWorked;
+import seedu.address.model.person.Leave;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonInput;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
@@ -68,33 +77,24 @@ public class ImportCommand extends Command {
             throw new CommandException(MESSAGE_IMPORT_MISSING_FILE);
         }
 
-        try {
-            CSVReader csvReader = new CSVReaderBuilder(fileReader).withSkipLines(1).build();
-            allData = csvReader.readAll();
-        } catch (IOException | CsvException e) {
-            throw new CommandException(MESSAGE_IMPORT_FILE_FORMAT);
-        }
-
-        // Assumes all required data is present, and in correct order.
-        for (String[] row : allData) {
+        List<PersonInput> newPersonInputList = new CsvToBeanBuilder(fileReader).withType(PersonInput.class).build().parse();
+        for (PersonInput input : newPersonInputList) {
             try {
-                Name name = ParserUtil.parseName(row[0]);
-                Phone phone = ParserUtil.parsePhone(row[1]);
-                Email email = ParserUtil.parseEmail(row[2]);
-                Address address = ParserUtil.parseAddress(row[3]);
-                Role role = ParserUtil.parseRole(row[4]);
-                Leave leaves = ParserUtil.parseLeaves(row[5]);
-                HourlySalary hourlySalary = ParserUtil.parseSalary(row[6]);
-                HoursWorked hoursWorked = ParserUtil.parseHoursWorked(row[7]);
-                Set<Tag> tagList = row[9].equals("")
+                Name name = ParserUtil.parseName(input.getName());
+                Phone phone = ParserUtil.parsePhone(input.getPhone());
+                Email email = ParserUtil.parseEmail(input.getEmail());
+                Address address = ParserUtil.parseAddress(input.getAddress());
+                Role role = ParserUtil.parseRole(input.getRole());
+                Leave leaves = ParserUtil.parseLeaves(input.getLeaves());
+                HourlySalary hourlySalary = ParserUtil.parseSalary(input.getSalary());
+                HoursWorked hoursWorked = ParserUtil.parseHoursWorked(input.getHoursWorked());
+                Set<Tag> tagList = input.getTags().equals("")
                         ? new HashSet<>()
-                        : ParserUtil.parseTags(Arrays.asList((row[9].split("/"))));
-
-                Person newPerson = new Person(name, phone, email, address, role, leaves, hourlySalary, hoursWorked,
-                        new CalculatedPay("0"), tagList);
-                newPersonList.add(newPerson);
+                        : ParserUtil.parseTags(Arrays.asList(input.getTags().split("/")));
+                newPersonList.add(new Person(name, phone, email, address, role, leaves, hourlySalary, hoursWorked,
+                        new CalculatedPay("0"), tagList));
             } catch (ParseException e) {
-                throw new CommandException(MESSAGE_IMPORT_FILE_FORMAT);
+                throw new CommandException("Error while parsing file.");
             }
         }
         return newPersonList;
