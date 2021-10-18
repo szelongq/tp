@@ -21,14 +21,14 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.AddressContainsKeywordsPredicate;
-import seedu.address.model.person.EmailContainsKeywordsPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PhoneNumberMatchesPredicate;
-import seedu.address.model.person.RoleContainsKeywordsPredicate;
-import seedu.address.model.person.SalaryIsEqualPredicate;
-import seedu.address.model.person.TagContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.PhoneNumberMatchesPredicate;
+import seedu.address.model.person.predicates.RoleContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.SalaryIsEqualPredicate;
+import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 

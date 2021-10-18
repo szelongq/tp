@@ -1,4 +1,6 @@
-package seedu.address.model.person;
+package seedu.address.model.person.predicates;
+
+import seedu.address.model.person.Person;
 
 import java.util.function.Predicate;
 
@@ -12,7 +14,7 @@ public class SalaryIsMoreThanPredicate implements Predicate<Person> {
     /**
      * Tests if the person given has a salary strictly more than the given value.
      * @param person The person whose salary is to be tested
-     * @return true if the person's salary is strictly greater than the given value.
+     * @return true if the person's salary is strictly more than the given value.
      */
     @Override
     public boolean test(Person person) {
