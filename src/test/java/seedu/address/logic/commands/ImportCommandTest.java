@@ -27,7 +27,7 @@ public class ImportCommandTest {
     private static final Path ALL_COLUMNS_PRESENT_FILE = TEST_DATA_FOLDER.resolve("AllColumnsPresent.csv");
     private static final Path MIXED_COLUMN_ORDERING_FILE = TEST_DATA_FOLDER.resolve("MixedColumnOrdering.csv");
     private static final Path MISSING_LEAVES_SALARY_HOURSWORKED_TAGS_FILE =
-            TEST_DATA_FOLDER.resolve("MissingLeavesSalaryHoursWorkedTags.txt");
+            TEST_DATA_FOLDER.resolve("MissingLeavesSalaryHoursWorkedTags.csv");
     private Model modelWithDefaultAddressBook;
     private Model model;
 
