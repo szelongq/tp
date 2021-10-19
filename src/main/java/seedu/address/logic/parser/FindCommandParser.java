@@ -38,6 +38,7 @@ import seedu.address.model.person.predicates.OvertimeLessThanEqualPredicate;
 import seedu.address.model.person.predicates.OvertimeLessThanPredicate;
 import seedu.address.model.person.predicates.OvertimeMoreThanEqualPredicate;
 import seedu.address.model.person.predicates.OvertimeMoreThanPredicate;
+import seedu.address.model.person.predicates.PersonIsPaidPredicate;
 import seedu.address.model.person.predicates.PhoneNumberMatchesPredicate;
 import seedu.address.model.person.predicates.RoleContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.SalaryIsEqualPredicate;
@@ -63,20 +64,23 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_ROLE,
                         PREFIX_LEAVE, PREFIX_HOURLYSALARY, PREFIX_HOURSWORKED, PREFIX_TAG, PREFIX_OVERTIME);
 
         String preamble = argMultimap.getPreamble();
-        System.out.println("Preamble: " + preamble);
-        System.out.println(argMultimap);
+        if (trimmedArgs.isEmpty() && preamble.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
         ArrayList<Predicate<Person>> filters = new ArrayList<>();
-        // To modify in the future: Simply add a predicate for each relevant tag
-        // Refer to EditCommandParser
+
+        // Check if prefix exists and add the relevant predicate into the list of filters
+        if (preamble.contains("unpaid")) {
+            filters.add(new PersonIsPaidPredicate());
+        }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             String[] nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
             filters.add(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
