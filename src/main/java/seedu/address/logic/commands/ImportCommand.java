@@ -34,16 +34,20 @@ import seedu.address.model.tag.Tag;
 public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": imports a current existing CSV file into HeRon."
-            + "Parameters: Absolute Path leading to desired CSV file."
-            + "Example: " + COMMAND_WORD + " ~/Desktop/toBeImported.csv";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": imports a current existing CSV file into HeRon.\n"
+            + "Parameters: Absolute Path leading to desired CSV file.\n"
+            + "Example: " + COMMAND_WORD + " /Users/Owner/Desktop/toBeImported.csv";
 
     public static final String MESSAGE_IMPORT_SUCCESS = "File was successfully imported";
     public static final String MESSAGE_IMPORT_FAILURE = "Error occurred while importing the file. ";
-    public static final String MESSAGE_IMPORT_MISSING_FILE = MESSAGE_IMPORT_FAILURE
-            + "Please check the filepath and try again."; // Should be an error for finding the file.
-    public static final String MESSAGE_IMPORT_FILE_FORMAT = MESSAGE_IMPORT_FAILURE
-            + "Please check the data formatting in the file and try again.";
+    public static final String MESSAGE_IMPORT_MISSING_FILE = MESSAGE_IMPORT_FAILURE + "\n"
+            + "Please check the filepath and try again.";
+    public static final String MESSAGE_IMPORT_MISSING_FIELDS = MESSAGE_IMPORT_FAILURE + "\n"
+            + "Please check all entries have the required fields: Name, Contact Number, Address, Email and Role.";
+    public static final String MESSAGE_IMPORT_FORMAT_ERROR = MESSAGE_IMPORT_FAILURE
+            + "Please check the formatting of the data.\n"
+            + "Ensure that there are no entries with all empty fields in the CSV file "
+            + "and the number of header columns match the number of columns in all employee entries.";
 
     private final String filepath;
 
@@ -78,7 +82,7 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * The functions which parses and creates the new address book from the CSV file.
+     * Parses and creates the new address book from the data in the CSV file.
      * @param filepath The string representation of the filepath to the desired csv file.
      * @return List A collection of Person objects to be replaced into the address book.
      * @throws CommandException If an error occurs during the processing of the CSV file into Person objects.
@@ -86,49 +90,103 @@ public class ImportCommand extends Command {
     public List<Person> processCsv(String filepath) throws CommandException {
         FileReader fileReader;
         List<Person> newPersonList = new ArrayList<>();
+        List<PersonInput> newPersonInputList;
         try {
             fileReader = new FileReader(filepath);
         } catch (FileNotFoundException e) {
             throw new CommandException(MESSAGE_IMPORT_MISSING_FILE);
         }
 
-        List<PersonInput> newPersonInputList = new CsvToBeanBuilder(fileReader).withType(PersonInput.class)
-                .build().parse();
+        try {
+            newPersonInputList = new CsvToBeanBuilder(fileReader).withType(PersonInput.class)
+                    .build().parse();
+        } catch (RuntimeException e) {
+            throw new CommandException(MESSAGE_IMPORT_FORMAT_ERROR);
+        }
         for (PersonInput input : newPersonInputList) {
             try {
+                // Required Fields
                 Name name = ParserUtil.parseName(input.getName());
                 Phone phone = ParserUtil.parsePhone(input.getPhone());
                 Email email = ParserUtil.parseEmail(input.getEmail());
                 Address address = ParserUtil.parseAddress(input.getAddress());
                 Role role = ParserUtil.parseRole(input.getRole());
 
-                Leave leaves = input.getLeaves() == null
-                        ? new Leave("0")
-                        : ParserUtil.parseLeaves(input.getLeaves());
-
-                HourlySalary hourlySalary = input.getSalary() == null
-                        ? new HourlySalary("0")
-                        : ParserUtil.parseSalary(input.getSalary());
-
-                HoursWorked hoursWorked = input.getHoursWorked() == null
-                        ? new HoursWorked("0")
-                        : ParserUtil.parseHoursWorked(input.getHoursWorked());
-
-                Overtime overtime = input.getOvertime() == null
-                        ? new Overtime("0")
-                        : ParserUtil.parseOvertime(input.getOvertime());
-
-                Set<Tag> tagList = (input.getTags() == null || input.getTags().equals(""))
-                        ? new HashSet<>()
-                        : ParserUtil.parseTags(Arrays.asList(input.getTags().split("/")));
+                // Optional Fields
+                Leave leaves = buildLeave(input);
+                HourlySalary hourlySalary = buildSalary(input);
+                HoursWorked hoursWorked = buildHoursWorked(input);
+                Overtime overtime = buildOvertime(input);
+                Set<Tag> tagList = buildTags(input);
 
                 newPersonList.add(new Person(name, phone, email, address, role, leaves, hourlySalary, hoursWorked,
                         overtime, new CalculatedPay("0"), tagList));
             } catch (ParseException e) {
-                throw new CommandException("Error while parsing file.");
+                throw new CommandException(MESSAGE_IMPORT_MISSING_FIELDS);
             }
         }
         return newPersonList;
+    }
+
+    /**
+     * Creates a Leave object
+     * @param input PersonInput object created by the bean.
+     * @return An Leave object for the Person constructor
+     * @throws ParseException If an error occurs while parsing the String input.
+     */
+    private Leave buildLeave(PersonInput input) throws ParseException {
+        return input.getLeaves() == null
+                ? new Leave("0")
+                : ParserUtil.parseLeaves(input.getLeaves());
+    }
+
+    /**
+     * Creates a HourlySalary object
+     * @param input PersonInput object created by the bean.
+     * @return An HourlySalary object for the Person constructor
+     * @throws ParseException If an error occurs while parsing the String input.
+     */
+    private HourlySalary buildSalary(PersonInput input) throws ParseException {
+        return input.getSalary() == null
+                ? new HourlySalary("0")
+                : ParserUtil.parseSalary(input.getSalary());
+    }
+
+    /**
+     * Creates a HoursWorked object
+     * @param input PersonInput object created by the bean.
+     * @return An HoursWorked object for the Person constructor
+     * @throws ParseException If an error occurs while parsing the String input.
+     */
+    private HoursWorked buildHoursWorked(PersonInput input) throws ParseException {
+        return input.getHoursWorked() == null
+                ? new HoursWorked("0")
+                : ParserUtil.parseHoursWorked(input.getHoursWorked());
+
+    }
+
+    /**
+     * Creates an Overtime object
+     * @param input PersonInput object created by the bean.
+     * @return An Overtime object for the Person constructor
+     * @throws ParseException If an error occurs while parsing the String input.
+     */
+    private Overtime buildOvertime(PersonInput input) throws ParseException {
+        return input.getOvertime() == null
+                ? new Overtime("0")
+                : ParserUtil.parseOvertime(input.getOvertime());
+    }
+
+    /**
+     * Creates a Set object containing all the corresponding tags for the entry
+     * @param input PersonInput object created by the bean.
+     * @return An Set object for the Person constructor
+     * @throws ParseException If an error occurs while parsing the String input.
+     */
+    private Set<Tag> buildTags(PersonInput input) throws ParseException {
+        return (input.getTags() == null || input.getTags().equals(""))
+                ? new HashSet<>()
+                : ParserUtil.parseTags(Arrays.asList(input.getTags().split("/")));
     }
 
     @Override

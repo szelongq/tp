@@ -57,7 +57,6 @@ public class ImportCommandTest {
                 isDifferent = true;
             }
         }
-
         assertEquals(MESSAGE_IMPORT_SUCCESS, result.getFeedbackToUser());
         assertTrue(isDifferent);
     }
@@ -92,7 +91,7 @@ public class ImportCommandTest {
 
         for (Person person : original) {
             if (!imported.contains(person)) {
-                isDifferent = true; // Is there a better way of checking this? Currently is n^2 runtime.
+                isDifferent = true;
             }
         }
 
