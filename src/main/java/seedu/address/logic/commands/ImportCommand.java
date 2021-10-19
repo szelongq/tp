@@ -87,6 +87,8 @@ public class ImportCommand extends Command {
      * @return List A collection of Person objects to be replaced into the address book.
      * @throws CommandException If an error occurs during the processing of the CSV file into Person objects.
      */
+    @SuppressWarnings("unchecked")
+    // The method is sure to return a List<Person> or null.
     public List<Person> processCsv(String filepath) throws CommandException {
         FileReader fileReader;
         List<Person> newPersonList = new ArrayList<>();
