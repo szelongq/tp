@@ -167,7 +167,7 @@ Given below is an example usage scenario and how the import mechanism behaves at
 
 Step 1. The user launches the application. The `AddressBook` initializes with the initial address book state or loaded with data from the previous session (if any).
 
-Step 2. The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which refers to the file `toBeImported.csv` in the root directory. 
+Step 2. The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which refers to the file `toBeImported.csv` in the root directory.
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and there will be no changes made to the current `AddressBook`.
 </div>
 
@@ -189,7 +189,7 @@ The following activity diagram summarizes what happens when a user uses the `imp
 
 **Aspect: How imported file is processed:**
 
-* **Alternative 1 (current choice): Uses a header row to determine the data used** 
+* **Alternative 1 (current choice): Uses a header row to determine the data used**
     * Pros: No need to follow specific column ordering.
     * Cons: The names of the headers for the specific columns must be the exact name used (less case-sensitivity), and a header row must be present.
 
@@ -203,7 +203,7 @@ The following activity diagram summarizes what happens when a user uses the `imp
     * Pros: Ensures that imported data have the minimum fields required before being imported, which most organizations should have.
     * Cons: Files cannot be imported if any entry has any of the compulsory fields missing.
 
-* **Alternative 2: No compulsory fields ** 
+* **Alternative 2: No compulsory fields **
     * Pros: Allows for multiple names for the fields in the header row, albeit still fixed. Files can be imported even if there are missing entries.
     * Cons:  Files can be imported regardless of any formatting issues or missing fields in entries, thus data can be imported even without any cleaning, making it harder to be used in the program.
 
