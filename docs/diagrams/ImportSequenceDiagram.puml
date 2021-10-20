@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ImportCommandParser" as ImportCommandParser LOGIC_COLOR
+participant ":ImportCommand" as ImportCommand LOGIC_COLOR
+participant ":AddressBook" as AddressBook LOGIC_COLOR
+participant ":Model" as Model LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("import /toBeImported.csv")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("import /toBeImported.csv")
+activate AddressBookParser
+
+create ImportCommandParser
+AddressBookParser -> ImportCommandParser : ImportCommandParser(import /toBeImported.csv")
+activate ImportCommandParser
+
+ImportCommandParser --> AddressBookParser
+deactivate ImportCommandParser
+
+AddressBookParser -> ImportCommandParser : parse("/toBeImported.csv")
+activate ImportCommandParser
+
+create ImportCommand
+ImportCommandParser -> ImportCommand : ImportCommand("/toBeImported.csv")
+activate ImportCommand
+
+ImportCommand --> ImportCommandParser :
+deactivate ImportCommand
+
+ImportCommandParser --> AddressBookParser :
+deactivate ImportCommandParser
+ImportCommandParser -[hidden]-> AddressBookParser
+destroy ImportCommandParser
+
+AddressBookParser --> LogicManager :
+deactivate AddressBookParser
+AddressBookParser -[hidden]-> LogicManager
+destroy AddressBookParser
+
+LogicManager -> ImportCommand : execute(model)
+activate ImportCommand
+
+ImportCommand -> ImportCommand : processCsv("/toBeImported.csv")
+
+create AddressBook
+ImportCommand -> AddressBook : AddressBook()
+activate AddressBook
+
+AddressBook --> ImportCommand
+deactivate AddressBook
+
+ImportCommand -> AddressBook : setPersons(newPersonList)
+activate AddressBook
+
+AddressBook --> ImportCommand
+deactivate AddressBook
+
+ImportCommand -> Model : setAddressBook(newAddressBook)
+activate Model
+
+Model --> ImportCommand
+deactivate Model
+
+ImportCommand -> CommandResult : CommandResult(MESSAGE_IMPORT_SUCCESS)
+activate CommandResult
+
+CommandResult --> ImportCommand
+deactivate CommandResult
+CommandResult -[hidden]-> ImportCommand
+destroy CommandResult
+
+ImportCommand --> LogicManager
+deactivate ImportCommand
+ImportCommand -[hidden]-> LogicManager
+destroy ImportCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -154,6 +154,62 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### \[Implemented\] Import feature
+
+#### Feature Implementation
+
+The implemented import feature mechanism is facilitated that `ImportCommandParser`, `ImportCommand` and `PersonInput`. `ImportCommandParser` implements the interface `Parser`.`ImportCommand` extends abstract class `Command`, and implements the following additional operations:
+*`ImportCommand#processcsv(String)` Takes a String represented filepath and processes the data in the specified file.
+`PersonInput` is a class which stores the various field inputs for a Person entry as a String, and implements getter and setter methods for all fields as required by the 3rd-party library opencsv.
+
+Given below is an example usage scenario and how the import mechanism behaves at each step.
+
+Step 1. The user launches the application. The `AddressBook` initializes with the initial address book state or loaded with data from the previous session (if any).
+
+Step 2. The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which refers to the file `toBeImported.csv` in the root directory. 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and there will be no changes made to the current `AddressBook`.
+</div>
+
+Step 3. Program processes the .csv file, and creates a new `AddressBook` containing the entries in it. It then replaces the current existing `AddressBook` with thew newly created one. The newly updated contents would be saved as per the process after the execution of a command.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and there will be no changes made to the current `AddressBook`.
+</div>
+
+The following sequence diagram shows how the import feature works:
+![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `ImportCommandParser`, `ImportCommand` and `CommandResult` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes what happens when a user uses the `import` command:
+![ImportActivityDiagram](images/ImportActivityDiagram.png)
+
+#### Design considerations:
+
+**Aspect: How imported file is processed:**
+
+* **Alternative 1 (current choice): Uses a header row to determine the data used** 
+    * Pros: No need to follow specific column ordering.
+    * Cons: The names of the headers for the specific columns must be the exact name used (less case-sensitivity), and a header row must be present.
+
+* **Alternative 2: Uses positioning of columns to import data **
+    * Pros: No need for header rows.
+    * Cons: Unable to ensure that the data is formatted in the correct order.
+
+**Aspect: Making fields compulsory for import:**
+
+* **Alternative 1 (current choice): Fields `Name`, `Contact Number`, `Residential Address`, `Email` and `Role` are compulsory. **
+    * Pros: Ensures that imported data have the minimum fields required before being imported, which most organizations should have.
+    * Cons: Files cannot be imported if any entry has any of the compulsory fields missing.
+
+* **Alternative 2: No compulsory fields ** 
+    * Pros: Allows for multiple names for the fields in the header row, albeit still fixed. Files can be imported even if there are missing entries.
+    * Cons:  Files can be imported regardless of any formatting issues or missing fields in entries, thus data can be imported even without any cleaning, making it harder to be used in the program.
+
+**Alternative 3 : All fields are compulsory. **
+    * Pros: Ensures data imported have all the required fields to utilise all the functionality of the program.
+    * Cons: Files cannot be imported if any entry has any of the compulsory fields missing, and many companies may not have the necessary data for certain fields.
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation

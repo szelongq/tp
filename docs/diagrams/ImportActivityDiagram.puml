@@ -1,0 +1,22 @@
+@startuml
+start
+:User executes `import` command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([filepath given is valid])
+    :Program checks file formatting
+    and all data entries;
+if() then ([all required data present
+    and no formatting errors])
+    :Imports all data in csv file;
+    :GUI updates with newly imported data;
+else ([else])
+    : GUI displays formatting/missing data error;
+endif
+else ([else])
+    : GUI displays file not file error;
+endif
+stop
+@enduml
