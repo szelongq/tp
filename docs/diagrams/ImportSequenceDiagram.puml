@@ -15,24 +15,24 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("import /toBeImported.csv")
+[-> LogicManager : execute("import filepath")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("import /toBeImported.csv")
+LogicManager -> AddressBookParser : parseCommand("import filepath")
 activate AddressBookParser
 
 create ImportCommandParser
-AddressBookParser -> ImportCommandParser : ImportCommandParser(import /toBeImported.csv")
+AddressBookParser -> ImportCommandParser : ImportCommandParser("import filepath")
 activate ImportCommandParser
 
 ImportCommandParser --> AddressBookParser
 deactivate ImportCommandParser
 
-AddressBookParser -> ImportCommandParser : parse("/toBeImported.csv")
+AddressBookParser -> ImportCommandParser : parse(filepath)
 activate ImportCommandParser
 
 create ImportCommand
-ImportCommandParser -> ImportCommand : ImportCommand("/toBeImported.csv")
+ImportCommandParser -> ImportCommand : ImportCommand(filepath)
 activate ImportCommand
 
 ImportCommand --> ImportCommandParser :
@@ -51,7 +51,7 @@ destroy AddressBookParser
 LogicManager -> ImportCommand : execute(model)
 activate ImportCommand
 
-ImportCommand -> ImportCommand : processCsv("/toBeImported.csv")
+ImportCommand -> ImportCommand : processCsv(filepath)
 
 create AddressBook
 ImportCommand -> AddressBook : AddressBook()
@@ -72,7 +72,7 @@ activate Model
 Model --> ImportCommand
 deactivate Model
 
-ImportCommand -> CommandResult : CommandResult(MESSAGE_IMPORT_SUCCESS)
+ImportCommand -> CommandResult : CommandResult(Message)
 activate CommandResult
 
 CommandResult --> ImportCommand
