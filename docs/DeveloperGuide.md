@@ -170,20 +170,16 @@ Given below is an example usage scenario and how the import mechanism behaves at
 Step 1. The user launches the application. The `AddressBook` initializes with the initial address book state or loaded with data from the previous session (if any).
 
 Step 2. The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which refers to the file `toBeImported.csv` in the root directory.
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and there will be no changes made to the current `AddressBook`.
-</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and there will be no changes made to the current `AddressBook`.</div>
 
 Step 3. Program processes the .csv file, and creates a new `AddressBook` containing the entries in it. It then replaces the current existing `AddressBook` with thew newly created one. The newly updated contents would be saved as per the process after the execution of a command.
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and there will be no changes made to the current `AddressBook`.
-</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and there will be no changes made to the current `AddressBook`.</div>
 
 
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `ImportCommandParser`, `ImportCommand` and `CommandResult` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `ImportCommandParser`, `ImportCommand` and `CommandResult` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.</div>
 
 
 The following activity diagram summarizes what happens when a user uses the `import` command:
@@ -213,7 +209,7 @@ The following activity diagram summarizes what happens when a user uses the `imp
 
 * **Alternative 3 : All fields are compulsory**
     * Pros: Ensures data imported have all the required fields to utilise all the functionality of the program.
-    * Cons: Files cannot be imported if any entry has any of the compulsory fields missing, and many companies may not have the necessary data for certain fields.
+    * Cons: Files cannot be imported if any entry has any fields missing.
 
 ### \[Proposed\] Undo/redo feature
 
