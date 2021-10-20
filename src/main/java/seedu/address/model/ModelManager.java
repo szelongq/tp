@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -23,6 +25,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
+    private final ReadOnlyObjectWrapper<Person> viewingPerson;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -35,6 +39,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        // TODO: Null case
+        viewingPerson = new ReadOnlyObjectWrapper<Person>(this.addressBook.getPersonList().get(0));
     }
 
     public ModelManager() {
@@ -127,6 +133,18 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Viewing Person Details =====================================================================
+    @Override
+    public ObservableObjectValue<Person> getViewingPerson() {
+        return viewingPerson;
+    }
+
+    @Override
+    public void setViewingPerson(Person p) {
+        requireNonNull(p);
+        viewingPerson.set(p);
     }
 
     @Override

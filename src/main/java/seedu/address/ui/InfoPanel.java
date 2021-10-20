@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import javafx.beans.value.ObservableObjectValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -49,16 +51,14 @@ public class InfoPanel extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public InfoPanel() {
+    public InfoPanel(ObservableObjectValue<Person> p) {
         super(FXML);
-
-        HashSet<Tag> testTags = new HashSet<>();
-        testTags.add(new Tag("Cringe"));
-        Person person = new Person(new Name("Jeff Bezos"), new Phone("62353535"), new Email("awlk@gmail.com"), new Address("Dover Road, School of Computing"),
-                new Role("CEO of Amazon"), new Leave("69"), new HourlySalary("20"), new HoursWorked("200"),
-                new CalculatedPay("200"), testTags);
-
-        updateInfoPanel(person);
+//        HashSet<Tag> testTags = new HashSet<>();
+//        testTags.add(new Tag("Cringe"));
+//        Person person = new Person(new Name("Jeff Bezos"), new Phone("62353535"), new Email("awlk@gmail.com"), new Address("Dover Road, School of Computing"),
+//                new Role("CEO of Amazon"), new Leave("69"), new HourlySalary("20"), new HoursWorked("200"),
+//                new CalculatedPay("200"), testTags);
+        updateInfoPanel(p.get());
     }
 
     public void updateInfoPanel(Person person) {
@@ -80,6 +80,7 @@ public class InfoPanel extends UiPart<Region> {
             calculatedSalary.setStyle("-fx-background-color: #C41E3A;");
         }
 
+        tags.getChildren().clear();
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

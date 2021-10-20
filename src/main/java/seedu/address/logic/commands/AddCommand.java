@@ -69,6 +69,7 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
+        model.setViewingPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

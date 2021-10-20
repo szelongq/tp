@@ -127,7 +127,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        infoPanel = new InfoPanel();
+        infoPanel = new InfoPanel(logic.getViewingPerson());
         infoPanelPlaceholder.getChildren().add(infoPanel.getRoot());
     }
 
@@ -171,14 +171,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public void handleView(Person p) {
-        infoPanel.updateInfoPanel(p);
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -189,6 +181,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            infoPanel.updateInfoPanel(logic.getViewingPerson().get());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
