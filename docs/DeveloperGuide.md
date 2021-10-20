@@ -161,6 +161,7 @@ This section describes some noteworthy details on how certain features are imple
 The implemented import feature mechanism is facilitated that `ImportCommandParser`, `ImportCommand` and `PersonInput`. `ImportCommandParser` implements the interface `Parser`.`ImportCommand` extends abstract class `Command`, and implements the following additional operations:
 *`ImportCommand#processcsv(String)` Takes a String represented filepath and processes the data in the specified file.
 `PersonInput` is a class which stores the various field inputs for a Person entry as a String, and implements getter and setter methods for all fields as required by the 3rd-party library opencsv.
+Currently, the fields `Name`,`Contact Number`, `Residential Address`, `Email` and `Role` must be present in all entries before the data can be imported successfully. This is to prevent junk data from being imported. These fields were selected as they were most likely to be already existing in organizations intending to use this program.
 
 Given below is an example usage scenario and how the import mechanism behaves at each step.
 
