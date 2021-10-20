@@ -159,8 +159,10 @@ This section describes some noteworthy details on how certain features are imple
 #### Feature Implementation
 
 The implemented import feature mechanism is facilitated that `ImportCommandParser`, `ImportCommand` and `PersonInput`. `ImportCommandParser` implements the interface `Parser`.`ImportCommand` extends abstract class `Command`, and implements the following additional operations:
-*`ImportCommand#processcsv(String)` Takes a String represented filepath and processes the data in the specified file.
+* `ImportCommand#processcsv(String)` Takes a String represented filepath and processes the data in the specified file.
+
 `PersonInput` is a class which stores the various field inputs for a Person entry as a String, and implements getter and setter methods for all fields as required by the 3rd-party library opencsv.
+
 Currently, the fields `Name`,`Contact Number`, `Residential Address`, `Email` and `Role` must be present in all entries before the data can be imported successfully. This is to prevent junk data from being imported. These fields were selected as they were most likely to be already existing in organizations intending to use this program.
 
 Given below is an example usage scenario and how the import mechanism behaves at each step.
@@ -175,12 +177,14 @@ Step 3. Program processes the .csv file, and creates a new `AddressBook` contain
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and there will be no changes made to the current `AddressBook`.
 </div>
 
+
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `ImportCommandParser`, `ImportCommand` and `CommandResult` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
+
 
 The following activity diagram summarizes what happens when a user uses the `import` command:
 ![ImportActivityDiagram](images/ImportActivityDiagram.png)
@@ -193,21 +197,21 @@ The following activity diagram summarizes what happens when a user uses the `imp
     * Pros: No need to follow specific column ordering.
     * Cons: The names of the headers for the specific columns must be the exact name used (less case-sensitivity), and a header row must be present.
 
-* **Alternative 2: Uses positioning of columns to import data **
+* **Alternative 2: Uses positioning of columns to import data**
     * Pros: No need for header rows.
     * Cons: Unable to ensure that the data is formatted in the correct order.
 
 **Aspect: Making fields compulsory for import:**
 
-* **Alternative 1 (current choice): Fields `Name`, `Contact Number`, `Residential Address`, `Email` and `Role` are compulsory. **
+* **Alternative 1 (current choice): Only fields `Name`, `Contact Number`, `Residential Address`, `Email` and `Role` are compulsory**
     * Pros: Ensures that imported data have the minimum fields required before being imported, which most organizations should have.
     * Cons: Files cannot be imported if any entry has any of the compulsory fields missing.
 
-* **Alternative 2: No compulsory fields **
+* **Alternative 2: No compulsory fields**
     * Pros: Allows for multiple names for the fields in the header row, albeit still fixed. Files can be imported even if there are missing entries.
     * Cons:  Files can be imported regardless of any formatting issues or missing fields in entries, thus data can be imported even without any cleaning, making it harder to be used in the program.
 
-**Alternative 3 : All fields are compulsory. **
+* **Alternative 3 : All fields are compulsory**
     * Pros: Ensures data imported have all the required fields to utilise all the functionality of the program.
     * Cons: Files cannot be imported if any entry has any of the compulsory fields missing, and many companies may not have the necessary data for certain fields.
 
