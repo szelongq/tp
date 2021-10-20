@@ -115,21 +115,53 @@ Examples:
 
 ### Locating employees by name: `find`
 
-Find employees using the specified field, checking if their information field contains any of the given keywords / queries.
+Find employees using specified fields, checking if their information field contains any of the given keywords / queries.
 
-Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SALARY]  [t/TAG]...`
+Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
 
 * At least one field should be specified.
-* The keyword search is not case-sensitive.
-* For each field, you can search using multiple keywords.
-  * For example, `find n/John Mike r/Manager` will return all employees with the role "Manager" and with the names John or Mike.
-* You can query employees who meet the specified condition for the number of leaves by entering `l/<LEAVES` (for less than LEAVES) or `l/>LEAVES` (for more than LEAVES)
-  * For example, enter `find l/>5` to find all employees who still have more than 5 leaves remaining.
+* The order of the fields do not matter except for the `[KEYWORD]` field, which must come right after `find`.  
+* The filters work differently for each field and can be generalised to 3 types of queries, described below. A single find command can contain all 3 types of queries at once.
+  * **Type 1 Query: Keyword Matching**
+    * Fields: `n/NAME`, `p/PHONE`, `e/EMAIL`, `a/ADDRESS`, `r/ROLE`, `t/TAG`
+      * These fields will find all people who contain the given keywords in their respective fields. They are not case-sensitive.
+      * The exception is the `p/PHONE` field, which only finds exact matches.
+      
+    * For example, `find p/91234567 e/alice bob r/Admin` will find anyone who satisfies the following 3 criteria:
+      1. has the phone number 91234567, 
+      2. whose email contains `alice` or `bob`, and 
+      3. whose role contains `Admin`.
+      
+  * **Type 2 Query: Value Based Comparison**  
+    * Fields: `hw/HOURS_WORKED`, `l/LEAVES`, `s/SALARY`, `o/OVERTIME`
+      * These fields must be specified with a comparison and a value to compare the respective field to. Valid comparisons are
+        * `>`: more than
+        * `>=`: more than or equal to
+        * `=`: equal to
+        * `<`: less than
+        * `<=`: less than or equal to
+        
+    * For example, `find hw/>=10 l/<7` will find anyone who satisfies the following 2 criteria:
+      1. has worked more than or exactly 10 hours, and
+      2. has less than 7 days of leave left (e.g. 6 and below)
+          
+    * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.
+      
+  * **Type 3 Query: Condition Based Filter**
+    * There are no fields attached to this query. Instead, specific keywords are available for use.
+      * These keywords must be used right after `find` and cannot be used after a field is specified (for example `n/`).
+      * Keywords available include:
+        * `unpaid`
+        * More to be added.
+    * For example, `find unpaid` will find all employees who are considered unpaid
+    
+* For each field, you can search using multiple keywords by separating each keyword with a space, in the same field.
+  * For example, `find n/John Mike` will return all employees whose name contains either John or Mike.
 
 Examples:
 * `find n/John` returns `john` and `John Doe`
-* `find n/alex david l/<3` returns `Alex Yeoh`, `David Li` as long as they have less than 3 leaves left.<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* (To be updated) `find n/alex david l/<3` returns `Alex Yeoh`, `David Li` as long as they have less than 3 leaves left.<br>
+  ![result for 'find alex david'](images/findAlexDavidResult.png) 
   
 ### Deleting an employee : `delete`
 
