@@ -16,6 +16,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PayCommand;
 import seedu.address.logic.commands.RemoveHoursWorkedCommand;
@@ -93,6 +94,9 @@ public class AddressBookParser {
 
         case PayCommand.COMMAND_WORD:
             return new PayCommandParser().parse(arguments);
+
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
 
         case ViewOvertimePayRateCommand.COMMAND_WORD:
             return new ViewOvertimePayRateCommand();

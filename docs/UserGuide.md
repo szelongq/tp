@@ -130,7 +130,7 @@ Examples:
 * `find n/John` returns `john` and `John Doe`
 * `find n/alex david l/<3` returns `Alex Yeoh`, `David Li` as long as they have less than 3 leaves left.<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
-  
+
 ### Deleting an employee : `delete`
 
 Deletes the specified employee from the application.
@@ -152,7 +152,7 @@ Adds the specified number of days to the current leave quota (number of days of 
 
 Format: `addLeaves INDEX NO_OF_DAYS`
 
-* Adds the specified number to the number of leaves of the employee at the specified `INDEX`. 
+* Adds the specified number to the number of leaves of the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
 * The number of days **must be a positive integer** 1, 2, 3, …
@@ -167,7 +167,7 @@ Removes the specified number of days from the current leave quota (number of day
 
 Format: `removeLeaves INDEX NO_OF_DAYS`
 
-* Removes the specified number from the number of leaves of the employee at the specified `INDEX`. 
+* Removes the specified number from the number of leaves of the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
 * The number of days **must be a positive integer** 1, 2, 3, …
