@@ -25,4 +25,5 @@
         <Label fx:id="overtime" styleClass="label-bright" />
         <VBox fx:id="calculatedSalary" minHeight="13" maxWidth="40" />
     </VBox>
+
 </StackPane>

@@ -4,7 +4,7 @@
 
 * This is **HeRon**, an application.<br>
 * HeRon is a product designed for Human Resource (HR) Managers in companies to increase the convenience of managing employee information.
-  
+
   Example usages:
   * To assist in managing HR administrative tasks such as:
     * tracking leaves and offs
