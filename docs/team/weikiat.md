@@ -15,8 +15,8 @@ Given below are my contributions to the project.
 
 * **Documentation**:
     * User Guide:
-        * Added documentation for the features `edit` 
+        * Added documentation for the features `edit`
     * Developer Guide:
         * Added documentation for the feature `edit`
-        
+
 * _{you can add/remove categories in the list above}_
