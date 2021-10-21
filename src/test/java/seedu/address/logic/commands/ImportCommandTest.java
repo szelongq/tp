@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.OvertimePayRate;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
@@ -130,6 +131,16 @@ public class ImportCommandTest {
 
         @Override
         public void setAddressBookFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public OvertimePayRate getOvertimePayRate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setOvertimePayRate(OvertimePayRate overtimePayRate) {
             throw new AssertionError("This method should not be called.");
         }
 
