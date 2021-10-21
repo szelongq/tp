@@ -49,6 +49,7 @@ public class InfoPanel extends UiPart<Region> {
     public InfoPanel(ObservableObjectValue<Person> p) {
         super(FXML);
         updateInfoPanel(p.get());
+        p.addListener((x, y, z) -> updateInfoPanel(z));
     }
 
     /**
