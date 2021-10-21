@@ -30,21 +30,12 @@ public class StartPayrollCommand extends Command {
 
     public static final String COMMAND_WORD = "startPayroll";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Calculates the pay of the employee identified by the index number "
-            + "used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
     public static final String MESSAGE_NOT_PAID = "There are employees who still have payment due: %1$s\n"
             + "Please pay all employees first before starting a new payroll.";
 
     public static final String MESSAGE_START_PAYROLL_SUCCESS = "Payroll done.";
 
     public static final double OVERTIME_RATE = 1.5;
-
-    public StartPayrollCommand() {
-    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
