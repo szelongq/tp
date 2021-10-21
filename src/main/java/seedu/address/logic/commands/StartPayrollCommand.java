@@ -35,8 +35,6 @@ public class StartPayrollCommand extends Command {
 
     public static final String MESSAGE_START_PAYROLL_SUCCESS = "Payroll done.";
 
-    public static final double OVERTIME_RATE = 1.5;
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -54,12 +52,15 @@ public class StartPayrollCommand extends Command {
             }
         }
 
+        // Get the current set pay rate for overtime
+        double overtimePayRate = model.getOvertimePayRate();
+
         // If there are no unpaid employees, proceed with calculating payroll
         for (Person personToCalculatePay: personList) {
             HourlySalary salary = personToCalculatePay.getSalary();
             HoursWorked hoursWorked = personToCalculatePay.getHoursWorked();
             Overtime overtime = personToCalculatePay.getOvertime();
-            CalculatedPay calculatedPay = calculatePay(salary, hoursWorked, overtime);
+            CalculatedPay calculatedPay = calculatePay(salary, hoursWorked, overtime, overtimePayRate);
 
             Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
             model.setPerson(personToCalculatePay, personWithCalculatedPay);
@@ -69,9 +70,10 @@ public class StartPayrollCommand extends Command {
     }
 
 
-    private CalculatedPay calculatePay(HourlySalary salary, HoursWorked hoursWorked, Overtime overtime) {
+    private CalculatedPay calculatePay(HourlySalary salary, HoursWorked hoursWorked, Overtime overtime,
+                                       double overtimePayRate) {
         double normalPay = salary.value * hoursWorked.value;
-        double overtimePay = OVERTIME_RATE * salary.value * overtime.value;
+        double overtimePay = overtimePayRate * salary.value * overtime.value;
         // Ensure that the total pay is rounded to 2 decimal places.
         String totalRoundedPay = String.format("%.2f", normalPay + overtimePay);
 

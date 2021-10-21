@@ -109,6 +109,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public double getOvertimePayRate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setOvertimePayRate(double overtimePayRate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }

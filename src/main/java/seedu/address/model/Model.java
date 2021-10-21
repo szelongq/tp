@@ -40,6 +40,16 @@ public interface Model {
     Path getAddressBookFilePath();
 
     /**
+     * Sets the user prefs' pay rate for overtime.
+     */
+    void setOvertimePayRate(double overtimePayRate);
+
+    /**
+     * Returns the user prefs' pay rate for overtime.
+     */
+    double getOvertimePayRate();
+
+    /**
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
