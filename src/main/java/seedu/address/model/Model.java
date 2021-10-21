@@ -42,12 +42,12 @@ public interface Model {
     /**
      * Sets the user prefs' pay rate for overtime.
      */
-    void setOvertimePayRate(double overtimePayRate);
+    void setOvertimePayRate(OvertimePayRate overtimePayRate);
 
     /**
      * Returns the user prefs' pay rate for overtime.
      */
-    double getOvertimePayRate();
+    OvertimePayRate getOvertimePayRate();
 
     /**
      * Sets the user prefs' address book file path.

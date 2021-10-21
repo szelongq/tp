@@ -15,7 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "HeRon.json");
-    private double overtimePayRate = 1.5;
+    private OvertimePayRate overtimePayRate = new OvertimePayRate();
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -58,12 +58,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public double getOvertimePayRate() {
+    public OvertimePayRate getOvertimePayRate() {
         return overtimePayRate;
     }
 
-    public void setOvertimePayRate(double OvertimePayRate) {
-        requireNonNull(OvertimePayRate);
+    public void setOvertimePayRate(OvertimePayRate overtimePayRate) {
+        requireNonNull(overtimePayRate);
         this.overtimePayRate = overtimePayRate;
     }
 
@@ -80,7 +80,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
-                && overtimePayRate == o.getOvertimePayRate();
+                && overtimePayRate.equals(o.getOvertimePayRate());
     }
 
     @Override

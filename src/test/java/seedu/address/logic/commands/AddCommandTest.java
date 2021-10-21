@@ -18,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.OvertimePayRate;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
@@ -109,12 +110,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public double getOvertimePayRate() {
+        public OvertimePayRate getOvertimePayRate() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setOvertimePayRate(double overtimePayRate) {
+        public void setOvertimePayRate(OvertimePayRate overtimePayRate) {
             throw new AssertionError("This method should not be called.");
         }
 

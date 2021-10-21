@@ -13,5 +13,5 @@ public interface ReadOnlyUserPrefs {
 
     Path getAddressBookFilePath();
 
-    double getOvertimePayRate();
+    OvertimePayRate getOvertimePayRate();
 }

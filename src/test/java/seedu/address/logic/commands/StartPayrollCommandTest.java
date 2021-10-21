@@ -12,6 +12,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.OvertimePayRate;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.CalculatedPay;
@@ -35,9 +36,9 @@ public class StartPayrollCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     private CalculatedPay calculatePay(HourlySalary salary, HoursWorked hoursWorked, Overtime overtime,
-                                       double overtimePayRate) {
+                                       OvertimePayRate overtimePayRate) {
         double normalPay = salary.value * hoursWorked.value;
-        double overtimePay = overtimePayRate * salary.value * overtime.value;
+        double overtimePay = overtimePayRate.value * salary.value * overtime.value;
         // Ensure that the total pay is rounded to 2 decimal places.
         String totalRoundedPay = String.format("%.2f", normalPay + overtimePay);
 
@@ -65,7 +66,7 @@ public class StartPayrollCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         List<Person> personList = model.getFilteredPersonList();
-        double overtimePayRate = model.getOvertimePayRate();
+        OvertimePayRate overtimePayRate = model.getOvertimePayRate();
         for (Person personToCalculatePay: personList) {
             HourlySalary salary = personToCalculatePay.getSalary();
             HoursWorked hoursWorked = personToCalculatePay.getHoursWorked();
@@ -92,7 +93,7 @@ public class StartPayrollCommandTest {
         expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         List<Person> personList = expectedModel.getFilteredPersonList();
-        double overtimePayRate = model.getOvertimePayRate();
+        OvertimePayRate overtimePayRate = model.getOvertimePayRate();
         for (Person personToCalculatePay: personList) {
             HourlySalary salary = personToCalculatePay.getSalary();
             HoursWorked hoursWorked = personToCalculatePay.getHoursWorked();

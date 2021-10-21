@@ -7,6 +7,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.OvertimePayRate;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
@@ -56,7 +57,7 @@ public class StartPayrollCommand extends Command {
         }
 
         // Get the current set pay rate for overtime
-        double overtimePayRate = model.getOvertimePayRate();
+        OvertimePayRate overtimePayRate = model.getOvertimePayRate();
 
         // If there are no unpaid employees, proceed with calculating payroll
         for (Person personToCalculatePay: personList) {
@@ -74,9 +75,9 @@ public class StartPayrollCommand extends Command {
 
 
     private CalculatedPay calculatePay(HourlySalary salary, HoursWorked hoursWorked, Overtime overtime,
-                                       double overtimePayRate) {
+                                       OvertimePayRate overtimePayRate) {
         double normalPay = salary.value * hoursWorked.value;
-        double overtimePay = overtimePayRate * salary.value * overtime.value;
+        double overtimePay = overtimePayRate.value * salary.value * overtime.value;
         // Ensure that the total pay is rounded to 2 decimal places.
         String totalRoundedPay = String.format("%.2f", normalPay + overtimePay);
 

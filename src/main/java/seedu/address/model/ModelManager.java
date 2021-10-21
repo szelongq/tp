@@ -77,12 +77,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public double getOvertimePayRate() {
+    public OvertimePayRate getOvertimePayRate() {
         return userPrefs.getOvertimePayRate();
     }
 
     @Override
-    public void setOvertimePayRate(double overtimePayRate) {
+    public void setOvertimePayRate(OvertimePayRate overtimePayRate) {
         requireNonNull(overtimePayRate);
         userPrefs.setOvertimePayRate(overtimePayRate);
     }
