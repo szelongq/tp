@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -66,6 +67,10 @@ public class LeavesTaken {
         return new LeavesTaken(dates);
     }
 
+    public List<Date> toList() {
+        return new ArrayList<>(value);
+    }
+
     @Override
     public String toString() {
         List<Date> dates = new ArrayList<>(value);
@@ -79,7 +84,7 @@ public class LeavesTaken {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof LeavesTaken // instanceof handles nulls
-                && value == ((LeavesTaken) other).value); // state check
+                || (other instanceof LeavesTaken) // instanceof handles nulls
+                && Arrays.equals(value.toArray(), ((LeavesTaken) other).value.toArray()); // state check
     }
 }

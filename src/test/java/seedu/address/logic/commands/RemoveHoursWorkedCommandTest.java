@@ -28,6 +28,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
@@ -50,6 +51,7 @@ public class RemoveHoursWorkedCommandTest {
         Address address = personToRemoveHoursFrom.getAddress();
         Role role = personToRemoveHoursFrom.getRole();
         Leave leaves = personToRemoveHoursFrom.getLeaves();
+        LeavesTaken leavesTaken = personToRemoveHoursFrom.getLeavesTaken();
         HourlySalary salary = personToRemoveHoursFrom.getSalary();
         CalculatedPay calculatedPay = personToRemoveHoursFrom.getCalculatedPay();
         Set<Tag> tags = personToRemoveHoursFrom.getTags();
@@ -57,7 +59,7 @@ public class RemoveHoursWorkedCommandTest {
         HoursWorked newHours = personToRemoveHoursFrom.getHoursWorked().removeHoursWorked(hoursWorked);
         Overtime newOvertime = personToRemoveHoursFrom.getOvertime().removeOvertime(overtime);
 
-        return new Person(name, phone, email, address, role, leaves,
+        return new Person(name, phone, email, address, role, leaves, leavesTaken,
                 salary, newHours, newOvertime, calculatedPay, tags);
     }
 

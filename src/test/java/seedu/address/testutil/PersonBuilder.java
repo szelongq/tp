@@ -1,6 +1,9 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -9,6 +12,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
@@ -28,6 +32,7 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_ROLE = "HeRon Developer";
     public static final String DEFAULT_LEAVES = "0";
+    public static final List<Date> DEFAULT_LEAVES_TAKEN = new ArrayList<>();
     public static final String DEFAULT_SALARY = "5000";
     public static final String DEFAULT_HOURSWORKED = "70";
     public static final String DEFAULT_OVERTIME = "5";
@@ -39,6 +44,7 @@ public class PersonBuilder {
     private Address address;
     private Role role;
     private Leave leave;
+    private LeavesTaken leavesTaken;
     private HourlySalary hourlySalary;
     private HoursWorked hoursWorked;
     private Overtime overtime;
@@ -58,6 +64,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         role = new Role(DEFAULT_ROLE);
         leave = new Leave(DEFAULT_LEAVES);
+        leavesTaken = new LeavesTaken(DEFAULT_LEAVES_TAKEN);
         hourlySalary = new HourlySalary(DEFAULT_SALARY);
         hoursWorked = new HoursWorked(DEFAULT_HOURSWORKED);
         overtime = new Overtime(DEFAULT_OVERTIME);
@@ -74,6 +81,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         role = personToCopy.getRole();
         leave = personToCopy.getLeaves();
+        leavesTaken = personToCopy.getLeavesTaken();
         hourlySalary = personToCopy.getSalary();
         hoursWorked = personToCopy.getHoursWorked();
         overtime = personToCopy.getOvertime();
@@ -137,6 +145,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code LeavesTaken} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withLeavesTaken(List<Date> dates) {
+        this.leavesTaken = new LeavesTaken(dates);
+        return this;
+    }
+
+    /**
      * Sets the {@code Salary} of the {@code Person} that we are building.
      */
     public PersonBuilder withHourlySalary(String salary) {
@@ -164,7 +180,7 @@ public class PersonBuilder {
      * Builds a {@code Person}.
      */
     public Person build() {
-        return new Person(name, phone, email, address, role, leave, hourlySalary, hoursWorked, overtime,
-                calculatedPay, tags);
+        return new Person(name, phone, email, address, role, leave, leavesTaken,
+                hourlySalary, hoursWorked, overtime, calculatedPay, tags);
     }
 }

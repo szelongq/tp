@@ -26,6 +26,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
@@ -43,6 +44,7 @@ public class AddLeaveCommandTest {
         Email email = personToAddLeavesTo.getEmail();
         Address address = personToAddLeavesTo.getAddress();
         Role role = personToAddLeavesTo.getRole();
+        LeavesTaken leavesTaken = personToAddLeavesTo.getLeavesTaken();
         HourlySalary salary = personToAddLeavesTo.getSalary();
         HoursWorked hours = personToAddLeavesTo.getHoursWorked();
         Overtime overtime = personToAddLeavesTo.getOvertime();
@@ -51,7 +53,8 @@ public class AddLeaveCommandTest {
 
         Leave newLeaves = personToAddLeavesTo.getLeaves().addLeaves(addedLeaves);
 
-        return new Person(name, phone, email, address, role, newLeaves, salary, hours, overtime, calculatedPay, tags);
+        return new Person(name, phone, email, address, role, newLeaves, leavesTaken,
+                salary, hours, overtime, calculatedPay, tags);
     }
 
     @Test

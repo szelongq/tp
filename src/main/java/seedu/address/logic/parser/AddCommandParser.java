@@ -23,6 +23,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
@@ -59,14 +60,16 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
         Leave leave = ParserUtil.parseLeaves(argMultimap.getValue(PREFIX_LEAVE).get());
+        // Add command does not allow adding of dates to leavesTaken
+        LeavesTaken leavesTaken = new LeavesTaken();
         HourlySalary hourlySalary = ParserUtil.parseSalary(argMultimap.getValue(PREFIX_HOURLYSALARY).get());
         HoursWorked hoursWorked = ParserUtil.parseHoursWorked(argMultimap.getValue(PREFIX_HOURSWORKED).get());
         Overtime overtime = ParserUtil.parseOvertime(argMultimap.getValue(PREFIX_OVERTIME).get());
         CalculatedPay calculatedPay = new CalculatedPay("0");
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, role, leave, hourlySalary, hoursWorked, overtime,
-                calculatedPay, tagList);
+        Person person = new Person(name, phone, email, address, role, leave, leavesTaken,
+                hourlySalary, hoursWorked, overtime, calculatedPay, tagList);
         return new AddCommand(person);
     }
 
