@@ -17,12 +17,18 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      */
     public ImportCommand parse(String args) throws ParseException {
         String[] input = args.split(" ");
+        StringBuffer filepath;
+        int inputLength = input.length;
 
-        if (input.length == 1) {
+        if (inputLength <= 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+        } else {
+            filepath = new StringBuffer(input[1]);
+            for (int i = 2; i < inputLength; i++) {
+                // StringBuffer.append has lower runtime than String.concat
+                filepath = filepath.append(" ".concat(input[i]));
+            }
         }
-
-        String filepath = input[1];
-        return new ImportCommand(filepath);
+        return new ImportCommand(filepath.toString());
     }
 }

@@ -49,7 +49,7 @@ public class ImportCommand extends Command {
             + "Ensure that there are no entries with all empty fields in the CSV file "
             + "and the number of header columns match the number of columns in all employee entries.";
 
-    private final String filepath;
+    private final String filepathString;
 
     /**
      * Constructor for the ImportCommand
@@ -57,7 +57,7 @@ public class ImportCommand extends Command {
      */
     public ImportCommand(String filepath) {
         requireNonNull(filepath);
-        this.filepath = filepath;
+        this.filepathString = filepath;
     }
 
     /**
@@ -71,7 +71,7 @@ public class ImportCommand extends Command {
         requireNonNull(model);
 
         try {
-            List<Person> newPersonList = processCsv(this.filepath);
+            List<Person> newPersonList = processCsv(this.filepathString);
             AddressBook newAddressBook = new AddressBook();
             newAddressBook.setPersons(newPersonList);
             model.setAddressBook(newAddressBook);
@@ -195,6 +195,11 @@ public class ImportCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ImportCommand // instanceof handles nulls
-                && filepath.equals(((ImportCommand) other).filepath));
+                && filepathString.equals(((ImportCommand) other).filepathString));
     }
+
+    public String getFilepathString() {
+        return this.filepathString;
+    }
+
 }
