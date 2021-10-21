@@ -30,6 +30,9 @@ public class StartPayrollCommand extends Command {
 
     public static final String COMMAND_WORD = "startPayroll";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Calculates the payroll for all employees.\n"
+            + "Example: " + COMMAND_WORD;
+
     public static final String MESSAGE_NOT_PAID = "There are employees who still have payment due: %1$s\n"
             + "Please pay all employees first before starting a new payroll.";
 
