@@ -1,7 +1,8 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.beans.value.ObservableObjectValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -10,21 +11,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.CalculatedPay;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.HourlySalary;
-import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Role;
-import seedu.address.model.tag.Tag;
 
-import java.util.Comparator;
-import java.util.HashSet;
-
+/**
+ * Display panel which shows the information and details of a Person.
+ */
 public class InfoPanel extends UiPart<Region> {
     private static final String FXML = "InfoPanel.fxml";
 
@@ -51,16 +42,19 @@ public class InfoPanel extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    /**
+     * Creates a {@code InfoPanel} with the given {@code Person}.
+     * @param p
+     */
     public InfoPanel(ObservableObjectValue<Person> p) {
         super(FXML);
-//        HashSet<Tag> testTags = new HashSet<>();
-//        testTags.add(new Tag("Cringe"));
-//        Person person = new Person(new Name("Jeff Bezos"), new Phone("62353535"), new Email("awlk@gmail.com"), new Address("Dover Road, School of Computing"),
-//                new Role("CEO of Amazon"), new Leave("69"), new HourlySalary("20"), new HoursWorked("200"),
-//                new CalculatedPay("200"), testTags);
         updateInfoPanel(p.get());
     }
 
+    /**
+     * Fills in the data of the person into the Info Panel fields.
+     * @param person Person to get the update info from
+     */
     public void updateInfoPanel(Person person) {
         name.setText(person.getName().fullName);
         phone.setText("Phone Number: " + person.getPhone().value);
