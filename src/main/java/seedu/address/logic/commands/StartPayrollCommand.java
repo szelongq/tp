@@ -5,8 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Set;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
@@ -24,12 +22,13 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Calculates an employee's pay using it's displayed index from the address book
- * and then set the employee to be awaiting payment of the calculated pay.
+ * Calculates the payroll for all employees in the address book according to the
+ * how much work has been done at the current time.
+ * After that, sets all employees to be awaiting payment of the calculated pay.
  */
-public class CalculatePayCommand extends Command {
+public class StartPayrollCommand extends Command {
 
-    public static final String COMMAND_WORD = "calculate";
+    public static final String COMMAND_WORD = "startPayroll";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Calculates the pay of the employee identified by the index number "
@@ -37,55 +36,55 @@ public class CalculatePayCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_NOT_PAID = "The employee still has payment due.\n"
-            + "Please pay the employee first before calculating new pay.";
+    public static final String MESSAGE_NOT_PAID = "There are employees who still have payment due: %1$s\n"
+            + "Please pay all employees first before starting a new payroll.";
 
-    public static final String MESSAGE_CALCULATE_PAY_SUCCESS = "Calculated pay for person: %1$s";
+    public static final String MESSAGE_START_PAYROLL_SUCCESS = "Payroll done.";
 
     public static final double OVERTIME_RATE = 1.5;
 
-    private final Index targetIndex;
-
-    public CalculatePayCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public StartPayrollCommand() {
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        List<Person> personList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        // First, check if there are any unpaid employees
+        for (Person personToCalculatePay: personList) {
+            /*
+             * An exception is thrown if the employee to be calculated for still
+             * has a previous calculated pay that has not been paid yet.
+             */
+            if (!personToCalculatePay.isPaid()) {
+                throw new CommandException(String.format(MESSAGE_NOT_PAID, personToCalculatePay));
+            }
         }
 
-        Person personToCalculatePay = lastShownList.get(targetIndex.getZeroBased());
+        // If there are no unpaid employees, proceed with calculating payroll
+        for (Person personToCalculatePay: personList) {
+            HourlySalary salary = personToCalculatePay.getSalary();
+            HoursWorked hoursWorked = personToCalculatePay.getHoursWorked();
+            Overtime overtime = personToCalculatePay.getOvertime();
+            CalculatedPay calculatedPay = calculatePay(salary, hoursWorked, overtime);
 
-        /*
-         * An exception is thrown if the employee to be calculated for still
-         * has a previous calculated pay that has not been paid yet.
-         */
-        if (!personToCalculatePay.isPaid()) {
-            throw new CommandException(MESSAGE_NOT_PAID);
+            Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
+            model.setPerson(personToCalculatePay, personWithCalculatedPay);
         }
 
-        HourlySalary salary = personToCalculatePay.getSalary();
-        HoursWorked hoursWorked = personToCalculatePay.getHoursWorked();
-        Overtime overtime = personToCalculatePay.getOvertime();
-        CalculatedPay calculatedPay = calculatePay(salary, hoursWorked, overtime);
-
-        Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
-        model.setPerson(personToCalculatePay, personWithCalculatedPay);
-
-        return new CommandResult(String.format(MESSAGE_CALCULATE_PAY_SUCCESS, personWithCalculatedPay));
+        return new CommandResult(String.format(MESSAGE_START_PAYROLL_SUCCESS));
     }
 
 
     private CalculatedPay calculatePay(HourlySalary salary, HoursWorked hoursWorked, Overtime overtime) {
         double normalPay = salary.value * hoursWorked.value;
         double overtimePay = OVERTIME_RATE * salary.value * overtime.value;
+        // Ensure that the total pay is rounded to 2 decimal places.
+        String totalRoundedPay = String.format("%.2f", normalPay + overtimePay);
 
-        return new CalculatedPay(Double.toString(normalPay + overtimePay));
+        return new CalculatedPay(totalRoundedPay);
     }
 
     private Person createPersonWithCalculatedPay(Person personWithCalculatedPay, CalculatedPay newCalculatedPay) {
@@ -105,7 +104,6 @@ public class CalculatePayCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CalculatePayCommand // instanceof handles nulls
-                && targetIndex.equals(((CalculatePayCommand) other).targetIndex)); // state check
+                || (other instanceof StartPayrollCommand); // instanceof handles nulls;
     }
 }

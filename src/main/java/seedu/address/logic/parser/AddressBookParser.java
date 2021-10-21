@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddHoursWorkedCommand;
 import seedu.address.logic.commands.AddLeavesCommand;
-import seedu.address.logic.commands.CalculatePayCommand;
+import seedu.address.logic.commands.StartPayrollCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -86,7 +86,7 @@ public class AddressBookParser {
         case RemoveHoursWorkedCommand.COMMAND_WORD:
             return new RemoveHoursWorkedCommandParser().parse(arguments);
 
-        case CalculatePayCommand.COMMAND_WORD:
+        case StartPayrollCommand.COMMAND_WORD:
             return new CalculatePayCommandParser().parse(arguments);
 
         case PayCommand.COMMAND_WORD:
