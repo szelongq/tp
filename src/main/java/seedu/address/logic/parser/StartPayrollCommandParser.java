@@ -7,7 +7,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new StartPayrollCommand object
  */
-public class CalculatePayCommandParser implements Parser<StartPayrollCommand> {
+public class StartPayrollCommandParser implements Parser<StartPayrollCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the StartPayrollCommand

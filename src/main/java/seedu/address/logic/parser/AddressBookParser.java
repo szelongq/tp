@@ -89,7 +89,7 @@ public class AddressBookParser {
             return new RemoveHoursWorkedCommandParser().parse(arguments);
 
         case StartPayrollCommand.COMMAND_WORD:
-            return new CalculatePayCommandParser().parse(arguments);
+            return new StartPayrollCommandParser().parse(arguments);
 
         case PayCommand.COMMAND_WORD:
             return new PayCommandParser().parse(arguments);
