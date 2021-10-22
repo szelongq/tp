@@ -14,5 +14,4 @@ public class Messages {
     public static final String MESSAGE_INVALID_REMOVE_INPUT = "Employee has less than %1$s %2$s!";
     public static final String MESSAGE_INVALID_COMPARATOR =
             "Invalid comparison operator! Use either '>', '<', '>=', '<=' or '='.";
-    public static final String MESSAGE_INVALID_FIND_SALARY_INPUT = "";
 }
