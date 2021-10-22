@@ -21,7 +21,7 @@ public class SetOvertimePayRateCommandParser implements Parser<SetOvertimePayRat
             OvertimePayRate overtimePayRate = new OvertimePayRate(args);
             return new SetOvertimePayRateCommand(overtimePayRate);
         } catch (IllegalArgumentException iae) {
-            throw new ParseException( String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             SetOvertimePayRateCommand.MESSAGE_USAGE), iae);
         }
     }

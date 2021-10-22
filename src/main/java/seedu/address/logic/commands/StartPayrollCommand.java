@@ -25,7 +25,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Calculates the payroll for all employees in the address book according to the
  * how much work has been done at the current time.
- * After that, sets all employees to be awaiting payment of the calculated pay.
+ * After that, marks all employees as awaiting payment of the calculated amount.
  */
 public class StartPayrollCommand extends Command {
 
@@ -66,6 +66,7 @@ public class StartPayrollCommand extends Command {
             Overtime overtime = personToCalculatePay.getOvertime();
             CalculatedPay calculatedPay = calculatePay(salary, hoursWorked, overtime, overtimePayRate);
 
+            // Set the employee to be owed the calculated pay
             Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
             model.setPerson(personToCalculatePay, personWithCalculatedPay);
         }
