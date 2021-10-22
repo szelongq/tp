@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +32,7 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_ROLE = "HeRon Developer";
     public static final String DEFAULT_LEAVES = "0";
-    public static final List<Date> DEFAULT_LEAVES_TAKEN = new ArrayList<>();
+    public static final List<LocalDate> DEFAULT_LEAVES_TAKEN = new ArrayList<>();
     public static final String DEFAULT_SALARY = "5000";
     public static final String DEFAULT_HOURSWORKED = "70";
     public static final String DEFAULT_OVERTIME = "5";
@@ -147,7 +147,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code LeavesTaken} of the {@code Person} that we are building.
      */
-    public PersonBuilder withLeavesTaken(List<Date> dates) {
+    public PersonBuilder withLeavesTaken(List<LocalDate> dates) {
         this.leavesTaken = new LeavesTaken(dates);
         return this;
     }

@@ -5,8 +5,8 @@ import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORM
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +48,7 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_HOURLYSALARY = BENSON.getSalary().toString();
     private static final String VALID_HOURSWORKED = BENSON.getHoursWorked().toString();
     private static final String VALID_LEAVES = BENSON.getLeaves().toString();
-    private static final List<Date> VALID_LEAVES_TAKEN = BENSON.getLeavesTaken().toList();
+    private static final List<LocalDate> VALID_LEAVES_TAKEN = BENSON.getLeavesTaken().toList();
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_OVERTIME = BENSON.getOvertime().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();

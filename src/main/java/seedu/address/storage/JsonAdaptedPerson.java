@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,7 +38,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final String role;
     private final String leaves;
-    private final List<Date> leavesTaken;
+    private final List<LocalDate> leavesTaken;
     private final String salary;
     private final String hoursWorked;
     private final String overtime;
@@ -52,7 +52,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("role") String role, @JsonProperty("leaves") String leaves,
-            @JsonProperty("leavesTaken") List<Date> leavesTaken, @JsonProperty("salary") String salary,
+            @JsonProperty("leavesTaken") List<LocalDate> leavesTaken, @JsonProperty("salary") String salary,
             @JsonProperty("hoursWorked") String hoursWorked, @JsonProperty("overtime") String overtime,
             @JsonProperty("calculatedPay") String calculatedPay,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {

@@ -2,9 +2,9 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -18,14 +18,14 @@ public class LeavesTaken {
             "Leaves should only contain non-negative integers, and it should not be blank";
 
     // Dates are sorted in ascending order
-    public final PriorityQueue<Date> value;
+    public final PriorityQueue<LocalDate> value;
 
 
     /**
      * Constructs a {@code LeavesTaken} object.
      */
     public LeavesTaken() {
-        this.value = new PriorityQueue<>(Date::compareTo);
+        this.value = new PriorityQueue<>(LocalDate::compareTo);
     }
 
     /**
@@ -33,9 +33,9 @@ public class LeavesTaken {
      *
      * @param dates A list representing a sequence of dates.
      */
-    public LeavesTaken(List<Date> dates) {
+    public LeavesTaken(List<LocalDate> dates) {
         requireNonNull(dates);
-        this.value = new PriorityQueue<>(Date::compareTo);
+        this.value = new PriorityQueue<>(LocalDate::compareTo);
         value.addAll(dates);
     }
 
@@ -45,8 +45,8 @@ public class LeavesTaken {
      * @param date The date that is to be added.
      * @return An updated LeavesTaken object.
      */
-    public LeavesTaken addDate(Date date) {
-        List<Date> dates = new ArrayList<>(value);
+    public LeavesTaken addDate(LocalDate date) {
+        List<LocalDate> dates = new ArrayList<>(value);
         dates.add(date);
         return new LeavesTaken(dates);
     }
@@ -58,8 +58,8 @@ public class LeavesTaken {
      * @return An updated LeavesTaken object.
      * @throws IllegalArgumentException if the specified date is not present.
      */
-    public LeavesTaken removeDate(Date date) {
-        List<Date> dates = new ArrayList<>(value);
+    public LeavesTaken removeDate(LocalDate date) {
+        List<LocalDate> dates = new ArrayList<>(value);
         boolean dateExists = dates.remove(date);
         if (!dateExists) {
             throw new IllegalArgumentException();
@@ -67,15 +67,15 @@ public class LeavesTaken {
         return new LeavesTaken(dates);
     }
 
-    public List<Date> toList() {
+    public List<LocalDate> toList() {
         return new ArrayList<>(value);
     }
 
     @Override
     public String toString() {
-        List<Date> dates = new ArrayList<>(value);
+        List<LocalDate> dates = new ArrayList<>(value);
         StringBuilder datesString = new StringBuilder();
-        for (Date date : dates) {
+        for (LocalDate date : dates) {
             datesString.append(date.toString()).append(" ");
         }
         return datesString.toString().trim();
