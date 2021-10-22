@@ -247,8 +247,8 @@ which updates the content to be displayed with `Person`'s information.
 `ModelManager` contains viewingPerson which represents the person whose data is to be displayed onto the panel, which 
 the `Logic` interface has access to.
 
-`MainWindow` houses the InfoPanel, which calls the update method with the viewingPerson passed into it through calling the
-accessor method from logic. The method is called every time a command is executed.
+`MainWindow` houses the InfoPanel, which calls the update method with the `viewingPerson` passed into it.
+The updated `viewingPerson` is passed to the update method by through calling the accessor method from the `Logic` component.
 
 Walk-through example:
 
@@ -262,7 +262,7 @@ Upon execution of the command, `MainWindow` calls `InfoPanel#updateInfoPanel())`
 
 Design Considerations:
 Pros: Easy to implement, ensures that InfoPanel always displays accurate up-to-date information
-Cons: Unnecessarily involves the `Logic` and increases runtime for all commands regardless of whether they update the viewingPerson.
+Cons: Difficult to extend InfoPanel to display other information with current implementation
 
 
 
