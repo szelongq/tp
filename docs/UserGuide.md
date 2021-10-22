@@ -159,7 +159,13 @@ Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l
   * For example, `find n/John Mike` will return all employees whose name contains either John or Mike.
 
 Examples:
-* `find n/John` returns `john` and `John Doe`
+* `find unpaid n/John Mike r/admin l/<=5 o/>3` finds all employees who satisfy all the following criteria:
+  1. is considered unpaid in the system,
+  2. whose name is either John or Mike,
+  3. whose role contains the word `admin`,
+  4. has 5 or less than 5 leaves, and
+  5. has strictly more than 3 days of overtime
+  
 * (To be updated) `find n/alex david l/<3` returns `Alex Yeoh`, `David Li` as long as they have less than 3 leaves left.<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png) 
   
