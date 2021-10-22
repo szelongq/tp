@@ -16,6 +16,7 @@ import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
@@ -69,14 +70,18 @@ public class PayCommand extends Command {
         Role role = personToPay.getRole();
         Leave leave = personToPay.getLeaves();
         HourlySalary hourlySalary = personToPay.getSalary();
-        HoursWorked hours = personToPay.getHoursWorked();
+
+        // reset hours worked and overtime back to zero after being paid
+        HoursWorked newHours = new HoursWorked("0");
+        Overtime newOvertime = new Overtime("0");
 
         // set calcPay to 0 to represent as paid
-        CalculatedPay calcPay = new CalculatedPay("0.0");
+        CalculatedPay newCalcPay = new CalculatedPay("0.0");
 
         Set<Tag> tags = personToPay.getTags();
 
-        return new Person(name, phone, email, address, role, leave, hourlySalary, hours, calcPay, tags);
+        return new Person(name, phone, email, address, role, leave, hourlySalary,
+                newHours, newOvertime, newCalcPay, tags);
     }
 
     @Override
