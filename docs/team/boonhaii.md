@@ -11,9 +11,9 @@ HeRon is a project adapted from AddressBook - Level 3.
 
 Given below are my contributions to the project.
 
-* **New Feature**: 
+* **New Feature**:
   * To be updated.
-  
+
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=boonhaii&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17)
 
 * **Project management**:
@@ -31,4 +31,4 @@ Given below are my contributions to the project.
 
 * **Community**:
   * To be updated.
-  
+

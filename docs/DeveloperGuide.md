@@ -265,8 +265,8 @@ _{Explain here how the data archiving feature will be implemented}_
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: 
-* More convenient to manage employees’ information than a typical mouse/GUI driven app. 
+**Value proposition**:
+* More convenient to manage employees’ information than a typical mouse/GUI driven app.
 * Able to quickly assess the balance of work between employees.
 
 
@@ -339,7 +339,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. HeRon shows an error message.
 
       Use case resumes at step 2.
-    
+
 **Use case: Add leaves to an employee**
 
 **MSS**
@@ -362,13 +362,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. HeRon shows an error message.
 
       Use case resumes at step 2.
-      
+
 * 3b. The number of leaves to be added is invalid. (If the input is not a positive integer)
 
     * 3b1. HeRon shows an error message.
 
       Use case resumes at step 2.
-      
+
 **Use case: Remove leaves from an employee**
 
 **MSS**
@@ -385,7 +385,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list is empty.
 
   Use case ends.
-  
+
 * 3a. The given index is invalid.
 
     * 3a1. HeRon shows an error message.
@@ -395,7 +395,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 3b. The number of leaves to be removed is invalid. (If the input is not a positive integer)
 
     * 3b1. HeRon shows an error message.
-    
+
       Use case resumes at step 2.
 
 * 3c. The number of leaves to be removed is greater than the amount of leaves the employee actually has.
@@ -403,7 +403,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3c1. HeRon shows an error message.
 
       Use case resumes at step 2.
-      
+
 **Use Case: Finding an employee**
 
 **MSS**
@@ -430,7 +430,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3b1. HeRon shows an error message.
 
       Use case resumes at step 2.
-    
+
 **Use case: Edit an employee**
 
 **MSS**
@@ -452,13 +452,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 3a. The given index is invalid.
 
     * 3a1. HeRon shows an error message.
-    
+
         Use case resumes at step 2.
-    
+
 * 3b. No field has been provided
 
     * 3b1. HeRon shows an error message informing user about the lack of a field
-    
+
         Use case resumes at step 2.
 
 * 3c. Input into field is invalid
@@ -466,7 +466,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3c1. HeRon shows an error message informing user about which field has invalid input and why it is invalid
 
         Use case resumes at step 2.
-    
+
 **Use case: Calculate an employee's salary**
 
 **MSS**
@@ -500,7 +500,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-* 2a. The list is empty. 
+* 2a. The list is empty.
 
   Use case ends.
 
@@ -513,7 +513,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 3b. The given tag is invalid.
 
     * 3b1. HeRon shows an error message.
-    
+
         Use case resumes at step 3.
 
 **Use case: Updating details of group of employees with specified tag.**
@@ -551,9 +551,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. User interface should be able to comfortably fit the information of at least 50 employees. 
-5. Should be usable offline. 
-6. Should respond within 2 seconds within the users’ command. 
+4. User interface should be able to comfortably fit the information of at least 50 employees.
+5. Should be usable offline.
+6. Should respond within 2 seconds within the users’ command.
 7. Should only allow authorized personnel to have access to the application’s data.
 8. Should secure any files it produces.
 
@@ -626,7 +626,7 @@ testers are expected to do more *exploratory* testing.
 
     5. Other incorrect edit commands to try: `edit x` (where x is larger than list size), `edit 1 s/-2.00` (salary should not be negative) etc. <br>
         Expected: No employee data is being edited. Error details shown in the status message. Status bar remains the same.
-       
+
 2. _{ possibly more test cases? …​ }_
 
 ### Saving data
