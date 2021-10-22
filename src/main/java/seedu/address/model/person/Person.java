@@ -27,6 +27,7 @@ public class Person {
     // Employee fields
     private final Role role;
     private final Leave leave;
+    private final LeavesTaken leavesTaken;
     private final HourlySalary hourlySalary;
     private final HoursWorked hoursWorked;
     private final Overtime overtime;
@@ -34,7 +35,7 @@ public class Person {
 
     /**
      * Constructs a {@code Person} object.
-     * All fields except for overtime must be present and not null.
+     * All fields except for overtime and leavesTaken must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Role role, Leave leave,
                   HourlySalary hourlySalary, HoursWorked hoursWorked, CalculatedPay pay, Set<Tag> tags) {
@@ -45,6 +46,7 @@ public class Person {
         this.address = address;
         this.role = role;
         this.leave = leave;
+        this.leavesTaken = new LeavesTaken();
         this.hourlySalary = hourlySalary;
         this.hoursWorked = hoursWorked;
         this.overtime = new Overtime("0");
@@ -54,10 +56,11 @@ public class Person {
 
     /**
      * Constructs a {@code Person} object with overtime.
-     * All fields, including overtime, must be present and not null.
+     * All fields, including overtime and leavesTaken, must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Role role, Leave leaves, HourlySalary salary,
-                  HoursWorked hoursWorked, Overtime overtime, CalculatedPay pay, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Role role, Leave leaves,
+                  LeavesTaken leavesTaken, HourlySalary salary, HoursWorked hoursWorked, Overtime overtime,
+                  CalculatedPay pay, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
         this.name = name;
         this.phone = phone;
@@ -65,6 +68,7 @@ public class Person {
         this.address = address;
         this.role = role;
         this.leave = leaves;
+        this.leavesTaken = leavesTaken;
         this.hourlySalary = salary;
         this.hoursWorked = hoursWorked;
         this.overtime = overtime;
@@ -94,6 +98,10 @@ public class Person {
 
     public Leave getLeaves() {
         return leave;
+    }
+
+    public LeavesTaken getLeavesTaken() {
+        return leavesTaken;
     }
 
     public HourlySalary getSalary() {
@@ -162,6 +170,7 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getRole().equals(getRole())
                 && otherPerson.getLeaves().equals(getLeaves())
+                && otherPerson.getLeavesTaken().equals(getLeavesTaken())
                 && otherPerson.getSalary().equals(getSalary())
                 && otherPerson.getOvertime().equals(getOvertime())
                 && otherPerson.getCalculatedPay().equals(getCalculatedPay())
@@ -171,7 +180,8 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, role, leave, hourlySalary, hoursWorked, calculatedPay, tags);
+        return Objects.hash(name, phone, email, address, role, leave, leavesTaken,
+                hourlySalary, hoursWorked, overtime, calculatedPay, tags);
     }
 
     @Override
@@ -191,7 +201,9 @@ public class Person {
                 .append("; Salary: ")
                 .append(getSalary())
                 .append("; Hours Worked: ")
-                .append(getHoursWorked());
+                .append(getHoursWorked())
+                .append("; Leaves Taken: ")
+                .append(getLeavesTaken());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {

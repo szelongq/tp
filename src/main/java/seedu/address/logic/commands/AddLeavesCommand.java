@@ -53,8 +53,8 @@ public class AddLeavesCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), personToEdit.getLeaves().addLeaves(leave), personToEdit.getSalary(),
-                personToEdit.getHoursWorked(), personToEdit.getOvertime(),
+                personToEdit.getRole(), personToEdit.getLeaves().addLeaves(leave), personToEdit.getLeavesTaken(),
+                personToEdit.getSalary(), personToEdit.getHoursWorked(), personToEdit.getOvertime(),
                 personToEdit.getCalculatedPay(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);

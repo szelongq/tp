@@ -12,6 +12,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_INTEGER_INPUT =
             "Please input a valid positive integer when adding/removing leaves or hours worked! \n%1$s";
     public static final String MESSAGE_INVALID_REMOVE_INPUT = "Employee has less than %1$s %2$s!";
+    public static final String MESSAGE_INSUFFICIENT_LEAVES = "Employee %1$s does not have any more leaves! \n";
     public static final String MESSAGE_INVALID_COMPARATOR =
             "Invalid comparison operator! Use either '>', '<', '>=', '<=' or '='.";
 }
