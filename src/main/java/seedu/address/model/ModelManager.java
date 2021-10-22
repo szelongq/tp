@@ -76,6 +76,17 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public OvertimePayRate getOvertimePayRate() {
+        return userPrefs.getOvertimePayRate();
+    }
+
+    @Override
+    public void setOvertimePayRate(OvertimePayRate overtimePayRate) {
+        requireNonNull(overtimePayRate);
+        userPrefs.setOvertimePayRate(overtimePayRate);
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override
