@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +17,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
@@ -36,6 +38,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final String role;
     private final String leaves;
+    private final List<LocalDate> leavesTaken;
     private final String salary;
     private final String hoursWorked;
     private final String overtime;
@@ -49,8 +52,9 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("role") String role, @JsonProperty("leaves") String leaves,
-            @JsonProperty("salary") String salary, @JsonProperty("hoursWorked") String hoursWorked,
-            @JsonProperty("overtime") String overtime, @JsonProperty("calculatedPay") String calculatedPay,
+            @JsonProperty("leavesTaken") List<LocalDate> leavesTaken, @JsonProperty("salary") String salary,
+            @JsonProperty("hoursWorked") String hoursWorked, @JsonProperty("overtime") String overtime,
+            @JsonProperty("calculatedPay") String calculatedPay,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
@@ -58,6 +62,7 @@ class JsonAdaptedPerson {
         this.address = address;
         this.role = role;
         this.leaves = leaves;
+        this.leavesTaken = leavesTaken;
         this.salary = salary;
         this.hoursWorked = hoursWorked;
         this.overtime = overtime;
@@ -77,6 +82,7 @@ class JsonAdaptedPerson {
         address = source.getAddress().value;
         role = source.getRole().value;
         leaves = source.getLeaves().toString();
+        leavesTaken = source.getLeavesTaken().toList();
         salary = source.getSalary().toString();
         hoursWorked = source.getHoursWorked().toString();
         overtime = source.getOvertime().toString();
@@ -145,6 +151,12 @@ class JsonAdaptedPerson {
         }
         final Leave modelLeave = new Leave(leaves);
 
+        if (leavesTaken == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LeavesTaken.class.getSimpleName()));
+        }
+        final LeavesTaken modelLeavesTaken = new LeavesTaken(leavesTaken);
+
         if (salary == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     HourlySalary.class.getSimpleName()));
@@ -183,7 +195,7 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRole, modelLeave,
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRole, modelLeave, modelLeavesTaken,
                 modelHourlySalary, modelHoursWorked, modelOvertime, modelCalculatedPay, modelTags);
     }
 
