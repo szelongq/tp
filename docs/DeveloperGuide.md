@@ -238,6 +238,37 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+### Updating Info Panel display
+
+#### Current Implementation
+The `InfoPanel` class controls the information to be displayed on the Info Panel, with the method `updateInfoPanel(Person p)`
+which updates the content to be displayed with `Person`'s information.
+
+`ModelManager` contains viewingPerson which represents the person whose data is to be displayed onto the panel, which 
+the `Logic` interface has access to.
+
+`MainWindow` houses the InfoPanel, which calls the update method with the viewingPerson passed into it through calling the
+accessor method from logic. The method is called every time a command is executed.
+
+Walk-through example:
+
+1. User launches the application for the first time. `viewingPerson` will be initialized to be the first person in the addressBook list
+(otherwise it is set to an example person), with `InfoPanel` initialized with `viewingPerson` and displaying its information.
+
+2. User executes `view 2` command in order to view the 2nd person in the addressBook. `ViewCommand` then calls `Model#setViewingPerson()`
+which sets the `viewingPerson` to be the 2nd person
+
+Upon execution of the command, `MainWindow` calls `InfoPanel#updateInfoPanel())` with the updated viewingPerson, and updates the display.
+
+Design Considerations:
+Pros: Easy to implement, ensures that InfoPanel always displays accurate up-to-date information
+Cons: Unnecessarily involves the `Logic` and increases runtime for all commands regardless of whether they update the viewingPerson.
+
+
+
+
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
