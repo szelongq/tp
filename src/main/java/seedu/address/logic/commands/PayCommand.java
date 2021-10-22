@@ -56,6 +56,8 @@ public class PayCommand extends Command {
         Person paidPerson = createPaidPerson(personToPay);
         model.setPerson(personToPay, paidPerson);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.setViewingPerson(paidPerson);
+
         return new CommandResult(String.format(MESSAGE_PAY_PERSON_SUCCESS, paidPerson));
     }
 
