@@ -1,6 +1,8 @@
-package seedu.address.model.person;
+package seedu.address.model.person.predicates;
 
 import java.util.function.Predicate;
+
+import seedu.address.model.person.Person;
 
 public class SalaryIsLessThanEqualPredicate implements Predicate<Person> {
     private final float value;

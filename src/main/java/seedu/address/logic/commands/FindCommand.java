@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -38,9 +39,10 @@ public class FindCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_ROLE + "ROLE] "
-            + "[" + PREFIX_LEAVE + "LEAVES] "
+            + "[" + PREFIX_LEAVE + "(>/>=/</<=/=)LEAVES] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_HOURLYSALARY + "(>/>=/</<=/=)SALARY] "
+            + "[" + PREFIX_OVERTIME + "(>/>=/</<=/=)OVERTIME] "
             + "[" + PREFIX_HOURSWORKED + "HOURS WORKED] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " n/Alex Ben r/CEO d/2021-10-30 s/>=10";

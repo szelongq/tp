@@ -15,5 +15,4 @@ public class Messages {
     public static final String MESSAGE_INSUFFICIENT_LEAVES = "Employee %1$s does not have any more leaves! \n";
     public static final String MESSAGE_INVALID_COMPARATOR =
             "Invalid comparison operator! Use either '>', '<', '>=', '<=' or '='.";
-    public static final String MESSAGE_INVALID_FIND_SALARY_INPUT = "";
 }
