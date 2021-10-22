@@ -21,7 +21,6 @@ import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
@@ -59,7 +58,7 @@ public class ModelManager implements Model {
             Person examplePerson = new Person(new Name("Example person"), new Phone("62353535"),
                     new Email("example@empl.com"), new Address("Example Street, Blk 404"),
                     new Role("Exemplar"), new Leave("69"),
-                    new HourlySalary("666"), new HoursWorked("420"), new Overtime("999"),
+                    new HourlySalary("666"), new HoursWorked("420"),
                     new CalculatedPay("0"), egTags);
             viewingPerson = new ReadOnlyObjectWrapper<Person>(examplePerson);
         } else {
