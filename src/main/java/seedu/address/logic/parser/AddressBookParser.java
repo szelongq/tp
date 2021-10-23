@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddHoursWorkedCommand;
 import seedu.address.logic.commands.AddLeavesCommand;
+import seedu.address.logic.commands.AssignLeaveCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -23,6 +24,7 @@ import seedu.address.logic.commands.RemoveHoursWorkedCommand;
 import seedu.address.logic.commands.RemoveLeavesCommand;
 import seedu.address.logic.commands.SetOvertimePayRateCommand;
 import seedu.address.logic.commands.StartPayrollCommand;
+import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.commands.ViewOvertimePayRateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -83,6 +85,9 @@ public class AddressBookParser {
         case RemoveLeavesCommand.COMMAND_WORD:
             return new RemoveLeavesCommandParser().parse(arguments);
 
+        case AssignLeaveCommand.COMMAND_WORD:
+            return new AssignLeaveCommandParser().parse(arguments);
+
         case AddHoursWorkedCommand.COMMAND_WORD:
             return new AddHoursWorkedCommandParser().parse(arguments);
 
@@ -97,6 +102,9 @@ public class AddressBookParser {
 
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
+
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommandParser().parse(arguments);
 
         case ViewOvertimePayRateCommand.COMMAND_WORD:
             return new ViewOvertimePayRateCommand();

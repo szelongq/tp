@@ -20,6 +20,10 @@ checkstyle {
     toolVersion = '8.29'
 }
 
+run {
+    enableAssertions = true
+}
+
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
@@ -41,6 +45,7 @@ task coverage(type: JacocoReport) {
     reports {
         html.enabled = true
         xml.enabled = true
+
     }
 }
 
@@ -76,3 +81,8 @@ shadowJar {
 }
 
 defaultTasks 'clean', 'test'
+
+run {
+    enableAssertions = true
+}
+

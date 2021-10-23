@@ -23,6 +23,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
@@ -121,8 +122,10 @@ public class ImportCommand extends Command {
                 Overtime overtime = buildOvertime(input);
                 Set<Tag> tagList = buildTags(input);
 
-                newPersonList.add(new Person(name, phone, email, address, role, leaves, hourlySalary, hoursWorked,
-                        overtime, new CalculatedPay("0"), tagList));
+                LeavesTaken leavesTaken = new LeavesTaken(); // Leaves taken are not read from file
+
+                newPersonList.add(new Person(name, phone, email, address, role, leaves, leavesTaken,
+                        hourlySalary, hoursWorked, overtime, new CalculatedPay("0"), tagList));
             } catch (ParseException e) {
                 throw new CommandException(MESSAGE_IMPORT_MISSING_FIELDS);
             }

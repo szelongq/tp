@@ -30,6 +30,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
@@ -99,6 +100,7 @@ public class EditCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setViewingPerson(editedPerson);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
@@ -115,6 +117,8 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
         Leave updatedLeave = editPersonDescriptor.getLeaves().orElse(personToEdit.getLeaves());
+        // Edit command does not allow editing dates in leaves taken
+        LeavesTaken updatedLeavesTaken = personToEdit.getLeavesTaken();
         HourlySalary updatedHourlySalary = editPersonDescriptor.getSalary().orElse(personToEdit.getSalary());
         HoursWorked updatedHours = editPersonDescriptor.getHoursWorked().orElse(personToEdit.getHoursWorked());
         Overtime updatedOvertime = editPersonDescriptor.getOvertime().orElse(personToEdit.getOvertime());
@@ -122,8 +126,8 @@ public class EditCommand extends Command {
                 editPersonDescriptor.getCalculatedPay().orElse(personToEdit.getCalculatedPay());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
-                updatedRole, updatedLeave, updatedHourlySalary, updatedHours, updatedOvertime,
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRole,
+                updatedLeave, updatedLeavesTaken, updatedHourlySalary, updatedHours, updatedOvertime,
                 updatedCalculatedPay, updatedTags);
     }
 
@@ -178,6 +182,7 @@ public class EditCommand extends Command {
             setLeaves(toCopy.leave);
             setSalary(toCopy.hourlySalary);
             setHoursWorked(toCopy.hoursWorked);
+            setOvertime(toCopy.overtime);
             setCalculatedPay(toCopy.calculatedPay);
             setTags(toCopy.tags);
         }

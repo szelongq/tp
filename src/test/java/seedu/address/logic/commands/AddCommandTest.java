@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -157,6 +158,21 @@ public class AddCommandTest {
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableObjectValue<Person> getViewingPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setViewingPerson(Person p) {
+            /*
+            Although the class is meant to have all methods failing,
+            addCommand on execute is supposed to call function to update the InfoPanel.
+            Unsure what to do with this.
+            */
+            System.out.println("Setting viewing person...");
         }
     }
 

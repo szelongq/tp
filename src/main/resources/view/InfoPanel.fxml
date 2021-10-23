@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
+<StackPane fx:id="placeHolder" xmlns="http://javafx.com/javafx/8" styleClass="stack-pane"
+           xmlns:fx="http://javafx.com/fxml/1">
+    <VBox>
+        <Label fx:id="name" styleClass="label-header" />
+        <Label fx:id="role" styleClass="label-role" />
+        <FlowPane fx:id="tags" />
+        <VBox minHeight="10" />
+
+        <Label text="Personal Information" styleClass="label-underlined" />
+        <Label fx:id="email" styleClass="label-bright" />
+        <Label fx:id="phone" styleClass="label-bright" />
+        <Label fx:id="address" styleClass="label-bright" />
+        <VBox minHeight="10" />
+
+        <Label text="Company Information" styleClass="label-underlined" />
+        <Label fx:id="leave" styleClass="label-bright" />
+        <Label fx:id="hoursWorked" styleClass="label-bright" />
+        <Label fx:id="overtime" styleClass="label-bright" />
+        <VBox fx:id="calculatedSalary" minHeight="13" maxWidth="40" />
+    </VBox>
+
+</StackPane>

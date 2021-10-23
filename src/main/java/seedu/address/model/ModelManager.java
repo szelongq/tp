@@ -4,14 +4,27 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.CalculatedPay;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.HourlySalary;
+import seedu.address.model.person.HoursWorked;
+import seedu.address.model.person.Leave;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Role;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +35,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+
+    private final ReadOnlyObjectWrapper<Person> viewingPerson;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +50,21 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        ObservableList<Person> personList = this.addressBook.getPersonList();
+        if (personList.isEmpty()) {
+            HashSet<Tag> egTags = new HashSet<>();
+            egTags.add(new Tag("example"));
+            Person examplePerson = new Person(new Name("Example person"), new Phone("62353535"),
+                    new Email("example@empl.com"), new Address("Example Street, Blk 404"),
+                    new Role("Exemplar"), new Leave("69"),
+                    new HourlySalary("666"), new HoursWorked("420"),
+                    new CalculatedPay("0"), egTags);
+            viewingPerson = new ReadOnlyObjectWrapper<Person>(examplePerson);
+        } else {
+            viewingPerson = new ReadOnlyObjectWrapper<Person>(this.addressBook.getPersonList().get(0));
+        }
+
     }
 
     public ModelManager() {
@@ -138,6 +168,18 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Viewing Person Details =====================================================================
+    @Override
+    public ObservableObjectValue<Person> getViewingPerson() {
+        return viewingPerson;
+    }
+
+    @Override
+    public void setViewingPerson(Person p) {
+        requireNonNull(p);
+        viewingPerson.set(p);
     }
 
     @Override

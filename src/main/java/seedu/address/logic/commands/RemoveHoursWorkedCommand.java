@@ -74,8 +74,9 @@ public class RemoveHoursWorkedCommand extends Command {
         }
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), personToEdit.getLeaves(), personToEdit.getSalary(),
-                newHoursWorked, newOvertime, personToEdit.getCalculatedPay(), personToEdit.getTags());
+                personToEdit.getRole(), personToEdit.getLeaves(), personToEdit.getLeavesTaken(),
+                personToEdit.getSalary(), newHoursWorked, newOvertime, personToEdit.getCalculatedPay(),
+                personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
 

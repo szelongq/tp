@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -183,6 +184,17 @@ public class ImportCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableObjectValue<Person> getViewingPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setViewingPerson(Person p) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
