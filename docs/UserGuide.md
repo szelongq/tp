@@ -127,7 +127,7 @@ Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l
       * These fields will find all people who contain the given keywords in their respective fields. They are not case-sensitive.
       * The exception is the `p/PHONE` field, which only finds exact matches.
       
-    * For example, `find p/91234567 e/alice bob r/Admin` will find anyone who satisfies the following 3 criteria:
+    * For example, `find p/91234567 e/alice bob r/Admin` will find anyone who satisfies all the following 3 criteria:
       1. has the phone number 91234567, 
       2. whose email contains `alice` or `bob`, and 
       3. whose role contains `Admin`.
@@ -141,7 +141,7 @@ Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l
         * `<`: less than
         * `<=`: less than or equal to
         
-    * For example, `find hw/>=10 l/<7` will find anyone who satisfies the following 2 criteria:
+    * For example, `find hw/>=10 l/<7` will find anyone who satisfies the both of the following 2 criteria:
       1. has worked more than or exactly 10 hours, and
       2. has less than 7 days of leave left (e.g. 6 and below)
           
