@@ -264,11 +264,53 @@ Design Considerations:
 Pros: Easy to implement, ensures that InfoPanel always displays accurate up-to-date information
 Cons: Difficult to extend InfoPanel to display other information with current implementation
 
+### Start Payroll feature
 
+#### Current Implementation
 
+The start payroll feature is provided through `StartPayrollCommand`.
+It extends `Command` with the following added methods to calculate the payroll for every employee:
+- `StartPayrollCommand#calculatePay(HourlySalary salary, HoursWorked hoursWorked,
+  Overtime overtime, OvertimePayRate overtimePayRate)` - Calculates the payroll based on the given parameters and
+  returns a new `CalculatedPay` object.
+- `StartPayrollCommand#createPersonWithCalculatedPay(Person personWithCalculatedPay,
+  CalculatedPay newCalculatedPay)` - Creates a new `Person` that is a copy of the given `Person` parameter
+  except with the updated `CalculatedPay` value.
 
+Given below is an example of how StartPayrollCommand works.
 
+Step 1. The user enters the command word 'startPayroll'. The `addressBookParser` parses the input,
+creates a `StartPayrollCommand` and executes it.
 
+Step 2. In the new instance of `StartPayrollCommand`, upon starting execution,
+the list of employees to be viewed in `Model` is set to be unfiltered using `Model#updateFilteredPersonList()`.
+The list of all employees is then retrieved by calling `Model#getFilteredPersonList()`.
+
+Step 3. Each employee in the list of employees are checked if they have any previously calculated payroll that have not
+been paid yet by calling `Person#isPaid()` on the employee. If an employee is unpaid,
+a `CommandException` will be thrown.
+
+Step 4. If there are no employees who are unpaid, calculations of payroll will proceed through the following substeps
+for each employee in the list:
+
+Step 4.1. Retrieve the current `overtimePayRate` in the application from the `Model`
+using `Model#getOvertimePayRate()`.<br>
+After that, retrieve the following attributes from the employee `Person` object:
+- `hourlySalary` - The employee's salary per hour.
+- `hoursWorked` - How many hours the employee has worked for (excluding overtime).
+- `overtime` - How many hours of overtime the employee has worked for.
+
+Step 4.2. The `CalculatedPay` object representing the calculated employee's pay is created by calling
+the `StartPayrollCommand#calculatePay()` method, with the earlier retrieved values (`overtimePayRate`, `hourlySalary`,
+`hoursWorked`, `overtime`) as parameters.
+
+Step 4.3. An updated copy of the employee `Person` object is created with the new `CalculatePay` attribute using
+`StartPayrollCommand#createPersonWithCalculatedPay()`.
+
+Step 4.4. The employee `Person` object in the `Model` is then replaced with the updated copy using `Model#setPerson()`.
+
+Step 5. After every employee in the list has had their payroll calculated, the `StartPayrollCommand` returns a
+`CommandResult` to signal successful execution.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -498,28 +540,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
         Use case resumes at step 2.
 
-**Use case: Calculate an employee's salary**
+**Use case: Calculate payroll for all employees**
 
 **MSS**
 
 1.  User requests to list employees
 2.  HeRon shows a list of employees
-3.  User requests to calculate the salary of a specific employee in the list
-4.  HeRon calculates and displays the salary of that employee
+3.  User requests to calculate the payroll for all employees
+4.  HeRon shows the list of all employees
+5.  HeRon calculates the payroll and updates all employees' calculated pay information.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 5a. There is an employee who has not yet been paid the previous calculated pay.
 
-    Use case ends.
+    * 5a1. HeRon shows an error message.
 
-* 3a. The given index is invalid.
-
-    * 3a1. HeRon shows an error message.
-
-        Use case resumes at step 2.
+        Use case resumes at step 4.
 
 **Use case: Adding a Tag to an employee**
 
