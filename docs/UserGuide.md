@@ -337,7 +337,11 @@ Format: `startPayroll`
   after their salaries are given in real life.
 
 Example:
+* Before `startPayroll` command, currently viewing a filtered list.
   ![before starting payroll](images/startPayroll_before.png)
+  
+
+* After `startPayroll` command, payroll have been calculated and currently viewing the full list of employees.
   ![after starting payroll](images/startPayroll_after.png)
   
 Notes:
@@ -360,7 +364,7 @@ Format: `pay INDEX`
 
 Example:
 * `pay 1` marks the 1st employee in the Employee list as paid clearing the pay owed, number of hours worked and overtime hours of the employee.
-  ![before paying the employee](images/pay_beforePaying.png)
+  ![before paying the employee](images/pay_beforePaying.png)<br><br>
   ![after paying the employee](images/pay_afterPaying.png)
 
 ### View the Overtime Pay Rate : `viewOvertimePayRate`
@@ -385,6 +389,8 @@ Format: `setOvertimePayRate OVERTIMEPAYRATE`
 Examples:
 * `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2x.
   ![successfully changed overtime pay rate](images/setOvertimePayRate_success.png)
+  
+
 * `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
   ![error: overtime pay rate too low](images/setOvertimePayRate_error.png)
 
