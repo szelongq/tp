@@ -38,7 +38,7 @@ class OvertimeMoreThanPredicateTest {
     @Test
     public void test_overtimeMoreThan_returnsTrue() {
         OvertimeMoreThanPredicate predicate = new OvertimeMoreThanPredicate(5);
-        
+
         // More overtime
         assertTrue(predicate.test(new PersonBuilder().withOvertime("6").build()));
     }
