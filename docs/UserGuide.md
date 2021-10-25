@@ -190,11 +190,11 @@ Format: `exit`
 
 ### Start Payroll : `startPayroll`
 
-Calculates the payroll of all employees based on recorded work hours so far.
+Calculates the payroll of all employees based on recorded hours worked and overtime done so far.
 
 Format: `startPayroll`
 * Calculates the payroll of **all** employees and displays the list of all employees.
-* All employees must not have any previously calculated pay that has not yet been paid.
+* All employees must not have any pay pending from the previous payroll.
 
 Example:
 * `find Betsy` followed by `calculate 2` gets the salary of the 2nd employee in the results of the `find` command.
