@@ -38,6 +38,23 @@ HeRon is a desktop application for HR managers to assist in managing HR administ
 6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+## Interface Layout
+![CommandPanel](images/CommandPanel.png) <br>
+_Command Panel_ <div/>
+- User commands can be entered in the top section labeled `Enter command here...`
+- Bottom section displays the result of the command. If command was unsuccessful, displays an error instead.
+
+![ListPanel](images/ListPanel.png) <br>
+_List Panel_ <div/>
+- Displays the employee list together with its relevant particulars. 
+
+![DisplayPanel](images/DisplayPanel.png) <br>
+_Display Panel_ <div/>
+- Displays all of a specified employee's information.
+- On start-up of the application, on default, it displays the first employee in the list.
+    If the employee list is empty, it displays an example person with example attributes. The example is purely visual, and does not exist in the employee list.
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
@@ -98,7 +115,7 @@ Format: `list`
 
 Edits an existing employee in the employee book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SALARY] [h/HOURS_WORKED] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SALARY] [h/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`
 
 * Edits the employee at the specified `INDEX`. The index refers to the index number shown in the displayed employee list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -108,6 +125,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES]
     specifying any tags after it.
 * The value of LEAVES **must be a positive integer.**
 * The value of SALARY **must be a non-negative number.**
+* **NOTE:** The edit command is unable to directly edit the dates of leaves taken by employees.
+Refer to the `addLeaves` and `removeLeaves` commands below instead to edit the dates.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
@@ -200,6 +219,37 @@ Format: `calculate INDEX`
 Example:
 * `find Betsy` followed by `calculate 2` gets the salary of the 2nd employee in the results of the `find` command.
 
+### Paying employee : `pay`
+
+Marks the specified employee as paid.
+
+Format: `pay INDEX`
+* Simulates the paying of an employee by clearing the salary owed to the employee by setting it back to 0. This clears the red
+`NOT PAID` label under the employee's data.
+* The number of hours worked and overtime hours of the employee will be reset to 0 as well.
+* This command is to typically used after the `startPayroll` command, which sets the pay owed to the respective employees.
+    The pay command can then be followed after to clear the pay owed.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Example:
+* `pay 2` marks the 2nd employee in the Employee list as paid clearing the pay owed, number of hours worked and overtime hours of the employee.
+
+
+### Viewing employee data: `view`
+
+View the data of the specified employee at the InfoPanel.
+
+Format: `view INDEX`
+* Displays the data of the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, ...​
+
+Example:
+* `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
+* `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
+
+
 ### Saving the data
 
 HeRon data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -233,7 +283,9 @@ Action | Format, Examples
 **Clear** | `clear`
 **Calculate** | `calculate INDEX`<br> e.g., `calculate 3`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/HOURLYSALARY] [h/HOURS_WORKED] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/HOURLYSALARY] [h/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
+**Pay**  | `pay INDEX`
+**View** | `view INDEX`
 **Help** | `help`
