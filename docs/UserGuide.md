@@ -15,19 +15,25 @@ HeRon is a desktop application for HR managers to assist in managing HR administ
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-2. Download the latest `HeRon.jar` from [here](#).
+2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your HeRon.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Start the app.
+   1. For Window users, double-click on the app.
+   2. For MacOS users, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app.
+
+5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * **`list`** : Lists all contacts.
+   
+   * **`import`** `./toBeImported.csv` : Imports the .csv file named `toBeImported.csv` the same directory as the application into the Employee Book.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40` : Adds a contact named `John Doe` to the Employee Book.
+   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0` : Adds a contact named `John Doe` with the above details to the Employee Book.
 
    * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
 
@@ -35,7 +41,7 @@ HeRon is a desktop application for HR managers to assist in managing HR administ
 
    * **`exit`** : Exits the app.
 
-6. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -78,15 +84,32 @@ Format: `help`
 
 Adds an employee to the employee book.
 
-Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVES s/HOURLYSALARY hw/HOURSWORKED [t/TAG]…​`
+Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVEBALANCE s/HOURLYSALARY hw/HOURSWORKED o/OVERTIME [t/TAG]…​`
+
+* Follow the requirements for the respective fields listed in the table below:
+
+    Field | Requirements | Examples
+    --------------|---------------|---------
+    `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`
+    `PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
+    `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters certain special characters (`+_.-`). *domain* start and end with alphanumeric characters, must be at least 2 characters long can contain hyphens.| `alice_pauline@example.com`, `benson+miller@gg.com`
+    `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
+    `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
+    `LEAVEBALANCE`| Non-negative integers only. |`12`,`0`
+    `HOURLYSALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
+    `HOURSWORKED`| Positive integers only. | `12`,`1`
+    `OVERTIME`| Non-negative integers only. | `12`,`0`
+    `TAG`| Contain alphanumeric characters only. | `friend`, `1st superior`
+
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 An employee can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40`
-* `add n/Betsy Crowe t/friend r/Designer s/25 hw/60  l/21  e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0`
+* `add n/Betsy Crowe t/friend r/Designer s/25 hw/60  l/21  e/betsycrowe@example.com a/Newgate Prison p/1234567 o/0 t/criminal`
+![Result of succesful add](/images/addExample.png)
 
 ### Listing all employees : `list`
 
@@ -199,6 +222,47 @@ Format: `startPayroll`
 Example:
 * `find Betsy` followed by `calculate 2` gets the salary of the 2nd employee in the results of the `find` command.
 
+### Import Data from CSV files: `import`
+
+Imports the data from a specified `.csv` file.
+
+Format: `import FILEPATH`
+* Imports relevant data from the specified filepath, which can be absolute or relative (to the `.jar` application).
+* Only one `FILEPATH` should be specified.
+* A header row is required to indicate the purpose of the various fields, and it must be the first row in the `.csv` file.
+* Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below.
+* Ensure that each field follows the specifications required, which can be found [here](#Adding an Employee).
+* Ensure that the number of columns in each entry matches the number of headers.
+* If multiple tags are present for an entry, they should be seperated by `/`.
+* No specific ordering of the columns is required.
+* If any compulsory fields are missing, the app only alerts the user of the first instance of a missing field.
+
+####Header Naming Conventions and Requirements
+
+Field | Rename to ... (Case-Insensitive) | Compulsory for Import? 
+--------------|---------------|------------------------
+`NAME`|Name|Yes|
+`PHONE_NUMBER` |Contact Number|Yes
+`ADDRESS` |Residential Address|Yes
+`EMAIL` |Email|Yes
+`ROLE` |Role|Yes
+`LEAVEBALANCE` |Leave Balance|No
+`HOURLYSALARY` |Salary|No
+`HOURSWORKED` |Hours Worked|No
+`OVERTIME` |Overtime|No
+`TAGS`|Tags|No
+
+Example:`import ./toBeImported` should have the following behaviours under the following situations.
+* Successful Import
+  ![Result for successful import](images/multipleTagImport.png)
+* Multiple entries missing compulsory fields.
+  ![Picture of CSV file missing compulsory field](images/missingFieldCsv.png)
+  ![Result for missing field import](images/missingFieldImport.png)
+* Multiple Tags present in entry.
+  ![Picture of CSV file with multiple tags](images/multipleTagsCsv.png)
+  ![Result for multiple tag import](images/multipleTagImport.png)
+
+
 ### Saving the data
 
 HeRon data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -226,7 +290,7 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVES s/HOURLYSALARY hw/HOURSWORKED [t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVEBALANCE s/HOURLYSALARY hw/HOURSWORKED o/OVERTIME[t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
 **Add Leaves** | `addLeaves INDEX NO_OF_DAYS` <br> e.g., `addLeaves 1 2`
 **Remove Leaves** | `removeLeaves INDEX NO_OF_DAYS` <br> e.g., `removeLeaves 4 1`
 **Clear** | `clear`
@@ -236,3 +300,4 @@ Action | Format, Examples
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
+**Import** | `import FILEPATH`
