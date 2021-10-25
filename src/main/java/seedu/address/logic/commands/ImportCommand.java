@@ -7,29 +7,20 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.CalculatedPay;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.HourlySalary;
-import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
-import seedu.address.model.person.LeavesTaken;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Overtime;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonInput;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Role;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 public class ImportCommand extends Command {
@@ -43,12 +34,16 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_IMPORT_FAILURE = "Error occurred while importing the file. ";
     public static final String MESSAGE_IMPORT_MISSING_FILE = MESSAGE_IMPORT_FAILURE + "\n"
             + "Please check the filepath and try again.";
-    public static final String MESSAGE_IMPORT_MISSING_FIELDS = MESSAGE_IMPORT_FAILURE + "\n"
-            + "Please check all entries have the required fields: Name, Contact Number, Address, Email and Role.";
     public static final String MESSAGE_IMPORT_FORMAT_ERROR = MESSAGE_IMPORT_FAILURE
             + "Please check the formatting of the data.\n"
             + "Ensure that there are no entries with all empty fields in the CSV file "
             + "and the number of header columns match the number of columns in all employee entries.";
+
+    public static final String INPUT_ANNOTATION_NAME_FIELD = "Name";
+    public static final String INPUT_ANNOTATION_PHONE_FIELD = "Contact Number";
+    public static final String INPUT_ANNOTATION_ADDRESS_FIELD = "Residential Address";
+    public static final String INPUT_ANNOTATION_EMAIL_FIELD = "Email";
+    public static final String INPUT_ANNOTATION_ROLE_FIELD = "Role";
 
     private final String filepathString;
 
@@ -79,6 +74,14 @@ public class ImportCommand extends Command {
         } catch (CommandException e) {
             throw new CommandException(e.getMessage());
         }
+
+        try {
+            Index firstEntryIndex = ParserUtil.parseIndex("1");
+            new ViewCommand(firstEntryIndex).execute(model);
+        } catch (ParseException e) {
+            // Should not happen since "1" is a valid index, and import file must have at least 1 entry.
+            throw new CommandException(e.getMessage());
+        }
         return new CommandResult(MESSAGE_IMPORT_SUCCESS);
     }
 
@@ -88,24 +91,78 @@ public class ImportCommand extends Command {
      * @return List A collection of Person objects to be replaced into the address book.
      * @throws CommandException If an error occurs during the processing of the CSV file into Person objects.
      */
-    @SuppressWarnings("unchecked")
-    // The method is sure to return a List<Person> or null.
     public List<Person> processCsv(String filepath) throws CommandException {
-        FileReader fileReader;
-        List<Person> newPersonList = new ArrayList<>();
-        List<PersonInput> newPersonInputList;
         try {
-            fileReader = new FileReader(filepath);
+            FileReader fileReader = getFileReader(filepath);
+            List<PersonInput> inputDataList = parseCsv(fileReader);
+            List<Person> personList = createPersonsFromInput(inputDataList);
+            return personList;
+        } catch (CommandException e) {
+            throw new CommandException(e.getMessage());
+        }
+    }
+
+    /**
+     * Parses the given csv file and creates a list of PersonInput objects.
+     * @param fileReader The fileReader object of the csv file.
+     * @return List A collection of PersonInput objects used to create the Person objects.
+     * @throws CommandException If there are missing fields or formatting errors in the CSV file.
+     */
+    @SuppressWarnings("unchecked")
+    // List<PersonInput> is the only return type of the method, or else an exception would be thrown.
+    public List<PersonInput> parseCsv(FileReader fileReader) throws CommandException {
+        int rowNumber = 1; // The row number of the entry as shown in Excel.
+        List<PersonInput> newPersonInputList =  new ArrayList<>();
+
+        try {
+            Iterator<PersonInput> inputIterator = new CsvToBeanBuilder(fileReader).withType(PersonInput.class)
+                    .build().iterator();
+            while (inputIterator.hasNext()) {
+                rowNumber++;
+                PersonInput input = inputIterator.next();
+                newPersonInputList.add(input);
+            }
+            return newPersonInputList;
+        } catch (RuntimeException e) {
+            String errorDescriptor = e.getMessage().split(":")[1];
+            String errorMessage;
+            String[] descriptorArr = errorDescriptor.split("\\'");
+            if (descriptorArr.length == 1) {
+                errorMessage = MESSAGE_IMPORT_FORMAT_ERROR;
+            } else {
+                String annotationField = descriptorArr[1];
+                String field = getColumnTitle(annotationField);
+                errorMessage = MESSAGE_IMPORT_FAILURE + "\n"
+                        + String.format("Row %d: Missing '%s' field.", rowNumber, field);
+            }
+            throw new CommandException(errorMessage);
+        }
+    }
+
+    /**
+     * Creates a FileReader object for a specified csv file.
+     * @param filepath The string representation of the filepath to the desired csv file.
+     * @return FileReader The FileReader object for the file in the specified filepath.
+     * @throws CommandException If the specified file with the filepath does not exist.
+     */
+    public FileReader getFileReader(String filepath) throws CommandException {
+        try {
+            FileReader fileReader = new FileReader(filepath);
+            return fileReader;
         } catch (FileNotFoundException e) {
             throw new CommandException(MESSAGE_IMPORT_MISSING_FILE);
         }
+    }
 
-        try {
-            newPersonInputList = new CsvToBeanBuilder(fileReader).withType(PersonInput.class)
-                    .build().parse();
-        } catch (RuntimeException e) {
-            throw new CommandException(MESSAGE_IMPORT_FORMAT_ERROR);
-        }
+    /**
+     * Creates a List of Person objects to replace the existing addressbook.
+     * @param newPersonInputList The list of PersonInput objects to create the corresponding Persons.
+     * @return A list of person objects.
+     * @throws CommandException If the given inputs are invalid, and a Person object cannot be created.
+     */
+    public List<Person> createPersonsFromInput(List<PersonInput> newPersonInputList) throws CommandException {
+        List<Person> newPersonList = new ArrayList<>();
+        int rowNumber = 1;
         for (PersonInput input : newPersonInputList) {
             try {
                 // Required Fields
@@ -122,12 +179,13 @@ public class ImportCommand extends Command {
                 Overtime overtime = buildOvertime(input);
                 Set<Tag> tagList = buildTags(input);
 
-                LeavesTaken leavesTaken = new LeavesTaken(); // Leaves taken are not read from file
-
-                newPersonList.add(new Person(name, phone, email, address, role, leaves, leavesTaken,
-                        hourlySalary, hoursWorked, overtime, new CalculatedPay("0"), tagList));
+                newPersonList.add(new Person(name, phone, email, address, role, leaves, new LeavesTaken(), hourlySalary
+                        , hoursWorked, overtime, new CalculatedPay("0"), tagList));
+                rowNumber++;
             } catch (ParseException e) {
-                throw new CommandException(MESSAGE_IMPORT_MISSING_FIELDS);
+                throw new CommandException(MESSAGE_IMPORT_FAILURE
+                        + String.format("Invalid Input in Row %d: ", rowNumber) + "\n"
+                        + e.getMessage());
             }
         }
         return newPersonList;
@@ -204,5 +262,23 @@ public class ImportCommand extends Command {
     public String getFilepathString() {
         return this.filepathString;
     }
+
+    public String getColumnTitle(String field) {
+        switch (field) {
+            case "name":
+                return INPUT_ANNOTATION_NAME_FIELD;
+            case "phone":
+                return INPUT_ANNOTATION_PHONE_FIELD;
+            case "address":
+                return INPUT_ANNOTATION_ADDRESS_FIELD;
+            case "email":
+                return INPUT_ANNOTATION_EMAIL_FIELD;
+            case "role":
+                return INPUT_ANNOTATION_ROLE_FIELD;
+        }
+        return null;
+    }
+
+
 
 }
