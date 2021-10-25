@@ -46,6 +46,23 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 7. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+## Interface Layout
+![CommandPanel](images/CommandPanel.png) <br>
+_Command Panel_ <div/>
+- User commands can be entered in the top section labeled `Enter command here...`
+- Bottom section displays the result of the command. If command was unsuccessful, displays an error instead.
+
+![ListPanel](images/ListPanel.png) <br>
+_List Panel_ <div/>
+- Displays the employee list together with its relevant particulars. 
+
+![DisplayPanel](images/DisplayPanel.png) <br>
+_Display Panel_ <div/>
+- Displays all of a specified employee's information.
+- On start-up of the application, on default, it displays the first employee in the list.
+    If the employee list is empty, it displays an example person with example attributes. The example is purely visual, and does not exist in the employee list.
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
@@ -131,8 +148,10 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBA
 * When editing tags, the existing tags of the employee will be removed i.e adding of tags is not cumulative.
 * You can remove all the employee’s tags by typing `t/` without
     specifying any tags after it.
-* The value of LEAVEBALANCE, HOURS_WORKED and OVERTIME **must be non-negative integers.**
+* The values of LEAVEBALANCE, HOURS_WORKED and OVERTIME **must be non-negative integers.**
 * The value of HOURLYSALARY **must be a non-negative number with up to 2 decimal places.**
+* **NOTE:** The edit command is unable to directly edit the dates of leaves taken by employees.
+Refer to the `addLeaves` and `removeLeaves` commands below instead to edit the dates.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
@@ -312,7 +331,10 @@ It can be viewed through the `viewOvertimePayRate` command or changed through th
 Format: `startPayroll`
 * Calculates the payroll of **all employees regardless of current viewing list** based on the formula above.
 * After that, marks all employees as awaiting payment of the calculated amount.
+  This will produce red labels under each employee data stating 'NOT PAID' and the amount they are owed.
 * Finally, display the list of all employees.
+* This command is typically followed up by `pay` commands to mark employees as paid, 
+  after their salaries are given in real life.
 
 Example:
   ![before starting payroll](images/startPayroll_before.png)
@@ -323,24 +345,23 @@ Notes:
   ![error when there are employees still unpaid](images/startPayrollError_unpaidEmployee.png)
 * To start a new payroll, first make sure to pay all employees using the `pay` command.
 
-### Pay Employee : `pay`
+### Paying employee : `pay`
 
-Marks the specified employee as paid and reset hours worked and overtime to zero.
+Marks the specified employee as paid.
 
 Format: `pay INDEX`
-
-* Marks the employee at the specified `INDEX` as paid.
-* Reset the employee's hours worked and overtime values to 0.
-* To be used after the payroll for employees has been calculated through the `startPayroll` command.
-* The `INDEX` refers to the index number shown in the displayed employee list.
+* Simulates the paying of an employee by clearing the salary owed to the employee by setting it back to 0. This clears the red
+  `NOT PAID` label under the employee's data.
+* The number of hours worked and overtime hours of the employee will be reset to 0 as well.
+* This command is to typically used after the `startPayroll` command, which sets the pay owed to the respective employees.
+  The pay command can then be followed after to clear the pay owed.
+* The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The index cannot exceed the length of the employee list.
 
-Examples:
-* `list` followed by `pay 2` marks the 2nd employee in the employee book as paid.
+Example:
+* `pay 1` marks the 1st employee in the Employee list as paid clearing the pay owed, number of hours worked and overtime hours of the employee.
   ![before paying the employee](images/pay_beforePaying.png)
   ![after paying the employee](images/pay_afterPaying.png)
-* `find n/Betsy` followed by `pay 1` marks the 1st employee in the results of the `find` command as paid.
 
 ### View the Overtime Pay Rate : `viewOvertimePayRate`
 
@@ -366,7 +387,20 @@ Examples:
   ![successfully changed overtime pay rate](images/setOvertimePayRate_success.png)
 * `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
   ![error: overtime pay rate too low](images/setOvertimePayRate_error.png)
-  
+
+### Viewing employee data: `view`
+
+View the data of the specified employee at the InfoPanel.
+
+Format: `view INDEX`
+* Displays the data of the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, ...​
+
+Example:
+* `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
+* `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
+
 ### Import Data from CSV files: `import`
 
 Imports the data from a specified `.csv` file.
@@ -406,7 +440,6 @@ Example:`import ./toBeImported` should have the following behaviours under the f
 * Multiple Tags present in entry.
   ![Picture of CSV file with multiple tags](images/multipleTagsCsv.png)
   ![Result for multiple tag import](images/multipleTagImport.png)
-
 
 ### Saving the data
 
@@ -452,5 +485,7 @@ Action | Format, Examples
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
 **Find** | `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
 **List** | `list`
+**Pay**  | `pay INDEX`
+**View** | `view INDEX`
 **Help** | `help`
 **Import** | `import FILEPATH`
