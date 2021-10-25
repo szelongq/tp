@@ -188,14 +188,13 @@ Exits the program.
 
 Format: `exit`
 
-### Calculating Salary : `calculate` `[to be implemented in v1.2]`
+### Start Payroll : `startPayroll`
 
-Calculate and display the monthly hourlySalary of the specified employee.
+Calculates the payroll of all employees based on recorded hours worked and overtime done so far.
 
-Format: `calculate INDEX`
-* Calculate and displays the monthly Salary of the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …​
+Format: `startPayroll`
+* Calculates the payroll of **all** employees and displays the list of all employees.
+* All employees must not have any pay pending from the previous payroll.
 
 Example:
 * `find Betsy` followed by `calculate 2` gets the salary of the 2nd employee in the results of the `find` command.
@@ -231,7 +230,7 @@ Action | Format, Examples
 **Add Leaves** | `addLeaves INDEX NO_OF_DAYS` <br> e.g., `addLeaves 1 2`
 **Remove Leaves** | `removeLeaves INDEX NO_OF_DAYS` <br> e.g., `removeLeaves 4 1`
 **Clear** | `clear`
-**Calculate** | `calculate INDEX`<br> e.g., `calculate 3`
+**Start Payroll** | `startPayroll`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/HOURLYSALARY] [h/HOURS_WORKED] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
