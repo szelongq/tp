@@ -5,6 +5,8 @@ title: User Guide
 
 HeRon is a desktop application for HR managers to assist in managing HR administrative tasks such as tracking leaves and offs, calculating pay and updating payroll information. It is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a fast typer, HeRon can get your tasks done faster as compared to traditional GUI apps.
 
+This User Guide will bring you through the features that HeRon has to offer, as well as the commands to make use of them.
+
 
 * Table of Contents
 {:toc}
@@ -109,7 +111,7 @@ An employee can have any number of tags (including 0)
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0`
 * `add n/Betsy Crowe t/friend r/Designer s/25 hw/60  l/21  e/betsycrowe@example.com a/Newgate Prison p/1234567 o/0 t/criminal`
-![Result of succesful add](/images/addExample.png)
+![Result of successful add](images/addExample.png)
 
 ### Listing all employees : `list`
 
@@ -121,7 +123,7 @@ Format: `list`
 
 Edits an existing employee in the employee book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBALANCE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`
 
 * Edits the employee at the specified `INDEX`. The index refers to the index number shown in the displayed employee list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -129,18 +131,18 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES]
 * When editing tags, the existing tags of the employee will be removed i.e adding of tags is not cumulative.
 * You can remove all the employee’s tags by typing `t/` without
     specifying any tags after it.
-* The value of LEAVES, HOURS_WORKED and OVERTIME **must be a positive integer.**
-* The value of SALARY **must be a non-negative number.**
+* The value of LEAVEBALANCE, HOURS_WORKED and OVERTIME **must be non-negative integers.**
+* The value of HOURLYSALARY **must be a non-negative number with up to 2 decimal places.**
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
 
-### Locating employees by name: `find`
+### Locating specific employees: `find`
 
 Find employees using specified fields, checking if their information field contains any of the given keywords / queries.
 
-Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
+Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBALANCE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
 
 * At least one field should be specified.
 * The order of the fields do not matter except for the `[KEYWORD]` field, which must come right after `find`.  
@@ -156,7 +158,7 @@ Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l
       3. whose role contains `Admin`.
       
   * **Type 2 Query: Value Based Comparison**  
-    * Fields: `hw/HOURS_WORKED`, `l/LEAVES`, `s/SALARY`, `o/OVERTIME`
+    * Fields: `hw/HOURS_WORKED`, `l/LEAVEBALANCE`, `s/HOURLYSALARY`, `o/OVERTIME`
       * These fields must be specified with a comparison and a value to compare the respective field to. Valid comparisons are
         * `>`: more than
         * `>=`: more than or equal to
@@ -205,7 +207,7 @@ Format: `delete INDEX`
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd employee in the employee book.
-* `find Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
+* `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
 
 ### Add number of leaves for an employee : `addLeaveBalance`
 
@@ -220,7 +222,7 @@ Format: `addLeaveBalance INDEX l/LEAVES`
 
 Examples:
 * `list` followed by `addLeaveBalance 3 l/4` adds 4 days of leave to the 3rd employee in the employee book.
-* `find Sam` followed by `addLeaveBalance 1 l/1` adds 1 day of leave to the 1st employee in the results of the `find` command.
+* `find n/Sam` followed by `addLeaveBalance 1 l/1` adds 1 day of leave to the 1st employee in the results of the `find` command.
 
 ### Subtract number of leaves for an employee : `subtractLeaveBalance`
 
@@ -236,7 +238,7 @@ Format: `subtractLeaveBalance INDEX l/LEAVES`
 
 Examples:
 * `list` followed by `subtractLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in the employee book.
-* `find Anthony` followed by `subtractLeaveBalance 4 l/2` removes 2 days of leave from the 4th employee in the results of the `find` command.
+* `find n/Anthony` followed by `subtractLeaveBalance 4 l/2` removes 2 days of leave from the 4th employee in the results of the `find` command.
 
 ### Assign a leave with a date to an employee : `assignLeave`
 
@@ -252,7 +254,7 @@ Format: `assignLeave INDEX d/DATE`
 
 Examples:
 * `list` followed by `assignLeave 2 d/2021-11-10` assigns a leave with the date 10th November 2021 to the 2nd employee in the employee book.
-* `find Anthony` followed by `assignLeave 1 d/2021-01-08` assigns a leave with the date 8th January 2021 to the 1st employee in the results of the `find` command.
+* `find n/Anthony` followed by `assignLeave 1 d/2021-01-08` assigns a leave with the date 8th January 2021 to the 1st employee in the results of the `find` command.
 
 ### Add number of hours worked/overtime to an employee : `addHoursWorked`
 
@@ -268,7 +270,7 @@ Format: `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 
 Examples:
 * `list` followed by `addHoursWorked 5 hw/5 o/5` adds 5 hours worked and 5 hours of overtime to the 5th employee in the employee book.
-* `find Sam` followed by `addHoursWorked 2 o/5` adds 5 hours of overtime to the 2nd employee in the results of the `find` command.
+* `find n/Sam` followed by `addHoursWorked 2 o/5` adds 5 hours of overtime to the 2nd employee in the results of the `find` command.
 
 ### Remove number of hours worked/overtime from an employee : `removeHoursWorked`
 
@@ -285,7 +287,7 @@ Format: `removeHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 
 Examples:
 * `list` followed by `removeHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in the employee book.
-* `find Sam` followed by `removeHoursWorked 1 o/2` removes 2 hours of overtime from the 1st employee in the results of the `find` command.
+* `find n/Sam` followed by `removeHoursWorked 1 o/2` removes 2 hours of overtime from the 1st employee in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
@@ -301,15 +303,70 @@ Format: `exit`
 
 ### Start Payroll : `startPayroll`
 
-Calculates the payroll of all employees based on recorded hours worked and overtime done so far.
+Calculates the payroll of all employees and mark them as awaiting the payment.
+
+The payroll formula is: `HOURSWORKED * HOURLYSALARY + OVERTIME * HOURLYSALARY * OVERTIMEPAYRATE`,<br>
+where `OVERTIMEPAYRATE` is the added pay rate for overtime as compared to normal work hours.<br>
+It can be viewed through the `viewOvertimePayRate` command or changed through the `setOvertimePayRate` command.
 
 Format: `startPayroll`
-* Calculates the payroll of **all** employees and displays the list of all employees.
-* All employees must not have any pay pending from the previous payroll.
+* Calculates the payroll of **all employees regardless of current viewing list** based on the formula above.
+* After that, marks all employees as awaiting payment of the calculated amount.
+* Finally, display the list of all employees.
 
 Example:
-* `find Betsy` followed by `calculate 2` gets the salary of the 2nd employee in the results of the `find` command.
+  ![before starting payroll](images/startPayroll_before.png)
+  ![after starting payroll](images/startPayroll_after.png)
+  
+Notes:
+* All employees must not have any pay pending from the previous payroll. Otherwise, an error will be shown:
+  ![error when there are employees still unpaid](images/startPayrollError_unpaidEmployee.png)
+* To start a new payroll, first make sure to pay all employees using the `pay` command.
 
+### Pay Employee : `pay`
+
+Marks the specified employee as paid and reset hours worked and overtime to zero.
+
+Format: `pay INDEX`
+
+* Marks the employee at the specified `INDEX` as paid.
+* Reset the employee's hours worked and overtime values to 0.
+* To be used after the payroll for employees has been calculated through the `startPayroll` command.
+* The `INDEX` refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The index cannot exceed the length of the employee list.
+
+Examples:
+* `list` followed by `pay 2` marks the 2nd employee in the employee book as paid.
+  ![before paying the employee](images/pay_beforePaying.png)
+  ![after paying the employee](images/pay_afterPaying.png)
+* `find n/Betsy` followed by `pay 1` marks the 1st employee in the results of the `find` command as paid.
+
+### View the Overtime Pay Rate : `viewOvertimePayRate`
+
+Displays the current overtime pay rate set in the application.
+
+Format: `viewOvertimePayRate`
+
+* Displays the current overtime pay rate in the feedback panel.
+  
+![viewing overtime pay rate](images/viewOvertimePayRate.png)
+
+### Set a new Overtime Pay Rate : `setOvertimePayRate`
+
+Sets a new overtime pay rate to be used in payroll calculations.
+
+Format: `setOvertimePayRate OVERTIMEPAYRATE`
+
+* Sets the overtime pay rate in the application to `OVERTIMEPAYRATE`.
+* `OVERTIMEPAYRATE` should have a value of at least 1.
+
+Examples:
+* `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2x.
+  ![successfully changed overtime pay rate](images/setOvertimePayRate_success.png)
+* `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
+  ![error: overtime pay rate too low](images/setOvertimePayRate_error.png)
+  
 ### Import Data from CSV files: `import`
 
 Imports the data from a specified `.csv` file.
@@ -367,7 +424,7 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## FAQ - Frequently Asked Questions
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HeRon home folder.
@@ -375,6 +432,8 @@ _Details coming soon ..._
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
+
+List of available commands with their respective format and example usages for quick references.
 
 Action | Format, Examples
 --------|------------------
@@ -386,9 +445,12 @@ Action | Format, Examples
 **Remove Hours Worked/Overtime** | `removeHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `removeHoursWorked 4 hw/1 o/2`
 **Clear** | `clear`
 **Start Payroll** | `startPayroll`
+**Pay Employee** | `pay INDEX`<br> e.g., `pay 3`
+**View Overtime Pay Rate** | `viewOvertimePayRate`
+**Set a new Overtime Pay Rate** | `setOvertimePayRate OVERTIMEPAYRATE`<br> e.g., `setOvertimePayRate 2.0`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find** | `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
 **List** | `list`
 **Help** | `help`
 **Import** | `import FILEPATH`
