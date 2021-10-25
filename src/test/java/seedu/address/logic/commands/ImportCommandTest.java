@@ -48,7 +48,7 @@ public class ImportCommandTest {
     @Test
     public void import_csvAllColumnsPresent_success() throws Exception {
         String filePathString = ALL_COLUMNS_PRESENT_FILE.toString();
-        CommandResult result = new ImportCommand(filePathString).execute(model);
+        CommandResult result = new ImportCommand(filePathString).importData(model);
 
         boolean isDifferent = false;
         ObservableList<Person> original = model.getAddressBook().getPersonList();
@@ -66,7 +66,7 @@ public class ImportCommandTest {
     @Test
     public void import_csvMixedColumnOrdering_success() throws Exception {
         String filePathString = MIXED_COLUMN_ORDERING_FILE.toString();
-        CommandResult result = new ImportCommand(filePathString).execute(model);
+        CommandResult result = new ImportCommand(filePathString).importData(model);
 
         boolean isDifferent = false;
         ObservableList<Person> original = model.getAddressBook().getPersonList();
@@ -85,7 +85,7 @@ public class ImportCommandTest {
     @Test
     public void import_csvMissingLeavesSalaryHoursWorkedTags_success() throws Exception {
         String filePathString = MISSING_LEAVES_SALARY_HOURSWORKED_TAGS_FILE.toString();
-        CommandResult result = new ImportCommand(filePathString).execute(model);
+        CommandResult result = new ImportCommand(filePathString).importData(model);
 
         boolean isDifferent = false;
         ObservableList<Person> original = model.getAddressBook().getPersonList();

@@ -14,13 +14,24 @@ import java.util.Set;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.CalculatedPay;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.HourlySalary;
+import seedu.address.model.person.HoursWorked;
+import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeavesTaken;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Overtime;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonInput;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
 
 public class ImportCommand extends Command {
@@ -65,21 +76,30 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        CommandResult result = importData(model);
+        try {
+            Index firstEntryIndex = ParserUtil.parseIndex("1");
+            new ViewCommand(firstEntryIndex).execute(model);
+        } catch (ParseException e) {
+            // Should not happen since "1" is a valid index, and import file must have at least 1 entry.
+            throw new CommandException(e.getMessage());
+        }
+        return result;
+    }
 
+    /**
+     * Imports the data from the csv into the existing model. Abstracted out from #execute for testing purposes.
+     * @param model {@code Model} which the command should operate on.
+     * @return The result of the import command
+     * @throws CommandException If an error occurs while importing the data
+     */
+    public CommandResult importData(Model model) throws CommandException {
         try {
             List<Person> newPersonList = processCsv(this.filepathString);
             AddressBook newAddressBook = new AddressBook();
             newAddressBook.setPersons(newPersonList);
             model.setAddressBook(newAddressBook);
         } catch (CommandException e) {
-            throw new CommandException(e.getMessage());
-        }
-
-        try {
-            Index firstEntryIndex = ParserUtil.parseIndex("1");
-            new ViewCommand(firstEntryIndex).execute(model);
-        } catch (ParseException e) {
-            // Should not happen since "1" is a valid index, and import file must have at least 1 entry.
             throw new CommandException(e.getMessage());
         }
         return new CommandResult(MESSAGE_IMPORT_SUCCESS);
@@ -112,7 +132,7 @@ public class ImportCommand extends Command {
     // List<PersonInput> is the only return type of the method, or else an exception would be thrown.
     public List<PersonInput> parseCsv(FileReader fileReader) throws CommandException {
         int rowNumber = 1; // The row number of the entry as shown in Excel.
-        List<PersonInput> newPersonInputList =  new ArrayList<>();
+        List<PersonInput> newPersonInputList = new ArrayList<>();
 
         try {
             Iterator<PersonInput> inputIterator = new CsvToBeanBuilder(fileReader).withType(PersonInput.class)
@@ -179,8 +199,8 @@ public class ImportCommand extends Command {
                 Overtime overtime = buildOvertime(input);
                 Set<Tag> tagList = buildTags(input);
 
-                newPersonList.add(new Person(name, phone, email, address, role, leaves, new LeavesTaken(), hourlySalary
-                        , hoursWorked, overtime, new CalculatedPay("0"), tagList));
+                newPersonList.add(new Person(name, phone, email, address, role, leaves, new LeavesTaken(), hourlySalary,
+                        hoursWorked, overtime, new CalculatedPay("0"), tagList));
                 rowNumber++;
             } catch (ParseException e) {
                 throw new CommandException(MESSAGE_IMPORT_FAILURE
@@ -265,18 +285,19 @@ public class ImportCommand extends Command {
 
     public String getColumnTitle(String field) {
         switch (field) {
-            case "name":
-                return INPUT_ANNOTATION_NAME_FIELD;
-            case "phone":
-                return INPUT_ANNOTATION_PHONE_FIELD;
-            case "address":
-                return INPUT_ANNOTATION_ADDRESS_FIELD;
-            case "email":
-                return INPUT_ANNOTATION_EMAIL_FIELD;
-            case "role":
-                return INPUT_ANNOTATION_ROLE_FIELD;
+        case "name":
+            return INPUT_ANNOTATION_NAME_FIELD;
+        case "phone":
+            return INPUT_ANNOTATION_PHONE_FIELD;
+        case "address":
+            return INPUT_ANNOTATION_ADDRESS_FIELD;
+        case "email":
+            return INPUT_ANNOTATION_EMAIL_FIELD;
+        case "role":
+            return INPUT_ANNOTATION_ROLE_FIELD;
+        default:
+            return null; // Should not reach here.
         }
-        return null;
     }
 
 
