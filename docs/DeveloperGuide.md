@@ -173,20 +173,20 @@ In general, there are 2 main types of predicates.
 1. Keyword matching predicates
     * These predicates check for a match between the user's query and the respective field in each `Person` in HeRon
     * The keywords are easily found from the ArgumentMultimap and are parsed using the `String#split()` method.
-    
-    One possible issue is that keywords containing spaces cannot be used. Therefore, a user input such as "Admin Assistant" will match "HR Assistant" and "IT Admin".
+
+    One possible issue is that keywords containing spaces cannot be used. Therefore, a user input such as "Admin Assistant" will match "HR Assistant" and "IT Admin". 
     However, the current implementation allows for more flexible searching
    
 2. Comparison based predicates
     * These predicates compare their given value with the respective field in each `Person` in HeRon.
         * For example, a LeaveLessThanPredicate will check if the `Person` has a number of leaves strictly less than the given value.
-    * First, the respective method found in `FindCommandParser` for creating a comparison predicate is called. 
+    * First, the respective method found in `FindCommandParser` for creating a comparison predicate is called.
         * For example, to get a `SalaryIsLessThanPredicate`, `FindCommandParser#getSalaryComparisonPredicate` is called with the user's input.
     * The comparison type is found using the `parseComparator()` method in FindCommandParser, which returns a CompareType, an enum found in FindCommandParser which has 5 values representing the different available comparisons: "more than", "more than or equal", "less than", "less than or equal", and "equal".
     * The value to compare to is then found using the `getComparisonValue()` method in FindCommandParser, which returns a String to be parsed.
         * This is done because the different fields take in different number types. For example, the Salary field takes in a `float`, whereas the Leave field takes in an `int`.
     * Finally, the predicate is created by checking the CompareType and then passing the parsed value to the constructor.
-    
+
 After each predicate is generated, it is added to a list of filters in the parser, and after all predicates are added, they are combined into a single predicate using the `Predicate#reduce()` function, which is used to create the FindCommand.
 This means that a Person must fulfill ALL predicates to be considered a match.
 These predicates are combined into a single predicate so that it can be passed into the FindCommand, as it already takes in a single Predicate in its constructor.
@@ -206,7 +206,7 @@ Therefore, it is also easy to extend this implementation to contain other predic
 4. Within `FindCommandParser#parse()`, create the respective predicate and add it to the `filters` list in FindCommandParser.
 
 #### Alternatives considered
-There are many alternatives for different parts of the FindCommandParser implementation. 
+There are many alternatives for different parts of the FindCommandParser implementation.
 The first alternative implementation concerns the predicate portion.
 
 ##### Predicates
@@ -233,7 +233,7 @@ Then, the predicate will contain information of the type of comparison to make, 
 Pros:
 * Less classes are needed to completely account for all 5 scenarios. (and possibly less repeated code)
 
-Cons: 
+Cons:
 * Testing becomes harder because there are many branches to account for, since the `test()` method will change its behaviour based on the comparison type passed into it.
 * May become less flexible if more types of comparisons are needed. The current implementation allows each predicate to be responsible for only one type of comparison.
 
