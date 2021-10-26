@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+
+participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant ":XYZ Predicate" as Predicate LOGIC_COLOR
+
+group sd get predicates
+    create Predicate
+    FindCommandParser -> Predicate
+    note right
+        Refers to any predicate with the corresponding prefix found in the ArgumentMultimap
+        For example, n/ in the command will give a NameContainsKeywordPredicate
+    end note
+    activate Predicate
+
+    Predicate --> FindCommandParser
+    deactivate Predicate
+
+    FindCommandParser -> FindCommandParser : add(XYZ Predicate)
+end
+
+FindCommandParser -> FindCommandParser : combinePredicates(filters)
+
+@enduml

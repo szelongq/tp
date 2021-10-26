@@ -154,6 +154,25 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+## Find Command
+
+The find command allows a user to specify all the different fields which they want to search by.
+It is implemented by parsing all the different fields that the user is searching with, and creating the relevant predicate for each field.
+For example:
+* Searching by name `n/NAME` will create a NameContainsKeywordsPredicate
+* Searching by role `r/ROLE` will create a RoleContainsKeywordsPredicate
+* Searching by overtime hours with a 'less than' comparison `o/<OVERTIME` will create a OvertimeLessThanPredicate
+
+and so on.
+
+Each field the user specifies is located and parsed with the `tokenize` function from ArgumentTokenizer.  
+After each predicate is generated, it is added to a list of filters in the parser, and after all predicates are added, they are combined into a single predicate using the `Predicate#reduce()` function, which is used to create the FindCommand.
+
+Below is the sequence diagram which shows a quick overview of how the FindCommand is created.
+![FindCommand](images/FindSequenceDiagram.png)
+
+![FindCommandGetPredicates](images/FindCommandGetPredicateDiagram.png)
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
