@@ -4,7 +4,8 @@
 participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
 participant ":XYZ Predicate" as Predicate LOGIC_COLOR
 
-group sd get predicates
+mainframe sd get predicates
+    activate FindCommandParser
     create Predicate
     FindCommandParser -> Predicate
     note right
@@ -17,8 +18,5 @@ group sd get predicates
     deactivate Predicate
 
     FindCommandParser -> FindCommandParser : add(XYZ Predicate)
-end
-
-FindCommandParser -> FindCommandParser : combinePredicates(filters)
 
 @enduml
