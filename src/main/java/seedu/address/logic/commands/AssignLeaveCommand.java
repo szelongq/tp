@@ -70,6 +70,7 @@ public class AssignLeaveCommand extends Command {
                 personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
+        model.setViewingPerson(editedPerson);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
     }
