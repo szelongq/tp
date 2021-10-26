@@ -46,18 +46,18 @@ HeRon is a desktop application for HR managers to assist in managing HR administ
 --------------------------------------------------------------------------------------------------------------------
 ## Interface Layout
 ![CommandPanel](images/CommandPanel.png) <br>
-_Command Panel_ <div/>
+_Command Panel_ <br>
 - User commands can be entered in the top section labeled `Enter command here...`
 - Bottom section displays the result of the command. If command was unsuccessful, displays an error instead.
 
 ![ListPanel](images/ListPanel.png) <br>
-_List Panel_ <div/>
+_List Panel_ <br>
 - Displays the employee list together with its relevant particulars. 
 
 ![DisplayPanel](images/DisplayPanel.png) <br>
-_Display Panel_ <div/>
+_Display Panel_ <br>
 - Displays all of a specified employee's information.
-- On start-up of the application, on default, it displays the first employee in the list.
+- On start-up of the application, it displays the first employee in the list.
     If the employee list is empty, it displays an example person with example attributes. The example is purely visual, and does not exist in the employee list.
 
 --------------------------------------------------------------------------------------------------------------------
