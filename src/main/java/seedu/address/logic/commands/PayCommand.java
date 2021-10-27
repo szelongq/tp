@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
@@ -24,41 +26,90 @@ import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
 
 /**
- * Pays a person identified using it's displayed index from the address book.
+ * Pays a person identified using it's displayed index or all persons in the current list from the address book.
  */
 public class PayCommand extends Command {
 
     public static final String COMMAND_WORD = "pay";
 
+    public static final String SPECIAL_COMMAND_PHRASE = "all";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Pays the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Pays the person identified by the index number used OR all persons in the displayed person list.\n"
+            + "Parameters: INDEX (must be a positive integer) OR \"all\"\n"
+            + "Example 1: " + COMMAND_WORD + " 1\n"
+            + "Example 2: " + COMMAND_WORD + " " + SPECIAL_COMMAND_PHRASE;
 
     public static final String MESSAGE_PAY_PERSON_SUCCESS = "Successfully paid person: %1$s";
 
-    private final Index targetIndex;
+    public static final String MESSAGE_PAY_ALL_SUCCESS = "Successfully paid all in the list.";
+
+    // Target index of the person to pay
+    // If empty, the command pays all persons in the current list
+    private final Optional<Index> targetIndex;
+
+    public PayCommand() {
+        this.targetIndex = Optional.empty();
+    }
 
     public PayCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        requireNonNull(targetIndex);
+        this.targetIndex = Optional.of(targetIndex);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        CommandResult finalResult;
+
+        if (targetIndex.isEmpty()) {
+            finalResult = executePayAll(model);
+        }
+        else {
+            finalResult = executePayByIndex(model);
+        }
+
+        return finalResult;
+    }
+
+    private CommandResult executePayByIndex(Model model) throws CommandException{
+        assert nonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.get().getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToPay = lastShownList.get(targetIndex.getZeroBased());
+        // Pay the person of the specified index
+        Person personToPay = lastShownList.get(targetIndex.get().getZeroBased());
         Person paidPerson = createPaidPerson(personToPay);
         model.setPerson(personToPay, paidPerson);
+
+        // View the person that has been paid
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.setViewingPerson(paidPerson);
 
         return new CommandResult(String.format(MESSAGE_PAY_PERSON_SUCCESS, paidPerson));
+    }
+
+    private CommandResult executePayAll(Model model) {
+        assert nonNull(model);
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        // Pay all persons in the list
+        for (Person personToPay: lastShownList) {
+            Person paidPerson = createPaidPerson(personToPay);
+            model.setPerson(personToPay, paidPerson);
+        }
+
+        // View the first person in the list that has been paid
+        Index indexOfFirstPersonToPay = Index.fromZeroBased(0);
+        Person personToView = lastShownList.get(indexOfFirstPersonToPay.getZeroBased());
+
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.setViewingPerson(personToView);
+
+        return new CommandResult(MESSAGE_PAY_ALL_SUCCESS);
     }
 
     private static Person createPaidPerson(Person personToPay) {
