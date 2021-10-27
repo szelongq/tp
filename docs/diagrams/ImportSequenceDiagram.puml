@@ -51,34 +51,9 @@ destroy AddressBookParser
 LogicManager -> ImportCommand : execute(model)
 activate ImportCommand
 
-ImportCommand -> ImportCommand : processCsv(filepath)
+ref over ImportCommand: Process Data
 
-create AddressBook
-ImportCommand -> AddressBook : AddressBook()
-activate AddressBook
-
-AddressBook --> ImportCommand
-deactivate AddressBook
-
-ImportCommand -> AddressBook : setPersons(newPersonList)
-activate AddressBook
-
-AddressBook --> ImportCommand
-deactivate AddressBook
-
-ImportCommand -> Model : setAddressBook(newAddressBook)
-activate Model
-
-Model --> ImportCommand
-deactivate Model
-
-ImportCommand -> CommandResult : CommandResult(Message)
-activate CommandResult
-
-CommandResult --> ImportCommand
-deactivate CommandResult
-CommandResult -[hidden]-> ImportCommand
-destroy CommandResult
+ref over ImportCommand: Update GUI
 
 ImportCommand --> LogicManager
 deactivate ImportCommand

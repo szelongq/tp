@@ -1,0 +1,30 @@
+@startuml
+!include style.puml
+title Update GUI
+
+box Logic  LOGIC_COLOR_T1
+participant ":ImportCommand" as ImportCommand LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant ":ViewCommand" as ViewCommand LOGIC_COLOR
+end box
+
+activate ImportCommand
+
+ImportCommand -> ParserUtil : parseIndex("1")
+activate ParserUtil
+ParserUtil --> ImportCommand : firstEntryIndex
+deactivate ParserUtil
+
+create ViewCommand
+ImportCommand -> ViewCommand : ViewCommand(firstEntryIndex)
+activate ViewCommand
+ViewCommand --> ImportCommand :
+
+ImportCommand-> ViewCommand : execute(model)
+ref over ViewCommand: View specific entry
+ViewCommand --> ImportCommand
+deactivate ViewCommand
+ViewCommand -[hidden]-> ImportCommand
+destroy ViewCommand
+
+@enduml

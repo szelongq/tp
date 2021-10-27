@@ -9,7 +9,9 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+### Third-Party Libraries Used
+* [Opencsv](http://opencsv.sourceforge.net/)
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -178,6 +180,8 @@ Step 3. Program processes the .csv file, and creates a new `AddressBook` contain
 
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
+![ImportProcessData](images/ImportProcessData.png)
+![ImportUpdateGUI](images/ImportUpdateGUI.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `ImportCommandParser`, `ImportCommand` and `CommandResult` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.</div>
 
@@ -600,6 +604,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3b1. HeRon shows an error message.
 
       Use case resumes at step 3.
+
+**Use case: Importing an external .csv file.**
+
+**MSS**
+1. User specifies the filepath of the file to be imported.
+2. File is found and data from the file is imported into HeRon.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. File specified from the given filepath foes not exist.
+    
+    * 2a1. HeRon shows an error message. 
+  
+      Use case resumes at step 1.
+  
+* 2b. File specified exists, but the formatting of data in the given file is invalid.
+
+    * 2a1. HeRon shows an error message.
+
+      Use case resumes at step 1.
 
 *{More to be added}*
 
