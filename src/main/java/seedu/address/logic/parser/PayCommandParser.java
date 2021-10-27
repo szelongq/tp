@@ -16,8 +16,7 @@ public class PayCommandParser implements Parser<PayCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.equals(PayCommand.SPECIAL_COMMAND_PHRASE)) {
             return new PayCommand();
-        }
-        else {
+        } else {
             try {
                 Index index = ParserUtil.parseIndex(args);
                 return new PayCommand(index);

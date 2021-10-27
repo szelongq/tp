@@ -48,10 +48,17 @@ public class PayCommand extends Command {
     // If empty, the command pays all persons in the current list
     private final Optional<Index> targetIndex;
 
+    /**
+     * Constructor for paying all persons in the list.
+     */
     public PayCommand() {
         this.targetIndex = Optional.empty();
     }
 
+    /**
+     * Constructor for paying a specific person in the list.
+     * @param targetIndex The index of the person to be paid.
+     */
     public PayCommand(Index targetIndex) {
         requireNonNull(targetIndex);
         this.targetIndex = Optional.of(targetIndex);
@@ -64,15 +71,14 @@ public class PayCommand extends Command {
 
         if (targetIndex.isEmpty()) {
             finalResult = executePayAll(model);
-        }
-        else {
+        } else {
             finalResult = executePayByIndex(model);
         }
 
         return finalResult;
     }
 
-    private CommandResult executePayByIndex(Model model) throws CommandException{
+    private CommandResult executePayByIndex(Model model) throws CommandException {
         assert nonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
