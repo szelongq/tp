@@ -165,18 +165,24 @@ The implemented import feature mechanism is facilitated that `ImportCommandParse
 
 `PersonInput` is a class which stores the various field inputs for a Person entry as a String, and implements getter and setter methods for all fields as required by the 3rd-party library opencsv.
 
-Currently, the fields `Name`,`Contact Number`, `Residential Address`, `Email` and `Role` must be present in all entries before the data can be imported successfully. This is to prevent junk data from being imported. These fields were selected as they were most likely to be already existing in organizations intending to use this program.
+Currently, the fields `name`,`phone`, `address`, `email` and `role` must be present in all entries before the data can be imported successfully. This is to prevent junk data from being imported. These fields were selected as they were most likely to be already existing in organizations intending to use this program.
+
+The program detects the fields using column titles (taken as the first row of the csv file). The naming convention (case-insensitive) of the following fields must be followed for HeRon to detect the field, as per opencsv library requirements.
+* `name` as Name
+* `phone` as Contact Number
+* `address` as Residential Address
+* `email` as Email
+* `role` as Role
 
 Given below is an example usage scenario and how the import mechanism behaves at each step.
 
 Step 1. The user launches the application. The `AddressBook` initializes with the initial address book state or loaded with data from the previous session (if any).
 
 Step 2. The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which refers to the file `toBeImported.csv` in the root directory.
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and there will be no changes made to the current `AddressBook`.</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`.</div>
 
 Step 3. Program processes the .csv file, and creates a new `AddressBook` containing the entries in it. It then replaces the current existing `AddressBook` with thew newly created one. The newly updated contents would be saved as per the process after the execution of a command.
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and there will be no changes made to the current `AddressBook`.</div>
-
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current `AddressBook`.</div>
 
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
