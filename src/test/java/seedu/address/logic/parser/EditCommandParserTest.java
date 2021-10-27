@@ -60,7 +60,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
@@ -110,7 +110,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_ROLE_DESC, Role.MESSAGE_CONSTRAINTS); // invalid role
-        assertParseFailure(parser, "1" + INVALID_LEAVES_DESC, Leave.MESSAGE_CONSTRAINTS); // invalid leaves
+        assertParseFailure(parser, "1" + INVALID_LEAVES_DESC, LeaveBalance.MESSAGE_CONSTRAINTS); // invalid leaves
         assertParseFailure(parser, "1" + INVALID_HOURLYSALARY_DESC, HourlySalary.MESSAGE_CONSTRAINTS); // invalid salary
         assertParseFailure(parser, "1" + INVALID_HOURSWORKED_DESC, HoursWorked.MESSAGE_CONSTRAINTS);
         // invalid hours worked

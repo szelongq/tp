@@ -353,7 +353,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                       | delete an employee                                                                                                    | remove entries that I no longer need.                                                                                     |
 | `* * * ` | user                                       | edit an employee's data                                                                                               |                                                                                                                           |
 | `* * *`  | user with many employees in the app        | search for an employee's data easily                                                                                  | locate details of employees without having to go through the entire list.                                                   |
-| `* * *`  | user                                       | keep track of my employee's current leaves                                                                            | determine if a given employee's request for leave is valid.                                                               |
+| `* * *`  | user                                       | keep track of my employee's current leaves                                                                            | determine if a given employee's request for leaveBalance is valid.                                                               |
 | `* * *`  | user                                       | update leaves for certain employees                                                                                   | have a more accurate count of their remaining leaves.                                                                     |
 | `* * *`  | user                                       | keep track of an employee's unpaid leaves                                                                             | know how much to deduct from their monthly salary.                                                                        |
 | `* * *`  | user                                       | get all the offs and leaves that every employee has                                                                   | get those with remaining leaves to clear them before the end of the year.                                                 |
@@ -420,7 +420,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  User requests to list employees
 2.  HeRon shows a list of employees
 3.  User requests to add a certain number of leaves to a specific employee in the list
-4.  HeRon adds the leave to the employee
+4.  HeRon adds the leaveBalance to the employee
 
     Use case ends.
 

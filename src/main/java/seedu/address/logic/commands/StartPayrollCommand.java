@@ -13,7 +13,7 @@ import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
@@ -91,7 +91,7 @@ public class StartPayrollCommand extends Command {
         Email email = personWithCalculatedPay.getEmail();
         Address address = personWithCalculatedPay.getAddress();
         Role role = personWithCalculatedPay.getRole();
-        Leave leaves = personWithCalculatedPay.getLeaves();
+        LeaveBalance leaves = personWithCalculatedPay.getLeaveBalance();
         HourlySalary salary = personWithCalculatedPay.getSalary();
         HoursWorked hours = personWithCalculatedPay.getHoursWorked();
         Set<Tag> tags = personWithCalculatedPay.getTags();

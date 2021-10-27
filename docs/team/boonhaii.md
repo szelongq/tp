@@ -20,7 +20,7 @@ Given below are my contributions to the project.
   * To be updated.
 
 * **Enhancements to existing features**:
-  * Update `add` and `delete` commands to cater to new fields for HeRon, including role, leave, hourlySalary and hours worked.
+  * Update `add` and `delete` commands to cater to new fields for HeRon, including role, leaveBalance, hourlySalary and hours worked.
 
 * **Documentation**:
   * User Guide:

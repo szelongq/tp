@@ -20,7 +20,7 @@
         <VBox minHeight="10" />
 
         <Label text="Company Information" styleClass="label-underlined" />
-        <Label fx:id="leave" styleClass="label-bright" />
+        <Label fx:id="leaveBalance" styleClass="label-bright" />
         <Label fx:id="hoursWorked" styleClass="label-bright" />
         <Label fx:id="overtime" styleClass="label-bright" />
         <VBox fx:id="calculatedSalary" minHeight="13" maxWidth="40" />

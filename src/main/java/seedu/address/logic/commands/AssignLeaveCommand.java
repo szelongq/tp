@@ -10,7 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.Person;
 
 /**
@@ -26,7 +26,7 @@ public class AssignLeaveCommand extends Command {
             + PREFIX_DATE + "DATE (of the format YYYY-MM-DD) \n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DATE + "2021-10-30";
     public static final String MESSAGE_SUCCESS =
-            "Leave successfully assigned to person: %1$s";
+            "LeaveBalance successfully assigned to person: %1$s";
 
     private final Index index;
     private final LocalDate date;
@@ -53,10 +53,10 @@ public class AssignLeaveCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Leave newLeaveBalance;
+        LeaveBalance newLeaveBalanceBalance;
         // Check that the employee has at least 1 leave
         try {
-            newLeaveBalance = personToEdit.getLeaves().removeLeaves(new Leave("1"));
+            newLeaveBalanceBalance = personToEdit.getLeaveBalance().removeLeaves(new LeaveBalance("1"));
         } catch (IllegalArgumentException iae) {
             throw new CommandException(
                     String.format(Messages.MESSAGE_INSUFFICIENT_LEAVES,
@@ -65,7 +65,7 @@ public class AssignLeaveCommand extends Command {
 
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), newLeaveBalance,
+                personToEdit.getRole(), newLeaveBalanceBalance,
                 personToEdit.getLeavesTaken().addDate(date), personToEdit.getSalary(), personToEdit.getHoursWorked(),
                 personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
 

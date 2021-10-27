@@ -148,7 +148,7 @@ Examples:
 
 ### Add number of leaves for an employee : `addLeaves`
 
-Adds the specified number of days to the current leave quota (number of days of leave left) of a chosen employee.
+Adds the specified number of days to the current leaveBalance quota (number of days of leaveBalance left) of a chosen employee.
 
 Format: `addLeaves INDEX NO_OF_DAYS`
 
@@ -158,12 +158,12 @@ Format: `addLeaves INDEX NO_OF_DAYS`
 * The number of days **must be a positive integer** 1, 2, 3, …
 
 Examples:
-* `list` followed by `addLeaves 3 4` adds 4 days of leave to the 3rd employee in the employee book.
-* `find Sam` followed by `addLeaves 1 1` adds 1 day of leave to the 1st employee in the results of the `find` command.
+* `list` followed by `addLeaves 3 4` adds 4 days of leaveBalance to the 3rd employee in the employee book.
+* `find Sam` followed by `addLeaves 1 1` adds 1 day of leaveBalance to the 1st employee in the results of the `find` command.
 
 ### Remove number of leaves for an employee : `removeLeaves`
 
-Removes the specified number of days from the current leave quota (number of days of leave left) of a chosen employee.
+Removes the specified number of days from the current leaveBalance quota (number of days of leaveBalance left) of a chosen employee.
 
 Format: `removeLeaves INDEX NO_OF_DAYS`
 
@@ -173,8 +173,8 @@ Format: `removeLeaves INDEX NO_OF_DAYS`
 * The number of days **must be a positive integer** 1, 2, 3, …
 
 Examples:
-* `list` followed by `removeLeaves 2 1` removes 1 day of leave from the 2nd employee in the employee book.
-* `find Anthony` followed by `removeLeaves 4 2` removes 2 days of leave from the 4th employee in the results of the `find` command.
+* `list` followed by `removeLeaves 2 1` removes 1 day of leaveBalance from the 2nd employee in the employee book.
+* `find Anthony` followed by `removeLeaves 4 2` removes 2 days of leaveBalance from the 4th employee in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 

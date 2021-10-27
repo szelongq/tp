@@ -25,7 +25,7 @@ import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
@@ -34,12 +34,12 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
 
-public class RemoveLeaveCommandTest {
+public class DeductLeaveBalanceCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Leave removedLeaves = new Leave("3");
-    private final Leave invalidRemovedLeaves = new Leave("1000");
+    private final LeaveBalance removedLeaves = new LeaveBalance("3");
+    private final LeaveBalance invalidRemovedLeaves = new LeaveBalance("1000");
 
-    private Person createPersonWithRemovedLeaves(Person personToRemoveLeavesFrom, Leave removedLeaves) {
+    private Person createPersonWithRemovedLeaves(Person personToRemoveLeavesFrom, LeaveBalance removedLeaves) {
         Name name = personToRemoveLeavesFrom.getName();
         Phone phone = personToRemoveLeavesFrom.getPhone();
         Email email = personToRemoveLeavesFrom.getEmail();
@@ -52,7 +52,7 @@ public class RemoveLeaveCommandTest {
         CalculatedPay calculatedPay = personToRemoveLeavesFrom.getCalculatedPay();
         Set<Tag> tags = personToRemoveLeavesFrom.getTags();
 
-        Leave newLeaves = personToRemoveLeavesFrom.getLeaves().removeLeaves(removedLeaves);
+        LeaveBalance newLeaves = personToRemoveLeavesFrom.getLeaveBalance().removeLeaves(removedLeaves);
 
         return new Person(name, phone, email, address, role, newLeaves, leavesTaken,
                 salary, hours, overtime, calculatedPay, tags);
@@ -61,25 +61,27 @@ public class RemoveLeaveCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToRemoveLeavesFrom = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        RemoveLeavesCommand removeLeavesCommand = new RemoveLeavesCommand(INDEX_FIRST_PERSON, removedLeaves);
+        DeductLeaveBalanceCommand deductLeaveBalanceCommand =
+                new DeductLeaveBalanceCommand(INDEX_FIRST_PERSON, removedLeaves);
 
         Person personWithRemovedLeaves = createPersonWithRemovedLeaves(personToRemoveLeavesFrom, removedLeaves);
 
         String expectedMessage =
-                String.format(RemoveLeavesCommand.MESSAGE_SUCCESS, personWithRemovedLeaves);
+                String.format(DeductLeaveBalanceCommand.MESSAGE_SUCCESS, personWithRemovedLeaves);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personToRemoveLeavesFrom, personWithRemovedLeaves);
 
-        assertCommandSuccess(removeLeavesCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deductLeaveBalanceCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        RemoveLeavesCommand removeLeavesCommand = new RemoveLeavesCommand(outOfBoundIndex, removedLeaves);
+        DeductLeaveBalanceCommand deductLeaveBalanceCommand =
+                new DeductLeaveBalanceCommand(outOfBoundIndex, removedLeaves);
 
-        assertCommandFailure(removeLeavesCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deductLeaveBalanceCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -87,18 +89,19 @@ public class RemoveLeaveCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personToRemoveLeavesFrom = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        RemoveLeavesCommand removeLeavesCommand = new RemoveLeavesCommand(INDEX_FIRST_PERSON, removedLeaves);
+        DeductLeaveBalanceCommand deductLeaveBalanceCommand =
+                new DeductLeaveBalanceCommand(INDEX_FIRST_PERSON, removedLeaves);
 
         Person personWithRemovedLeaves = createPersonWithRemovedLeaves(personToRemoveLeavesFrom, removedLeaves);
 
         String expectedMessage =
-                String.format(RemoveLeavesCommand.MESSAGE_SUCCESS, personWithRemovedLeaves);
+                String.format(DeductLeaveBalanceCommand.MESSAGE_SUCCESS, personWithRemovedLeaves);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
         expectedModel.setPerson(personToRemoveLeavesFrom, personWithRemovedLeaves);
 
-        assertCommandSuccess(removeLeavesCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deductLeaveBalanceCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -109,27 +112,29 @@ public class RemoveLeaveCommandTest {
         // Ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        RemoveLeavesCommand removeLeavesCommand = new RemoveLeavesCommand(outOfBoundIndex, removedLeaves);
+        DeductLeaveBalanceCommand deductLeaveBalanceCommand =
+                new DeductLeaveBalanceCommand(outOfBoundIndex, removedLeaves);
 
-        assertCommandFailure(removeLeavesCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deductLeaveBalanceCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_notEnoughLeaves_throwsCommandException() {
-        RemoveLeavesCommand removeLeavesCommand = new RemoveLeavesCommand(INDEX_FIRST_PERSON, invalidRemovedLeaves);
+        DeductLeaveBalanceCommand deductLeaveBalanceCommand =
+                new DeductLeaveBalanceCommand(INDEX_FIRST_PERSON, invalidRemovedLeaves);
 
-        assertCommandFailure(removeLeavesCommand, model,
+        assertCommandFailure(deductLeaveBalanceCommand, model,
                 String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT, invalidRemovedLeaves, "leaves"));
     }
 
     @Test
     public void equals() {
-        final RemoveLeavesCommand standardCommand =
-                new RemoveLeavesCommand(INDEX_FIRST_PERSON, new Leave(VALID_LEAVES_AMY));
+        final DeductLeaveBalanceCommand standardCommand =
+                new DeductLeaveBalanceCommand(INDEX_FIRST_PERSON, new LeaveBalance(VALID_LEAVES_AMY));
 
         // Same values -> returns true
-        RemoveLeavesCommand commandWithSameValues =
-                new RemoveLeavesCommand(INDEX_FIRST_PERSON, new Leave(VALID_LEAVES_AMY));
+        DeductLeaveBalanceCommand commandWithSameValues =
+                new DeductLeaveBalanceCommand(INDEX_FIRST_PERSON, new LeaveBalance(VALID_LEAVES_AMY));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // Same object -> returns true
@@ -142,9 +147,11 @@ public class RemoveLeaveCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // Different index -> returns false
-        assertFalse(standardCommand.equals(new RemoveLeavesCommand(INDEX_SECOND_PERSON, new Leave(VALID_LEAVES_AMY))));
+        assertFalse(standardCommand.equals(new DeductLeaveBalanceCommand(INDEX_SECOND_PERSON,
+                new LeaveBalance(VALID_LEAVES_AMY))));
 
         // Different number of leaves -> returns false
-        assertFalse(standardCommand.equals(new RemoveLeavesCommand(INDEX_FIRST_PERSON, new Leave(VALID_LEAVES_BOB))));
+        assertFalse(standardCommand.equals(new DeductLeaveBalanceCommand(INDEX_FIRST_PERSON,
+                new LeaveBalance(VALID_LEAVES_BOB))));
     }
 }

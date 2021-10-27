@@ -29,7 +29,7 @@ import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
@@ -116,7 +116,7 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
-        Leave updatedLeave = editPersonDescriptor.getLeaves().orElse(personToEdit.getLeaves());
+        LeaveBalance updatedLeaveBalance = editPersonDescriptor.getLeaves().orElse(personToEdit.getLeaveBalance());
         // Edit command does not allow editing dates in leaves taken
         LeavesTaken updatedLeavesTaken = personToEdit.getLeavesTaken();
         HourlySalary updatedHourlySalary = editPersonDescriptor.getSalary().orElse(personToEdit.getSalary());
@@ -127,7 +127,7 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRole,
-                updatedLeave, updatedLeavesTaken, updatedHourlySalary, updatedHours, updatedOvertime,
+                updatedLeaveBalance, updatedLeavesTaken, updatedHourlySalary, updatedHours, updatedOvertime,
                 updatedCalculatedPay, updatedTags);
     }
 
@@ -159,7 +159,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Role role;
-        private Leave leave;
+        private LeaveBalance leaveBalance;
         private HourlySalary hourlySalary;
         private HoursWorked hoursWorked;
         private Overtime overtime;
@@ -179,7 +179,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setRole(toCopy.role);
-            setLeaves(toCopy.leave);
+            setLeaves(toCopy.leaveBalance);
             setSalary(toCopy.hourlySalary);
             setHoursWorked(toCopy.hoursWorked);
             setOvertime(toCopy.overtime);
@@ -191,8 +191,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, role, leave, hourlySalary, hoursWorked,
-                    overtime, calculatedPay, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, role, leaveBalance, hourlySalary,
+                    hoursWorked, overtime, calculatedPay, tags);
         }
 
         public void setName(Name name) {
@@ -235,12 +235,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(role);
         }
 
-        public void setLeaves(Leave leave) {
-            this.leave = leave;
+        public void setLeaves(LeaveBalance leaveBalance) {
+            this.leaveBalance = leaveBalance;
         }
 
-        public Optional<Leave> getLeaves() {
-            return Optional.ofNullable(leave);
+        public Optional<LeaveBalance> getLeaves() {
+            return Optional.ofNullable(leaveBalance);
         }
 
         public void setSalary(HourlySalary hourlySalary) {

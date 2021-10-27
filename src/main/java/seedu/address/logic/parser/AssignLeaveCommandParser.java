@@ -22,7 +22,7 @@ public class AssignLeaveCommandParser implements Parser<AssignLeaveCommand> {
      * and returns a AssignLeaveCommand object for execution.
      *
      * @param args A string representing the user's input.
-     * @return A new AddLeavesCommand object.
+     * @return A new AddLeaveBalanceCommand object.
      * @throws ParseException if the user input does not conform the expected format
      * or an invalid integer input for the number of leaves is given.
      */

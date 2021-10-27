@@ -14,7 +14,7 @@ import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
@@ -69,7 +69,7 @@ public class PayCommand extends Command {
         Email email = personToPay.getEmail();
         Address address = personToPay.getAddress();
         Role role = personToPay.getRole();
-        Leave leave = personToPay.getLeaves();
+        LeaveBalance leaveBalance = personToPay.getLeaveBalance();
         LeavesTaken leavesTaken = personToPay.getLeavesTaken();
         HourlySalary hourlySalary = personToPay.getSalary();
 
@@ -82,7 +82,7 @@ public class PayCommand extends Command {
 
         Set<Tag> tags = personToPay.getTags();
 
-        return new Person(name, phone, email, address, role, leave, leavesTaken, hourlySalary,
+        return new Person(name, phone, email, address, role, leaveBalance, leavesTaken, hourlySalary,
                 newHours, newOvertime, newCalcPay, tags);
     }
 

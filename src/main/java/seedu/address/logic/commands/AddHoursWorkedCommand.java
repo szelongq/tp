@@ -59,7 +59,7 @@ public class AddHoursWorkedCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), personToEdit.getLeaves(), personToEdit.getLeavesTaken(),
+                personToEdit.getRole(), personToEdit.getLeaveBalance(), personToEdit.getLeavesTaken(),
                 personToEdit.getSalary(), personToEdit.getHoursWorked().addHoursWorked(hoursWorked),
                 personToEdit.getOvertime().addOvertime(overtime),
                 personToEdit.getCalculatedPay(), personToEdit.getTags());

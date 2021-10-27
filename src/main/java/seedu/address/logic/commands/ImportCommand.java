@@ -22,7 +22,7 @@ import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
@@ -116,7 +116,7 @@ public class ImportCommand extends Command {
                 Role role = ParserUtil.parseRole(input.getRole());
 
                 // Optional Fields
-                Leave leaves = buildLeave(input);
+                LeaveBalance leaves = buildLeave(input);
                 HourlySalary hourlySalary = buildSalary(input);
                 HoursWorked hoursWorked = buildHoursWorked(input);
                 Overtime overtime = buildOvertime(input);
@@ -134,14 +134,14 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Creates a Leave object
+     * Creates a LeaveBalance object
      * @param input PersonInput object created by the bean.
-     * @return An Leave object for the Person constructor
+     * @return An LeaveBalance object for the Person constructor
      * @throws ParseException If an error occurs while parsing the String input.
      */
-    private Leave buildLeave(PersonInput input) throws ParseException {
+    private LeaveBalance buildLeave(PersonInput input) throws ParseException {
         return input.getLeaves() == null
-                ? new Leave("0")
+                ? new LeaveBalance("0")
                 : ParserUtil.parseLeaves(input.getLeaves());
     }
 

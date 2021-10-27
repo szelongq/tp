@@ -55,7 +55,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
@@ -219,7 +219,7 @@ public class AddCommandParserTest {
         // invalid leaves
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + ROLE_DESC_BOB + INVALID_LEAVES_DESC + HOURLYSALARY_DESC_BOB + HOURSWORKED_DESC_BOB + OVERTIME_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Leave.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, LeaveBalance.MESSAGE_CONSTRAINTS);
 
         // invalid salary
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB

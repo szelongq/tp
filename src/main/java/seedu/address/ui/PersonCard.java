@@ -45,7 +45,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label role;
     @FXML
-    private Label leave;
+    private Label leaveBalance;
     @FXML
     private Label hoursWorked;
     @FXML
@@ -69,7 +69,7 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         role.setText(person.getRole().value);
-        leave.setText(String.format("Leaves Remaining: %s", person.getLeaves().toString()));
+        leaveBalance.setText(String.format("Leaves Remaining: %s", person.getLeaveBalance().toString()));
         hoursWorked.setText(String.format("Hours Worked: %s", person.getHoursWorked().toString()));
         overtime.setText(String.format("Overtime Hours Worked: %s", person.getOvertime().toString()));
         leavesTaken.setText(person.getLeavesTaken().toString());

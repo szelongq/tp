@@ -18,7 +18,7 @@ import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Phone;
@@ -47,7 +47,7 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_HOURLYSALARY = BENSON.getSalary().toString();
     private static final String VALID_HOURSWORKED = BENSON.getHoursWorked().toString();
-    private static final String VALID_LEAVES = BENSON.getLeaves().toString();
+    private static final String VALID_LEAVES = BENSON.getLeaveBalance().toString();
     private static final List<LocalDate> VALID_LEAVES_TAKEN = BENSON.getLeavesTaken().toList();
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_OVERTIME = BENSON.getOvertime().toString();
@@ -162,7 +162,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_ROLE, null, VALID_LEAVES_TAKEN, VALID_HOURLYSALARY, VALID_HOURSWORKED, VALID_OVERTIME,
                 VALID_CALCULATEDPAY, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Leave.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, LeaveBalance.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -171,7 +171,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_ROLE, INVALID_LEAVES_NEGATIVE, VALID_LEAVES_TAKEN, VALID_HOURLYSALARY, VALID_HOURSWORKED,
                 VALID_OVERTIME, VALID_CALCULATEDPAY, VALID_TAGS);
-        String expectedMessage = Leave.MESSAGE_CONSTRAINTS;
+        String expectedMessage = LeaveBalance.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -180,7 +180,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_ROLE, INVALID_LEAVES_CHAR, VALID_LEAVES_TAKEN, VALID_HOURLYSALARY, VALID_HOURSWORKED,
                 VALID_OVERTIME, VALID_CALCULATEDPAY, VALID_TAGS);
-        String expectedMessage = Leave.MESSAGE_CONSTRAINTS;
+        String expectedMessage = LeaveBalance.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

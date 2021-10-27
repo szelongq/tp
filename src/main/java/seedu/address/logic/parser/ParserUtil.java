@@ -13,7 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Phone;
@@ -124,13 +124,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code amount} is invalid.
      */
-    public static Leave parseLeaves(String amount) throws ParseException {
+    public static LeaveBalance parseLeaves(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
-        if (!Leave.isValidLeaves(trimmedAmount)) {
-            throw new ParseException(Leave.MESSAGE_CONSTRAINTS);
+        if (!LeaveBalance.isValidLeaveBalance(trimmedAmount)) {
+            throw new ParseException(LeaveBalance.MESSAGE_CONSTRAINTS);
         }
-        return new Leave(trimmedAmount);
+        return new LeaveBalance(trimmedAmount);
     }
 
     /**

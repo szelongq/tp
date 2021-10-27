@@ -7,25 +7,25 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddLeavesCommand;
+import seedu.address.logic.commands.DeductLeaveBalanceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 
 /**
- * Parses input arguments and creates a new AddLeavesCommand object.
+ * Parses input arguments and creates a new DeductLeaveBalanceCommand object.
  */
-public class AddLeavesCommandParser implements Parser<AddLeavesCommand> {
+public class DeductLeaveBalanceCommandParser implements Parser<DeductLeaveBalanceCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddLeavesCommand
-     * and returns a AddLeavesCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeductLeaveBalanceCommand
+     * and returns a DeductLeaveBalanceCommand object for execution.
      *
      * @param args A string representing the user's input.
-     * @return A new AddLeavesCommand object.
+     * @return A new DeductLeaveBalanceCommand object.
      * @throws ParseException if the user input does not conform the expected format
      * or an invalid integer input for the number of leaves is given.
      */
-    public AddLeavesCommand parse(String args) throws ParseException {
+    public DeductLeaveBalanceCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_LEAVE);
@@ -35,29 +35,28 @@ public class AddLeavesCommandParser implements Parser<AddLeavesCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddLeavesCommand.MESSAGE_USAGE), ive);
+                    DeductLeaveBalanceCommand.MESSAGE_USAGE), ive);
         }
 
         String numberOfLeavesString = argMultimap.getValue(PREFIX_LEAVE).orElse("");
         // If prefix is missing
         if (numberOfLeavesString.equals("")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddLeavesCommand.MESSAGE_USAGE));
+                    DeductLeaveBalanceCommand.MESSAGE_USAGE));
         }
         int numberOfLeaves;
         try {
             numberOfLeaves = Integer.parseInt(numberOfLeavesString);
         } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
-                    AddLeavesCommand.MESSAGE_USAGE), nfe);
+                    DeductLeaveBalanceCommand.MESSAGE_USAGE), nfe);
         }
         // If a non-positive integer is given
         if (numberOfLeaves <= 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
-                    AddLeavesCommand.MESSAGE_USAGE));
+                    DeductLeaveBalanceCommand.MESSAGE_USAGE));
         }
 
-        return new AddLeavesCommand(index, new Leave(numberOfLeavesString));
+        return new DeductLeaveBalanceCommand(index, new LeaveBalance(numberOfLeavesString));
     }
-
 }
