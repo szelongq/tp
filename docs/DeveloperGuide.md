@@ -420,7 +420,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  User requests to list employees
 2.  HeRon shows a list of employees
 3.  User requests to add a certain number of leaves to a specific employee in the list
-4.  HeRon adds the leave to the employee
+4.  HeRon adds the leaves to the employee
 
     Use case ends.
 
@@ -443,6 +443,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 2.
 
 **Use case: Remove leaves from an employee**
+
+Guarantees:
+* The number of leaves of the employee after the operation will never be negative.
 
 **MSS**
 
@@ -472,6 +475,111 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 2.
 
 * 3c. The number of leaves to be removed is greater than the amount of leaves the employee actually has.
+
+    * 3c1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: Assign a leave to an employee**
+
+Guarantees:
+* The number of leaves of the employee after the operation will never be negative.
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to assign a leave to an employee with a date
+4.  HeRon assigns the leave to the employee and subtracts a leave from the employee's leave balance
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The date associated with the leave is invalid.
+
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The employee has no more leaves remaining in their leave balance.
+
+    * 3c1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: Add hours worked/overtime to an employee**
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to add a certain number hours worked and/or overtime to a specific employee in the list
+4.  HeRon adds the hours worked/overtime to the employee
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The number of hours worked/overtime to be added is invalid. (If the input is not a positive integer)
+
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: Remove hours worked/overtime from an employee**
+
+Guarantees:
+* The number of hours worked/overtime of the employee after the operation will never be negative.
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to remove a certain number hours worked and/or overtime from a specific employee in the list
+4.  HeRon removes the hours worked/overtime from the employee
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The hours worked/overtime to be removed is invalid. (If the input is not a positive integer)
+
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The number of hours worked/overtime to be removed is greater than the number of hours worked/overtime the employee actually has.
 
     * 3c1. HeRon shows an error message.
 

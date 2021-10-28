@@ -81,6 +81,26 @@ public class LeavesTaken {
         return datesString.toString().trim();
     }
 
+    /**
+     * Builds a string to list the dates of the leaves taken better formatted to display to the user.
+     * Numbers the dates in order and adds newline per date.
+     * @return String to be displayed
+     */
+    public String toDisplayString() {
+        List<LocalDate> dates = new ArrayList<>(value);
+        if (dates.isEmpty()) {
+            return "No leaves assigned yet!";
+        }
+
+        StringBuilder displayString = new StringBuilder();
+        displayString.append("Leave dates applied:\n");
+        for (int index = 1; index <= dates.size(); index++) {
+            displayString.append(index).append(". ");
+            displayString.append(dates.get(index - 1).toString()).append("\n");
+        }
+        return displayString.toString().trim();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

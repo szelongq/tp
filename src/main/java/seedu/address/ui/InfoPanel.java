@@ -7,10 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import seedu.address.model.person.Person;
 
 /**
@@ -34,11 +30,15 @@ public class InfoPanel extends UiPart<Region> {
     @FXML
     private Label leave;
     @FXML
+    private Label leaveDates;
+    @FXML
+    private Label salary;
+    @FXML
     private Label hoursWorked;
     @FXML
     private Label overtime;
     @FXML
-    private VBox calculatedSalary;
+    private Label salaryOwed;
     @FXML
     private FlowPane tags;
 
@@ -63,16 +63,16 @@ public class InfoPanel extends UiPart<Region> {
         email.setText("Email: " + person.getEmail().value);
         role.setText(person.getRole().value);
         leave.setText(String.format("Leaves Remaining: %s", person.getLeaves().toString()));
+        leaveDates.setText(person.getLeavesTaken().toDisplayString());
+        salary.setText(String.format("Hourly salary: $%s" + " per hour", person.getSalary().toString()));
         hoursWorked.setText(String.format("Hours Worked: %s", person.getHoursWorked().toString()));
         overtime.setText(String.format("Overtime Hours Worked: %s", person.getOvertime().toString()));
 
         String salaryDue = person.getCalculatedPay().toString(); // To be replaced by calculated salary
         if (!salaryDue.equals("0.00")) {
-            Text overDueText = new Text(String.format("NOT PAID [%s]", salaryDue));
-            overDueText.setFill(Color.WHITE);
-            overDueText.setFont(Font.font("Open Sans Regular", 20));
-            calculatedSalary.getChildren().add(overDueText);
-            calculatedSalary.setStyle("-fx-background-color: #C41E3A;");
+            salaryOwed.setText(String.format("%s left unpaid!!", salaryDue));
+        } else {
+            salaryOwed.setText("");
         }
 
         tags.getChildren().clear();

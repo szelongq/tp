@@ -18,7 +18,7 @@ import seedu.address.model.person.Person;
  */
 public class AssignLeaveCommand extends Command {
 
-    public static final String COMMAND_WORD = "assignleave";
+    public static final String COMMAND_WORD = "assignLeave";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Allocates a leave with a date to the employee identified "
             + "by the index number used in the last person listing. \n"
@@ -70,6 +70,7 @@ public class AssignLeaveCommand extends Command {
                 personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
+        model.setViewingPerson(editedPerson);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
     }
