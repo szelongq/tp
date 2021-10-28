@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.time.LocalDate;
@@ -50,7 +51,7 @@ public class AssignLeaveCommandParser implements Parser<AssignLeaveCommand> {
         try {
             date = LocalDate.parse(dateString);
         } catch (DateTimeParseException dtpe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_DATE_FORMAT,
                     AssignLeaveCommand.MESSAGE_USAGE), dtpe);
         }
 
