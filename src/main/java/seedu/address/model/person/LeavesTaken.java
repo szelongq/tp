@@ -77,6 +77,37 @@ public class LeavesTaken {
         return new LeavesTaken(newDates);
     }
 
+    /**
+     * Checks if the input date is contained within a given LeavesTaken object.
+     *
+     * @param date The date that is to be checked.
+     * @return True if the input date is contained, false otherwise.
+     */
+    public boolean containsDate(LocalDate date) {
+        List<LocalDate> dates = new ArrayList<>(value);
+        return dates.contains(date);
+    }
+
+    /**
+     * Checks if the LeavesTaken object contains at least one date within
+     * a given date range. (start and end dates inclusive)
+     *
+     * @param startDate The start date of the date range.
+     * @param endDate The end date of the date range.
+     * @return True if a date is contained within the input date range, false otherwise.
+     */
+    public boolean containsDateRange(LocalDate startDate, LocalDate endDate) {
+        List<LocalDate> dates = new ArrayList<>(value);
+        for (LocalDate date : dates) {
+            // Check if the date is within the range
+            if (date.compareTo(startDate) >= 0
+                    && date.compareTo(endDate) <= 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<LocalDate> toList() {
         return new ArrayList<>(value);
     }

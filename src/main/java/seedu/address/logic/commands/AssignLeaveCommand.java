@@ -26,7 +26,7 @@ public class AssignLeaveCommand extends Command {
             + PREFIX_DATE + "DATE (of the format YYYY-MM-DD) \n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DATE + "2021-10-30";
     public static final String MESSAGE_SUCCESS =
-            "LeaveBalance successfully assigned to person: %1$s";
+            "Leave successfully assigned to person: %1$s";
 
     private final Index index;
     private final LocalDate date;
