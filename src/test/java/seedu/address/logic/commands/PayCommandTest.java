@@ -42,7 +42,7 @@ public class PayCommandTest {
         Email email = personWithCalculatedPay.getEmail();
         Address address = personWithCalculatedPay.getAddress();
         Role role = personWithCalculatedPay.getRole();
-        Leave leaves = personWithCalculatedPay.getLeaves();
+        LeaveBalance leaves = personWithCalculatedPay.getLeaveBalance();
         HourlySalary salary = personWithCalculatedPay.getSalary();
         HoursWorked hours = personWithCalculatedPay.getHoursWorked();
         Set<Tag> tags = personWithCalculatedPay.getTags();
