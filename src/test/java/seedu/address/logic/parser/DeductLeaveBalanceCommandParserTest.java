@@ -10,24 +10,25 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RemoveLeavesCommand;
-import seedu.address.model.person.Leave;
+import seedu.address.logic.commands.DeductLeaveBalanceCommand;
+import seedu.address.model.person.LeaveBalance;
 
-public class RemoveLeaveCommandParserTest {
-    private final RemoveLeavesCommandParser parser = new RemoveLeavesCommandParser();
+public class DeductLeaveBalanceCommandParserTest {
+    private final DeductLeaveBalanceCommandParser parser = new DeductLeaveBalanceCommandParser();
     private final String validNumberOfLeaves = "3";
 
     @Test
     public void parse_indexSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_LEAVE + validNumberOfLeaves;
-        RemoveLeavesCommand expectedCommand = new RemoveLeavesCommand(targetIndex, new Leave(validNumberOfLeaves));
+        DeductLeaveBalanceCommand expectedCommand =
+                new DeductLeaveBalanceCommand(targetIndex, new LeaveBalance(validNumberOfLeaves));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_missingCompulsoryField_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveLeavesCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeductLeaveBalanceCommand.MESSAGE_USAGE);
 
         // No parameters
         assertParseFailure(parser, " ", expectedMessage);
@@ -45,7 +46,7 @@ public class RemoveLeaveCommandParserTest {
 
     @Test
     public void parse_invalidInteger_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_INTEGER_INPUT, RemoveLeavesCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_INTEGER_INPUT, DeductLeaveBalanceCommand.MESSAGE_USAGE);
         String userInput = INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVE;
 
         // Not an integer

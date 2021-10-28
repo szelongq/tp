@@ -9,39 +9,39 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.Person;
 
 /**
  * Removes some number of leaves from an employee in HeRon.
  */
-public class RemoveLeavesCommand extends Command {
+public class DeductLeaveBalanceCommand extends Command {
 
-    public static final String COMMAND_WORD = "removeLeaves";
+    public static final String COMMAND_WORD = "deductLeaveBalance";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes leaves from the employee identified "
+            + ": Deducts leaves from the employee identified "
             + "by the index number used in the last person listing. "
             + "Number of leaves removed cannot be greater than the amount of leaves "
             + "the employee currently has. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_LEAVE + "NO_OF_DAYS (must be a positive integer) \n"
+            + PREFIX_LEAVE + "NO_OF_LEAVES (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_LEAVE + "2";
     public static final String MESSAGE_SUCCESS =
             "Leaves successfully removed from person: %1$s";
 
     private final Index index;
-    private final Leave leave;
+    private final LeaveBalance leaveBalance;
 
     /**
-     * Creates a RemoveLeavesCommand instance.
+     * Creates a DeductLeaveBalanceCommand instance.
      * @param index of the person in the filtered employee list to remove leaves from
-     * @param leave that are to be added to the employee
+     * @param leaveBalance that are to be added to the employee
      */
-    public RemoveLeavesCommand(Index index, Leave leave) {
-        requireAllNonNull(index, leave);
+    public DeductLeaveBalanceCommand(Index index, LeaveBalance leaveBalance) {
+        requireAllNonNull(index, leaveBalance);
 
         this.index = index;
-        this.leave = leave;
+        this.leaveBalance = leaveBalance;
     }
 
     @Override
@@ -57,12 +57,12 @@ public class RemoveLeavesCommand extends Command {
         try {
             editedPerson = new Person(
                     personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                    personToEdit.getRole(), personToEdit.getLeaves().removeLeaves(leave), personToEdit.getLeavesTaken(),
-                    personToEdit.getSalary(), personToEdit.getHoursWorked(), personToEdit.getOvertime(),
-                    personToEdit.getCalculatedPay(), personToEdit.getTags());
+                    personToEdit.getRole(), personToEdit.getLeaveBalance().removeLeaves(leaveBalance),
+                    personToEdit.getLeavesTaken(), personToEdit.getSalary(), personToEdit.getHoursWorked(),
+                    personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
         } catch (IllegalArgumentException iae) {
             throw new CommandException(
-                    String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT, leave, "leaves"));
+                    String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT, leaveBalance, "leaves"));
         }
 
         model.setPerson(personToEdit, editedPerson);
@@ -78,13 +78,13 @@ public class RemoveLeavesCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RemoveLeavesCommand)) {
+        if (!(other instanceof DeductLeaveBalanceCommand)) {
             return false;
         }
 
         // State check
-        RemoveLeavesCommand e = (RemoveLeavesCommand) other;
+        DeductLeaveBalanceCommand e = (DeductLeaveBalanceCommand) other;
         return index.equals(e.index)
-                && leave.equals(e.leave);
+                && leaveBalance.equals(e.leaveBalance);
     }
 }

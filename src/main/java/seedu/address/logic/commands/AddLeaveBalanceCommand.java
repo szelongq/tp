@@ -9,37 +9,37 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.Person;
 
 /**
  * Adds some number of leaves to an employee in HeRon.
  */
-public class AddLeavesCommand extends Command {
+public class AddLeaveBalanceCommand extends Command {
 
-    public static final String COMMAND_WORD = "addLeaves";
+    public static final String COMMAND_WORD = "addLeaveBalance";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds leaves to the employee identified "
             + "by the index number used in the last person listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_LEAVE + "NO_OF_DAYS (must be a positive integer) \n"
+            + PREFIX_LEAVE + "NO_OF_LEAVES (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_LEAVE + "2";
     public static final String MESSAGE_SUCCESS =
             "Leaves successfully added to person: %1$s";
 
     private final Index index;
-    private final Leave leave;
+    private final LeaveBalance leaveBalance;
 
     /**
-     * Creates an AddLeavesCommand instance.
+     * Creates an AddLeaveBalanceCommand instance.
      * @param index of the person in the filtered employee list to add leaves to
-     * @param leave that are to be added to the employee
+     * @param leaveBalance that are to be added to the employee
      */
-    public AddLeavesCommand(Index index, Leave leave) {
-        requireAllNonNull(index, leave);
+    public AddLeaveBalanceCommand(Index index, LeaveBalance leaveBalance) {
+        requireAllNonNull(index, leaveBalance);
 
         this.index = index;
-        this.leave = leave;
+        this.leaveBalance = leaveBalance;
     }
 
     @Override
@@ -53,9 +53,9 @@ public class AddLeavesCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), personToEdit.getLeaves().addLeaves(leave), personToEdit.getLeavesTaken(),
-                personToEdit.getSalary(), personToEdit.getHoursWorked(), personToEdit.getOvertime(),
-                personToEdit.getCalculatedPay(), personToEdit.getTags());
+                personToEdit.getRole(), personToEdit.getLeaveBalance().addLeaves(leaveBalance),
+                personToEdit.getLeavesTaken(), personToEdit.getSalary(), personToEdit.getHoursWorked(),
+                personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
 
@@ -70,13 +70,13 @@ public class AddLeavesCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddLeavesCommand)) {
+        if (!(other instanceof AddLeaveBalanceCommand)) {
             return false;
         }
 
         // State check
-        AddLeavesCommand e = (AddLeavesCommand) other;
+        AddLeaveBalanceCommand e = (AddLeaveBalanceCommand) other;
         return index.equals(e.index)
-                && leave.equals(e.leave);
+                && leaveBalance.equals(e.leaveBalance);
     }
 }

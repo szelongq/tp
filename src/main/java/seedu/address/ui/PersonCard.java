@@ -43,6 +43,12 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label role;
     @FXML
+    private Label leaveBalance;
+    @FXML
+    private Label hoursWorked;
+    @FXML
+    private Label overtime;
+    @FXML
     private VBox calculatedSalary;
 
 
@@ -56,6 +62,9 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
         email.setText(person.getEmail().value);
         role.setText(person.getRole().value);
+        leaveBalance.setText(String.format("Leaves Remaining: %s", person.getLeaveBalance().toString()));
+        hoursWorked.setText(String.format("Hours Worked: %s", person.getHoursWorked().toString()));
+        overtime.setText(String.format("Overtime Hours Worked: %s", person.getOvertime().toString()));
 
         String salaryDue = person.getCalculatedPay().toString(); // To be replaced by calculated salary
         if (!salaryDue.equals("0.00")) {

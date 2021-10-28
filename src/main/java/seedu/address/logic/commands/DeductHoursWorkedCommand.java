@@ -17,11 +17,11 @@ import seedu.address.model.person.Person;
 /**
  * Removes hours worked and overtime hours worked from an employee in HeRon.
  */
-public class RemoveHoursWorkedCommand extends Command {
+public class DeductHoursWorkedCommand extends Command {
 
-    public static final String COMMAND_WORD = "removeHoursWorked";
+    public static final String COMMAND_WORD = "deductHoursWorked";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes hours worked OR overtime to the employee identified "
+            + ": Deducts hours worked OR overtime from the employee identified "
             + "by the index number used in the last person listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_HOURSWORKED + "NO_OF_HOURS_WORKED] (must be a positive integer) "
@@ -35,12 +35,12 @@ public class RemoveHoursWorkedCommand extends Command {
     private final Overtime overtime;
 
     /**
-     * Creates an RemoveHoursWorkedCommand instance.
+     * Creates an DeductHoursWorkedCommand instance.
      * @param index of the person in the filtered employee list to remove hours worked from
      * @param hoursWorked Hours worked that are to be removed from the employee
      * @param overtime Overtime (in hours) that is to be removed from the employee
      */
-    public RemoveHoursWorkedCommand(Index index, HoursWorked hoursWorked, Overtime overtime) {
+    public DeductHoursWorkedCommand(Index index, HoursWorked hoursWorked, Overtime overtime) {
         requireAllNonNull(index, hoursWorked, overtime);
 
         this.index = index;
@@ -74,7 +74,7 @@ public class RemoveHoursWorkedCommand extends Command {
         }
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), personToEdit.getLeaves(), personToEdit.getLeavesTaken(),
+                personToEdit.getRole(), personToEdit.getLeaveBalance(), personToEdit.getLeavesTaken(),
                 personToEdit.getSalary(), newHoursWorked, newOvertime, personToEdit.getCalculatedPay(),
                 personToEdit.getTags());
 
@@ -91,12 +91,12 @@ public class RemoveHoursWorkedCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RemoveHoursWorkedCommand)) {
+        if (!(other instanceof DeductHoursWorkedCommand)) {
             return false;
         }
 
         // State check
-        RemoveHoursWorkedCommand e = (RemoveHoursWorkedCommand) other;
+        DeductHoursWorkedCommand e = (DeductHoursWorkedCommand) other;
         return index.equals(e.index)
                 && hoursWorked.equals(e.hoursWorked)
                 && overtime.equals(e.overtime);

@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.time.LocalDate;
@@ -22,9 +23,9 @@ public class AssignLeaveCommandParser implements Parser<AssignLeaveCommand> {
      * and returns a AssignLeaveCommand object for execution.
      *
      * @param args A string representing the user's input.
-     * @return A new AddLeavesCommand object.
-     * @throws ParseException if the user input does not conform the expected format
-     * or an invalid integer input for the number of leaves is given.
+     * @return A new AssignLeaveCommand object.
+     * @throws ParseException if the user input does not conform to the expected format
+     * or an invalid date input is given.
      */
     public AssignLeaveCommand parse(String args) throws ParseException {
         requireNonNull(args);
@@ -50,11 +51,10 @@ public class AssignLeaveCommandParser implements Parser<AssignLeaveCommand> {
         try {
             date = LocalDate.parse(dateString);
         } catch (DateTimeParseException dtpe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_DATE_FORMAT,
                     AssignLeaveCommand.MESSAGE_USAGE), dtpe);
         }
 
         return new AssignLeaveCommand(index, date);
     }
-
 }

@@ -40,7 +40,7 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_ROLE + person.getRole().value + " ");
-        sb.append(PREFIX_LEAVE + person.getLeaves().toString() + " ");
+        sb.append(PREFIX_LEAVE + person.getLeaveBalance().toString() + " ");
         sb.append(PREFIX_HOURLYSALARY + person.getSalary().toString() + " ");
         sb.append(PREFIX_HOURSWORKED + person.getHoursWorked().toString() + " ");
         sb.append(PREFIX_OVERTIME + person.getOvertime().toString() + " ");

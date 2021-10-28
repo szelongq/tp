@@ -25,7 +25,7 @@ import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
@@ -34,11 +34,11 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
 
-public class AddLeaveCommandTest {
+public class AddLeaveBalanceCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Leave addedLeaves = new Leave("3");
+    private final LeaveBalance addedLeaves = new LeaveBalance("3");
 
-    private Person createPersonWithAddedLeaves(Person personToAddLeavesTo, Leave addedLeaves) {
+    private Person createPersonWithAddedLeaves(Person personToAddLeavesTo, LeaveBalance addedLeaves) {
         Name name = personToAddLeavesTo.getName();
         Phone phone = personToAddLeavesTo.getPhone();
         Email email = personToAddLeavesTo.getEmail();
@@ -51,7 +51,7 @@ public class AddLeaveCommandTest {
         CalculatedPay calculatedPay = personToAddLeavesTo.getCalculatedPay();
         Set<Tag> tags = personToAddLeavesTo.getTags();
 
-        Leave newLeaves = personToAddLeavesTo.getLeaves().addLeaves(addedLeaves);
+        LeaveBalance newLeaves = personToAddLeavesTo.getLeaveBalance().addLeaves(addedLeaves);
 
         return new Person(name, phone, email, address, role, newLeaves, leavesTaken,
                 salary, hours, overtime, calculatedPay, tags);
@@ -60,25 +60,25 @@ public class AddLeaveCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToAddLeavesTo = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        AddLeavesCommand addLeavesCommand = new AddLeavesCommand(INDEX_FIRST_PERSON, addedLeaves);
+        AddLeaveBalanceCommand addLeaveBalanceCommand = new AddLeaveBalanceCommand(INDEX_FIRST_PERSON, addedLeaves);
 
         Person personWithAddedLeaves = createPersonWithAddedLeaves(personToAddLeavesTo, addedLeaves);
 
         String expectedMessage =
-                String.format(AddLeavesCommand.MESSAGE_SUCCESS, personWithAddedLeaves);
+                String.format(AddLeaveBalanceCommand.MESSAGE_SUCCESS, personWithAddedLeaves);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personToAddLeavesTo, personWithAddedLeaves);
 
-        assertCommandSuccess(addLeavesCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(addLeaveBalanceCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        AddLeavesCommand addLeavesCommand = new AddLeavesCommand(outOfBoundIndex, addedLeaves);
+        AddLeaveBalanceCommand addLeaveBalanceCommand = new AddLeaveBalanceCommand(outOfBoundIndex, addedLeaves);
 
-        assertCommandFailure(addLeavesCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(addLeaveBalanceCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -86,18 +86,18 @@ public class AddLeaveCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personToAddLeavesTo = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        AddLeavesCommand addLeavesCommand = new AddLeavesCommand(INDEX_FIRST_PERSON, addedLeaves);
+        AddLeaveBalanceCommand addLeaveBalanceCommand = new AddLeaveBalanceCommand(INDEX_FIRST_PERSON, addedLeaves);
 
         Person personWithAddedLeaves = createPersonWithAddedLeaves(personToAddLeavesTo, addedLeaves);
 
         String expectedMessage =
-                String.format(AddLeavesCommand.MESSAGE_SUCCESS, personWithAddedLeaves);
+                String.format(AddLeaveBalanceCommand.MESSAGE_SUCCESS, personWithAddedLeaves);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
         expectedModel.setPerson(personToAddLeavesTo, personWithAddedLeaves);
 
-        assertCommandSuccess(addLeavesCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(addLeaveBalanceCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -108,17 +108,19 @@ public class AddLeaveCommandTest {
         // Ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        AddLeavesCommand addLeavesCommand = new AddLeavesCommand(outOfBoundIndex, addedLeaves);
+        AddLeaveBalanceCommand addLeaveBalanceCommand = new AddLeaveBalanceCommand(outOfBoundIndex, addedLeaves);
 
-        assertCommandFailure(addLeavesCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(addLeaveBalanceCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final AddLeavesCommand standardCommand = new AddLeavesCommand(INDEX_FIRST_PERSON, new Leave(VALID_LEAVES_AMY));
+        final AddLeaveBalanceCommand standardCommand = new AddLeaveBalanceCommand(INDEX_FIRST_PERSON,
+                new LeaveBalance(VALID_LEAVES_AMY));
 
         // Same values -> returns true
-        AddLeavesCommand commandWithSameValues = new AddLeavesCommand(INDEX_FIRST_PERSON, new Leave(VALID_LEAVES_AMY));
+        AddLeaveBalanceCommand commandWithSameValues = new AddLeaveBalanceCommand(INDEX_FIRST_PERSON,
+                new LeaveBalance(VALID_LEAVES_AMY));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // Same object -> returns true
@@ -131,9 +133,11 @@ public class AddLeaveCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // Different index -> returns false
-        assertFalse(standardCommand.equals(new AddLeavesCommand(INDEX_SECOND_PERSON, new Leave(VALID_LEAVES_AMY))));
+        assertFalse(standardCommand.equals(new AddLeaveBalanceCommand(INDEX_SECOND_PERSON,
+                new LeaveBalance(VALID_LEAVES_AMY))));
 
         // Different number of leaves -> returns false
-        assertFalse(standardCommand.equals(new AddLeavesCommand(INDEX_FIRST_PERSON, new Leave(VALID_LEAVES_BOB))));
+        assertFalse(standardCommand.equals(new AddLeaveBalanceCommand(INDEX_FIRST_PERSON,
+                new LeaveBalance(VALID_LEAVES_BOB))));
     }
 }

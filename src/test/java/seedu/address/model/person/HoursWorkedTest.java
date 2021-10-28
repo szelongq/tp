@@ -27,7 +27,8 @@ public class HoursWorkedTest {
     @Test
     public void constructor_floatingPointHours_throwsIllegalArgumentException() {
         String floatingPointHours = "3.5";
-        assertThrows(IllegalArgumentException.class, Leave.MESSAGE_CONSTRAINTS, () -> new Leave(floatingPointHours));
+        assertThrows(IllegalArgumentException.class,
+                LeaveBalance.MESSAGE_CONSTRAINTS, () -> new LeaveBalance(floatingPointHours));
     }
 
     @Test
