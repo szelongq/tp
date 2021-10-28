@@ -44,9 +44,14 @@ public class LeavesTaken {
      *
      * @param date The date that is to be added.
      * @return An updated LeavesTaken object.
+     * @throws IllegalArgumentException if the input date has already been
+     *                                  assigned to this employee
      */
     public LeavesTaken addDate(LocalDate date) {
         List<LocalDate> dates = new ArrayList<>(value);
+        if (dates.contains(date)) {
+            throw new IllegalArgumentException();
+        }
         dates.add(date);
         return new LeavesTaken(dates);
     }

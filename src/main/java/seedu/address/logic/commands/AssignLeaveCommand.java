@@ -35,7 +35,7 @@ public class AssignLeaveCommand extends Command {
      * Creates an AssignLeaveCommand instance.
      *
      * @param index of the person in the filtered employee list to assign a leave to
-     * @param date that corresponds to the leave being allocated to the employee
+     * @param date  that corresponds to the leave being allocated to the employee
      */
     public AssignLeaveCommand(Index index, LocalDate date) {
         requireAllNonNull(index, date);
@@ -63,14 +63,20 @@ public class AssignLeaveCommand extends Command {
                             personToEdit.getName().toString()));
         }
 
-        Person editedPerson = new Person(
-                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), newLeaveBalance,
-                personToEdit.getLeavesTaken().addDate(date), personToEdit.getSalary(), personToEdit.getHoursWorked(),
-                personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
-
+        Person editedPerson;
+        try {
+            editedPerson = new Person(
+                    personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
+                    personToEdit.getRole(), newLeaveBalance,
+                    personToEdit.getLeavesTaken().addDate(date), personToEdit.getSalary(),
+                    personToEdit.getHoursWorked(), personToEdit.getOvertime(),
+                    personToEdit.getCalculatedPay(), personToEdit.getTags());
+        } catch (IllegalArgumentException iae) {
+            throw new CommandException(
+                    String.format(Messages.MESSAGE_DATE_ALREADY_ASSIGNED,
+                            personToEdit.getName().toString(), date));
+        }
         model.setPerson(personToEdit, editedPerson);
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
     }
 
