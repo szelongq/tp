@@ -233,14 +233,14 @@ Format: `import FILEPATH`
 * Filepaths with spaces present in directory can be written as per usual (eg. `./My Folder/toBeImported.csv`).
 * A header row is required to indicate the purpose of the various fields, and it must be the first row in the `.csv` file.
 * Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below, and are present in the data if compulsory.
-* Ensure that each field follows the specifications required, which can be found [here](#Adding-an-Employee:-`add`).
+* Ensure that each field follows the specifications required, which can be found [here](#Adding-an-Employee:-), or the section under "Adding an Employee: `add`".
 * Ensure that the number of fields in each entry matches the number of headers.
 * If multiple tags are present for an entry, they should be seperated by `/`.
 * No specific ordering of the columns is required.
 * Note that if multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
 * For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value.
 
-#### Header Naming Conventions and Requirements
+#### Field Naming Requirements and Default Values
 
 Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Value
 --------------|---------------|------------------------ | --------
