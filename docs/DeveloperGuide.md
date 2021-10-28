@@ -178,11 +178,13 @@ Given below is an example usage scenario and how the import mechanism behaves at
 
 Step 1. The user launches the application. The `AddressBook` initializes with the initial address book state or loaded with data from the previous session (if any).
 
-Step 2. The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which refers to the file `toBeImported.csv` in the root directory.
+Step 2. The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which in this case, refers to the file `toBeImported.csv` in the root directory.
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`.</div>
 
-Step 3. Program processes the .csv file, and creates a new `AddressBook` containing the entries in it. It then replaces the current existing `AddressBook` with thew newly created one. The newly updated contents would be saved as per the process after the execution of a command.
+Step 3. Program processes the .csv file, and creates a new `AddressBook`, and updates it with the entries in the file. The current existing `AddressBook` is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current `AddressBook`.</div>
+
+Step 4. The updated `AddressBook` would be saved as per the process after the execution of a command.
 
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
@@ -197,7 +199,7 @@ The following activity diagram summarizes what happens when a user uses the `imp
 
 #### Design considerations:
 
-**Aspect: How imported file is processed:**
+**Aspect: How the imported file is processed:**
 
 * **Alternative 1 (current choice): Uses a header row to determine the data used**
     * Pros: No need to follow specific column ordering.
