@@ -10,7 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.Person;
 
 /**
@@ -18,7 +18,7 @@ import seedu.address.model.person.Person;
  */
 public class AssignLeaveCommand extends Command {
 
-    public static final String COMMAND_WORD = "assignleave";
+    public static final String COMMAND_WORD = "assignLeave";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Allocates a leave with a date to the employee identified "
             + "by the index number used in the last person listing. \n"
@@ -53,24 +53,31 @@ public class AssignLeaveCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Leave newLeaveBalance;
+        LeaveBalance newLeaveBalance;
         // Check that the employee has at least 1 leave
         try {
-            newLeaveBalance = personToEdit.getLeaves().removeLeaves(new Leave("1"));
+            newLeaveBalance = personToEdit.getLeaveBalance().removeLeaves(new LeaveBalance("1"));
         } catch (IllegalArgumentException iae) {
             throw new CommandException(
                     String.format(Messages.MESSAGE_INSUFFICIENT_LEAVES,
                             personToEdit.getName().toString()));
         }
 
-        Person editedPerson = new Person(
-                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), newLeaveBalance,
-                personToEdit.getLeavesTaken().addDate(date), personToEdit.getSalary(), personToEdit.getHoursWorked(),
-                personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
-
+        Person editedPerson;
+        try {
+            editedPerson = new Person(
+                    personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
+                    personToEdit.getRole(), newLeaveBalance,
+                    personToEdit.getLeavesTaken().addDate(date), personToEdit.getSalary(),
+                    personToEdit.getHoursWorked(), personToEdit.getOvertime(),
+                    personToEdit.getCalculatedPay(), personToEdit.getTags());
+        } catch (IllegalArgumentException iae) {
+            throw new CommandException(
+                    String.format(Messages.MESSAGE_DATE_ALREADY_ASSIGNED,
+                            personToEdit.getName().toString(), date));
+        }
         model.setPerson(personToEdit, editedPerson);
-
+        model.setViewingPerson(editedPerson);
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
     }
 

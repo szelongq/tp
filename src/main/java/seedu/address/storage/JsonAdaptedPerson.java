@@ -16,7 +16,7 @@ import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
@@ -81,7 +81,7 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         role = source.getRole().value;
-        leaves = source.getLeaves().toString();
+        leaves = source.getLeaveBalance().toString();
         leavesTaken = source.getLeavesTaken().toList();
         salary = source.getSalary().toString();
         hoursWorked = source.getHoursWorked().toString();
@@ -144,12 +144,13 @@ class JsonAdaptedPerson {
         final Role modelRole = new Role(role);
 
         if (leaves == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Leave.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LeaveBalance.class.getSimpleName()));
         }
-        if (!Leave.isValidLeaves(leaves)) {
-            throw new IllegalValueException(Leave.MESSAGE_CONSTRAINTS);
+        if (!LeaveBalance.isValidLeaveBalance(leaves)) {
+            throw new IllegalValueException(LeaveBalance.MESSAGE_CONSTRAINTS);
         }
-        final Leave modelLeave = new Leave(leaves);
+        final LeaveBalance modelLeaveBalance = new LeaveBalance(leaves);
 
         if (leavesTaken == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -195,8 +196,8 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRole, modelLeave, modelLeavesTaken,
-                modelHourlySalary, modelHoursWorked, modelOvertime, modelCalculatedPay, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRole, modelLeaveBalance,
+                modelLeavesTaken, modelHourlySalary, modelHoursWorked, modelOvertime, modelCalculatedPay, modelTags);
     }
 
 }

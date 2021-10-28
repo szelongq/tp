@@ -22,7 +22,7 @@ import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
@@ -36,6 +36,20 @@ public class PayCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    private Person createPersonWithCalculatedPay(Person personWithCalculatedPay, CalculatedPay newCalculatedPay) {
+        Name name = personWithCalculatedPay.getName();
+        Phone phone = personWithCalculatedPay.getPhone();
+        Email email = personWithCalculatedPay.getEmail();
+        Address address = personWithCalculatedPay.getAddress();
+        Role role = personWithCalculatedPay.getRole();
+        LeaveBalance leaves = personWithCalculatedPay.getLeaveBalance();
+        HourlySalary salary = personWithCalculatedPay.getSalary();
+        HoursWorked hours = personWithCalculatedPay.getHoursWorked();
+        Set<Tag> tags = personWithCalculatedPay.getTags();
+
+        return new Person(name, phone, email, address, role, leaves, salary, hours, newCalculatedPay, tags);
+    }
+
     private static Person createPaidPerson(Person personToPay) {
         assert personToPay != null;
 
@@ -44,7 +58,7 @@ public class PayCommandTest {
         Email email = personToPay.getEmail();
         Address address = personToPay.getAddress();
         Role role = personToPay.getRole();
-        Leave leave = personToPay.getLeaves();
+        LeaveBalance leaveBalance = personToPay.getLeaveBalance();
         LeavesTaken leavesTaken = personToPay.getLeavesTaken();
         HourlySalary hourlySalary = personToPay.getSalary();
 
@@ -57,13 +71,17 @@ public class PayCommandTest {
 
         Set<Tag> tags = personToPay.getTags();
 
-        return new Person(name, phone, email, address, role, leave, leavesTaken, hourlySalary,
+        return new Person(name, phone, email, address, role, leaveBalance, leavesTaken, hourlySalary,
                 newHours, newOvertime, newCalcPay, tags);
     }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Person personToPay = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person person = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        CalculatedPay calculatedPay = new CalculatedPay("500.00");
+        Person personToPay = createPersonWithCalculatedPay(person, calculatedPay);
+        model.setPerson(person, personToPay);
+
         PayCommand payCommand = new PayCommand(INDEX_FIRST_PERSON);
 
         Person paidPerson = createPaidPerson(personToPay);
