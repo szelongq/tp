@@ -66,6 +66,7 @@ public class RemoveLeavesCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
+        model.setViewingPerson(editedPerson);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
     }

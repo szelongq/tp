@@ -15,7 +15,7 @@
             <FlowPane fx:id="tags" />
             <VBox minHeight="10" />
 
-            <Label text="Personal Information" styleClass="label-underlined" />
+            <Label text="🛈 Personal Information" styleClass="label-underlined" />
             <Label fx:id="email" styleClass="label-bright" />
             <Label fx:id="phone" styleClass="label-bright" />
             <Label fx:id="address" styleClass="label-bright" />
