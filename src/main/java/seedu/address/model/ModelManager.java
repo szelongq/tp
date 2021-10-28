@@ -180,6 +180,7 @@ public class ModelManager implements Model {
     public void setViewingPerson(Person p) {
         requireNonNull(p);
         viewingPerson.set(p);
+        System.out.println("Setting viewing person:\n" + p.toString());
     }
 
     @Override

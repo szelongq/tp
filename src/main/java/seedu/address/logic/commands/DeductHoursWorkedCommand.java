@@ -79,6 +79,7 @@ public class DeductHoursWorkedCommand extends Command {
                 personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
+        model.setViewingPerson(editedPerson);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
     }
