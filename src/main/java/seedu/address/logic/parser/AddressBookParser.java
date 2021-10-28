@@ -8,10 +8,12 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddHoursWorkedCommand;
-import seedu.address.logic.commands.AddLeavesCommand;
+import seedu.address.logic.commands.AddLeaveBalanceCommand;
 import seedu.address.logic.commands.AssignLeaveCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeductHoursWorkedCommand;
+import seedu.address.logic.commands.DeductLeaveBalanceCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -20,8 +22,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PayCommand;
-import seedu.address.logic.commands.RemoveHoursWorkedCommand;
-import seedu.address.logic.commands.RemoveLeavesCommand;
+import seedu.address.logic.commands.RemoveLeavesBeforeCommand;
 import seedu.address.logic.commands.SetOvertimePayRateCommand;
 import seedu.address.logic.commands.StartPayrollCommand;
 import seedu.address.logic.commands.ViewCommand;
@@ -79,20 +80,23 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case AddLeavesCommand.COMMAND_WORD:
-            return new AddLeavesCommandParser().parse(arguments);
+        case AddLeaveBalanceCommand.COMMAND_WORD:
+            return new AddLeaveBalanceCommandParser().parse(arguments);
 
-        case RemoveLeavesCommand.COMMAND_WORD:
-            return new RemoveLeavesCommandParser().parse(arguments);
+        case DeductLeaveBalanceCommand.COMMAND_WORD:
+            return new DeductLeaveBalanceCommandParser().parse(arguments);
 
         case AssignLeaveCommand.COMMAND_WORD:
             return new AssignLeaveCommandParser().parse(arguments);
 
+        case RemoveLeavesBeforeCommand.COMMAND_WORD:
+            return new RemoveLeavesBeforeCommandParser().parse(arguments);
+
         case AddHoursWorkedCommand.COMMAND_WORD:
             return new AddHoursWorkedCommandParser().parse(arguments);
 
-        case RemoveHoursWorkedCommand.COMMAND_WORD:
-            return new RemoveHoursWorkedCommandParser().parse(arguments);
+        case DeductHoursWorkedCommand.COMMAND_WORD:
+            return new DeductHoursWorkedCommandParser().parse(arguments);
 
         case StartPayrollCommand.COMMAND_WORD:
             return new StartPayrollCommandParser().parse(arguments);

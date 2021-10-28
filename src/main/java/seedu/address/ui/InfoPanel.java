@@ -38,7 +38,7 @@ public class InfoPanel extends UiPart<Region> {
     @FXML
     private Label role;
     @FXML
-    private Label leave;
+    private Label leaveBalance;
     @FXML
     private Label leaveDates;
     @FXML
@@ -75,7 +75,7 @@ public class InfoPanel extends UiPart<Region> {
         address.setText(ADDRESS_ICON + person.getAddress().value);
         email.setText(EMAIL_ICON + person.getEmail().value);
         role.setText(ROLE_ICON + person.getRole().value);
-        leave.setText(String.format(LEAVES_ICON + "Leaves Remaining: %s", person.getLeaves().toString()));
+        leaveBalance.setText(String.format(LEAVES_ICON + "Leaves Remaining: %s", person.getLeaveBalance().toString()));
         leaveDates.setText(DATES_ICON + person.getLeavesTaken().toDisplayString());
         salary.setText(String.format(SALARY_ICON + "Hourly salary: $%s" + " per hour", person.getSalary().toString()));
         hoursWorked.setText(String.format(HOURSWORKED_ICON + "Hours Worked: %s", person.getHoursWorked().toString()));

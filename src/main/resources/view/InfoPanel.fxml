@@ -28,7 +28,7 @@
             <Label fx:id="salaryOwed" styleClass="label-alert" />
 
             <Label text="Leaves" styleClass="label-underlined" />
-            <Label fx:id="leave" styleClass="label-bright" />
+            <Label fx:id="leaveBalance" styleClass="label-bright" />
             <Label fx:id="leaveDates" styleClass="label-bright" />
         </VBox>
     </ScrollPane>

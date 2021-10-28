@@ -7,26 +7,26 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.RemoveHoursWorkedCommand;
+import seedu.address.logic.commands.DeductHoursWorkedCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Overtime;
 
 /**
- * Parses input arguments and creates a new RemoveHoursWorkedCommand object.
+ * Parses input arguments and creates a new DeductHoursWorkedCommand object.
  */
-public class RemoveHoursWorkedCommandParser implements Parser<RemoveHoursWorkedCommand> {
+public class DeductHoursWorkedCommandParser implements Parser<DeductHoursWorkedCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the RemoveHoursWorkedCommand
-     * and returns a RemoveHoursWorkedCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeductHoursWorkedCommand
+     * and returns a DeductHoursWorkedCommand object for execution.
      *
      * @param args A string representing the user's input.
-     * @return A new RemoveHoursWorkedCommand object.
+     * @return A new DeductHoursWorkedCommand object.
      * @throws ParseException if the user input does not conform the expected format
      * or an invalid integer input for the number of hours is given.
      */
-    public RemoveHoursWorkedCommand parse(String args) throws ParseException {
+    public DeductHoursWorkedCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_HOURSWORKED, PREFIX_OVERTIME);
@@ -36,14 +36,14 @@ public class RemoveHoursWorkedCommandParser implements Parser<RemoveHoursWorkedC
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RemoveHoursWorkedCommand.MESSAGE_USAGE), ive);
+                    DeductHoursWorkedCommand.MESSAGE_USAGE), ive);
         }
 
         // If both prefixes are not present
         if (argMultimap.getValue(PREFIX_HOURSWORKED).isEmpty()
                 && argMultimap.getValue(PREFIX_OVERTIME).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RemoveHoursWorkedCommand.MESSAGE_USAGE));
+                    DeductHoursWorkedCommand.MESSAGE_USAGE));
         }
 
         String hoursWorkedString = argMultimap.getValue(PREFIX_HOURSWORKED).orElse("0");
@@ -56,15 +56,15 @@ public class RemoveHoursWorkedCommandParser implements Parser<RemoveHoursWorkedC
             overtime = Integer.parseInt(overtimeString);
         } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
-                    RemoveHoursWorkedCommand.MESSAGE_USAGE), nfe);
+                    DeductHoursWorkedCommand.MESSAGE_USAGE), nfe);
         }
         // At least one of the inputs must be a positive integer
         if (hoursWorked <= 0 && overtime <= 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
-                    RemoveHoursWorkedCommand.MESSAGE_USAGE));
+                    DeductHoursWorkedCommand.MESSAGE_USAGE));
         }
 
-        return new RemoveHoursWorkedCommand(index, new HoursWorked(hoursWorkedString),
+        return new DeductHoursWorkedCommand(index, new HoursWorked(hoursWorkedString),
                 new Overtime(overtimeString));
     }
 }

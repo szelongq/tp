@@ -9,7 +9,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -41,7 +41,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setRole(person.getRole());
-        descriptor.setLeaves(person.getLeaves());
+        descriptor.setLeaves(person.getLeaveBalance());
         descriptor.setSalary(person.getSalary());
         descriptor.setHoursWorked(person.getHoursWorked());
         descriptor.setTags(person.getTags());
@@ -91,7 +91,7 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code Leaves} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withLeaves(String leaves) {
-        descriptor.setLeaves(new Leave(leaves));
+        descriptor.setLeaves(new LeaveBalance(leaves));
         return this;
     }
 
