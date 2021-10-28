@@ -368,23 +368,29 @@ Notes:
   ![error when there are employees still unpaid](images/startPayrollError_unpaidEmployee.png)
 * To start a new payroll, first make sure to pay all employees using the `pay` command.
 
-#### Paying employee : `pay`
+#### Paying employee(s) : `pay`
 
-Marks the specified employee as paid.
+Marks the specified employee, or all employees in the current list, as paid.
 
-Format: `pay INDEX`
+Format 1: `pay INDEX` - for paying a specific employee
 * Simulates the paying of an employee by clearing the salary owed to the employee by setting it back to 0. This clears the red
   `NOT PAID` label under the employee's data.
 * The number of hours worked and overtime hours of the employee will be reset to 0 as well.
-* This command is to typically used after the `startPayroll` command, which sets the pay owed to the respective employees.
+* This command is typically used after the `startPayroll` command, which sets the pay owed to the respective employees.
   The pay command can then be followed after to clear the pay owed.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …​
-
+* The employee must have payment pending from a `startPayroll` command.
+  
 Example:
 * `pay 1` marks the 1st employee in the Employee list as paid clearing the pay owed, number of hours worked and overtime hours of the employee.
   ![before paying the employee](images/pay_beforePaying.png)<br><br>
   ![after paying the employee](images/pay_afterPaying.png)
+  
+Format 2: `pay all` - for paying all employees in the current list
+* Simulates paying of employees in the same way as above, but for all employees instead.
+* If there are employees already paid in the list, they will be skipped and will not be paid again.
+* There must be at least 1 employee in the list that has not been paid.
 
 #### View the Overtime Pay Rate : `viewOvertimePayRate`
 
@@ -499,7 +505,7 @@ Action | Format, Examples
 **Add Hours Worked/Overtime** | `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `addHoursWorked 1 hw/2 o/3`
 **Remove Hours Worked/Overtime** | `removeHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `removeHoursWorked 4 hw/1 o/2`
 **Start Payroll** | `startPayroll`
-**Pay Employee** | `pay INDEX`<br> e.g., `pay 3`
+**Pay Employee(s)** | `pay INDEX` <br> e.g., `pay 3` <br> OR <br>`pay all`
 **View Overtime Pay Rate** | `viewOvertimePayRate`
 **Set a new Overtime Pay Rate** | `setOvertimePayRate OVERTIMEPAYRATE`<br> e.g., `setOvertimePayRate 2.0`
 **Import** | `import FILEPATH`
