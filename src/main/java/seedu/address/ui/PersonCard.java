@@ -37,9 +37,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
+    private FlowPane tags;
     @FXML
     private Label email;
     @FXML
@@ -52,10 +50,7 @@ public class PersonCard extends UiPart<Region> {
     private Label overtime;
     @FXML
     private VBox calculatedSalary;
-    @FXML
-    private FlowPane tags;
-    @FXML
-    private Label leavesTaken;
+
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -65,14 +60,11 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         role.setText(person.getRole().value);
         leaveBalance.setText(String.format("Leaves Remaining: %s", person.getLeaveBalance().toString()));
         hoursWorked.setText(String.format("Hours Worked: %s", person.getHoursWorked().toString()));
         overtime.setText(String.format("Overtime Hours Worked: %s", person.getOvertime().toString()));
-        leavesTaken.setText(person.getLeavesTaken().toString());
 
         String salaryDue = person.getCalculatedPay().toString(); // To be replaced by calculated salary
         if (!salaryDue.equals("0.00")) {

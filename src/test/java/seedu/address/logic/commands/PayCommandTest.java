@@ -36,6 +36,20 @@ public class PayCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    private Person createPersonWithCalculatedPay(Person personWithCalculatedPay, CalculatedPay newCalculatedPay) {
+        Name name = personWithCalculatedPay.getName();
+        Phone phone = personWithCalculatedPay.getPhone();
+        Email email = personWithCalculatedPay.getEmail();
+        Address address = personWithCalculatedPay.getAddress();
+        Role role = personWithCalculatedPay.getRole();
+        Leave leaves = personWithCalculatedPay.getLeaves();
+        HourlySalary salary = personWithCalculatedPay.getSalary();
+        HoursWorked hours = personWithCalculatedPay.getHoursWorked();
+        Set<Tag> tags = personWithCalculatedPay.getTags();
+
+        return new Person(name, phone, email, address, role, leaves, salary, hours, newCalculatedPay, tags);
+    }
+
     private static Person createPaidPerson(Person personToPay) {
         assert personToPay != null;
 
@@ -63,7 +77,11 @@ public class PayCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Person personToPay = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person person = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        CalculatedPay calculatedPay = new CalculatedPay("500.00");
+        Person personToPay = createPersonWithCalculatedPay(person, calculatedPay);
+        model.setPerson(person, personToPay);
+
         PayCommand payCommand = new PayCommand(INDEX_FIRST_PERSON);
 
         Person paidPerson = createPaidPerson(personToPay);

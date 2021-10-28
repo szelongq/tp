@@ -77,6 +77,7 @@ public class AssignLeaveCommand extends Command {
                             personToEdit.getName().toString(), date));
         }
         model.setPerson(personToEdit, editedPerson);
+        model.setViewingPerson(editedPerson);
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
     }
 
