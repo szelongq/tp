@@ -227,17 +227,19 @@ Example:
 Imports the data from a specified `.csv` file.
 
 Format: `import FILEPATH`
-* Imports relevant data from the specified filepath, which can be absolute or relative (to the `.jar` application).
-* Only one `FILEPATH` should be specified.
+* Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
+* Only one `FILEPATH` should be specified. 
+* Filepaths should be written following the current Operating System being used. (eg. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
+* Filepaths with spaces present in directory can be written as per usual (eg. `./My Folder/toBeImported.csv`).
 * A header row is required to indicate the purpose of the various fields, and it must be the first row in the `.csv` file.
-* Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below.
-* Ensure that each field follows the specifications required, which can be found [here](#Adding an Employee).
-* Ensure that the number of columns in each entry matches the number of headers.
+* Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below, and are present in the data if compulsory.
+* Ensure that each field follows the specifications required, which can be found [here](#Adding-an-Employee).
+* Ensure that the number of fields in each entry matches the number of headers.
 * If multiple tags are present for an entry, they should be seperated by `/`.
 * No specific ordering of the columns is required.
-* If any compulsory fields are missing, the app only alerts the user of the first instance of a missing field.
+* Note that if multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
 
-####Header Naming Conventions and Requirements
+#### Header Naming Conventions and Requirements
 
 Field | Rename to ... (Case-Insensitive) | Compulsory for Import? 
 --------------|---------------|------------------------
@@ -300,4 +302,4 @@ Action | Format, Examples
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
-**Import** | `import FILEPATH`
+**Import** | `import FILEPATH` <br> e.g., `import /myData`
