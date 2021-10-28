@@ -246,6 +246,7 @@ Examples:
 #### Clearing all entries : `clear`
 
 Clears all entries from the employee book.
+
 Format: `clear`
 
 #### Exiting the program : `exit`

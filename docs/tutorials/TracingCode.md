@@ -28,7 +28,7 @@ Before we proceed, ensure that you have done the following:
 1. Read the [*Architecture* section of the DG](../DeveloperGuide.md#architecture)
 1. Set up the project in Intellij IDEA
 1. Learn basic debugging features of Intellij IDEA
-   * If you are using a different IDE, we'll leaveBalance it to you to figure out the equivalent feature to use in your IDE.
+   * If you are using a different IDE, we'll leave it to you to figure out the equivalent feature to use in your IDE.
    * If you are not using an IDE, we'll let you figure out how to achieve the same using your coding toolchain.
 
 ## Setting a breakpoint
