@@ -166,7 +166,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBA
 * The values of LEAVEBALANCE, HOURS_WORKED and OVERTIME **must be non-negative integers.**
 * The value of HOURLYSALARY **must be a non-negative number with up to 2 decimal places.**
 * **NOTE:** The edit command is unable to directly edit the dates of leaves taken by employees.
-Refer to the `addLeaves` and `removeLeaves` commands below instead to edit the dates.
+Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to edit the dates.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
@@ -176,11 +176,11 @@ Examples:
 
 Find employees using specified fields, checking if their information field contains any of the given keywords / queries.
 
-Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBALANCE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
+Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBALANCE] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
 
 * At least one field should be specified.
 * The order of the fields do not matter except for the `[KEYWORD]` field, which must come right after `find`.  
-* The filters work differently for each field and can be generalised to 3 types of queries, described below. A single find command can contain all 3 types of queries at once.
+* The filters work differently for each field and can be generalised to 4 types of queries, described below. A single find command can contain all 4 types of queries at once.
   * **Type 1 Query: Keyword Matching**
     * Fields: `n/NAME`, `p/PHONE`, `e/EMAIL`, `a/ADDRESS`, `r/ROLE`, `t/TAG`
       * These fields will find all people who contain the given keywords in their respective fields. They are not case-sensitive.
@@ -213,7 +213,20 @@ Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l
         * `unpaid`
         * More to be added.
     * For example, `find unpaid` will find all employees who are considered unpaid
-    
+  
+  * **Type 4 Query: Date Based Comparison**
+    * Fields: `d/DATE`
+      * This field will find all people who have taken a leave on a given date or within a range of dates. (start and end dates inclusive)
+      * There are two ways to search using dates: individual dates or date ranges.
+        * For individual dates, simply type in a date of the form YYYY-MM-DD.
+        * For date ranges, simply type in two dates in the form YYYY-MM-DD:YYYY-MM-DD.
+      * Both individual dates and date ranges can be combined into one query.
+    * For example, `find d/2021-10-10 2021-11-01:2021-11-05` will find anyone who satisfies **either** of the following 2 criteria:
+      1. has taken a leave on October 10th 2021, or
+      2. has taken a leave between the dates November 1st 2021 and November 5th 2021, start and end dates inclusive.
+
+  * You cannot enter more than 1 comparison or value to compare to.     
+
 * For each field, you can search using multiple keywords by separating each keyword with a space, in the same field.
   * For example, `find n/John Mike` will return all employees whose name contains either John or Mike.
 
@@ -272,21 +285,21 @@ Examples:
 * `list` followed by `addLeaveBalance 3 l/4` adds 4 days of leave to the 3rd employee in the employee book.
 * `find n/Sam` followed by `addLeaveBalance 1 l/1` adds 1 day of leave to the 1st employee in the results of the `find` command.
 
-#### Subtract number of leaves for an employee : `subtractLeaveBalance`
+#### Deduct number of leaves from an employee : `deductLeaveBalance`
 
-Subtracts the specified number of leaves from the current leave balance (number of days of leave left) of a chosen employee.
+Deducts the specified number of leaves from the current leave balance (number of days of leave left) of a chosen employee.
 
-Format: `subtractLeaveBalance INDEX l/LEAVES`
+Format: `deductLeaveBalance INDEX l/LEAVES`
 
-* Subtracts the specified number from the number of leaves of the employee at the specified `INDEX`.
+* Deducts the specified number from the number of leaves of the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
 * The number of leaves **must be a positive integer** 1, 2, 3, …
-* The number of leaves to be removed **cannot be greater than the amount of leaves in the employee's leave balance.** 
+* The number of leaves to be deducted **cannot be greater than the amount of leaves in the employee's leave balance.** 
 
 Examples:
-* `list` followed by `subtractLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in the employee book.
-* `find n/Anthony` followed by `subtractLeaveBalance 4 l/2` removes 2 days of leave from the 4th employee in the results of the `find` command.
+* `list` followed by `deductLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in the employee book.
+* `find n/Anthony` followed by `deductLeaveBalance 4 l/2` removes 2 days of leave from the 4th employee in the results of the `find` command.
 
 #### Assign a leave with a date to an employee : `assignLeave`
 
@@ -294,7 +307,7 @@ Assigns a leave that is associated with a date to a chosen employee.
 
 Format: `assignLeave INDEX d/DATE`
 
-* Assigns a leave to the employee at the specified `INDEX`, while subtracting 1 leave from the employee's leave balance.
+* Assigns a leave to the employee at the specified `INDEX`, while deducting 1 leave from the employee's leave balance.
 * The employee must have **at least 1 leave** in their leave balance.   
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
@@ -303,6 +316,21 @@ Format: `assignLeave INDEX d/DATE`
 Examples:
 * `list` followed by `assignLeave 2 d/2021-11-10` assigns a leave with the date 10th November 2021 to the 2nd employee in the employee book.
 * `find n/Anthony` followed by `assignLeave 1 d/2021-01-08` assigns a leave with the date 8th January 2021 to the 1st employee in the results of the `find` command.
+
+#### Remove all leaves occurring before a given date from employees : `removeLeavesBefore`
+
+Removes all leaves from all employees in the list occurring before a given input date (inclusive).
+
+Format: `removeLeavesBefore d/DATE`
+
+* Removes all leaves from all employees in the list occurring before a given input date (inclusive).
+* The date **must be valid** and of the form **YYYY-MM-DD**.
+* This operation will only act on employees in the current filtered list.
+
+Examples:
+* `list` followed by `removeLeavesBefore d/2021-11-10` removes all leaves occurring on and before 2021-11-10 for all employees.
+* `find n/Anthony` followed by `removeLeavesBefore 1 d/2021-01-08` removes all leaves occurring on and before 2021-01-08 
+   for all employees that have 'Anthony' in their names.
 
 ### Payroll-related Features
 
@@ -322,22 +350,22 @@ Examples:
 * `list` followed by `addHoursWorked 5 hw/5 o/5` adds 5 hours worked and 5 hours of overtime to the 5th employee in the employee book.
 * `find n/Sam` followed by `addHoursWorked 2 o/5` adds 5 hours of overtime to the 2nd employee in the results of the `find` command.
 
-#### Remove number of hours worked/overtime from an employee : `removeHoursWorked`
+#### Deduct number of hours worked/overtime from an employee : `deductHoursWorked`
 
-Removes the specified number of hours worked or overtime from a chosen employee.
+deducts the specified number of hours worked or overtime from a chosen employee.
 
-Format: `removeHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
+Format: `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 
 * At least one field (HOURS_WORKED or OVERTIME) should be specified.
-* Removes the specified number of hours worked/overtime from the employee at the specified `INDEX`.
+* Deducts the specified number of hours worked/overtime from the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
 * The number of hours worked/overtime **must be a positive integer** 1, 2, 3, …
 * The number of hours worked/overtime to be removed **cannot be greater than the employee's current number of hours worked/overtime.**
 
 Examples:
-* `list` followed by `removeHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in the employee book.
-* `find n/Sam` followed by `removeHoursWorked 1 o/2` removes 2 hours of overtime from the 1st employee in the results of the `find` command.
+* `list` followed by `deductHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in the employee book.
+* `find n/Sam` followed by `deductHoursWorked 1 o/2` removes 2 hours of overtime from the 1st employee in the results of the `find` command.
 
 #### Start Payroll : `startPayroll`
 
@@ -495,15 +523,16 @@ Action | Format, Examples
 **List** | `list`
 **View** | `view INDEX`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
-**Find** | `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
+**Find** | `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [d/DATE] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Clear** | `clear`
 **Exit** | `exit`
 **Add to Leave Balance** | `addLeaveBalance INDEX l/LEAVES` <br> e.g., `addLeaves 1 l/2`
-**Subtract from Leave Balance** | `subtractLeaveBalance INDEX l/LEAVES` <br> e.g., `removeLeaves 4 l/1`
-**Assign Leave** |  `assignLeave INDEX d/DATE` <br> e.g., `assignLeaves d/2021-10-30`
+**Deduct from Leave Balance** | `deductLeaveBalance INDEX l/LEAVES` <br> e.g., `deductLeaveBalance 4 l/1`
+**Assign Leave** |  `assignLeave INDEX d/DATE` <br> e.g., `assignLeaves 1 d/2021-10-30`
+**Filter and Remove Leaves before a Date** |  `removeLeavesBefore d/DATE` <br> e.g., `removeLeavesBefore d/2021-10-30`
 **Add Hours Worked/Overtime** | `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `addHoursWorked 1 hw/2 o/3`
-**Remove Hours Worked/Overtime** | `removeHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `removeHoursWorked 4 hw/1 o/2`
+**Deduct Hours Worked/Overtime** | `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `deductHoursWorked 4 hw/1 o/2`
 **Start Payroll** | `startPayroll`
 **Pay Employee(s)** | `pay INDEX` <br> e.g., `pay 3` <br> OR <br>`pay all`
 **View Overtime Pay Rate** | `viewOvertimePayRate`
