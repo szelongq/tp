@@ -238,21 +238,22 @@ Format: `import FILEPATH`
 * If multiple tags are present for an entry, they should be seperated by `/`.
 * No specific ordering of the columns is required.
 * Note that if multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
+* For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value.
 
 #### Header Naming Conventions and Requirements
 
-Field | Rename to ... (Case-Insensitive) | Compulsory for Import? 
---------------|---------------|------------------------
-`NAME`|Name|Yes|
-`PHONE_NUMBER` |Contact Number|Yes
-`ADDRESS` |Residential Address|Yes
-`EMAIL` |Email|Yes
-`ROLE` |Role|Yes
-`LEAVEBALANCE` |Leave Balance|No
-`HOURLYSALARY` |Salary|No
-`HOURSWORKED` |Hours Worked|No
-`OVERTIME` |Overtime|No
-`TAGS`|Tags|No
+Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Value
+--------------|---------------|------------------------ | --------
+`NAME`|Name|Yes| N.A.
+`PHONE_NUMBER` |Contact Number|Yes | N.A.
+`ADDRESS` |Residential Address|Yes | N.A.
+`EMAIL` |Email|Yes | N.A.
+`ROLE` |Role|Yes | N.A.
+`LEAVEBALANCE` |Leave Balance|No | 0
+`HOURLYSALARY` |Salary|No | 0.00
+`HOURSWORKED` |Hours Worked|No | 0
+`OVERTIME` |Overtime|No | 0
+`TAGS`|Tags|No| Empty Set of Tags
 
 Example:`import ./toBeImported` should have the following behaviours under the following situations.
 * Successful Import
