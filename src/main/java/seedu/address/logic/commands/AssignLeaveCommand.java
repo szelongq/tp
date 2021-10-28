@@ -35,7 +35,7 @@ public class AssignLeaveCommand extends Command {
      * Creates an AssignLeaveCommand instance.
      *
      * @param index of the person in the filtered employee list to assign a leave to
-     * @param date  that corresponds to the leave being allocated to the employee
+     * @param date that corresponds to the leave being allocated to the employee
      */
     public AssignLeaveCommand(Index index, LocalDate date) {
         requireAllNonNull(index, date);

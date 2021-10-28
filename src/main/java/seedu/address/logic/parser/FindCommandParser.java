@@ -313,7 +313,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      * ">=" for more than or equal, ">" for strictly more than
      * "<=" for less than or equal, "<" for strictly less than
      * "=" for exactly equal.
-     * <p>
+     *
      * If any of the single character comparisons are used, this parser checks if the character
      * directly following it is an integer. Otherwise, the comparison is considered invalid.
      * For example, ">5" is valid but "==" and "><" are not.
@@ -352,7 +352,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      * The String is parsed based on the type of command it is parsing.
      *
      * @param input The parsed user input from the argument multimap
-     * @param type  The comparison type
+     * @param type The comparison type
      * @return A String representing the value to compare to
      */
     private String getComparisonValue(String input, CompareType type) {
