@@ -52,19 +52,24 @@ public class LeavesTaken {
     }
 
     /**
-     * Returns an updated LeavesTaken object with the specified date removed.
+     * Returns an updated LeavesTaken object with all dates before
+     * the input date removed, inclusive of the date itself.
+     * E.g. if 2021-10-20 is the input, all dates before 2021-10-20
+     * as well as 2021-10-20 itself will be removed.
      *
-     * @param date The date that is to be removed.
+     * @param beforeDate The date that is to be used.
      * @return An updated LeavesTaken object.
-     * @throws IllegalArgumentException if the specified date is not present.
      */
-    public LeavesTaken removeDate(LocalDate date) {
+    public LeavesTaken removeDatesBefore(LocalDate beforeDate) {
         List<LocalDate> dates = new ArrayList<>(value);
-        boolean dateExists = dates.remove(date);
-        if (!dateExists) {
-            throw new IllegalArgumentException();
+        List<LocalDate> newDates = new ArrayList<>();
+        for (LocalDate date : dates) {
+            // Only keep dates that are greater than the input date
+            if (date.compareTo(beforeDate) > 0) {
+                newDates.add(date);
+            }
         }
-        return new LeavesTaken(dates);
+        return new LeavesTaken(newDates);
     }
 
     public List<LocalDate> toList() {

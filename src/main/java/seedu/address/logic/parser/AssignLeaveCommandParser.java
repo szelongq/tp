@@ -22,9 +22,9 @@ public class AssignLeaveCommandParser implements Parser<AssignLeaveCommand> {
      * and returns a AssignLeaveCommand object for execution.
      *
      * @param args A string representing the user's input.
-     * @return A new AddLeaveBalanceCommand object.
-     * @throws ParseException if the user input does not conform the expected format
-     * or an invalid integer input for the number of leaves is given.
+     * @return A new AssignLeaveCommand object.
+     * @throws ParseException if the user input does not conform to the expected format
+     * or an invalid date input is given.
      */
     public AssignLeaveCommand parse(String args) throws ParseException {
         requireNonNull(args);
@@ -56,5 +56,4 @@ public class AssignLeaveCommandParser implements Parser<AssignLeaveCommand> {
 
         return new AssignLeaveCommand(index, date);
     }
-
 }

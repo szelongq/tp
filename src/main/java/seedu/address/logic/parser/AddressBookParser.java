@@ -22,6 +22,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PayCommand;
+import seedu.address.logic.commands.RemoveLeavesBeforeCommand;
 import seedu.address.logic.commands.SetOvertimePayRateCommand;
 import seedu.address.logic.commands.StartPayrollCommand;
 import seedu.address.logic.commands.ViewCommand;
@@ -87,6 +88,9 @@ public class AddressBookParser {
 
         case AssignLeaveCommand.COMMAND_WORD:
             return new AssignLeaveCommandParser().parse(arguments);
+
+        case RemoveLeavesBeforeCommand.COMMAND_WORD:
+            return new RemoveLeavesBeforeCommandParser().parse(arguments);
 
         case AddHoursWorkedCommand.COMMAND_WORD:
             return new AddHoursWorkedCommandParser().parse(arguments);

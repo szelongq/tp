@@ -18,7 +18,7 @@ import seedu.address.model.person.Person;
  */
 public class AssignLeaveCommand extends Command {
 
-    public static final String COMMAND_WORD = "assignleave";
+    public static final String COMMAND_WORD = "assignLeave";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Allocates a leave with a date to the employee identified "
             + "by the index number used in the last person listing. \n"
@@ -53,10 +53,10 @@ public class AssignLeaveCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        LeaveBalance newLeaveBalanceBalance;
+        LeaveBalance newLeaveBalance;
         // Check that the employee has at least 1 leave
         try {
-            newLeaveBalanceBalance = personToEdit.getLeaveBalance().removeLeaves(new LeaveBalance("1"));
+            newLeaveBalance = personToEdit.getLeaveBalance().removeLeaves(new LeaveBalance("1"));
         } catch (IllegalArgumentException iae) {
             throw new CommandException(
                     String.format(Messages.MESSAGE_INSUFFICIENT_LEAVES,
@@ -65,7 +65,7 @@ public class AssignLeaveCommand extends Command {
 
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), newLeaveBalanceBalance,
+                personToEdit.getRole(), newLeaveBalance,
                 personToEdit.getLeavesTaken().addDate(date), personToEdit.getSalary(), personToEdit.getHoursWorked(),
                 personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
 
