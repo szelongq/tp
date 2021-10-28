@@ -30,11 +30,6 @@
       <VBox>
         <Label fx:id="role" styleClass="cell_role_label" text="\$role" />
         <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-      </VBox>
-      <VBox>
-        <Label fx:id="leaveBalance" styleClass="cell_small_label" text="\$leaveBalance" />
-        <Label fx:id="hoursWorked" styleClass="cell_small_label" text="\$hoursWorked" />
-        <Label fx:id="overtime" styleClass="cell_small_label" text="\$overtime" />
         <FlowPane fx:id="tags" />
       </VBox>
       <VBox fx:id="calculatedSalary" minHeight="13" maxWidth="40" />
