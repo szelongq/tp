@@ -114,7 +114,8 @@ public class PayCommand extends Command {
 
     private CommandResult executePayAll(Model model) throws CommandException {
         assert nonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        // Create a deep copy of the filtered list
+        List<Person> lastShownList = new ArrayList<>(model.getFilteredPersonList());
         List<Person> personsSkippedList = new ArrayList<>();
         Person firstPersonToBePaid = null;
 
@@ -135,6 +136,9 @@ public class PayCommand extends Command {
             if (!personToPay.isPaid()) {
                 Person paidPerson = createPaidPerson(personToPay);
                 model.setPerson(personToPay, paidPerson);
+                if (personToPay.isSamePerson(firstPersonToBePaid)) {
+                    firstPersonToBePaid = paidPerson;
+                }
             } else {
                 personsSkippedList.add(personToPay);
             }
