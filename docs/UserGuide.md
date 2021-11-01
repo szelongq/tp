@@ -22,7 +22,7 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 3. Copy the file to the folder you want to use as the _home folder_ for your HeRon.
 
 4. Start the app.
-   1. If you are using Windows, you can place HeRon in your desktop or any other folder, then double-click on the app icon.
+   1. If you are using Windows, you can double-click on HeRon.jar in the folder you used in Step 3.
    2. If you are using MacOS or Linux, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app.
 
 5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -75,7 +75,7 @@ _Display Panel_ <br>
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
-* Items in square brackets are optional.<br>
+* Items in square brackets `e.g. []` are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
