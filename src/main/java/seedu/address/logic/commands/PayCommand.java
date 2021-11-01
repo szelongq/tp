@@ -174,10 +174,8 @@ public class PayCommand extends Command {
         LeaveBalance leaveBalance = personToPay.getLeaveBalance();
         LeavesTaken leavesTaken = personToPay.getLeavesTaken();
         HourlySalary hourlySalary = personToPay.getSalary();
-
-        // reset hours worked and overtime back to zero after being paid
-        HoursWorked newHours = new HoursWorked("0");
-        Overtime newOvertime = new Overtime("0");
+        HoursWorked hoursWorked = personToPay.getHoursWorked();
+        Overtime overtime = personToPay.getOvertime();
 
         // set calcPay to 0 to represent as paid
         CalculatedPay newCalcPay = new CalculatedPay("0.0");
@@ -185,7 +183,7 @@ public class PayCommand extends Command {
         Set<Tag> tags = personToPay.getTags();
 
         return new Person(name, phone, email, address, role, leaveBalance, leavesTaken, hourlySalary,
-                newHours, newOvertime, newCalcPay, tags);
+                hoursWorked, overtime, newCalcPay, tags);
     }
 
     @Override

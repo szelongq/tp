@@ -21,7 +21,7 @@ public class InfoPanel extends UiPart<Region> {
     private static final String ROLE_ICON = "👤 ";
     private static final String SALARY_ICON = "\uD83D\uDCB2 ";
     private static final String HOURSWORKED_ICON = "\uD83D\uDD51 ";
-    private static final String OVERTIME_ICON = " ↷  ";
+    private static final String OVERTIME_ICON = "↷  ";
     private static final String LEAVES_ICON = "\uD83C\uDF42 ";
     private static final String DATES_ICON = "\uD83D\uDDD3 ";
 
@@ -78,12 +78,14 @@ public class InfoPanel extends UiPart<Region> {
         leaveBalance.setText(String.format(LEAVES_ICON + "Leaves Remaining: %s", person.getLeaveBalance().toString()));
         leaveDates.setText(DATES_ICON + person.getLeavesTaken().toDisplayString());
         salary.setText(String.format(SALARY_ICON + "Hourly salary: $%s" + " per hour", person.getSalary().toString()));
-        hoursWorked.setText(String.format(HOURSWORKED_ICON + "Hours Worked: %s", person.getHoursWorked().toString()));
-        overtime.setText(String.format(OVERTIME_ICON + "Overtime Hours Worked: %s", person.getOvertime().toString()));
+        hoursWorked.setText(String.format(HOURSWORKED_ICON + "Current Hours Worked: %s",
+                person.getHoursWorked().toString()));
+        overtime.setText(String.format(OVERTIME_ICON + "Current Overtime Hours Worked: %s",
+                person.getOvertime().toString()));
 
         double salaryDue = person.getCalculatedPay().value; // To be replaced by calculated salary
         if (salaryDue > 0) {
-            salaryOwed.setText(String.format("%s left unpaid!!", salaryDue));
+            salaryOwed.setText(String.format("%s left unpaid from last payroll!!", salaryDue));
         } else {
             salaryOwed.setText("");
         }

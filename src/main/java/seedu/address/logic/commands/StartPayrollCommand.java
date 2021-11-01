@@ -26,7 +26,8 @@ import seedu.address.model.tag.Tag;
 /**
  * Calculates the payroll for all employees in the address book according to the
  * how much work has been done at the current time.
- * After that, marks all employees as awaiting payment of the calculated amount.
+ * After that, marks all employees as awaiting payment of the calculated amount
+ * and resets their hours worked and overtime to zero.
  */
 public class StartPayrollCommand extends Command {
 
@@ -59,6 +60,7 @@ public class StartPayrollCommand extends Command {
 
         // Get the current set pay rate for overtime
         OvertimePayRate overtimePayRate = model.getOvertimePayRate();
+        assert overtimePayRate != null;
 
         // If there are no unpaid employees, proceed with calculating payroll
         for (Person personToCalculatePay: personList) {
@@ -69,7 +71,9 @@ public class StartPayrollCommand extends Command {
 
             // Set the employee to be owed the calculated pay
             Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
-            model.setPerson(personToCalculatePay, personWithCalculatedPay);
+            // and reset their hours worked and overtime to zero
+            Person personWithPayrollDone = createPersonWithZeroHoursWorkedAndOvertime(personWithCalculatedPay);
+            model.setPerson(personToCalculatePay, personWithPayrollDone);
         }
 
         model.setViewingPerson(personList.get(0));
@@ -80,29 +84,66 @@ public class StartPayrollCommand extends Command {
 
     private CalculatedPay calculatePay(HourlySalary salary, HoursWorked hoursWorked, Overtime overtime,
                                        OvertimePayRate overtimePayRate) {
+        assert salary != null;
+        assert hoursWorked != null;
+        assert overtime != null;
+        assert overtimePayRate != null;
+
         double normalPay = salary.value * hoursWorked.value;
         double overtimePay = overtimePayRate.value * salary.value * overtime.value;
+
+        // Check that the pay should not be negative
+        assert normalPay >= 0;
+        assert overtimePay >= 0;
+
         // Ensure that the total pay is rounded to 2 decimal places.
         String totalRoundedPay = String.format("%.2f", normalPay + overtimePay);
 
         return new CalculatedPay(totalRoundedPay);
     }
 
-    private Person createPersonWithCalculatedPay(Person personWithCalculatedPay, CalculatedPay newCalculatedPay) {
-        Name name = personWithCalculatedPay.getName();
-        Phone phone = personWithCalculatedPay.getPhone();
-        Email email = personWithCalculatedPay.getEmail();
-        Address address = personWithCalculatedPay.getAddress();
-        Role role = personWithCalculatedPay.getRole();
-        LeaveBalance leaves = personWithCalculatedPay.getLeaveBalance();
-        LeavesTaken leavesTaken = personWithCalculatedPay.getLeavesTaken();
-        HourlySalary hourlySalary = personWithCalculatedPay.getSalary();
-        HoursWorked hours = personWithCalculatedPay.getHoursWorked();
-        Overtime overtime = personWithCalculatedPay.getOvertime();
-        Set<Tag> tags = personWithCalculatedPay.getTags();
+    private Person createPersonWithCalculatedPay(Person person, CalculatedPay newCalculatedPay) {
+        assert person != null;
+        assert newCalculatedPay != null;
+
+        Name name = person.getName();
+        Phone phone = person.getPhone();
+        Email email = person.getEmail();
+        Address address = person.getAddress();
+        Role role = person.getRole();
+        LeaveBalance leaves = person.getLeaveBalance();
+        LeavesTaken leavesTaken = person.getLeavesTaken();
+        HourlySalary hourlySalary = person.getSalary();
+        HoursWorked hoursWorked = person.getHoursWorked();
+        Overtime overtime = person.getOvertime();
+        // New calculatedPay taken from input parameter
+        Set<Tag> tags = person.getTags();
 
         return new Person(name, phone, email, address, role, leaves, leavesTaken, hourlySalary,
-                hours, overtime, newCalculatedPay, tags);
+                hoursWorked, overtime, newCalculatedPay, tags);
+    }
+
+    private Person createPersonWithZeroHoursWorkedAndOvertime(Person person) {
+        assert person != null;
+
+        Name name = person.getName();
+        Phone phone = person.getPhone();
+        Email email = person.getEmail();
+        Address address = person.getAddress();
+        Role role = person.getRole();
+        LeaveBalance leaves = person.getLeaveBalance();
+        LeavesTaken leavesTaken = person.getLeavesTaken();
+        HourlySalary hourlySalary = person.getSalary();
+
+        // reset hours worked and overtime to zero
+        HoursWorked zeroHours = new HoursWorked("0");
+        Overtime zeroOvertime = new Overtime("0");
+
+        CalculatedPay calculatedPay = person.getCalculatedPay();
+        Set<Tag> tags = person.getTags();
+
+        return new Person(name, phone, email, address, role, leaves, leavesTaken, hourlySalary,
+                zeroHours, zeroOvertime, calculatedPay, tags);
     }
 
     @Override

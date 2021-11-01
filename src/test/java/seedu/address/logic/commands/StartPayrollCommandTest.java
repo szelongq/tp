@@ -47,21 +47,48 @@ public class StartPayrollCommandTest {
         return new CalculatedPay(totalRoundedPay);
     }
 
-    private Person createPersonWithCalculatedPay(Person personWithCalculatedPay, CalculatedPay newCalculatedPay) {
-        Name name = personWithCalculatedPay.getName();
-        Phone phone = personWithCalculatedPay.getPhone();
-        Email email = personWithCalculatedPay.getEmail();
-        Address address = personWithCalculatedPay.getAddress();
-        Role role = personWithCalculatedPay.getRole();
-        LeaveBalance leaves = personWithCalculatedPay.getLeaveBalance();
-        LeavesTaken leavesTaken = personWithCalculatedPay.getLeavesTaken();
-        HourlySalary hourlySalary = personWithCalculatedPay.getSalary();
-        HoursWorked hours = personWithCalculatedPay.getHoursWorked();
-        Overtime overtime = personWithCalculatedPay.getOvertime();
-        Set<Tag> tags = personWithCalculatedPay.getTags();
+    private Person createPersonWithCalculatedPay(Person person, CalculatedPay newCalculatedPay) {
+        assert person != null;
+        assert newCalculatedPay != null;
+
+        Name name = person.getName();
+        Phone phone = person.getPhone();
+        Email email = person.getEmail();
+        Address address = person.getAddress();
+        Role role = person.getRole();
+        LeaveBalance leaves = person.getLeaveBalance();
+        LeavesTaken leavesTaken = person.getLeavesTaken();
+        HourlySalary hourlySalary = person.getSalary();
+        HoursWorked hoursWorked = person.getHoursWorked();
+        Overtime overtime = person.getOvertime();
+        // new calculatedPay taken from input parameter
+        Set<Tag> tags = person.getTags();
 
         return new Person(name, phone, email, address, role, leaves, leavesTaken, hourlySalary,
-                hours, overtime, newCalculatedPay, tags);
+                hoursWorked, overtime, newCalculatedPay, tags);
+    }
+
+    private Person createPersonWithZeroHoursWorkedAndOvertime(Person person) {
+        assert person != null;
+
+        Name name = person.getName();
+        Phone phone = person.getPhone();
+        Email email = person.getEmail();
+        Address address = person.getAddress();
+        Role role = person.getRole();
+        LeaveBalance leaves = person.getLeaveBalance();
+        LeavesTaken leavesTaken = person.getLeavesTaken();
+        HourlySalary hourlySalary = person.getSalary();
+
+        // reset hours worked and overtime to zero
+        HoursWorked zeroHours = new HoursWorked("0");
+        Overtime zeroOvertime = new Overtime("0");
+
+        CalculatedPay calculatedPay = person.getCalculatedPay();
+        Set<Tag> tags = person.getTags();
+
+        return new Person(name, phone, email, address, role, leaves, leavesTaken, hourlySalary,
+                zeroHours, zeroOvertime, calculatedPay, tags);
     }
 
     @Test
@@ -79,7 +106,8 @@ public class StartPayrollCommandTest {
             CalculatedPay calculatedPay = calculatePay(salary, hoursWorked, overtime, overtimePayRate);
 
             Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
-            expectedModel.setPerson(personToCalculatePay, personWithCalculatedPay);
+            Person personWithPayrollDone = createPersonWithZeroHoursWorkedAndOvertime(personWithCalculatedPay);
+            expectedModel.setPerson(personToCalculatePay, personWithPayrollDone);
         }
 
         String expectedMessage =
@@ -106,7 +134,8 @@ public class StartPayrollCommandTest {
             CalculatedPay calculatedPay = calculatePay(salary, hoursWorked, overtime, overtimePayRate);
 
             Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
-            expectedModel.setPerson(personToCalculatePay, personWithCalculatedPay);
+            Person personWithPayrollDone = createPersonWithZeroHoursWorkedAndOvertime(personWithCalculatedPay);
+            expectedModel.setPerson(personToCalculatePay, personWithPayrollDone);
         }
 
         String expectedMessage =
