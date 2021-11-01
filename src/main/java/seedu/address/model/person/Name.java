@@ -1,7 +1,6 @@
 package seedu.address.model.person;
 
-import java.util.Arrays;
-import java.util.Locale;
+import org.apache.commons.lang3.StringUtils;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -44,17 +43,15 @@ public class Name {
     public static String processName(String name) {
         String[] words = name.split(" ");
         String word = words[0];
-        int wordLength = word.length();
-        word = word.substring(0,1).toUpperCase() + word.substring(1, wordLength);
+        word = StringUtils.capitalize(word);
         StringBuffer processedName = new StringBuffer(word);
         for (int i = 1; i < words.length; i++) {
             if (words[i].equals("")) {
                 continue;
             }
             word = words[i];
-            wordLength = word.length();
             word = word.trim();
-            word = word.substring(0,1).toUpperCase() + word.substring(1, wordLength).toLowerCase();
+            word = StringUtils.capitalize(word);
             processedName = processedName.append(" ").append(word);
         }
         return processedName.toString();

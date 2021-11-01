@@ -145,6 +145,7 @@ public class ImportCommand extends Command {
             }
             return newPersonInputList;
         } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
             String[] errorDescriptorArr = e.getMessage().split(":");
             String errorMessage;
             if (errorDescriptorArr.length == 1) {
