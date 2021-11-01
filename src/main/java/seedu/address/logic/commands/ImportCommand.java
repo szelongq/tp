@@ -315,7 +315,7 @@ public class ImportCommand extends Command {
             return INPUT_ANNOTATION_ROLE_FIELD;
         default:
             assert(false);
-            return null;// Should not reach here since there are only 5 compulsory fields for import.
+            return null; // Should not reach here since there are only 5 compulsory fields for import.
         }
     }
 
