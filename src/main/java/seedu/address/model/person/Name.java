@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import java.util.Arrays;
+import java.util.Locale;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -28,7 +31,7 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        fullName = processName(name);
     }
 
     /**
@@ -36,6 +39,26 @@ public class Name {
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public static String processName(String name) {
+        String[] words = name.split(" ");
+        System.out.println(Arrays.toString(words));
+        String word = words[0];
+        int wordLength = word.length();
+        word = word.substring(0,1).toUpperCase() + word.substring(1, wordLength);
+        StringBuffer processedName = new StringBuffer(word);
+        for (int i = 1; i < words.length; i++) {
+            if (words[i].equals("")) {
+                continue;
+            }
+            word = words[i];
+            wordLength = word.length();
+            word = word.trim();
+            word = word.substring(0,1).toUpperCase() + word.substring(1, wordLength);
+            processedName = processedName.append(" ").append(word);
+        }
+        return processedName.toString();
     }
 
 
@@ -48,7 +71,7 @@ public class Name {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && fullName.equals(((Name) other).fullName)); // state check
+                && fullName.equalsIgnoreCase(((Name) other).fullName)); // state check
     }
 
     @Override
