@@ -203,7 +203,7 @@ public class ImportCommand extends Command {
                 Address address = ParserUtil.parseAddress(input.getAddress());
                 Role role = ParserUtil.parseRole(input.getRole());
 
-                // Optional Fields
+                // Optional Fields, default value of 0/empty set is used if input is not provided.
                 LeaveBalance leaves = buildLeave(input);
                 HourlySalary hourlySalary = buildSalary(input);
                 HoursWorked hoursWorked = buildHoursWorked(input);
@@ -314,7 +314,8 @@ public class ImportCommand extends Command {
         case "role":
             return INPUT_ANNOTATION_ROLE_FIELD;
         default:
-            return null; // Should not reach here.
+            assert(false);
+            return null;// Should not reach here since there are only 5 compulsory fields for import.
         }
     }
 
