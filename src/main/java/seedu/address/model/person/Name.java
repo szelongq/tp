@@ -55,7 +55,7 @@ public class Name {
             word = words[i];
             wordLength = word.length();
             word = word.trim();
-            word = word.substring(0,1).toUpperCase() + word.substring(1, wordLength);
+            word = word.substring(0,1).toUpperCase() + word.substring(1, wordLength).toLowerCase();
             processedName = processedName.append(" ").append(word);
         }
         return processedName.toString();
