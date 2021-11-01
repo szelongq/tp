@@ -163,15 +163,18 @@ Examples:
 
 Find employees using specified fields, checking if their information field contains any of the given keywords / queries.
 
-Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
+Format: `find [KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
 
 * At least one field should be specified.
-* The order of the fields do not matter except for the `[KEYWORD]` field, which must come right after `find`.  
+* The order of the fields do not matter except for the `[KEYWORD]` field, which must come right after `find`.
+* To search a field with multiple values, separate each value with a space after their respective tag. 
+  * Example: Use `find n/Alice Charlotte` to search for `Alice` or `Charlotte` in the `name` field.
+  
 * The filters work differently for each field and can be generalised to 4 types of queries, described below. A single find command can contain all 4 types of queries at once.
   * **Type 1 Query: Keyword Matching**
     * Fields: `n/NAME`, `p/PHONE`, `e/EMAIL`, `a/ADDRESS`, `r/ROLE`, `t/TAG`
       * These fields will find all people who contain the given keywords in their respective fields. They are not case-sensitive.
-      * The exception is the `p/PHONE` field, which only finds exact matches.
+      * The exception is the `n/NAME` and `p/PHONE` field, which only find exact matches.
       
     * For example, `find p/91234567 e/alice bob r/Admin` will find anyone who satisfies all the following 3 criteria:
       1. has the phone number 91234567, 
@@ -211,8 +214,6 @@ Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l
     * For example, `find d/2021-10-10 2021-11-01:2021-11-05` will find anyone who satisfies **either** of the following 2 criteria:
       1. has taken a leave on October 10th 2021, or
       2. has taken a leave between the dates November 1st 2021 and November 5th 2021, start and end dates inclusive.
-
-  * You cannot enter more than 1 comparison or value to compare to.     
 
 * For each field, you can search using multiple keywords by separating each keyword with a space, in the same field.
   * For example, `find n/John Mike` will return all employees whose name contains either John or Mike.
