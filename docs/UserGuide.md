@@ -32,7 +32,7 @@ This User Guide will bring you through the features that HeRon has to offer, as 
    Some example commands you can try:
 
    * **`list`** : Lists all contacts.
-   
+
    * **`import`** `./toBeImported.csv` : Imports the .csv file named `toBeImported.csv` the same directory as the application into the Employee Book.
 
    * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0` : Adds a contact named `John Doe` with the above details to the Employee Book.
@@ -54,7 +54,7 @@ _Command Panel_ <br>
 
 ![ListPanel](images/ListPanel.png) <br>
 _List Panel_ <br>
-- Displays the employee list together with its relevant particulars. 
+- Displays the employee list together with its relevant particulars.
 
 ![DisplayPanel](images/DisplayPanel.png) <br>
 _Display Panel_ <br>
@@ -179,19 +179,19 @@ Find employees using specified fields, checking if their information field conta
 Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBALANCE] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
 
 * At least one field should be specified.
-* The order of the fields do not matter except for the `[KEYWORD]` field, which must come right after `find`.  
+* The order of the fields do not matter except for the `[KEYWORD]` field, which must come right after `find`. 
 * The filters work differently for each field and can be generalised to 4 types of queries, described below. A single find command can contain all 4 types of queries at once.
   * **Type 1 Query: Keyword Matching**
     * Fields: `n/NAME`, `p/PHONE`, `e/EMAIL`, `a/ADDRESS`, `r/ROLE`, `t/TAG`
       * These fields will find all people who contain the given keywords in their respective fields. They are not case-sensitive.
       * The exception is the `p/PHONE` field, which only finds exact matches.
-      
+
     * For example, `find p/91234567 e/alice bob r/Admin` will find anyone who satisfies all the following 3 criteria:
-      1. has the phone number 91234567, 
-      2. whose email contains `alice` or `bob`, and 
+      1. has the phone number 91234567,
+      2. whose email contains `alice` or `bob`, and
       3. whose role contains `Admin`.
-      
-  * **Type 2 Query: Value Based Comparison**  
+
+  * **Type 2 Query: Value Based Comparison**
     * Fields: `hw/HOURS_WORKED`, `l/LEAVEBALANCE`, `s/HOURLYSALARY`, `o/OVERTIME`
       * These fields must be specified with a comparison and a value to compare the respective field to. Valid comparisons are
         * `>`: more than
@@ -199,13 +199,13 @@ Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l
         * `=`: equal to
         * `<`: less than
         * `<=`: less than or equal to
-        
+
     * For example, `find hw/>=10 l/<7` will find anyone who satisfies the both of the following 2 criteria:
       1. has worked more than or exactly 10 hours, and
       2. has less than 7 days of leave left (e.g. 6 and below)
-          
+
     * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.
-      
+
   * **Type 3 Query: Condition Based Filter**
     * There are no fields attached to this query. Instead, specific keywords are available for use.
       * These keywords must be used right after `find` and cannot be used after a field is specified (for example `n/`).
@@ -213,7 +213,7 @@ Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l
         * `unpaid`
         * More to be added.
     * For example, `find unpaid` will find all employees who are considered unpaid
-  
+
   * **Type 4 Query: Date Based Comparison**
     * Fields: `d/DATE`
       * This field will find all people who have taken a leave on a given date or within a range of dates. (start and end dates inclusive)
@@ -225,7 +225,7 @@ Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l
       1. has taken a leave on October 10th 2021, or
       2. has taken a leave between the dates November 1st 2021 and November 5th 2021, start and end dates inclusive.
 
-  * You cannot enter more than 1 comparison or value to compare to.     
+  * You cannot enter more than 1 comparison or value to compare to.
 
 * For each field, you can search using multiple keywords by separating each keyword with a space, in the same field.
   * For example, `find n/John Mike` will return all employees whose name contains either John or Mike.
@@ -237,10 +237,10 @@ Examples:
   3. whose role contains the word `admin`,
   4. has 5 or less than 5 leaves, and
   5. has strictly more than 3 days of overtime
-  
+
 * (To be updated) `find n/alex david l/<3` returns `Alex Yeoh`, `David Li` as long as they have less than 3 leaves left.<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png) 
-  
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+
 #### Deleting an employee : `delete`
 
 Deletes the specified employee from the application.
@@ -295,7 +295,7 @@ Format: `deductLeaveBalance INDEX l/LEAVES`
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
 * The number of leaves **must be a positive integer** 1, 2, 3, …
-* The number of leaves to be deducted **cannot be greater than the amount of leaves in the employee's leave balance.** 
+* The number of leaves to be deducted **cannot be greater than the amount of leaves in the employee's leave balance.**
 
 Examples:
 * `list` followed by `deductLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in the employee book.
@@ -308,7 +308,7 @@ Assigns a leave that is associated with a date to a chosen employee.
 Format: `assignLeave INDEX d/DATE`
 
 * Assigns a leave to the employee at the specified `INDEX`, while deducting 1 leave from the employee's leave balance.
-* The employee must have **at least 1 leave** in their leave balance.   
+* The employee must have **at least 1 leave** in their leave balance.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
 * The date **must be valid** and of the form **YYYY-MM-DD**.
@@ -329,7 +329,7 @@ Format: `removeLeavesBefore d/DATE`
 
 Examples:
 * `list` followed by `removeLeavesBefore d/2021-11-10` removes all leaves occurring on and before 2021-11-10 for all employees.
-* `find n/Anthony` followed by `removeLeavesBefore 1 d/2021-01-08` removes all leaves occurring on and before 2021-01-08 
+* `find n/Anthony` followed by `removeLeavesBefore 1 d/2021-01-08` removes all leaves occurring on and before 2021-01-08
    for all employees that have 'Anthony' in their names.
 
 ### Payroll-related Features
@@ -380,17 +380,17 @@ Format: `startPayroll`
 * After that, marks all employees as awaiting payment of the calculated amount.
   This will produce red labels under each employee data stating 'NOT PAID' and the amount they are owed.
 * Finally, display the list of all employees.
-* This command is typically followed up by `pay` commands to mark employees as paid, 
+* This command is typically followed up by `pay` commands to mark employees as paid,
   after their salaries are given in real life.
 
 Example:
 * Before `startPayroll` command, currently viewing a filtered list.
   ![before starting payroll](images/startPayroll_before.png)
-  
+
 
 * After `startPayroll` command, payroll have been calculated and currently viewing the full list of employees.
   ![after starting payroll](images/startPayroll_after.png)
-  
+
 Notes:
 * All employees must not have any pay pending from the previous payroll. Otherwise, an error will be shown:
   ![error when there are employees still unpaid](images/startPayrollError_unpaidEmployee.png)
@@ -409,12 +409,12 @@ Format 1: `pay INDEX` - for paying a specific employee
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * The employee must have payment pending from a `startPayroll` command.
-  
+
 Example:
 * `pay 1` marks the 1st employee in the Employee list as paid clearing the pay owed, number of hours worked and overtime hours of the employee.
   ![before paying the employee](images/pay_beforePaying.png)<br><br>
   ![after paying the employee](images/pay_afterPaying.png)
-  
+
 Format 2: `pay all` - for paying all employees in the current list
 * Simulates paying of employees in the same way as above, but for all employees instead.
 * If there are employees already paid in the list, they will be skipped and will not be paid again.
@@ -427,7 +427,7 @@ Displays the current overtime pay rate set in the application.
 Format: `viewOvertimePayRate`
 
 * Displays the current overtime pay rate in the feedback panel.
-  
+
 ![viewing overtime pay rate](images/viewOvertimePayRate.png)
 
 #### Set a new Overtime Pay Rate : `setOvertimePayRate`
@@ -442,7 +442,7 @@ Format: `setOvertimePayRate OVERTIMEPAYRATE`
 Examples:
 * `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2x.
   ![successfully changed overtime pay rate](images/setOvertimePayRate_success.png)
-  
+
 
 * `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
   ![error: overtime pay rate too low](images/setOvertimePayRate_error.png)
@@ -466,7 +466,7 @@ Format: `import FILEPATH`
 
 #####Header Naming Conventions and Requirements
 
-Field | Rename to ... (Case-Insensitive) | Compulsory for Import? 
+Field | Rename to ... (Case-Insensitive) | Compulsory for Import?
 --------------|---------------|------------------------
 `NAME`|Name|Yes|
 `PHONE_NUMBER` |Contact Number|Yes
