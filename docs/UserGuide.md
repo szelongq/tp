@@ -179,7 +179,7 @@ Find employees using specified fields, checking if their information field conta
 Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBALANCE] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
 
 * At least one field should be specified.
-* The order of the fields do not matter except for the `[KEYWORD]` field, which must come right after `find`. 
+* The order of the fields do not matter except for the `[KEYWORD]` field, which must come right after `find`.
 * The filters work differently for each field and can be generalised to 4 types of queries, described below. A single find command can contain all 4 types of queries at once.
   * **Type 1 Query: Keyword Matching**
     * Fields: `n/NAME`, `p/PHONE`, `e/EMAIL`, `a/ADDRESS`, `r/ROLE`, `t/TAG`
