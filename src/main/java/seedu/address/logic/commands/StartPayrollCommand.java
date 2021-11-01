@@ -22,7 +22,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
 
-
 /**
  * Calculates the payroll for all employees in the address book according to the
  * how much work has been done at the current time.
