@@ -22,8 +22,8 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 3. Copy the file to the folder you want to use as the _home folder_ for your HeRon.
 
 4. Start the app.
-   1. For Window users, double-click on the app.
-   2. For MacOS and Linux users, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app.
+   1. If you are using Windows, you can place HeRon in your desktop or any other folder, then double-click on the app icon.
+   2. If you are using MacOS or Linux, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app.
 
 5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
@@ -68,6 +68,8 @@ _Display Panel_ <br>
 
 <div markdown="block" class="alert alert-info">
 
+**Please read this information panel for more information on commands before proceeding.**
+
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
@@ -82,7 +84,7 @@ _Display Panel_ <br>
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
+* If a parameter is expected only once in the command but is specified multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
@@ -100,12 +102,11 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-
 #### Adding an employee: `add`
 
 Adds an employee to HeRon.
 
-Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVEBALANCE s/HOURLYSALARY hw/HOURSWORKED o/OVERTIME [t/TAG]…​`
+Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLYSALARY hw/HOURSWORKED o/OVERTIME [t/TAG]…​`
 
 * Follow the requirements for the respective fields listed in the table below:
 
@@ -113,7 +114,7 @@ Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVEBALANCE s/HO
     --------------|---------------|---------
     `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`
     `PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
-    `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters certain special characters (`+_.-`). *domain* start and end with alphanumeric characters, must be at least 2 characters long can contain hyphens.| `alice_pauline@example.com`, `benson+miller@gg.com`
+    `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`_.-`). *domain* start and end with alphanumeric characters, must be at least 2 characters long can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
     `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
     `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
     `LEAVEBALANCE`| Non-negative integers only. |`12`,`0`
@@ -138,24 +139,11 @@ Shows a list of all employees in HeRon.
 
 Format: `list`
 
-#### Viewing employee data: `view`
-
-View the data of the specified employee at the InfoPanel.
-
-Format: `view INDEX`
-* Displays the data of the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, ...​
-
-Example:
-* `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
-* `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
-
 #### Editing an employee : `edit`
 
 Edits an existing employee in HeRon.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBALANCE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`
 
 * Edits the employee at the specified `INDEX`. The index refers to the index number shown in the displayed employee list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -163,8 +151,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBA
 * When editing tags, the existing tags of the employee will be removed i.e adding of tags is not cumulative.
 * You can remove all the employee’s tags by typing `t/` without
     specifying any tags after it.
-* The values of LEAVEBALANCE, HOURS_WORKED and OVERTIME **must be non-negative integers.**
-* The value of HOURLYSALARY **must be a non-negative number with up to 2 decimal places.**
+* The values you provide to the command must be valid. For information on which values are valid, you may refer to the table under the [`add` command](UserGuide.md#adding-an-employee-add) for more information. 
 * **NOTE:** The edit command is unable to directly edit the dates of leaves taken by employees.
 Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to edit the dates.
 
@@ -176,7 +163,7 @@ Examples:
 
 Find employees using specified fields, checking if their information field contains any of the given keywords / queries.
 
-Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBALANCE] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
+Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
 
 * At least one field should be specified.
 * The order of the fields do not matter except for the `[KEYWORD]` field, which must come right after `find`.  
@@ -192,7 +179,7 @@ Format: `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l
       3. whose role contains `Admin`.
       
   * **Type 2 Query: Value Based Comparison**  
-    * Fields: `hw/HOURS_WORKED`, `l/LEAVEBALANCE`, `s/HOURLYSALARY`, `o/OVERTIME`
+    * Fields: `hw/HOURS_WORKED`, `l/NUMBER_OF_LEAVES`, `s/HOURLYSALARY`, `o/OVERTIME`
       * These fields must be specified with a comparison and a value to compare the respective field to. Valid comparisons are
         * `>`: more than
         * `>=`: more than or equal to
@@ -256,6 +243,19 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd employee in HeRon.
 * `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
 
+#### Viewing employee data: `view`
+
+View the data of the specified employee at the InfoPanel.
+
+Format: `view INDEX`
+* Displays the data of the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, ...​
+
+Example:
+* `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
+* `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
+
 #### Clearing all entries : `clear`
 
 Clears all entries from HeRon.
@@ -274,7 +274,7 @@ Format: `exit`
 
 Adds the specified number of leaves to the current leave balance (number of days of leave left) of a chosen employee.
 
-Format: `addLeaveBalance INDEX l/LEAVES`
+Format: `addLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 
 * Adds the specified number to the number of leaves of the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
@@ -289,7 +289,7 @@ Examples:
 
 Deducts the specified number of leaves from the current leave balance (number of days of leave left) of a chosen employee.
 
-Format: `deductLeaveBalance INDEX l/LEAVES`
+Format: `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 
 * Deducts the specified number from the number of leaves of the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
@@ -458,26 +458,27 @@ Format: `import FILEPATH`
 * Only one `FILEPATH` should be specified.
 * A header row is required to indicate the purpose of the various fields, and it must be the first row in the `.csv` file.
 * Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below.
+  * Any columns that do not match the naming convention below will be ignored completely, and the default value will be given instead, if any.
 * Ensure that each field follows the specifications required, which can be found [here](#Adding an Employee).
 * Ensure that the number of columns in each entry matches the number of headers.
 * If multiple tags are present for an entry, they should be seperated by `/`.
 * No specific ordering of the columns is required.
 * If any compulsory fields are missing, the app only alerts the user of the first instance of a missing field.
 
-#####Header Naming Conventions and Requirements
+##### Header Naming Conventions and Requirements
 
-Field | Rename to ... (Case-Insensitive) | Compulsory for Import? 
---------------|---------------|------------------------
-`NAME`|Name|Yes|
-`PHONE_NUMBER` |Contact Number|Yes
-`ADDRESS` |Residential Address|Yes
-`EMAIL` |Email|Yes
-`ROLE` |Role|Yes
-`LEAVEBALANCE` |Leave Balance|No
-`HOURLYSALARY` |Salary|No
-`HOURSWORKED` |Hours Worked|No
-`OVERTIME` |Overtime|No
-`TAGS`|Tags|No
+Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Value
+--------------|---------------|------------------------|--------------------
+`NAME`|Name|Yes|-
+`PHONE_NUMBER` |Contact Number|Yes|-
+`ADDRESS` |Residential Address|Yes|-
+`EMAIL` |Email|Yes|-
+`ROLE` |Role|Yes|-
+`LEAVEBALANCE` |Leave Balance|No|0
+`HOURLYSALARY` |Salary|No|0
+`HOURSWORKED` |Hours Worked|No|0
+`OVERTIME` |Overtime|No|0
+`TAGS`|Tags|No|-
 
 Example:`import ./toBeImported` should have the following behaviours under the following situations.
 * Successful Import
@@ -507,7 +508,7 @@ _Details coming soon ..._
 
 ## FAQ - Frequently Asked Questions
 
-**Q**: How do I transfer my data to another Computer?<br>
+**Q**: How do I transfer my data to another computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HeRon home folder.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -519,17 +520,17 @@ List of available commands with their respective format and example usages for q
 Action | Format, Examples
 --------|------------------
 **Help** | `help`
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVEBALANCE s/HOURLYSALARY hw/HOURSWORKED o/OVERTIME[t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLYSALARY hw/HOURSWORKED o/OVERTIME[t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
 **List** | `list`
 **View** | `view INDEX`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
-**Find** | `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVES] [d/DATE] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
+**Find** | `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Clear** | `clear`
 **Exit** | `exit`
-**Add to Leave Balance** | `addLeaveBalance INDEX l/LEAVES` <br> e.g., `addLeaves 1 l/2`
-**Deduct from Leave Balance** | `deductLeaveBalance INDEX l/LEAVES` <br> e.g., `deductLeaveBalance 4 l/1`
-**Assign Leave** |  `assignLeave INDEX d/DATE` <br> e.g., `assignLeaves 1 d/2021-10-30`
+**Add to Leave Balance** | `addLeaveBalance INDEX l/NUMBER_OF_LEAVES` <br> e.g., `addLeaves 1 l/2`
+**Deduct from Leave Balance** | `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES` <br> e.g., `deductLeaveBalance 4 l/1`
+**Assign Leave** |  `assignLeave INDEX d/DATE` <br> e.g., `assignLeave 1 d/2021-10-30`
 **Filter and Remove Leaves before a Date** |  `removeLeavesBefore d/DATE` <br> e.g., `removeLeavesBefore d/2021-10-30`
 **Add Hours Worked/Overtime** | `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `addHoursWorked 1 hw/2 o/3`
 **Deduct Hours Worked/Overtime** | `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `deductHoursWorked 4 hw/1 o/2`
