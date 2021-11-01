@@ -149,6 +149,10 @@ public class Person {
                 && otherPerson.getName().equals(getName());
     }
 
+    /**
+     * Returns true if both persons have the same phone.
+     * No two different employees should have the same phone number.
+     */
     public boolean hasSamePhone(Person otherPerson) {
         if (otherPerson == this) {
             return true;
@@ -157,6 +161,10 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone());
     }
 
+    /**
+     * Returns true if both persons have the same email.
+     * No two different employees should have the same email.
+     */
     public boolean hasSameEmail(Person otherPerson) {
         if (otherPerson == this) {
             return true;

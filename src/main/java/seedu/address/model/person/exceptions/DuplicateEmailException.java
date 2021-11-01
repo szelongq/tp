@@ -6,6 +6,6 @@ package seedu.address.model.person.exceptions;
  */
 public class DuplicateEmailException extends RuntimeException {
     public DuplicateEmailException(int[] indices) {
-        super(String.format("Duplicate emails detected in Rows %d and %d.", indices[0], indices[1]));
+        super(String.format("Duplicate emails detected in Rows %d and %d.", indices[0] + 1, indices[1] + 1));
     }
 }

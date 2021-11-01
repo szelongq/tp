@@ -1,9 +1,9 @@
 package seedu.address.model.person;
 
-import org.apache.commons.lang3.StringUtils;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Represents a Person's name in the address book.
@@ -40,6 +40,11 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Capitalizes the given name and removes excess whitespaces.
+     * @param name The name given as an argument
+     * @return The processed name, which is capitalized and has excess whitespaces removed.
+     */
     public static String processName(String name) {
         String[] words = name.split(" ");
         String word = words[0];
