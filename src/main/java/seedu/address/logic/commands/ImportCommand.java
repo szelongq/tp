@@ -32,6 +32,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonInput;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
+import seedu.address.model.person.exceptions.DuplicateEmailException;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.DuplicatePhoneException;
 import seedu.address.model.tag.Tag;
 
 public class ImportCommand extends Command {
@@ -102,6 +105,8 @@ public class ImportCommand extends Command {
             model.setAddressBook(newAddressBook);
         } catch (CommandException e) {
             throw new CommandException(e.getMessage());
+        } catch (DuplicatePersonException | DuplicateEmailException | DuplicatePhoneException e) {
+            throw new CommandException(MESSAGE_IMPORT_FAILURE + e.getMessage());
         }
         return new CommandResult(MESSAGE_IMPORT_SUCCESS);
     }
@@ -213,6 +218,9 @@ public class ImportCommand extends Command {
                 throw new CommandException(MESSAGE_IMPORT_FAILURE
                         + String.format("Invalid Input in Row %d: ", rowNumber) + "\n"
                         + e.getMessage());
+            } catch (DuplicatePersonException e) {
+                throw new CommandException(MESSAGE_IMPORT_FAILURE
+                    + String.format("Duplicate Input found in Row %d\n", rowNumber));
             }
         }
         return newPersonList;
