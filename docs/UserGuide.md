@@ -15,7 +15,7 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 ## Quick start
 
-1. Ensure you have Java `11` or above installed in your Computer.
+1. Ensure you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
 
 2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases).
 
@@ -23,7 +23,7 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 4. Start the app.
    1. For Window users, double-click on the app.
-   2. For MacOS users, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app.
+   2. For MacOS and Linux users, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app.
 
 5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
@@ -31,17 +31,17 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
+   * `list` : Lists all contacts.
    
-   * **`import`** `./toBeImported.csv` : Imports the .csv file named `toBeImported.csv` the same directory as the application into the Employee Book.
+   * `import ./toBeImported.csv` : Imports the .csv file named `toBeImported.csv` the same directory as the application into HeRon.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0` : Adds a contact named `John Doe` with the above details to the Employee Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0` : Adds a contact named `John Doe` with the above details to HeRon.
 
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
+   * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * **`clear`** : Deletes all contacts.
+   * `clear` : Deletes all contacts.
 
-   * **`exit`** : Exits the app.
+   * `exit` : Exits the app.
 
 7. Refer to the [Features](#features) below for details of each command.
 
@@ -103,7 +103,7 @@ Format: `help`
 
 #### Adding an employee: `add`
 
-Adds an employee to the employee book.
+Adds an employee to HeRon.
 
 Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVEBALANCE s/HOURLYSALARY hw/HOURSWORKED o/OVERTIME [t/TAG]…​`
 
@@ -134,7 +134,7 @@ Examples:
 
 #### Listing all employees : `list`
 
-Shows a list of all employees in the employee book.
+Shows a list of all employees in HeRon.
 
 Format: `list`
 
@@ -153,7 +153,7 @@ Example:
 
 #### Editing an employee : `edit`
 
-Edits an existing employee in the employee book.
+Edits an existing employee in HeRon.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/LEAVEBALANCE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`
 
@@ -253,12 +253,12 @@ Format: `delete INDEX`
 * The index cannot exceed the length of the employee list.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd employee in the employee book.
+* `list` followed by `delete 2` deletes the 2nd employee in HeRon.
 * `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
 
 #### Clearing all entries : `clear`
 
-Clears all entries from the employee book.
+Clears all entries from HeRon.
 
 Format: `clear`
 
@@ -282,7 +282,7 @@ Format: `addLeaveBalance INDEX l/LEAVES`
 * The number of leaves **must be a positive integer** 1, 2, 3, …
 
 Examples:
-* `list` followed by `addLeaveBalance 3 l/4` adds 4 days of leave to the 3rd employee in the employee book.
+* `list` followed by `addLeaveBalance 3 l/4` adds 4 days of leave to the 3rd employee in HeRon.
 * `find n/Sam` followed by `addLeaveBalance 1 l/1` adds 1 day of leave to the 1st employee in the results of the `find` command.
 
 #### Deduct number of leaves from an employee : `deductLeaveBalance`
@@ -298,7 +298,7 @@ Format: `deductLeaveBalance INDEX l/LEAVES`
 * The number of leaves to be deducted **cannot be greater than the amount of leaves in the employee's leave balance.** 
 
 Examples:
-* `list` followed by `deductLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in the employee book.
+* `list` followed by `deductLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in HeRon.
 * `find n/Anthony` followed by `deductLeaveBalance 4 l/2` removes 2 days of leave from the 4th employee in the results of the `find` command.
 
 #### Assign a leave with a date to an employee : `assignLeave`
@@ -314,7 +314,7 @@ Format: `assignLeave INDEX d/DATE`
 * The date **must be valid** and of the form **YYYY-MM-DD**.
 
 Examples:
-* `list` followed by `assignLeave 2 d/2021-11-10` assigns a leave with the date 10th November 2021 to the 2nd employee in the employee book.
+* `list` followed by `assignLeave 2 d/2021-11-10` assigns a leave with the date 10th November 2021 to the 2nd employee in HeRon.
 * `find n/Anthony` followed by `assignLeave 1 d/2021-01-08` assigns a leave with the date 8th January 2021 to the 1st employee in the results of the `find` command.
 
 #### Remove all leaves occurring before a given date from employees : `removeLeavesBefore`
@@ -347,7 +347,7 @@ Format: `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 * The number of hours worked/overtime **must be a positive integer** 1, 2, 3, …
 
 Examples:
-* `list` followed by `addHoursWorked 5 hw/5 o/5` adds 5 hours worked and 5 hours of overtime to the 5th employee in the employee book.
+* `list` followed by `addHoursWorked 5 hw/5 o/5` adds 5 hours worked and 5 hours of overtime to the 5th employee in HeRon.
 * `find n/Sam` followed by `addHoursWorked 2 o/5` adds 5 hours of overtime to the 2nd employee in the results of the `find` command.
 
 #### Deduct number of hours worked/overtime from an employee : `deductHoursWorked`
@@ -364,7 +364,7 @@ Format: `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 * The number of hours worked/overtime to be removed **cannot be greater than the employee's current number of hours worked/overtime.**
 
 Examples:
-* `list` followed by `deductHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in the employee book.
+* `list` followed by `deductHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in HeRon.
 * `find n/Sam` followed by `deductHoursWorked 1 o/2` removes 2 hours of overtime from the 1st employee in the results of the `find` command.
 
 #### Start Payroll : `startPayroll`
