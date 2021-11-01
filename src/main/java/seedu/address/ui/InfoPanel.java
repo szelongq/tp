@@ -81,8 +81,8 @@ public class InfoPanel extends UiPart<Region> {
         hoursWorked.setText(String.format(HOURSWORKED_ICON + "Hours Worked: %s", person.getHoursWorked().toString()));
         overtime.setText(String.format(OVERTIME_ICON + "Overtime Hours Worked: %s", person.getOvertime().toString()));
 
-        String salaryDue = person.getCalculatedPay().toString(); // To be replaced by calculated salary
-        if (!salaryDue.equals("0.00")) {
+        double salaryDue = person.getCalculatedPay().value; // To be replaced by calculated salary
+        if (salaryDue > 0) {
             salaryOwed.setText(String.format("%s left unpaid!!", salaryDue));
         } else {
             salaryOwed.setText("");
