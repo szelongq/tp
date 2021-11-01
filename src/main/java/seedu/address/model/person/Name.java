@@ -43,7 +43,6 @@ public class Name {
 
     public static String processName(String name) {
         String[] words = name.split(" ");
-        System.out.println(Arrays.toString(words));
         String word = words[0];
         int wordLength = word.length();
         word = word.substring(0,1).toUpperCase() + word.substring(1, wordLength);

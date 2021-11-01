@@ -38,7 +38,7 @@ public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": imports a current existing CSV file into HeRon.\n"
-            + "Parameters: Absolute Path leading to desired CSV file.\n"
+            + "Parameters: Absolute/Relative Path leading to desired CSV file.\n"
             + "Example: " + COMMAND_WORD + " /Users/Owner/Desktop/toBeImported.csv";
 
     public static final String MESSAGE_IMPORT_SUCCESS = "File was successfully imported";
@@ -47,6 +47,7 @@ public class ImportCommand extends Command {
             + "Please check the filepath and try again.";
     public static final String MESSAGE_IMPORT_FORMAT_ERROR = MESSAGE_IMPORT_FAILURE
             + "Please check the formatting of the data.\n"
+            + "Check that all required columns are present.\n"
             + "Ensure that there are no entries with all empty fields in the CSV file "
             + "and the number of header columns match the number of columns in all employee entries.";
 
@@ -144,9 +145,14 @@ public class ImportCommand extends Command {
             }
             return newPersonInputList;
         } catch (RuntimeException e) {
-            String errorDescriptor = e.getMessage().split(":")[1];
+            String[] errorDescriptorArr = e.getMessage().split(":");
             String errorMessage;
-            String[] descriptorArr = errorDescriptor.split("\\'");
+            if (errorDescriptorArr.length == 1) {
+                errorMessage = MESSAGE_IMPORT_FORMAT_ERROR;
+                throw new CommandException(errorMessage);
+            }
+
+            String[] descriptorArr = errorDescriptorArr[1].split("\\'");
             if (descriptorArr.length == 1) {
                 errorMessage = MESSAGE_IMPORT_FORMAT_ERROR;
             } else {
