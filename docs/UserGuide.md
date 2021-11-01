@@ -111,7 +111,7 @@ Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVEBALANCE s/HO
 
     Field | Requirements | Examples
     --------------|---------------|---------
-    `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`
+    `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
     `PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
     `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters certain special characters (`+_.-`). *domain* start and end with alphanumeric characters, must be at least 2 characters long can contain hyphens.| `alice_pauline@example.com`, `benson+miller@gg.com`
     `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
@@ -465,17 +465,18 @@ Format: `import FILEPATH`
 * If multiple tags are present for an entry, they should be seperated by `/`.
 * No specific ordering of the columns is required.
 * Note that if multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
+* Note that if there are duplicate `Person` entries, `Emails` or `Contact Numbers`, the import will not be allowed.
 * For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value.
 
 #### Field Naming Requirements and Default Values
 
 Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Value
 --------------|---------------|------------------------ | --------
-`NAME`|Name|Yes| N.A.
-`PHONE_NUMBER` |Contact Number|Yes | N.A.
-`ADDRESS` |Residential Address|Yes | N.A.
-`EMAIL` |Email|Yes | N.A.
-`ROLE` |Role|Yes | N.A.
+`NAME`|Name|**Yes**| N.A.
+`PHONE_NUMBER` |Contact Number|**Yes**| N.A.
+`ADDRESS` |Residential Address|**Yes**| N.A.
+`EMAIL` |Email|**Yes**| N.A.
+`ROLE` |Role|**Yes**| N.A.
 `LEAVEBALANCE` |Leave Balance|No | 0
 `HOURLYSALARY` |Salary|No | 0.00
 `HOURSWORKED` |Hours Worked|No | 0
