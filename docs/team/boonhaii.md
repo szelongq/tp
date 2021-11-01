@@ -12,23 +12,25 @@ HeRon is a project adapted from AddressBook - Level 3.
 Given below are my contributions to the project.
 
 * **New Feature**:
-  * To be updated.
+  * Implemented `import` functionality, involving external library Opencsv. Added new test cases accordingly. ([#71](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/71), [#82](Update import functionality), [#97](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/97))
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=boonhaii&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17)
 
-* **Project management**:
-  * To be updated.
-
 * **Enhancements to existing features**:
-  * Update `add` and `delete` commands to cater to new fields for HeRon, including role, leave, hourlySalary and hours worked.
+  * Update `add` and `delete` commands to cater to new fields for HeRon, including Role, LeaveBalance, HourlySalary and HoursWorked, and added new test cases accordingly. ([#41](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/41), [#52](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/52), [#63](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/63))
 
 * **Documentation**:
   * User Guide:
-    * Updated documentation for the features `add` and `delete` [#id]()
+    * Updated documentation for the features `add` and `delete` ([#31](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/31))
+    * Add documentation for feature `import`.([#91](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/91))
   * Developer Guide:
-    * Add User Stories for application [#id]()
-    * Updated implementation details of the `add` and `delete` feature. [#id]()
+    * Updated implementation details for `add` and `delete` features. 
+    * Add implementation details, created UML Diagrams, explain design considerations for `import` feature.
 
 * **Community**:
-  * To be updated.
+  * Team-Based Tasks
+    * Add User Stories for application ([#29](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/29)).
+    * Update AboutUs.md ([#31](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/31))
+  * Review/Mentoring Contributions
+    * Reviewed the following PRs: [#37](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/37), [#45](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/45), [#54](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/54), [#67](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/67), [#83](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/83), [#92](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/92), [#108](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/108), [#109](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/109)
 
