@@ -226,8 +226,8 @@ Examples:
   4. has 5 or less than 5 leaves, and
   5. has strictly more than 3 days of overtime
   
-* (To be updated) `find n/alex david l/<3` returns `Alex Yeoh`, `David Li` as long as they have less than 3 leaves left.<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png) 
+* `find unpaid n/carl Elle l/<3` returns `Carl Kurz`, `Elle Meyer` as long as they have less than 3 leaves left and are still unpaid.<br>
+  ![result for 'find alex david'](images/findCarlElleResult.png) 
   
 #### Deleting an employee : `delete`
 
