@@ -12,7 +12,8 @@ public class LeaveBalance {
     public static final int MIN_LEAVES = 0;
     public static final int MAX_LEAVES = 365;
     public static final String MESSAGE_CONSTRAINTS =
-            "Leaves should only contain non-negative integers, and it should not be blank";
+            "Leave Balance must be an integer value between 0 and 365 (both inclusive), "
+                    + "and it should not be blank";
 
     public final int value;
 

@@ -33,6 +33,7 @@ public class AddCommand extends Command {
             + PREFIX_LEAVE + "LEAVES "
             + PREFIX_HOURLYSALARY + "SALARY "
             + PREFIX_HOURSWORKED + "HOURS WORKED "
+            + PREFIX_OVERTIME + "OVERTIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
