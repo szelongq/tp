@@ -132,7 +132,8 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0`
 * `add n/Betsy Crowe r/Designer s/25 hw/60  l/21  e/betsycrowe@example.com a/Newgate Prison p/1234567 o/0 t/criminal t/friend`
 ![Result of successful add](images/addExample.png)
-
+_Result of adding a new employee Betsy successfully to HeRon_ <br>
+  
 #### Listing all employees : `list`
 
 Shows a list of all employees in HeRon.
@@ -413,8 +414,11 @@ Format 1: `pay INDEX` - for paying a specific employee
   
 Example:
 * `pay 1` marks the 1st employee in the Employee list as paid clearing the pay owed, number of hours worked and overtime hours of the employee.
-  ![before paying the employee](images/pay_beforePaying.png)<br><br>
+  ![before paying the employee](images/pay_beforePaying.png)
+  _Alice is marked as unpaid in HeRon_ <br>
+  <br>
   ![after paying the employee](images/pay_afterPaying.png)
+  _After executing `pay 1`, Alice (being the 1st person in this list) is marked as paid_ <br>
   
 Format 2: `pay all` - for paying all employees in the current list
 * Simulates paying of employees in the same way as above, but for all employees instead.
