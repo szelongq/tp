@@ -46,6 +46,11 @@ public class FindCommandParserTest {
     }
 
     @Test
+    public void parse_invalidPreamble_throwsParseException() {
+        assertParseFailure(parser, " asdfpw", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_noComparisonOperatorSalaryArg_throwsParseException() {
         assertParseFailure(parser, " " + PREFIX_HOURLYSALARY + "5",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
@@ -89,7 +94,7 @@ public class FindCommandParserTest {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
     }
-    
+
     @Test
     public void parse_validNameArgs_returnsFindCommand() {
         FindCommand expectedFindCommand =
