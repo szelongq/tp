@@ -62,7 +62,8 @@ public class DeductHoursWorkedCommand extends Command {
             newHoursWorked = personToEdit.getHoursWorked().removeHoursWorked(hoursWorked);
         } catch (IllegalArgumentException iae) {
             throw new CommandException(
-                    String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT, hoursWorked, "hours worked"));
+                    String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT,
+                            hoursWorked, "hours worked", personToEdit.getHoursWorked()));
         }
 
         Overtime newOvertime;
@@ -70,7 +71,8 @@ public class DeductHoursWorkedCommand extends Command {
             newOvertime = personToEdit.getOvertime().removeOvertime(overtime);
         } catch (IllegalArgumentException iae) {
             throw new CommandException(
-                    String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT, overtime, "overtime hours"));
+                    String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT,
+                            overtime, "overtime hours", personToEdit.getOvertime()));
         }
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),

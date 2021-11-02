@@ -53,17 +53,25 @@ public class DeductLeaveBalanceCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson;
+        LeaveBalance newLeaveBalance;
         try {
-            editedPerson = new Person(
-                    personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                    personToEdit.getRole(), personToEdit.getLeaveBalance().removeLeaves(leaveBalance),
-                    personToEdit.getLeavesTaken(), personToEdit.getSalary(), personToEdit.getHoursWorked(),
-                    personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
+            newLeaveBalance = personToEdit.getLeaveBalance().removeLeaves(leaveBalance);
         } catch (IllegalArgumentException iae) {
+            String leaveBalanceString = leaveBalance.toString();
+            String personLeaveBalanceString = personToEdit.getLeaveBalance().toString();
             throw new CommandException(
-                    String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT, leaveBalance, "leaves"));
+                    String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT,
+                            leaveBalanceString,
+                            leaveBalanceString.equals("1") ? "leave" : "leaves",
+                            personLeaveBalanceString,
+                            personLeaveBalanceString.equals("1") ? "leave" : "leaves"));
         }
+
+        Person editedPerson = new Person(
+                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
+                personToEdit.getRole(), newLeaveBalance,
+                personToEdit.getLeavesTaken(), personToEdit.getSalary(), personToEdit.getHoursWorked(),
+                personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.setViewingPerson(editedPerson);

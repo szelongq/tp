@@ -9,6 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class LeaveBalance {
 
+    public static final int MIN_LEAVES = 0;
+    public static final int MAX_LEAVES = 365;
     public static final String MESSAGE_CONSTRAINTS =
             "Leaves should only contain non-negative integers, and it should not be blank";
 
@@ -35,37 +37,54 @@ public class LeaveBalance {
         requireNonNull(test);
         try {
             int amount = Integer.parseInt(test);
-            return amount >= 0;
+            return amount >= MIN_LEAVES && amount <= MAX_LEAVES;
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
     /**
-     * Returns an updated Leaves object with the specified number of leaves added.
+     * Returns an updated LeaveBalance object with the specified number of leaves added.
      *
      * @param leaveBalance The amount of leaves to be added.
-     * @return An updated Leaves object.
+     * @return An updated LeaveBalance object.
+     * @throws IllegalArgumentException if the amount of leaves to be added
+     * causes the total leaves to exceed the maximum allowed number of leaves.
      */
     public LeaveBalance addLeaves(LeaveBalance leaveBalance) {
         int updatedValue = value + leaveBalance.value;
+        if (updatedValue > MAX_LEAVES) {
+            throw new IllegalArgumentException();
+        }
         return new LeaveBalance(String.valueOf(updatedValue));
     }
 
     /**
-     * Returns an updated Leaves object with the specified number of leaves removed.
+     * Returns an updated LeaveBalance object with the specified number of leaves removed.
      *
      * @param leaveBalance The amount of leaves to be removed.
-     * @return An updated Leaves object.
+     * @return An updated LeaveBalance object.
      * @throws IllegalArgumentException if the amount of leaves to be removed
      * is greater than the current amount of leaves.
      */
     public LeaveBalance removeLeaves(LeaveBalance leaveBalance) {
         int updatedValue = value - leaveBalance.value;
-        if (updatedValue < 0) {
+        if (updatedValue < MIN_LEAVES) {
             throw new IllegalArgumentException();
         }
         return new LeaveBalance(String.valueOf(updatedValue));
+    }
+
+    /**
+     * Returns an LeaveBalance object that represents how many leaves
+     * can be added to this person without going over the leave balance limit.
+     *
+     * @return A LeaveBalance object containing the remaining leave capacity of the Person.
+     */
+    public LeaveBalance getRemainingLeaveCapacity() {
+        int leaveCapacity = MAX_LEAVES - value;
+        assert(leaveCapacity >= 0);
+        return new LeaveBalance(String.valueOf(leaveCapacity));
     }
 
     @Override

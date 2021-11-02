@@ -51,9 +51,22 @@ public class AddLeaveBalanceCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
+        LeaveBalance newLeaveBalance;
+        try {
+            newLeaveBalance = personToEdit.getLeaveBalance().addLeaves(leaveBalance);
+        } catch (IllegalArgumentException iae) {
+            String leaveCapacityString =
+                    personToEdit.getLeaveBalance().getRemainingLeaveCapacity().toString();
+            throw new CommandException(
+                    String.format(Messages.MESSAGE_INVALID_ADD_INPUT,
+                            LeaveBalance.MAX_LEAVES,
+                            "leaves", leaveCapacityString,
+                            leaveCapacityString.equals("1") ? "leave" : "leaves"));
+        }
+
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), personToEdit.getLeaveBalance().addLeaves(leaveBalance),
+                personToEdit.getRole(), newLeaveBalance,
                 personToEdit.getLeavesTaken(), personToEdit.getSalary(), personToEdit.getHoursWorked(),
                 personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
 
