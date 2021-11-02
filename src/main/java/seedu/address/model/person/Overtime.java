@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import seedu.address.commons.util.StringUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -29,12 +31,7 @@ public class Overtime {
      * Returns true if a given numerical string is non-negative.
      */
     public static boolean isValidOvertime(String test) {
-        try {
-            int amount = Integer.parseInt(test);
-            return amount >= 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+        return StringUtil.isNonNegativeInteger(test);
     }
 
     /**

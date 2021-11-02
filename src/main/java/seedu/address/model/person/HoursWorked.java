@@ -32,11 +32,8 @@ public class HoursWorked {
      */
     public static boolean isValidHoursWorked(String test) {
         requireNonNull(test);
-        try {
-            return StringUtil.isNonNegativeInteger(test);
-        } catch (NumberFormatException e) {
-            return false;
-        }
+
+        return StringUtil.isNonNegativeInteger(test);
     }
 
     /**

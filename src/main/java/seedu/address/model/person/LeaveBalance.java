@@ -35,11 +35,8 @@ public class LeaveBalance {
      */
     public static boolean isValidLeaveBalance(String test) {
         requireNonNull(test);
-        try {
-            return StringUtil.isNonNegativeInteger(test);
-        } catch (NumberFormatException e) {
-            return false;
-        }
+
+        return StringUtil.isNonNegativeInteger(test);
     }
 
     /**
