@@ -60,7 +60,20 @@ public class StringUtil {
 
         try {
             int value = Integer.parseInt(s);
-            return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+            // "+1" is successfully parsed by Integer#parseInt(String)
+            return value > 0 && !s.startsWith("+") && !s.contains("-");
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+    public static boolean isNonNegativeInteger(String s) {
+        requireNonNull(s);
+
+        try {
+            int value = Integer.parseInt(s);
+            // "+1" is successfully parsed by Integer#parseInt(String)
+            return value >= 0 && !s.startsWith("+") && !s.contains("-");
         } catch (NumberFormatException nfe) {
             return false;
         }
@@ -80,7 +93,7 @@ public class StringUtil {
 
         try {
             double value = Double.parseDouble(s);
-            if (value < 0 || s.startsWith("+")) {
+            if (value < 0 || s.startsWith("+") || s.contains("-")) {
                 return false;
             }
         } catch (NumberFormatException nfe) {

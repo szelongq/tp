@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import seedu.address.commons.util.StringUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -31,8 +33,7 @@ public class HoursWorked {
     public static boolean isValidHoursWorked(String test) {
         requireNonNull(test);
         try {
-            int amount = Integer.parseInt(test);
-            return amount >= 0;
+            return StringUtil.isNonNegativeInteger(test);
         } catch (NumberFormatException e) {
             return false;
         }
