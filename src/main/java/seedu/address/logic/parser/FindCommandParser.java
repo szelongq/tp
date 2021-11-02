@@ -63,7 +63,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         LESS_THAN_EQUAL, LESS_THAN, EQUAL, MORE_THAN, MORE_THAN_EQUAL
     }
 
-    private final static String UNPAID_PREDICATE_KEYWORD = "unpaid";
+    private static final String UNPAID_PREDICATE_KEYWORD = "unpaid";
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
