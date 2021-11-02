@@ -21,6 +21,14 @@
     -fx-opacity: 0.9;
 }
 
+.label-base {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Open Sans Semibold";
+    -fx-text-fill: -fx-baseDark;
+    -fx-opacity: 1;
+}
+
+
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Open Sans Semibold";

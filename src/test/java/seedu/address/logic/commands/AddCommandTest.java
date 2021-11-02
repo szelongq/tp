@@ -170,9 +170,13 @@ public class AddCommandTest {
             /*
             Although the class is meant to have all methods failing,
             addCommand on execute is supposed to call function to update the InfoPanel.
-            Unsure what to do with this.
             */
             System.out.println("Setting viewing person...");
+        }
+
+        @Override
+        public boolean isFilteredPersonListEmpty() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

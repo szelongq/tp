@@ -96,8 +96,19 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /**
+     * Returns the person that is to be viewed in the InfoPanel
+     */
     ObservableObjectValue<Person> getViewingPerson();
 
+    /**
+     * Sets the person to be viewed in the InfoPanel
+     */
     void setViewingPerson(Person p);
+
+    /**
+     * Returns true if the employee list is empty, otherwise false.
+     */
+    boolean isFilteredPersonListEmpty();
 
 }
