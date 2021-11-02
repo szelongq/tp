@@ -63,6 +63,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         LESS_THAN_EQUAL, LESS_THAN, EQUAL, MORE_THAN, MORE_THAN_EQUAL
     }
 
+    private final static String UNPAID_PREDICATE_KEYWORD = "unpaid";
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -77,16 +79,23 @@ public class FindCommandParser implements Parser<FindCommand> {
                         PREFIX_LEAVE, PREFIX_DATE, PREFIX_HOURLYSALARY, PREFIX_HOURSWORKED, PREFIX_TAG,
                         PREFIX_OVERTIME);
 
-        String preamble = argMultimap.getPreamble();
+        String preamble = argMultimap.getPreamble().trim();
         if (trimmedArgs.isEmpty() && preamble.isEmpty()) {
+            // no arguments provided to the command
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+        if (!preamble.isBlank()) { // a preamble exists
+            if (!preamble.equals(UNPAID_PREDICATE_KEYWORD)) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
         }
 
         ArrayList<Predicate<Person>> filters = new ArrayList<>();
 
         // Check if prefix exists and add the relevant predicate into the list of filters
-        if (preamble.contains("unpaid")) {
+        if (preamble.equals(UNPAID_PREDICATE_KEYWORD)) {
             filters.add(new PersonIsPaidPredicate());
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
