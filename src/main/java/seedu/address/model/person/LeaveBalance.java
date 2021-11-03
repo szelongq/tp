@@ -1,9 +1,9 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.util.StringUtil;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Represents a Person's remaining leaves in the employee book.
