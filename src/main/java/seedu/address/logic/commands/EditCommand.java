@@ -101,11 +101,15 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasDuplicatePhone(editedPerson)) {
+        if (!personToEdit.isSamePerson(editedPerson)
+                && model.hasDuplicatePhone(editedPerson) // Check duplicate in phone numbers
+                && !editedPerson.getPhone().equals(personToEdit.getPhone())) { // Check cause of duplicate is not itself
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
         }
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasDuplicateEmail(editedPerson)) {
+        if (!personToEdit.isSamePerson(editedPerson)
+                && model.hasDuplicateEmail(editedPerson) // Check duplicate in phone numbers
+                && !editedPerson.getEmail().equals(personToEdit.getEmail())) { // Check cause of duplicate is not itself
             throw new CommandException(MESSAGE_DUPLICATE_EMAIL);
         }
 
