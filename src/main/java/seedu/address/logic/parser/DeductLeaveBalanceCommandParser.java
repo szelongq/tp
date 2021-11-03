@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddLeaveBalanceCommand;
 import seedu.address.logic.commands.DeductLeaveBalanceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.LeaveBalance;
@@ -62,7 +61,7 @@ public class DeductLeaveBalanceCommandParser implements Parser<DeductLeaveBalanc
         // If a non-positive integer is given, reject the input
         if (!isNonZeroUnsignedInteger(numberOfLeavesString)) {
             throw new ParseException(String.format(MESSAGE_INVALID_LEAVES_INPUT,
-                    AddLeaveBalanceCommand.MESSAGE_USAGE));
+                    DeductLeaveBalanceCommand.MESSAGE_USAGE));
         }
 
         LeaveBalance leaveBalance;

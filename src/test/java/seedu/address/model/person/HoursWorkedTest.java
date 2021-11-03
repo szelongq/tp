@@ -43,8 +43,12 @@ public class HoursWorkedTest {
         assertFalse(HoursWorked.isValidHoursWorked("7h")); // contains alphanumeric characters
         assertFalse(HoursWorked.isValidHoursWorked("-1")); // contains negative values
         assertFalse(HoursWorked.isValidHoursWorked("1.1")); // contains floating point values
+        assertFalse(HoursWorked.isValidHoursWorked("12345")); // exceeds max bound
 
         // valid hoursWorked
-        assertTrue(HoursWorked.isValidHoursWorked("12345")); // numeric characters as integers only
+        assertTrue(HoursWorked.isValidHoursWorked("365")); // max boundary
+        assertTrue(HoursWorked.isValidHoursWorked("0")); // min boundary
+        assertTrue(HoursWorked.isValidHoursWorked("100")); // value inside equivalence partition
+        assertTrue(HoursWorked.isValidHoursWorked("201")); // value inside equivalence partition
     }
 }
