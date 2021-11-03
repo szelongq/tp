@@ -24,7 +24,7 @@ public class InfoPanel extends UiPart<Region> {
     private static final String ROLE_ICON = "👤 ";
     private static final String SALARY_ICON = "\uD83D\uDCB2 ";
     private static final String HOURSWORKED_ICON = "\uD83D\uDD51 ";
-    private static final String OVERTIME_ICON = " ↷  ";
+    private static final String OVERTIME_ICON = "↷  ";
     private static final String LEAVES_ICON = "\uD83C\uDF42 ";
     private static final String DATES_ICON = "\uD83D\uDDD3 ";
     private static final String LEFT_ARROW_ICON = "\uD83E\uDC14 ";
