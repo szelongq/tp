@@ -60,7 +60,7 @@ public class DeductLeaveBalanceCommandParser implements Parser<DeductLeaveBalanc
      */
     private LeaveBalance parseLeaveString(String numberOfLeavesString) throws ParseException {
         // If a non-positive integer is given, reject the input
-        if (isNonZeroUnsignedInteger(numberOfLeavesString)) {
+        if (!isNonZeroUnsignedInteger(numberOfLeavesString)) {
             throw new ParseException(String.format(MESSAGE_INVALID_LEAVES_INPUT,
                     AddLeaveBalanceCommand.MESSAGE_USAGE));
         }
