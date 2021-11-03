@@ -53,6 +53,12 @@ public class ImportCommand extends Command {
             + "Check that all required columns are present, and there is at least one entry.\n"
             + "Ensure that there are no entries with all empty fields in the CSV file "
             + "and the number of header columns match the number of columns in all employee entries.";
+    public static final String MESSAGE_FIELD_MISSING_ERROR = MESSAGE_IMPORT_FAILURE + "\n"
+            + "Row %1$d: Missing '%1$s' field.";
+    public static final String MESSAGE_FIELD_INVALID_ERROR = MESSAGE_IMPORT_FAILURE
+            + "Invalid Input in Row %1$d: \n %2$s";
+    public static final String MESSAGE_FIELD_DUPLICATE_ERROR = MESSAGE_IMPORT_FAILURE
+            + "Duplicate Input found in Row %1$d\n";
 
     public static final String INPUT_ANNOTATION_NAME_FIELD = "Name";
     public static final String INPUT_ANNOTATION_PHONE_FIELD = "Contact Number";
@@ -163,8 +169,7 @@ public class ImportCommand extends Command {
             } else {
                 String annotationField = descriptorArr[1];
                 String field = getColumnTitle(annotationField); // Field naming as per header naming convention.
-                errorMessage = MESSAGE_IMPORT_FAILURE + "\n"
-                        + String.format("Row %d: Missing '%s' field.", rowNumber, field);
+                errorMessage = String.format(MESSAGE_FIELD_MISSING_ERROR, rowNumber, field);
             }
             throw new CommandException(errorMessage);
         }
@@ -214,12 +219,9 @@ public class ImportCommand extends Command {
                         hoursWorked, overtime, new CalculatedPay("0"), tagList));
                 rowNumber++;
             } catch (ParseException e) {
-                throw new CommandException(MESSAGE_IMPORT_FAILURE
-                        + String.format("Invalid Input in Row %d: ", rowNumber) + "\n"
-                        + e.getMessage());
+                throw new CommandException(String.format(MESSAGE_FIELD_INVALID_ERROR, rowNumber, e.getMessage()));
             } catch (DuplicatePersonException e) {
-                throw new CommandException(MESSAGE_IMPORT_FAILURE
-                    + String.format("Duplicate Input found in Row %d\n", rowNumber));
+                throw new CommandException(String.format(MESSAGE_FIELD_DUPLICATE_ERROR, rowNumber));
             }
         }
         return newPersonList;
