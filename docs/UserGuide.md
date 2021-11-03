@@ -378,7 +378,9 @@ It can be viewed through the `viewOvertimePayRate` command or changed through th
 Format: `startPayroll`
 * Calculates the payroll of **all employees regardless of current viewing list** based on the formula above.
 * After that, marks all employees as awaiting payment of the calculated amount.
-  This will produce red labels under each employee data stating 'NOT PAID' and the amount they are owed.
+<br>This will produce red labels under each employee data stating 'NOT PAID' and the amount they are owed.
+* The number of hours worked and overtime hours worked for the employee will be reset to 0 as well 
+  so that hours counting towards the next payroll can continue to be added.
 * Finally, display the list of all employees.
 * This command is typically followed up by `pay` commands to mark employees as paid,
   after their salaries are given in real life.
@@ -403,7 +405,6 @@ Marks the specified employee, or all employees in the current list, as paid.
 Format 1: `pay INDEX` - for paying a specific employee
 * Simulates the paying of an employee by clearing the salary owed to the employee by setting it back to 0. This clears the red
   `NOT PAID` label under the employee's data.
-* The number of hours worked and overtime hours of the employee will be reset to 0 as well.
 * This command is typically used after the `startPayroll` command, which sets the pay owed to the respective employees.
   The pay command can then be followed after to clear the pay owed.
 * The index refers to the index number shown in the displayed employee list.
@@ -428,8 +429,6 @@ Format: `viewOvertimePayRate`
 
 * Displays the current overtime pay rate in the feedback panel.
 
-![viewing overtime pay rate](images/viewOvertimePayRate.png)
-
 #### Set a new Overtime Pay Rate : `setOvertimePayRate`
 
 Sets a new overtime pay rate to be used in payroll calculations.
@@ -441,11 +440,8 @@ Format: `setOvertimePayRate OVERTIMEPAYRATE`
 
 Examples:
 * `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2x.
-  ![successfully changed overtime pay rate](images/setOvertimePayRate_success.png)
-
 
 * `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
-  ![error: overtime pay rate too low](images/setOvertimePayRate_error.png)
 
 ### Data-related Features
 
