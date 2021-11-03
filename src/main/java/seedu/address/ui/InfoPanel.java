@@ -82,7 +82,9 @@ public class InfoPanel extends UiPart<Region> {
     }
 
     /**
-     * Removes the overlay on top of the InfoPanel
+     * Removes the overlay on top of the InfoPanel.
+     * Overlay prevents user from viewing the contents of the InfoPanel,
+     * and displays {@code LIST_EMPTY_MSG} on top of it to notify user to start importing or adding employees.
      */
     private void unlock() {
         main.setVisible(true);
@@ -90,7 +92,9 @@ public class InfoPanel extends UiPart<Region> {
     }
 
     /**
-     * Applies the overlay on top of the InfoPanel
+     * Applies the overlay on top of the InfoPanel.
+     * Overlay prevents user from viewing the contents of the InfoPanel,
+     * and displays {@code LIST_EMPTY_MSG} on top of it to notify user to start importing or adding employees.
      */
     private void lock() {
         main.setVisible(false);
