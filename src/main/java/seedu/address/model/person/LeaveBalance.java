@@ -12,8 +12,9 @@ public class LeaveBalance {
     public static final int MIN_LEAVES = 0;
     public static final int MAX_LEAVES = 365;
     public static final String MESSAGE_CONSTRAINTS =
-            "Leave Balance must be an integer value between 0 and 365 (both inclusive), "
-                    + "and it should not be blank";
+            "Leave Balance should only contain an integer value between "
+                    + MIN_LEAVES + " and " + MAX_LEAVES
+                    + " (both inclusive), and it should not be blank";
 
     public final int value;
 
@@ -38,7 +39,7 @@ public class LeaveBalance {
         requireNonNull(test);
         try {
             int amount = Integer.parseInt(test);
-            return amount >= MIN_LEAVES && amount <= MAX_LEAVES;
+            return amount >= MIN_LEAVES && amount <= MAX_LEAVES && !test.contains("-");
         } catch (NumberFormatException e) {
             return false;
         }
@@ -53,6 +54,7 @@ public class LeaveBalance {
      * causes the total leaves to exceed the maximum allowed number of leaves.
      */
     public LeaveBalance addLeaves(LeaveBalance leaveBalance) {
+        assert(leaveBalance.value > 0);
         int updatedValue = value + leaveBalance.value;
         if (updatedValue > MAX_LEAVES) {
             throw new IllegalArgumentException();
@@ -69,6 +71,7 @@ public class LeaveBalance {
      * is greater than the current amount of leaves.
      */
     public LeaveBalance removeLeaves(LeaveBalance leaveBalance) {
+        assert(leaveBalance.value > 0);
         int updatedValue = value - leaveBalance.value;
         if (updatedValue < MIN_LEAVES) {
             throw new IllegalArgumentException();
@@ -77,7 +80,7 @@ public class LeaveBalance {
     }
 
     /**
-     * Returns an LeaveBalance object that represents how many leaves
+     * Returns a LeaveBalance object that represents how many leaves
      * can be added to this person without going over the leave balance limit.
      *
      * @return A LeaveBalance object containing the remaining leave capacity of the Person.

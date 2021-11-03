@@ -51,6 +51,23 @@ public class AddLeaveBalanceCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
+        Person editedPerson = getUpdatedPerson(personToEdit);
+
+        model.setPerson(personToEdit, editedPerson);
+        model.setViewingPerson(editedPerson);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
+    }
+
+    /**
+     * Returns a {@code Person} object with an updated leave balance.
+     *
+     * @param personToEdit The person object that is to be edited.
+     * @return An updated Person object.
+     * @throws CommandException if the added amount of leaves causes the Person's
+     * leave balance to exceed the maximum allowed amount
+     */
+    private Person getUpdatedPerson(Person personToEdit) throws CommandException {
         LeaveBalance newLeaveBalance;
         try {
             newLeaveBalance = personToEdit.getLeaveBalance().addLeaves(leaveBalance);
@@ -64,16 +81,10 @@ public class AddLeaveBalanceCommand extends Command {
                             leaveCapacityString.equals("1") ? "leave" : "leaves"));
         }
 
-        Person editedPerson = new Person(
-                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), newLeaveBalance,
+        return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                personToEdit.getAddress(), personToEdit.getRole(), newLeaveBalance,
                 personToEdit.getLeavesTaken(), personToEdit.getSalary(), personToEdit.getHoursWorked(),
                 personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
-
-        model.setPerson(personToEdit, editedPerson);
-        model.setViewingPerson(editedPerson);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
     }
 
     @Override

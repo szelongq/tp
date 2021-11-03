@@ -9,8 +9,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Overtime {
 
+    public static final int MIN_OVERTIME = 0;
+    public static final int MAX_OVERTIME = 744; // 24 hours * 31 days
     public static final String MESSAGE_CONSTRAINTS =
-            "Overtime should only contain a non-negative integer, and it should not be blank";
+            "Overtime should only contain an integer value between "
+                    + MIN_OVERTIME + " and " + MAX_OVERTIME
+                    + " (both inclusive), and it should not be blank";
 
     public final int value;
 
@@ -31,7 +35,7 @@ public class Overtime {
     public static boolean isValidOvertime(String test) {
         try {
             int amount = Integer.parseInt(test);
-            return amount >= 0;
+            return amount >= MIN_OVERTIME && amount <= MAX_OVERTIME && !test.contains("-");
         } catch (NumberFormatException e) {
             return false;
         }
@@ -42,9 +46,15 @@ public class Overtime {
      *
      * @param overtime The number of overtime hours to be added.
      * @return An updated Overtime object.
+     * @throws IllegalArgumentException if the amount of overtime to be added
+     * causes the total overtime to exceed the maximum allowed overtime.
      */
     public Overtime addOvertime(Overtime overtime) {
+        assert(overtime.value > 0);
         int updatedValue = value + overtime.value;
+        if (updatedValue > MAX_OVERTIME) {
+            throw new IllegalArgumentException();
+        }
         return new Overtime(String.valueOf(updatedValue));
     }
 
@@ -57,11 +67,24 @@ public class Overtime {
      * is greater than the current number of overtime hours.
      */
     public Overtime removeOvertime(Overtime overtime) {
+        assert(overtime.value > 0);
         int updatedValue = value - overtime.value;
-        if (updatedValue < 0) {
+        if (updatedValue < MIN_OVERTIME) {
             throw new IllegalArgumentException();
         }
         return new Overtime(String.valueOf(updatedValue));
+    }
+
+    /**
+     * Returns an Overtime object that represents how many overtime worked
+     * can be added to this person without going over the overtime hours worked limit.
+     *
+     * @return An Overtime object containing the remaining overtime hours worked capacity of the Person.
+     */
+    public Overtime getRemainingOvertimeCapacity() {
+        int overtimeWorkedCapacity = MAX_OVERTIME - value;
+        assert(overtimeWorkedCapacity >= 0);
+        return new Overtime(String.valueOf(overtimeWorkedCapacity));
     }
 
     @Override

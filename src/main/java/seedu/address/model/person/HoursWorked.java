@@ -9,8 +9,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class HoursWorked {
 
+    public static final int MIN_HOURS_WORKED = 0;
+    public static final int MAX_HOURS_WORKED = 744; // 24 hours * 31 days
     public static final String MESSAGE_CONSTRAINTS =
-            "HoursWorked should only contain positive integers, and it should not be blank";
+            "Hours Worked should only contain an integer value between "
+                    + MIN_HOURS_WORKED + " and " + MAX_HOURS_WORKED
+                    + " (both inclusive), and it should not be blank";
 
     public final int value;
 
@@ -32,7 +36,7 @@ public class HoursWorked {
         requireNonNull(test);
         try {
             int amount = Integer.parseInt(test);
-            return amount >= 0;
+            return amount >= MIN_HOURS_WORKED && amount <= MAX_HOURS_WORKED && !test.contains("-");
         } catch (NumberFormatException e) {
             return false;
         }
@@ -43,9 +47,15 @@ public class HoursWorked {
      *
      * @param hoursWorked The number of hours worked to be added.
      * @return An updated HoursWorked object.
+     * @throws IllegalArgumentException if the amount of hours worked to be added
+     * causes the total hours worked to exceed the maximum allowed hours worked .
      */
     public HoursWorked addHoursWorked(HoursWorked hoursWorked) {
+        assert(hoursWorked.value > 0);
         int updatedValue = value + hoursWorked.value;
+        if (updatedValue > MAX_HOURS_WORKED) {
+            throw new IllegalArgumentException();
+        }
         return new HoursWorked(String.valueOf(updatedValue));
     }
 
@@ -58,11 +68,24 @@ public class HoursWorked {
      * is greater than the current number of hours worked.
      */
     public HoursWorked removeHoursWorked(HoursWorked hoursWorked) {
+        assert(hoursWorked.value > 0);
         int updatedValue = value - hoursWorked.value;
-        if (updatedValue < 0) {
+        if (updatedValue < MIN_HOURS_WORKED) {
             throw new IllegalArgumentException();
         }
         return new HoursWorked(String.valueOf(updatedValue));
+    }
+
+    /**
+     * Returns an HoursWorked object that represents how many hours worked
+     * can be added to this person without going over the hours worked limit.
+     *
+     * @return An HoursWorked object containing the remaining hours worked capacity of the Person.
+     */
+    public HoursWorked getRemainingHoursWorkedCapacity() {
+        int hoursWorkedCapacity = MAX_HOURS_WORKED - value;
+        assert(hoursWorkedCapacity >= 0);
+        return new HoursWorked(String.valueOf(hoursWorkedCapacity));
     }
 
     @Override

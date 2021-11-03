@@ -3,10 +3,12 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_LEAVES_INPUT;
+import static seedu.address.commons.util.StringUtil.isNonZeroUnsignedInteger;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.AddLeaveBalanceCommand;
 import seedu.address.logic.commands.DeductLeaveBalanceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.LeaveBalance;
@@ -57,17 +59,10 @@ public class DeductLeaveBalanceCommandParser implements Parser<DeductLeaveBalanc
      * @throws ParseException if an invalid integer input for the number of leaves is given.
      */
     private LeaveBalance parseLeaveString(String numberOfLeavesString) throws ParseException {
-        int numberOfLeaves;
-        try {
-            numberOfLeaves = Integer.parseInt(numberOfLeavesString);
-        } catch (NumberFormatException nfe) {
+        // If a non-positive integer is given, reject the input
+        if (isNonZeroUnsignedInteger(numberOfLeavesString)) {
             throw new ParseException(String.format(MESSAGE_INVALID_LEAVES_INPUT,
-                    DeductLeaveBalanceCommand.MESSAGE_USAGE), nfe);
-        }
-        // If a non-positive integer is given
-        if (numberOfLeaves <= 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_LEAVES_INPUT,
-                    DeductLeaveBalanceCommand.MESSAGE_USAGE));
+                    AddLeaveBalanceCommand.MESSAGE_USAGE));
         }
 
         LeaveBalance leaveBalance;
