@@ -114,7 +114,7 @@ Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES 
     --------------|---------------|---------
     `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`
     `PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
-    `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`_.-`). *domain* start and end with alphanumeric characters, must be at least 2 characters long can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
+    `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
     `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
     `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
     `LEAVEBALANCE`| Non-negative integers only. |`12`,`0`
