@@ -84,6 +84,10 @@ public class ImportCommand extends Command {
             // Should not happen since "1" is a valid index, and import file must have at least 1 entry.
             throw new CommandException(e.getMessage());
         }
+
+        List<Person> importedList = model.getFilteredPersonList();
+        model.setViewingPerson(importedList.get(0));
+
         return result;
     }
 
