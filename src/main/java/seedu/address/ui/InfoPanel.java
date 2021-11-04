@@ -2,19 +2,19 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 
-import javafx.beans.value.ObservableObjectValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
+import seedu.address.model.person.ObservablePerson;
 import seedu.address.model.person.Person;
 
 /**
  * Display panel which shows the information and details of a Person.
  */
-public class InfoPanel extends UiPart<Region> {
+public class InfoPanel extends UiPart<Region> implements UiObserver {
     private static final String FXML = "InfoPanel.fxml";
 
     // Icons
@@ -68,17 +68,14 @@ public class InfoPanel extends UiPart<Region> {
      * Creates a {@code InfoPanel} with the given {@code Person}.
      * @param p
      */
-    public InfoPanel(ObservableObjectValue<Person> p) {
+    public InfoPanel(ObservablePerson p) {
         super(FXML);
 
         textOverlay.setText(LIST_EMPTY_MSG);
         textOverlay.setTextAlignment(TextAlignment.CENTER);
 
         updateInfoPanel(p.get());
-        p.addListener((x, y, z) -> {
-            updateInfoPanel(z);
-            System.out.println(y);
-        });
+        p.addUiObserver(this);
     }
 
     /**
@@ -141,4 +138,11 @@ public class InfoPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Updates the InfoPanel display content with person provided.
+     */
+    @Override
+    public void update(Person person) {
+        updateInfoPanel(person);
+    }
 }

@@ -3,9 +3,9 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.ObservablePerson;
 import seedu.address.model.person.Person;
 
 /**
@@ -99,7 +99,7 @@ public interface Model {
     /**
      * Returns the person that is to be viewed in the InfoPanel
      */
-    ObservableObjectValue<Person> getViewingPerson();
+    ObservablePerson getViewingPerson();
 
     /**
      * Sets the person to be viewed in the InfoPanel

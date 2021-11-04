@@ -7,12 +7,11 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.ObservablePerson;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,7 +24,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
-    private final ReadOnlyObjectWrapper<Person> viewingPerson;
+    private final ObservablePerson viewingPerson;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -43,10 +42,10 @@ public class ModelManager implements Model {
         ObservableList<Person> personList = this.addressBook.getPersonList();
         if (personList.isEmpty()) {
             // Set view to blank
-            viewingPerson = new ReadOnlyObjectWrapper<Person>(null);
+            viewingPerson = new ObservablePerson(null);
         } else {
             // Default to view first person in employee list
-            viewingPerson = new ReadOnlyObjectWrapper<Person>(this.addressBook.getPersonList().get(0));
+            viewingPerson = new ObservablePerson(this.addressBook.getPersonList().get(0));
         }
     }
 
@@ -160,13 +159,13 @@ public class ModelManager implements Model {
 
     //=========== Viewing Person Details =====================================================================
     @Override
-    public ObservableObjectValue<Person> getViewingPerson() {
+    public ObservablePerson getViewingPerson() {
         return viewingPerson;
     }
 
     @Override
     public void setViewingPerson(Person p) {
-        viewingPerson.set(p);
+        viewingPerson.setPerson(p);
     }
 
     @Override
