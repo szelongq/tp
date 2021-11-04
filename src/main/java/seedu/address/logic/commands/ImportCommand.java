@@ -220,7 +220,7 @@ public class ImportCommand extends Command {
     private LeaveBalance buildLeave(PersonInput input) throws ParseException {
         return input.getLeaves() == null
                 ? new LeaveBalance("0")
-                : ParserUtil.parseLeaves(input.getLeaves());
+                : ParserUtil.parseLeaveBalance(input.getLeaves());
     }
 
     /**

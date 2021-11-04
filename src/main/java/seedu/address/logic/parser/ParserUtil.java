@@ -118,13 +118,12 @@ public class ParserUtil {
     }
 
     /**
->>>>>>> master
-     * Parses a {@code String amount} into a {@code Leaves}.
+     * Parses a {@code String amount} into a {@code LeaveBalance}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code amount} is invalid.
      */
-    public static LeaveBalance parseLeaves(String amount) throws ParseException {
+    public static LeaveBalance parseLeaveBalance(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
         if (!LeaveBalance.isValidLeaveBalance(trimmedAmount)) {
