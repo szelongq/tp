@@ -27,7 +27,7 @@ public class StringUtilTest {
         assertFalse(StringUtil.isNonZeroUnsignedInteger("0"));
 
         // EP: negative zero
-        assertFalse(StringUtil.isNonNegativeInteger("-0"));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("-0"));
 
         // EP: zero as prefix
         assertTrue(StringUtil.isNonZeroUnsignedInteger("01"));
@@ -113,7 +113,7 @@ public class StringUtilTest {
         assertFalse(StringUtil.isNonNegativeInteger(Long.toString(Integer.MAX_VALUE + 1)));
 
         // EP: valid numbers, should return true
-        assertTrue(StringUtil.isNonNegativeInteger("1")); // Boundary value
+        assertTrue(StringUtil.isNonNegativeInteger("1"));
         assertTrue(StringUtil.isNonNegativeInteger("10"));
     }
 
