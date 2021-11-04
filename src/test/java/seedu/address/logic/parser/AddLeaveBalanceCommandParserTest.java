@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INTEGER_INPUT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_LEAVES_INPUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -46,7 +46,7 @@ public class AddLeaveBalanceCommandParserTest {
 
     @Test
     public void parse_invalidInteger_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_INTEGER_INPUT, AddLeaveBalanceCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_LEAVES_INPUT, AddLeaveBalanceCommand.MESSAGE_USAGE);
         String userInput = INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVE;
 
         // Not an integer

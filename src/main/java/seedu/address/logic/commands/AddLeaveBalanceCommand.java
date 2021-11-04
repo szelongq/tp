@@ -20,12 +20,12 @@ public class AddLeaveBalanceCommand extends Command {
     public static final String COMMAND_WORD = "addLeaveBalance";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds leaves to the employee identified "
-            + "by the index number used in the last person listing. \n"
+            + "by the index number used in the last employee listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_LEAVE + "NO_OF_LEAVES (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_LEAVE + "2";
     public static final String MESSAGE_SUCCESS =
-            "Leaves successfully added to person: %1$s";
+            "Leaves successfully added to employee: %1$s (Employee now has %2$s leave%3$s)";
 
     private final Index index;
     private final LeaveBalance leaveBalance;
@@ -51,16 +51,43 @@ public class AddLeaveBalanceCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = new Person(
-                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                personToEdit.getRole(), personToEdit.getLeaveBalance().addLeaves(leaveBalance),
-                personToEdit.getLeavesTaken(), personToEdit.getSalary(), personToEdit.getHoursWorked(),
-                personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
+        Person editedPerson = getUpdatedPerson(personToEdit);
 
         model.setPerson(personToEdit, editedPerson);
         model.setViewingPerson(editedPerson);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                editedPerson.getName().toString(),
+                editedPerson.getLeaveBalance().toString(),
+                editedPerson.getLeaveBalance().toString().equals("1") ? "" : "s"));
+    }
+
+    /**
+     * Returns a {@code Person} object with an updated leave balance.
+     *
+     * @param personToEdit The person object that is to be edited.
+     * @return An updated Person object.
+     * @throws CommandException if the added amount of leaves causes the Person's
+     * leave balance to exceed the maximum allowed amount
+     */
+    private Person getUpdatedPerson(Person personToEdit) throws CommandException {
+        LeaveBalance newLeaveBalance;
+        try {
+            newLeaveBalance = personToEdit.getLeaveBalance().addLeaves(leaveBalance);
+        } catch (IllegalArgumentException iae) {
+            String leaveCapacityString =
+                    personToEdit.getLeaveBalance().getRemainingLeaveCapacity().toString();
+            throw new CommandException(
+                    String.format(Messages.MESSAGE_INVALID_ADD_INPUT,
+                            LeaveBalance.MAX_LEAVES,
+                            "leaves", leaveCapacityString,
+                            leaveCapacityString.equals("1") ? "leave" : "leaves"));
+        }
+
+        return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                personToEdit.getAddress(), personToEdit.getRole(), newLeaveBalance,
+                personToEdit.getLeavesTaken(), personToEdit.getSalary(), personToEdit.getHoursWorked(),
+                personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
     }
 
     @Override
