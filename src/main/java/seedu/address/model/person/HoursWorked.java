@@ -3,6 +3,9 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.commons.util.StringUtil;
+
+
 /**
  * Represents a Person's worked hours in the employee book.
  * Guarantees: immutable; is valid as declared in {@link #isValidHoursWorked(String)}
@@ -30,16 +33,21 @@ public class HoursWorked {
     }
 
     /**
-     * Returns true if a given numerical string is non-negative.
+     * Returns true if a given numerical string is non-negative
+     * that is within bounds (between MIN_HOURS_WORKED and MAX_HOURS_WORKED, both inclusive).
+     *
+     * @param test The string input that is to be parsed into an integer.
+     * @return True if the string is a non-negative integer and within bounds, false otherwise.
      */
     public static boolean isValidHoursWorked(String test) {
         requireNonNull(test);
-        try {
-            int amount = Integer.parseInt(test);
-            return amount >= MIN_HOURS_WORKED && amount <= MAX_HOURS_WORKED && !test.contains("-");
-        } catch (NumberFormatException e) {
+        // Valid integer check
+        if (!StringUtil.isNonNegativeInteger(test)) {
             return false;
         }
+        // Within bounds check
+        int amount = Integer.parseInt(test);
+        return amount >= MIN_HOURS_WORKED && amount <= MAX_HOURS_WORKED;
     }
 
     /**

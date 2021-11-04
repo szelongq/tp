@@ -71,7 +71,7 @@ public class StringUtil {
      * Returns true if {@code s} represents a non-negative integer
      * e.g. 0, 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>
      * Will return false for any other non-null string input
-     * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
+     * e.g. empty string, "-0", "-1", " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
      * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isNonNegativeInteger(String s) {
@@ -100,7 +100,7 @@ public class StringUtil {
 
         try {
             double value = Double.parseDouble(s);
-            if (value < 0 || s.startsWith("+")) {
+            if (value < 0 || s.startsWith("+") || s.contains("-")) {
                 return false;
             }
         } catch (NumberFormatException nfe) {

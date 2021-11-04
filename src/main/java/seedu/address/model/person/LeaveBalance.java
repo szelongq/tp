@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents a Person's remaining leaves in the employee book.
  * Guarantees: immutable; is valid as declared in {@link #isValidLeaveBalance(String)}
@@ -30,19 +32,21 @@ public class LeaveBalance {
     }
 
     /**
-     * Returns true if a given leave is a non-negative numerical value.
+     * Returns true if a given numerical string is non-negative
+     * that is within bounds (between MIN_LEAVES and MAX_LEAVES, both inclusive).
      *
      * @param test The string input that is to be parsed into an integer.
-     * @return True if the string is a non-negative integer, false otherwise.
+     * @return True if the string is a non-negative integer and within bounds, false otherwise.
      */
     public static boolean isValidLeaveBalance(String test) {
         requireNonNull(test);
-        try {
-            int amount = Integer.parseInt(test);
-            return amount >= MIN_LEAVES && amount <= MAX_LEAVES && !test.contains("-");
-        } catch (NumberFormatException e) {
+        // Valid integer check
+        if (!StringUtil.isNonNegativeInteger(test)) {
             return false;
         }
+        // Within bounds check
+        int amount = Integer.parseInt(test);
+        return amount >= MIN_LEAVES && amount <= MAX_LEAVES;
     }
 
     /**

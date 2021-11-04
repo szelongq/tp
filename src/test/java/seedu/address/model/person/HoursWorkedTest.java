@@ -19,6 +19,12 @@ public class HoursWorkedTest {
     }
 
     @Test
+    public void constructor_negativeZeroHours_throwsIllegalArgumentException() {
+        String negativeZeroHours = "-000";
+        assertThrows(IllegalArgumentException.class, () -> new HourlySalary(negativeZeroHours));
+    }
+
+    @Test
     public void constructor_alphanumericHours_throwsIllegalArgumentException() {
         String alphanumericHours = "3h";
         assertThrows(IllegalArgumentException.class, () -> new HourlySalary(alphanumericHours));

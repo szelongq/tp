@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents a Person's overtime in the employee book.
  * Guarantees: immutable; is valid as declared in {@link #isValidOvertime(String)}
@@ -30,15 +32,21 @@ public class Overtime {
     }
 
     /**
-     * Returns true if a given numerical string is non-negative.
+     * Returns true if a given numerical string is non-negative
+     * that is within bounds (between MIN_OVERTIME and MAX_OVERTIME, both inclusive).
+     *
+     * @param test The string input that is to be parsed into an integer.
+     * @return True if the string is a non-negative integer and within bounds, false otherwise.
      */
     public static boolean isValidOvertime(String test) {
-        try {
-            int amount = Integer.parseInt(test);
-            return amount >= MIN_OVERTIME && amount <= MAX_OVERTIME && !test.contains("-");
-        } catch (NumberFormatException e) {
+        requireNonNull(test);
+        // Valid integer check
+        if (!StringUtil.isNonNegativeInteger(test)) {
             return false;
         }
+        // Within bounds check
+        int amount = Integer.parseInt(test);
+        return amount >= MIN_OVERTIME && amount <= MAX_OVERTIME;
     }
 
     /**
