@@ -16,7 +16,6 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,6 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.OvertimePayRate;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.ObservablePerson;
 import seedu.address.model.person.Person;
 
 public class ImportCommandTest {
@@ -242,12 +242,17 @@ public class ImportCommandTest {
         }
 
         @Override
-        public ObservableObjectValue<Person> getViewingPerson() {
+        public ObservablePerson getViewingPerson() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setViewingPerson(Person p) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isFilteredPersonListEmpty() {
             throw new AssertionError("This method should not be called.");
         }
 
