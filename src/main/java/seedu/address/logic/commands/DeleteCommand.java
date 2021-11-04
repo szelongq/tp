@@ -51,7 +51,7 @@ public class DeleteCommand extends Command {
             model.setViewingPerson(firstPerson);
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete.getName()));
+        return new CommandResult(String.format(MESSAGE_DELETE_EMPLOYEE_SUCCESS, personToDelete.getName()));
     }
 
     @Override
