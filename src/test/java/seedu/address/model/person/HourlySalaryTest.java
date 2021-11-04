@@ -19,6 +19,12 @@ public class HourlySalaryTest {
     }
 
     @Test
+    public void constructor_negativeZeroSalary_throwsIllegalArgumentException() {
+        String negativeZeroSalary = "-000";
+        assertThrows(IllegalArgumentException.class, () -> new HourlySalary(negativeZeroSalary));
+    }
+
+    @Test
     public void constructor_alphanumericSalary_throwsIllegalArgumentException() {
         String alphanumericSalary = "3.1k";
         assertThrows(IllegalArgumentException.class, () -> new HourlySalary(alphanumericSalary));

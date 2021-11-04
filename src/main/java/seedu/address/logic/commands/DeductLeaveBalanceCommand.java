@@ -20,14 +20,14 @@ public class DeductLeaveBalanceCommand extends Command {
     public static final String COMMAND_WORD = "deductLeaveBalance";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deducts leaves from the employee identified "
-            + "by the index number used in the last person listing. "
+            + "by the index number used in the last employee listing. "
             + "Number of leaves removed cannot be greater than the amount of leaves "
             + "the employee currently has. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_LEAVE + "NO_OF_LEAVES (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_LEAVE + "2";
     public static final String MESSAGE_SUCCESS =
-            "Leaves successfully removed from person: %1$s";
+            "Leaves successfully removed from employee: %1$s (Employee now has %2$s leave%3$s)";
 
     private final Index index;
     private final LeaveBalance leaveBalance;
@@ -53,22 +53,44 @@ public class DeductLeaveBalanceCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson;
-        try {
-            editedPerson = new Person(
-                    personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                    personToEdit.getRole(), personToEdit.getLeaveBalance().removeLeaves(leaveBalance),
-                    personToEdit.getLeavesTaken(), personToEdit.getSalary(), personToEdit.getHoursWorked(),
-                    personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
-        } catch (IllegalArgumentException iae) {
-            throw new CommandException(
-                    String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT, leaveBalance, "leaves"));
-        }
+        Person editedPerson = getUpdatedPerson(personToEdit);
 
         model.setPerson(personToEdit, editedPerson);
         model.setViewingPerson(editedPerson);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                editedPerson.getName().toString(),
+                editedPerson.getLeaveBalance().toString(),
+                editedPerson.getLeaveBalance().toString().equals("1") ? "" : "s"));
+    }
+
+    /**
+     * Returns a {@code Person} object with an updated leave balance.
+     *
+     * @param personToEdit The person object that is to be edited.
+     * @return An updated Person object.
+     * @throws CommandException if the removed amount of leaves causes the Person's
+     * leave balance to become negative
+     */
+    private Person getUpdatedPerson(Person personToEdit) throws CommandException {
+        LeaveBalance newLeaveBalance;
+        try {
+            newLeaveBalance = personToEdit.getLeaveBalance().removeLeaves(leaveBalance);
+        } catch (IllegalArgumentException iae) {
+            String leaveBalanceString = leaveBalance.toString();
+            String personLeaveBalanceString = personToEdit.getLeaveBalance().toString();
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT,
+                            leaveBalanceString,
+                            leaveBalanceString.equals("1") ? "leave" : "leaves",
+                            personLeaveBalanceString,
+                            personLeaveBalanceString.equals("1") ? "leave" : "leaves"));
+        }
+
+        return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                personToEdit.getAddress(), personToEdit.getRole(), newLeaveBalance,
+                personToEdit.getLeavesTaken(), personToEdit.getSalary(), personToEdit.getHoursWorked(),
+                personToEdit.getOvertime(), personToEdit.getCalculatedPay(), personToEdit.getTags());
+
     }
 
     @Override

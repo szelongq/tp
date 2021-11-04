@@ -66,7 +66,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setRole(ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get()));
         }
         if (argMultimap.getValue(PREFIX_LEAVE).isPresent()) {
-            editPersonDescriptor.setLeaves(ParserUtil.parseLeaves(argMultimap.getValue(PREFIX_LEAVE).get()));
+            editPersonDescriptor.setLeaves(ParserUtil.parseLeaveBalance(argMultimap.getValue(PREFIX_LEAVE).get()));
         }
         if (argMultimap.getValue(PREFIX_HOURLYSALARY).isPresent()) {
             editPersonDescriptor.setSalary(ParserUtil.parseSalary(argMultimap.getValue(PREFIX_HOURLYSALARY).get()));
