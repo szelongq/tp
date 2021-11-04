@@ -91,7 +91,9 @@ public class PayCommandTest {
 
         Person paidPerson = createPaidPerson(personToPay);
 
-        String expectedMessage = String.format(PayCommand.MESSAGE_PAY_PERSON_SUCCESS, paidPerson);
+        String expectedMessage = String.format(PayCommand.MESSAGE_PAY_PERSON_SUCCESS,
+                personToPay.getCalculatedPay().toString(),
+                paidPerson.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personToPay, paidPerson);

@@ -59,7 +59,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
 
         Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
-        LeaveBalance leaveBalance = ParserUtil.parseLeaves(argMultimap.getValue(PREFIX_LEAVE).get());
+        LeaveBalance leaveBalance = ParserUtil.parseLeaveBalance(argMultimap.getValue(PREFIX_LEAVE).get());
         // Add command does not allow adding of dates to leavesTaken
         LeavesTaken leavesTaken = new LeavesTaken();
         HourlySalary hourlySalary = ParserUtil.parseSalary(argMultimap.getValue(PREFIX_HOURLYSALARY).get());

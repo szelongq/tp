@@ -225,9 +225,7 @@ public class Person {
                 .append("; Salary: ")
                 .append(getSalary())
                 .append("; Hours Worked: ")
-                .append(getHoursWorked())
-                .append("; Leaves Taken: ")
-                .append(getLeavesTaken());
+                .append(getHoursWorked());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
