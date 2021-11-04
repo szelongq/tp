@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
         if (model.isFilteredPersonListEmpty()) {
             // View blank
             model.setViewingPerson(null);
-        } else if (personToDelete.equals(model.getViewingPerson().get())) {
+        } else if (personToDelete.isSamePerson(model.getViewingPerson().get())) {
             // Employee no longer exists, switch to viewing first employee
             Person firstPerson = model.getFilteredPersonList().get(0);
             model.setViewingPerson(firstPerson);

@@ -85,9 +85,6 @@ public class ImportCommand extends Command {
             throw new CommandException(e.getMessage());
         }
 
-        List<Person> importedList = model.getFilteredPersonList();
-        model.setViewingPerson(importedList.get(0));
-
         return result;
     }
 
