@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents a Person's remaining leaves in the employee book.
  * Guarantees: immutable; is valid as declared in {@link #isValidLeaveBalance(String)}
@@ -33,12 +35,8 @@ public class LeaveBalance {
      */
     public static boolean isValidLeaveBalance(String test) {
         requireNonNull(test);
-        try {
-            int amount = Integer.parseInt(test);
-            return amount >= 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+
+        return StringUtil.isNonNegativeInteger(test);
     }
 
     /**
