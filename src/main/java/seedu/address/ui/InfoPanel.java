@@ -65,7 +65,7 @@ public class InfoPanel extends UiPart<Region> implements UiObserver {
     private Label textOverlay;
 
     /**
-     * Creates a {@code InfoPanel} with the given {@code Person}.
+     * Creates an {@code InfoPanel} that displays information based on the given {@code ObservablePerson}.
      * @param p
      */
     public InfoPanel(ObservablePerson p) {
@@ -74,7 +74,9 @@ public class InfoPanel extends UiPart<Region> implements UiObserver {
         textOverlay.setText(LIST_EMPTY_MSG);
         textOverlay.setTextAlignment(TextAlignment.CENTER);
 
-        updateInfoPanel(p.get());
+        updateInfoPanel(p.getPerson());
+
+        // Add InfoPanel to the ObserverList of the ObservablePerson
         p.addUiObserver(this);
     }
 

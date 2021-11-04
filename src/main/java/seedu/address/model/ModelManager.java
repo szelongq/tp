@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -42,7 +43,7 @@ public class ModelManager implements Model {
         ObservableList<Person> personList = this.addressBook.getPersonList();
         if (personList.isEmpty()) {
             // Set view to blank
-            viewingPerson = new ObservablePerson(null);
+            viewingPerson = new ObservablePerson();
         } else {
             // Default to view first person in employee list
             viewingPerson = new ObservablePerson(this.addressBook.getPersonList().get(0));
@@ -165,7 +166,11 @@ public class ModelManager implements Model {
 
     @Override
     public void setViewingPerson(Person p) {
-        viewingPerson.setPerson(p);
+        Optional<Person> toView = Optional.ofNullable(p);
+        toView.ifPresentOrElse(
+                viewingPerson::setPerson,
+                viewingPerson::setEmptyPerson
+        );
     }
 
     @Override
