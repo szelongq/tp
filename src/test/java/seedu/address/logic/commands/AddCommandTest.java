@@ -142,6 +142,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasDuplicatePhone(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDuplicateEmail(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -193,6 +203,18 @@ public class AddCommandTest {
             requireNonNull(person);
             return this.person.isSamePerson(person);
         }
+
+        @Override
+        public boolean hasDuplicatePhone(Person person) {
+            requireNonNull(person);
+            return this.person.hasSamePhone(person);
+        }
+
+        @Override
+        public boolean hasDuplicateEmail(Person person) {
+            requireNonNull(person);
+            return this.person.hasSameEmail(person);
+        }
     }
 
     /**
@@ -205,6 +227,18 @@ public class AddCommandTest {
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public boolean hasDuplicatePhone(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSamePhone);
+        }
+
+        @Override
+        public boolean hasDuplicateEmail(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSameEmail);
         }
 
         @Override
