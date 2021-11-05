@@ -120,7 +120,7 @@ public class ImportCommand extends Command {
     /**
      * Parses and creates the new address book from the data in the CSV file.
      * @param filepath The string representation of the filepath to the desired csv file.
-     * @return List A collection of Person objects to be replaced into the address book.
+     * @return A list of Person objects to be replaced into the address book.
      * @throws CommandException If an error occurs during the processing of the CSV file into Person objects.
      */
     public List<Person> processCsv(String filepath) throws CommandException {
@@ -137,7 +137,7 @@ public class ImportCommand extends Command {
     /**
      * Parses the given csv file and creates a list of PersonInput objects.
      * @param fileReader The fileReader object of the csv file.
-     * @return List A collection of PersonInput objects used to create the Person objects.
+     * @return A list of PersonInput objects used to create the Person objects.
      * @throws CommandException If there are missing fields or formatting errors in the CSV file.
      */
     @SuppressWarnings("unchecked")
@@ -178,7 +178,7 @@ public class ImportCommand extends Command {
     /**
      * Creates a FileReader object for a specified csv file.
      * @param filepath The string representation of the filepath to the desired csv file.
-     * @return FileReader The FileReader object for the file in the specified filepath.
+     * @return The FileReader object for the file in the specified filepath.
      * @throws CommandException If the specified file with the filepath does not exist.
      */
     public FileReader getFileReader(String filepath) throws CommandException {
@@ -228,7 +228,7 @@ public class ImportCommand extends Command {
     /**
      * Creates a LeaveBalance object with the corresponding input, or a default value of 0.
      * @param input PersonInput object created by the bean.
-     * @return An LeaveBalance object for the Person constructor.
+     * @return A LeaveBalance object for the Person constructor.
      * @throws ParseException If an error occurs while parsing the String input.
      */
     private LeaveBalance buildLeave(PersonInput input) throws ParseException {
@@ -276,7 +276,7 @@ public class ImportCommand extends Command {
     /**
      * Creates a Set object containing all the corresponding tags for the entry, or a default value of an empty set.
      * @param input PersonInput object created by the bean.
-     * @return An Set object for the Person constructor.
+     * @return A Set object for the Person constructor.
      * @throws ParseException If an error occurs while parsing the String input.
      */
     private Set<Tag> buildTags(PersonInput input) throws ParseException {
@@ -299,7 +299,7 @@ public class ImportCommand extends Command {
     /**
      * Gets the header naming convention of the specified field.
      * @param field The field of PersonInput object.
-     * @return The naming convention to be used in the imported csv file.
+     * @return The naming convention being used in the imported csv file.
      */
     public String getColumnTitle(String field) {
         switch (field) {
