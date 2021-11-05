@@ -177,7 +177,7 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
       * These fields will find all people who contain the given keywords in their respective fields. They are not case-sensitive.
       * The exceptions are:
          * `p/PHONE` field, which only find exact matches.
-         * `n/NAME` field, which can find matches when a complete part (first/middle/last) of a name is given. (e.g. For name "Charlotte Oliverio", both `n/Charlotte` and n/Oliverio` works, but `n/Char` or `n/Oliver` will not)
+         * `n/NAME` field, which can find matches when a complete part (first/middle/last) of a name is given. (e.g. For name "Charlotte Oliverio", both `n/Charlotte` and `n/Oliverio` works, but `n/Char` or `n/Oliver` will not)
       
     * For example, `find p/91234567 e/alice bob r/Admin` will find anyone who satisfies all the following 3 criteria:
       1. has the phone number 91234567, 
