@@ -153,6 +153,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code CalculatedPay} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withCalculatedPay(String pay) {
+        this.calculatedPay = new CalculatedPay(pay);
+        return this;
+    }
+
+    /**
      * Sets the {@code Salary} of the {@code Person} that we are building.
      */
     public PersonBuilder withHourlySalary(String salary) {

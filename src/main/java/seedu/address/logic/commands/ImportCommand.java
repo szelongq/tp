@@ -94,6 +94,7 @@ public class ImportCommand extends Command {
             // Should not happen since "1" is a valid index, and imported file must have at least 1 entry.
             throw new CommandException(e.getMessage());
         }
+
         return result;
     }
 
