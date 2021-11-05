@@ -54,7 +54,7 @@ public class ImportCommand extends Command {
             + "Ensure that there are no entries with all empty fields in the CSV file "
             + "and the number of header columns match the number of columns in all employee entries.";
     public static final String MESSAGE_FIELD_MISSING_ERROR = MESSAGE_IMPORT_FAILURE
-            + "Row %1$d: Missing '%1$s' field.";
+            + "Row %1$d: Missing '%2$s' field.";
     public static final String MESSAGE_FIELD_INVALID_ERROR = MESSAGE_IMPORT_FAILURE
             + "Invalid Input in Row %1$d: %2$s";
 
@@ -167,7 +167,7 @@ public class ImportCommand extends Command {
             if (descriptorArr.length == 1) {
                 errorMessage = MESSAGE_IMPORT_FORMAT_ERROR;
             } else {
-                String annotationField = descriptorArr[1];
+                String annotationField = descriptorArr[1].trim();
                 String field = getColumnTitle(annotationField); // Field naming as per header naming convention.
                 errorMessage = String.format(MESSAGE_FIELD_MISSING_ERROR, rowNumber, field);
             }
