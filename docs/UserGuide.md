@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-HeRon is a desktop application for HR managers to assist in managing HR administrative tasks such as tracking leaves and offs, calculating pay and updating payroll information. It is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a fast typer, HeRon can get your tasks done faster as compared to traditional GUI apps.
+HeRon is a desktop application for HR managers of Small-Medium Enterprises (SMEs) to assist in managing HR administrative tasks such as tracking leaves and offs, calculating pay and updating payroll information. It is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a fast typer, HeRon can get your tasks done faster as compared to traditional GUI apps.
 
 This User Guide will bring you through the features that HeRon has to offer, as well as the commands to make use of them.
 
