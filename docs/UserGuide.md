@@ -456,17 +456,18 @@ Imports the data from a specified `.csv` file.
 Format: `import FILEPATH`
 * Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
 * Only one `FILEPATH` should be specified. 
-* Filepaths should be written following the current Operating System being used. (eg. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
-* Filepaths with spaces present in directory can be written as per usual (eg. `./My Folder/toBeImported.csv`).
+* Filepaths should be written following the current Operating System being used. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
+* Filepaths with spaces present in directory can be written as per usual (e.g. `./My Folder/toBeImported.csv`).
 * A header row is required to indicate the purpose of the various fields, and it must be the first row in the `.csv` file.
+* No specific ordering of the columns is required.
 * Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below, and are present in the data if compulsory.
+* If multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
+* If there are duplicate `Person` entries, `Email` or `Contact Number`, the import will not be allowed.
 * Ensure that each field follows the specifications required, which can be found in the section "Adding an Employee: `add`".
 * Ensure that the number of fields in each entry matches the number of headers.
 * If multiple tags are present for an entry, they should be seperated by `/`.
-* No specific ordering of the columns is required.
-* Note that if multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
-* Note that if there are duplicate `Person` entries, `Emails` or `Contact Numbers`, the import will not be allowed.
-* For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value.
+* For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value. 
+* If a value for a field is provided for at least one entry, then all other entries must also have their respective values for the field provided.
 
 #### Field Naming Requirements and Default Values
 
