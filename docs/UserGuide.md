@@ -75,7 +75,7 @@ _Display Panel_ <br>
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
-* Items in square brackets `e.g. []` are optional.<br>
+* Items in square brackets `i.e. []` are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
@@ -112,16 +112,16 @@ Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES 
 
     Field | Requirements | Examples
     --------------|---------------|---------
-    `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`
+    `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
     `PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
-    `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
+    `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
     `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
     `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
     `LEAVEBALANCE`| Non-negative integers only. |`12`,`0`
     `HOURLYSALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
     `HOURSWORKED`| Positive integers only. | `12`,`1`
     `OVERTIME`| Non-negative integers only. | `12`,`0`
-    `TAG`| Contain alphanumeric characters only. | `friend`, `1st superior`
+    `TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
 
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -164,10 +164,10 @@ Examples:
 
 Find employees using specified fields, checking if their information field contains any of the given keywords / queries.
 
-Format: `find [KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
+Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
 
 * At least one field should be specified.
-* The order of the fields do not matter except for the `[KEYWORD]` field, which must come right after `find`.
+* The order of the fields do not matter except for the `[STATUS]` field, which must come right after `find`.
 * To search a field with multiple values, separate each value with a space after their respective tag. 
   * Example: Use `find n/Alice Charlotte` to search for `Alice` or `Charlotte` in the `name` field.
   
@@ -175,7 +175,9 @@ Format: `find [KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NU
   * **Type 1 Query: Keyword Matching**
     * Fields: `n/NAME`, `p/PHONE`, `e/EMAIL`, `a/ADDRESS`, `r/ROLE`, `t/TAG`
       * These fields will find all people who contain the given keywords in their respective fields. They are not case-sensitive.
-      * The exception is the `n/NAME` and `p/PHONE` field, which only find exact matches.
+      * The exceptions are:
+         * `p/PHONE` field, which only find exact matches.
+         * `n/NAME` field, which can find matches when a complete part (first/middle/last) of a name is given. (e.g. For name "Charlotte Oliverio", both `n/Charlotte` and n/Oliverio` works, but `n/Char` or `n/Oliver` will not)
       
     * For example, `find p/91234567 e/alice bob r/Admin` will find anyone who satisfies all the following 3 criteria:
       1. has the phone number 91234567, 
@@ -197,13 +199,13 @@ Format: `find [KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NU
           
     * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.
       
-  * **Type 3 Query: Condition Based Filter**
+  * **Type 3 Query: Status Based Filter**
     * There are no fields attached to this query. Instead, specific keywords are available for use.
-      * These keywords must be used right after `find` and cannot be used after a field is specified (for example `n/`).
+      * These status keywords must be used right after `find` and cannot be used after a field is specified (for example `n/`).
       * Keywords available include:
         * `unpaid`
         * More to be added.
-    * For example, `find unpaid` will find all employees who are considered unpaid
+    * For example, `find unpaid` will find all employees who are considered unpaid.
   
   * **Type 4 Query: Date Based Comparison**
     * Fields: `d/DATE`
