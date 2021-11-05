@@ -364,15 +364,16 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private String getComparisonValue(String input, CompareType type) {
         String stringValue = "";
-        assert (input.length() > 2);
         switch (type) {
         case MORE_THAN_EQUAL:
         case LESS_THAN_EQUAL:
+            assert (input.length() > 2);
             stringValue = input.substring(2);
             break;
         case LESS_THAN:
         case MORE_THAN:
         case EQUAL:
+            assert (input.length() > 1);
             stringValue = input.substring(1);
             break;
         default:
