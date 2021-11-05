@@ -44,21 +44,19 @@ public class ImportCommand extends Command {
             + "Parameters: Absolute/Relative Path leading to desired CSV file.\n"
             + "Example: " + COMMAND_WORD + " /Users/Owner/Desktop/toBeImported.csv";
 
-    public static final String MESSAGE_IMPORT_SUCCESS = "File was successfully imported";
-    public static final String MESSAGE_IMPORT_FAILURE = "Error occurred while importing the file. ";
-    public static final String MESSAGE_IMPORT_MISSING_FILE = MESSAGE_IMPORT_FAILURE + "\n"
+    public static final String MESSAGE_IMPORT_SUCCESS = "File was successfully imported.";
+    public static final String MESSAGE_IMPORT_FAILURE = "Error occurred while importing the file.\n";
+    public static final String MESSAGE_IMPORT_MISSING_FILE = MESSAGE_IMPORT_FAILURE
             + "Please check the filepath and try again.";
     public static final String MESSAGE_IMPORT_FORMAT_ERROR = MESSAGE_IMPORT_FAILURE
             + "Please check the formatting of the data.\n"
             + "Check that all required columns are present, and there is at least one entry.\n"
             + "Ensure that there are no entries with all empty fields in the CSV file "
             + "and the number of header columns match the number of columns in all employee entries.";
-    public static final String MESSAGE_FIELD_MISSING_ERROR = MESSAGE_IMPORT_FAILURE + "\n"
+    public static final String MESSAGE_FIELD_MISSING_ERROR = MESSAGE_IMPORT_FAILURE
             + "Row %1$d: Missing '%1$s' field.";
     public static final String MESSAGE_FIELD_INVALID_ERROR = MESSAGE_IMPORT_FAILURE
-            + "Invalid Input in Row %1$d: \n %2$s";
-    public static final String MESSAGE_FIELD_DUPLICATE_ERROR = MESSAGE_IMPORT_FAILURE
-            + "Duplicate Input found in Row %1$d\n";
+            + "Invalid Input in Row %1$d: %2$s";
 
     public static final String INPUT_ANNOTATION_NAME_FIELD = "Name";
     public static final String INPUT_ANNOTATION_PHONE_FIELD = "Contact Number";
@@ -92,6 +90,7 @@ public class ImportCommand extends Command {
             new ViewCommand(firstEntryIndex).execute(model);
         } catch (ParseException e) {
             // Should not happen since "1" is a valid index, and imported file must have at least 1 entry.
+            assert(false);
             throw new CommandException(e.getMessage());
         }
 
@@ -192,10 +191,10 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Creates a List of Person objects to replace the existing addressbook
-     * @param newPersonInputList The list of PersonInput objects to create the corresponding Persons
-     * @return A list of person objects
-     * @throws CommandException If the given inputs are invalid, and a Person object cannot be created
+     * Creates a List of Person objects to replace the existing employee list.
+     * @param newPersonInputList The list of PersonInput objects to create the corresponding Persons.
+     * @return A list of person objects.
+     * @throws CommandException If the given inputs are invalid, and a Person object cannot be created.
      */
     public List<Person> createPersonsFromInput(List<PersonInput> newPersonInputList) throws CommandException {
         List<Person> newPersonList = new ArrayList<>();
@@ -221,18 +220,16 @@ public class ImportCommand extends Command {
                 rowNumber++;
             } catch (ParseException e) {
                 throw new CommandException(String.format(MESSAGE_FIELD_INVALID_ERROR, rowNumber, e.getMessage()));
-            } catch (DuplicatePersonException e) {
-                throw new CommandException(String.format(MESSAGE_FIELD_DUPLICATE_ERROR, rowNumber));
             }
         }
         return newPersonList;
     }
 
     /**
-     * Creates a LeaveBalance object with the corresponding input, or a default value of 0
-     * @param input PersonInput object created by the bean
-     * @return An LeaveBalance object for the Person constructor
-     * @throws ParseException If an error occurs while parsing the String input
+     * Creates a LeaveBalance object with the corresponding input, or a default value of 0.
+     * @param input PersonInput object created by the bean.
+     * @return An LeaveBalance object for the Person constructor.
+     * @throws ParseException If an error occurs while parsing the String input.
      */
     private LeaveBalance buildLeave(PersonInput input) throws ParseException {
         return input.getLeaves() == null
@@ -241,10 +238,10 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Creates a HourlySalary object with the corresponding input, or a default value of 0
-     * @param input PersonInput object created by the bean
-     * @return An HourlySalary object for the Person constructor
-     * @throws ParseException If an error occurs while parsing the String input
+     * Creates a HourlySalary object with the corresponding input, or a default value of 0.
+     * @param input PersonInput object created by the bean.
+     * @return An HourlySalary object for the Person constructor.
+     * @throws ParseException If an error occurs while parsing the String input.
      */
     private HourlySalary buildSalary(PersonInput input) throws ParseException {
         return input.getSalary() == null
@@ -253,7 +250,7 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Creates a HoursWorked object with the corresponding input, or a default value of 0
+     * Creates a HoursWorked object with the corresponding input, or a default value of 0.
      * @param input PersonInput object created by the bean.
      * @return An HoursWorked object for the Person constructor
      * @throws ParseException If an error occurs while parsing the String input.
@@ -265,7 +262,7 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Creates an Overtime object with the corresponding input, or a default value of 0
+     * Creates an Overtime object with the corresponding input, or a default value of 0.
      * @param input PersonInput object created by the bean.
      * @return An Overtime object for the Person constructor
      * @throws ParseException If an error occurs while parsing the String input.
@@ -277,9 +274,9 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Creates a Set object containing all the corresponding tags for the entry, or a default value of an empty set
+     * Creates a Set object containing all the corresponding tags for the entry, or a default value of an empty set.
      * @param input PersonInput object created by the bean.
-     * @return An Set object for the Person constructor
+     * @return An Set object for the Person constructor.
      * @throws ParseException If an error occurs while parsing the String input.
      */
     private Set<Tag> buildTags(PersonInput input) throws ParseException {
@@ -300,9 +297,9 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Gets the header naming convention of the specified field
-     * @param field The field of PersonInput object
-     * @return The naming convention to be used in the imported csv file
+     * Gets the header naming convention of the specified field.
+     * @param field The field of PersonInput object.
+     * @return The naming convention to be used in the imported csv file.
      */
     public String getColumnTitle(String field) {
         switch (field) {
