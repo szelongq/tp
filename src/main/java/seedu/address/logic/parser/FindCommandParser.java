@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FINDDATE_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -13,11 +14,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
+import javafx.util.Pair;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
@@ -62,6 +66,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
@@ -109,8 +114,9 @@ public class FindCommandParser implements Parser<FindCommand> {
             filters.add(new RoleContainsKeywordsPredicate(Arrays.asList(roleKeywords)));
         }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            String[] keyDates = argMultimap.getValue(PREFIX_DATE).get().split("\\s+");
-            filters.add(new LeavesTakenContainsDatesPredicate(Arrays.asList(keyDates)));
+            String[] dateStrings = argMultimap.getValue(PREFIX_DATE).get().split("\\s+");
+            Predicate<Person> leavesTakenPredicate = getLeavesTakenPredicate(dateStrings);
+            filters.add(leavesTakenPredicate);
         }
         if (argMultimap.getValue(PREFIX_HOURLYSALARY).isPresent()) {
             String keyValue = argMultimap.getValue(PREFIX_HOURLYSALARY).get();
@@ -147,13 +153,49 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
 
     /**
+     * Parses the input given by the user for finding with respect to leaves taken.
+     *
+     * @param dateStrings An array of strings describing the condition for the salary of the person.
+     *                    It should take the form of either an individual date (YYYY-MM-DD)
+     *                    or a range of dates. (YYYY-MM-DD:YYYY-MM-DDDD)
+     * @return A Predicate which checks if the person passes the given condition as described in the input.
+     * @throws ParseException if the dates or date ranges given are in an incorrect format
+     */
+    private Predicate<Person> getLeavesTakenPredicate(String[] dateStrings) throws ParseException {
+        List<LocalDate> keyDates = new ArrayList<>();
+        List<Pair<LocalDate, LocalDate>> keyDateRanges = new ArrayList<>();
+        try {
+            for (String dateString : dateStrings) {
+                // Parse date ranges
+                if (dateString.contains(":")) {
+                    String[] datePair = dateString.split(":");
+                    if (datePair.length != 2) {
+                        throw new ParseException(
+                                String.format(MESSAGE_INVALID_FINDDATE_FORMAT, FindCommand.MESSAGE_USAGE));
+                    }
+                    LocalDate startDate = LocalDate.parse(datePair[0]);
+                    LocalDate endDate = LocalDate.parse(datePair[1]);
+                    keyDateRanges.add(new Pair<>(startDate, endDate));
+                    // Parse individual dates
+                } else {
+                    keyDates.add(LocalDate.parse(dateString));
+                }
+            }
+        } catch (DateTimeParseException dtpe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_FINDDATE_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+        return new LeavesTakenContainsDatesPredicate(keyDates, keyDateRanges);
+    }
+
+    /**
      * Used for parsing the input given by the user for finding with respect to salary
+     *
      * @param input A string describing the condition for the salary of the person.
      *              It should take the form of (comparator)(number), where the comparator is any of:
      *              ">", "<", ">=", "<=", "="
      *              Valid examples: >=5, <3.25, =6.00
      *              Invalid examples: =>5, ==4.50, 6
-     *
      * @return A Predicate which checks if the person passes the given condition as described in the input.
      */
     private Predicate<Person> getSalaryComparisonPredicate(String input) throws ParseException {
@@ -265,6 +307,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
     }
+
     /**
      * Parses the initial user input and gets the type of comparison the user wants to make.
      * ">=" for more than or equal, ">" for strictly more than
@@ -307,6 +350,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * Attempts to get the value to compare to as a String.
      * The String is parsed based on the type of command it is parsing.
+     *
      * @param input The parsed user input from the argument multimap
      * @param type The comparison type
      * @return A String representing the value to compare to

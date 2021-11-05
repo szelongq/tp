@@ -26,7 +26,7 @@ public class Person {
 
     // Employee fields
     private final Role role;
-    private final Leave leave;
+    private final LeaveBalance leaveBalance;
     private final LeavesTaken leavesTaken;
     private final HourlySalary hourlySalary;
     private final HoursWorked hoursWorked;
@@ -37,15 +37,15 @@ public class Person {
      * Constructs a {@code Person} object.
      * All fields except for overtime and leavesTaken must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Role role, Leave leave,
+    public Person(Name name, Phone phone, Email email, Address address, Role role, LeaveBalance leaveBalance,
                   HourlySalary hourlySalary, HoursWorked hoursWorked, CalculatedPay pay, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, role, leave, hourlySalary, hoursWorked, tags);
+        requireAllNonNull(name, phone, email, address, role, leaveBalance, hourlySalary, hoursWorked, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.role = role;
-        this.leave = leave;
+        this.leaveBalance = leaveBalance;
         this.leavesTaken = new LeavesTaken();
         this.hourlySalary = hourlySalary;
         this.hoursWorked = hoursWorked;
@@ -58,16 +58,16 @@ public class Person {
      * Constructs a {@code Person} object with overtime.
      * All fields, including overtime and leavesTaken, must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Role role, Leave leaves,
+    public Person(Name name, Phone phone, Email email, Address address, Role role, LeaveBalance leaveBalance,
                   LeavesTaken leavesTaken, HourlySalary salary, HoursWorked hoursWorked, Overtime overtime,
                   CalculatedPay pay, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, role, leaves, salary, hoursWorked, tags);
+        requireAllNonNull(name, phone, email, address, role, leaveBalance, salary, hoursWorked, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.role = role;
-        this.leave = leaves;
+        this.leaveBalance = leaveBalance;
         this.leavesTaken = leavesTaken;
         this.hourlySalary = salary;
         this.hoursWorked = hoursWorked;
@@ -96,8 +96,8 @@ public class Person {
         return role;
     }
 
-    public Leave getLeaves() {
-        return leave;
+    public LeaveBalance getLeaveBalance() {
+        return leaveBalance;
     }
 
     public LeavesTaken getLeavesTaken() {
@@ -150,6 +150,30 @@ public class Person {
     }
 
     /**
+     * Returns true if both persons have the same phone.
+     * No two different employees should have the same phone number.
+     */
+    public boolean hasSamePhone(Person otherPerson) {
+        if (otherPerson == this) {
+            return true;
+        }
+        return otherPerson != null
+                && otherPerson.getPhone().equals(getPhone());
+    }
+
+    /**
+     * Returns true if both persons have the same email.
+     * No two different employees should have the same email.
+     */
+    public boolean hasSameEmail(Person otherPerson) {
+        if (otherPerson == this) {
+            return true;
+        }
+        return otherPerson != null
+                && otherPerson.getEmail().equals(getEmail());
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
@@ -169,7 +193,7 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getRole().equals(getRole())
-                && otherPerson.getLeaves().equals(getLeaves())
+                && otherPerson.getLeaveBalance().equals(getLeaveBalance())
                 && otherPerson.getLeavesTaken().equals(getLeavesTaken())
                 && otherPerson.getSalary().equals(getSalary())
                 && otherPerson.getOvertime().equals(getOvertime())
@@ -180,7 +204,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, role, leave, leavesTaken,
+        return Objects.hash(name, phone, email, address, role, leaveBalance, leavesTaken,
                 hourlySalary, hoursWorked, overtime, calculatedPay, tags);
     }
 
@@ -197,13 +221,11 @@ public class Person {
                 .append("; Role: ")
                 .append(getRole())
                 .append("; Leaves: ")
-                .append(getLeaves())
+                .append(getLeaveBalance())
                 .append("; Salary: ")
                 .append(getSalary())
                 .append("; Hours Worked: ")
-                .append(getHoursWorked())
-                .append("; Leaves Taken: ")
-                .append(getLeavesTaken());
+                .append(getHoursWorked());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {

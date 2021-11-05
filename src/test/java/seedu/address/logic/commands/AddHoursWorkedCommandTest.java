@@ -27,7 +27,7 @@ import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
@@ -48,7 +48,7 @@ public class AddHoursWorkedCommandTest {
         Email email = personToAddHoursTo.getEmail();
         Address address = personToAddHoursTo.getAddress();
         Role role = personToAddHoursTo.getRole();
-        Leave leaves = personToAddHoursTo.getLeaves();
+        LeaveBalance leaves = personToAddHoursTo.getLeaveBalance();
         LeavesTaken leavesTaken = personToAddHoursTo.getLeavesTaken();
         HourlySalary salary = personToAddHoursTo.getSalary();
         CalculatedPay calculatedPay = personToAddHoursTo.getCalculatedPay();
@@ -69,8 +69,12 @@ public class AddHoursWorkedCommandTest {
 
         Person personWithAddedHours = createPersonWithAddedHours(personToAddHoursTo, addedHoursWorked, addedOvertime);
 
-        String expectedMessage =
-                String.format(AddHoursWorkedCommand.MESSAGE_SUCCESS, personWithAddedHours);
+        String expectedMessage = String.format(AddHoursWorkedCommand.MESSAGE_SUCCESS,
+                        personWithAddedHours.getName().toString(),
+                        personWithAddedHours.getHoursWorked().toString(),
+                        personWithAddedHours.getHoursWorked().toString().equals("1") ? "" : "s",
+                        personWithAddedHours.getOvertime().toString(),
+                        personWithAddedHours.getOvertime().toString().equals("1") ? "" : "s");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personToAddHoursTo, personWithAddedHours);
@@ -97,8 +101,12 @@ public class AddHoursWorkedCommandTest {
 
         Person personWithAddedHours = createPersonWithAddedHours(personToAddHoursTo, addedHoursWorked, addedOvertime);
 
-        String expectedMessage =
-                String.format(AddHoursWorkedCommand.MESSAGE_SUCCESS, personWithAddedHours);
+        String expectedMessage = String.format(AddHoursWorkedCommand.MESSAGE_SUCCESS,
+                personWithAddedHours.getName().toString(),
+                personWithAddedHours.getHoursWorked().toString(),
+                personWithAddedHours.getHoursWorked().toString().equals("1") ? "" : "s",
+                personWithAddedHours.getOvertime().toString(),
+                personWithAddedHours.getOvertime().toString().equals("1") ? "" : "s");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
