@@ -100,7 +100,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_nameAndRolePredicates_BensonFound() {
+    public void execute_nameAndRolePredicates_bensonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         NameContainsKeywordsPredicate namePredicate = prepareNamePredicate("Meier");
         RoleContainsKeywordsPredicate rolePredicate = prepareRolePredicate("Developer");
@@ -156,7 +156,7 @@ public class FindCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
-    
+
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
