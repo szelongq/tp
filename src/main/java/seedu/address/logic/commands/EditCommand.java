@@ -65,7 +65,11 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Employee: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+
     public static final String MESSAGE_DUPLICATE_PERSON = "This employee already exists in HeRon.";
+    public static final String MESSAGE_DUPLICATE_PHONE = "The given phone number is already used by "
+            + "another employee in HeRon";
+    public static final String MESSAGE_DUPLICATE_EMAIL = "The given email is already used by another employee in HeRon";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -94,8 +98,28 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!personToEdit.isSamePerson(editedPerson)) {
+            if (model.hasPerson(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
+
+            if (model.hasDuplicatePhone(editedPerson) && !editedPerson.getPhone().equals(personToEdit.getPhone())) {
+                throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+            }
+
+            if (model.hasDuplicateEmail(editedPerson) && !editedPerson.getEmail().equals(personToEdit.getEmail())) {
+                throw new CommandException(MESSAGE_DUPLICATE_EMAIL);
+            }
+        }
+
+        if (personToEdit.isSamePerson(editedPerson)) {
+            if (model.hasDuplicatePhone(editedPerson) && !editedPerson.getPhone().equals(personToEdit.getPhone())) {
+                throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+            }
+
+            if (model.hasDuplicateEmail(editedPerson) && !editedPerson.getEmail().equals(personToEdit.getEmail())) {
+                throw new CommandException(MESSAGE_DUPLICATE_EMAIL);
+            }
         }
 
         model.setPerson(personToEdit, editedPerson);

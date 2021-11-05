@@ -7,9 +7,19 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.layout.BorderPane?>
 <StackPane fx:id="placeHolder" xmlns="http://javafx.com/javafx/8" styleClass="stack-pane"
            xmlns:fx="http://javafx.com/fxml/1" maxWidth="Infinity">
-    <ScrollPane styleClass="scroll-pane-info" maxHeight="Infinity" maxWidth="Infinity" >
+    <ScrollPane styleClass="scroll-pane-info" maxHeight="Infinity" maxWidth="Infinity" />
+
+    <BorderPane>
+        <center>
+            <Label fx:id="textOverlay" text="The Employee List is Empty!!" styleClass="label-base"
+                   BorderPane.alignment="CENTER" />
+        </center>
+    </BorderPane>
+
+    <ScrollPane fx:id="main" styleClass="scroll-pane-info" maxHeight="Infinity" maxWidth="Infinity" >
         <HBox styleClass="scroll-pane-info">
             <VBox minWidth="5" />
             <VBox>
