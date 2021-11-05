@@ -85,9 +85,9 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
-        if (!preamble.isBlank() && !preamble.equals(UNPAID_PREDICATE_KEYWORD) ) {  // preamble that is not 'unpaid'
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        if (!preamble.isBlank() && !preamble.equals(UNPAID_PREDICATE_KEYWORD)) { // preamble that is not 'unpaid'
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         ArrayList<Predicate<Person>> filters = new ArrayList<>();
