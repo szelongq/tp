@@ -366,17 +366,22 @@ public class FindCommandParser implements Parser<FindCommand> {
         String stringValue = "";
         switch (type) {
         case MORE_THAN_EQUAL:
+            // Fallthrough
         case LESS_THAN_EQUAL:
             assert (input.length() > 2);
             stringValue = input.substring(2);
             break;
         case LESS_THAN:
+            // Fallthrough
         case MORE_THAN:
+            // Fallthrough
         case EQUAL:
             assert (input.length() > 1);
             stringValue = input.substring(1);
             break;
         default:
+            // Should not reach here as all 5 CompareTypes are accounted for
+            assert(false);
             break;
         }
         return stringValue;
