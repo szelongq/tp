@@ -2,7 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.ImportCommand.*;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_FIELD_INVALID_ERROR;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_FIELD_MISSING_ERROR;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_IMPORT_FAILURE;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_IMPORT_FORMAT_ERROR;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_IMPORT_MISSING_FILE;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_IMPORT_SUCCESS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
