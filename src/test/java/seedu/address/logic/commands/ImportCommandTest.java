@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_IMPORT_FAILURE;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_IMPORT_FORMAT_ERROR;
 import static seedu.address.logic.commands.ImportCommand.MESSAGE_IMPORT_MISSING_FILE;
 import static seedu.address.logic.commands.ImportCommand.MESSAGE_IMPORT_SUCCESS;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -14,7 +16,6 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,12 +23,17 @@ import seedu.address.model.Model;
 import seedu.address.model.OvertimePayRate;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.ObservablePerson;
 import seedu.address.model.person.Person;
 
 public class ImportCommandTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvImportTest");
     private static final Path ALL_COLUMNS_PRESENT_FILE = TEST_DATA_FOLDER.resolve("AllColumnsPresent.csv");
     private static final Path MIXED_COLUMN_ORDERING_FILE = TEST_DATA_FOLDER.resolve("MixedColumnOrdering.csv");
+    private static final Path WRONG_HEADERS_FILE = TEST_DATA_FOLDER.resolve("WrongHeaders.csv");
+    private static final Path DUPLICATE_PERSONS_FILE = TEST_DATA_FOLDER.resolve("DuplicatePersons.csv");
+    private static final Path DUPLICATE_EMAILS_FILE = TEST_DATA_FOLDER.resolve("DuplicateEmails.csv");
+    private static final Path DUPLICATE_PHONE_NUMBERS_FILE = TEST_DATA_FOLDER.resolve("DuplicatePhoneNumbers.csv");
     private static final Path MISSING_LEAVES_SALARY_HOURSWORKED_TAGS_FILE =
             TEST_DATA_FOLDER.resolve("MissingLeavesSalaryHoursWorkedTags.csv");
     private Model modelWithDefaultAddressBook;
@@ -39,12 +45,14 @@ public class ImportCommandTest {
         model = new ModelStubWithDefaultAddressBook();
     }
 
+    // Invalid file path.
     @Test
     public void import_invalidFilePath_failure() {
         assertThrows(CommandException.class, MESSAGE_IMPORT_MISSING_FILE, () ->
             new ImportCommand("notAValidPath.csv").execute(model));
     }
 
+    // Files with all fields, following the order of declaration of fields in Person.
     @Test
     public void import_csvAllColumnsPresent_success() throws Exception {
         String filePathString = ALL_COLUMNS_PRESENT_FILE.toString();
@@ -63,6 +71,7 @@ public class ImportCommandTest {
         assertTrue(isDifferent);
     }
 
+    // File with all fields, in mixed order.
     @Test
     public void import_csvMixedColumnOrdering_success() throws Exception {
         String filePathString = MIXED_COLUMN_ORDERING_FILE.toString();
@@ -82,6 +91,7 @@ public class ImportCommandTest {
         assertTrue(isDifferent);
     }
 
+    // File missing non-compulsory fields.
     @Test
     public void import_csvMissingLeavesSalaryHoursWorkedTags_success() throws Exception {
         String filePathString = MISSING_LEAVES_SALARY_HOURSWORKED_TAGS_FILE.toString();
@@ -99,6 +109,42 @@ public class ImportCommandTest {
 
         assertEquals(MESSAGE_IMPORT_SUCCESS, result.getFeedbackToUser());
         assertTrue(isDifferent);
+    }
+
+    // File with wrong headers.
+    @Test
+    public void import_csvWithWrongHeaders_failure() throws Exception {
+        String filePathString = WRONG_HEADERS_FILE.toString();
+        String expectedMessage = MESSAGE_IMPORT_FORMAT_ERROR;
+        Command command = new ImportCommand(filePathString);
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(model));
+    }
+
+    // File with duplicate persons.
+    @Test
+    public void import_csvWithDuplicatePersons_failure() throws Exception {
+        String filePathString = DUPLICATE_PERSONS_FILE.toString();
+        String expectedMessage = MESSAGE_IMPORT_FAILURE + "Operation would result in duplicate persons";
+        Command command = new ImportCommand(filePathString);
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(model));
+    }
+
+    // File with duplicate emails.
+    @Test
+    public void import_csvWithDuplicateEmails_failure() throws Exception {
+        String filePathString = DUPLICATE_EMAILS_FILE.toString();
+        String expectedMessage = MESSAGE_IMPORT_FAILURE + "Duplicate emails detected in Rows 1 and 8.";
+        Command command = new ImportCommand(filePathString);
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(model));
+    }
+
+    // File with duplicate phone numbers.
+    @Test
+    public void import_csvWithDuplicatePhoneNumbers_failure() throws Exception {
+        String filePathString = DUPLICATE_PHONE_NUMBERS_FILE.toString();
+        String expectedMessage = MESSAGE_IMPORT_FAILURE + "Duplicate phone numbers detected in Rows 1 and 8.";
+        Command command = new ImportCommand(filePathString);
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(model));
     }
 
     /**
@@ -166,6 +212,16 @@ public class ImportCommandTest {
         }
 
         @Override
+        public boolean hasDuplicatePhone(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDuplicateEmail(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -186,12 +242,17 @@ public class ImportCommandTest {
         }
 
         @Override
-        public ObservableObjectValue<Person> getViewingPerson() {
+        public ObservablePerson getViewingPerson() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setViewingPerson(Person p) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isFilteredPersonListEmpty() {
             throw new AssertionError("This method should not be called.");
         }
 

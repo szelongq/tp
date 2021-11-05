@@ -244,8 +244,7 @@ _{Explain here how the data archiving feature will be implemented}_
 The `InfoPanel` class controls the information to be displayed on the Info Panel, with the method `updateInfoPanel(Person p)`
 which updates the content to be displayed with `Person`'s information.
 
-`ModelManager` contains viewingPerson which represents the person whose data is to be displayed onto the panel, which 
-the `Logic` interface has access to.
+`ModelManager` contains viewingPerson which represents the person whose data is to be displayed onto the panel, which the `Logic` interface has access to.
 
 `MainWindow` houses the InfoPanel, which calls the update method with the `viewingPerson` passed into it.
 The updated `viewingPerson` is passed to the update method by through calling the accessor method from the `Logic` component.

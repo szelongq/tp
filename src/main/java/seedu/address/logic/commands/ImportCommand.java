@@ -32,13 +32,16 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonInput;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
+import seedu.address.model.person.exceptions.DuplicateEmailException;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.DuplicatePhoneException;
 import seedu.address.model.tag.Tag;
 
 public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": imports a current existing CSV file into HeRon.\n"
-            + "Parameters: Absolute Path leading to desired CSV file.\n"
+            + "Parameters: Absolute/Relative Path leading to desired CSV file.\n"
             + "Example: " + COMMAND_WORD + " /Users/Owner/Desktop/toBeImported.csv";
 
     public static final String MESSAGE_IMPORT_SUCCESS = "File was successfully imported";
@@ -47,8 +50,15 @@ public class ImportCommand extends Command {
             + "Please check the filepath and try again.";
     public static final String MESSAGE_IMPORT_FORMAT_ERROR = MESSAGE_IMPORT_FAILURE
             + "Please check the formatting of the data.\n"
+            + "Check that all required columns are present, and there is at least one entry.\n"
             + "Ensure that there are no entries with all empty fields in the CSV file "
             + "and the number of header columns match the number of columns in all employee entries.";
+    public static final String MESSAGE_FIELD_MISSING_ERROR = MESSAGE_IMPORT_FAILURE + "\n"
+            + "Row %1$d: Missing '%1$s' field.";
+    public static final String MESSAGE_FIELD_INVALID_ERROR = MESSAGE_IMPORT_FAILURE
+            + "Invalid Input in Row %1$d: \n %2$s";
+    public static final String MESSAGE_FIELD_DUPLICATE_ERROR = MESSAGE_IMPORT_FAILURE
+            + "Duplicate Input found in Row %1$d\n";
 
     public static final String INPUT_ANNOTATION_NAME_FIELD = "Name";
     public static final String INPUT_ANNOTATION_PHONE_FIELD = "Contact Number";
@@ -81,9 +91,10 @@ public class ImportCommand extends Command {
             Index firstEntryIndex = ParserUtil.parseIndex("1");
             new ViewCommand(firstEntryIndex).execute(model);
         } catch (ParseException e) {
-            // Should not happen since "1" is a valid index, and import file must have at least 1 entry.
+            // Should not happen since "1" is a valid index, and imported file must have at least 1 entry.
             throw new CommandException(e.getMessage());
         }
+
         return result;
     }
 
@@ -101,6 +112,8 @@ public class ImportCommand extends Command {
             model.setAddressBook(newAddressBook);
         } catch (CommandException e) {
             throw new CommandException(e.getMessage());
+        } catch (DuplicatePersonException | DuplicateEmailException | DuplicatePhoneException e) {
+            throw new CommandException(MESSAGE_IMPORT_FAILURE + e.getMessage());
         }
         return new CommandResult(MESSAGE_IMPORT_SUCCESS);
     }
@@ -131,7 +144,7 @@ public class ImportCommand extends Command {
     @SuppressWarnings("unchecked")
     // List<PersonInput> is the only return type of the method, or else an exception would be thrown.
     public List<PersonInput> parseCsv(FileReader fileReader) throws CommandException {
-        int rowNumber = 1; // The row number of the entry as shown in Excel.
+        int rowNumber = 1; // The row number of the data entry as shown in Excel.
         List<PersonInput> newPersonInputList = new ArrayList<>();
 
         try {
@@ -144,16 +157,20 @@ public class ImportCommand extends Command {
             }
             return newPersonInputList;
         } catch (RuntimeException e) {
-            String errorDescriptor = e.getMessage().split(":")[1];
+            String[] errorDescriptorArr = e.getMessage().split(":");
             String errorMessage;
-            String[] descriptorArr = errorDescriptor.split("\\'");
+            if (errorDescriptorArr.length == 1) {
+                errorMessage = MESSAGE_IMPORT_FORMAT_ERROR;
+                throw new CommandException(errorMessage);
+            }
+
+            String[] descriptorArr = errorDescriptorArr[1].split("\\'");
             if (descriptorArr.length == 1) {
                 errorMessage = MESSAGE_IMPORT_FORMAT_ERROR;
             } else {
                 String annotationField = descriptorArr[1];
-                String field = getColumnTitle(annotationField);
-                errorMessage = MESSAGE_IMPORT_FAILURE + "\n"
-                        + String.format("Row %d: Missing '%s' field.", rowNumber, field);
+                String field = getColumnTitle(annotationField); // Field naming as per header naming convention.
+                errorMessage = String.format(MESSAGE_FIELD_MISSING_ERROR, rowNumber, field);
             }
             throw new CommandException(errorMessage);
         }
@@ -175,10 +192,10 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Creates a List of Person objects to replace the existing addressbook.
-     * @param newPersonInputList The list of PersonInput objects to create the corresponding Persons.
-     * @return A list of person objects.
-     * @throws CommandException If the given inputs are invalid, and a Person object cannot be created.
+     * Creates a List of Person objects to replace the existing addressbook
+     * @param newPersonInputList The list of PersonInput objects to create the corresponding Persons
+     * @return A list of person objects
+     * @throws CommandException If the given inputs are invalid, and a Person object cannot be created
      */
     public List<Person> createPersonsFromInput(List<PersonInput> newPersonInputList) throws CommandException {
         List<Person> newPersonList = new ArrayList<>();
@@ -192,7 +209,7 @@ public class ImportCommand extends Command {
                 Address address = ParserUtil.parseAddress(input.getAddress());
                 Role role = ParserUtil.parseRole(input.getRole());
 
-                // Optional Fields
+                // Optional Fields, default value of 0/empty set is used if input is not provided.
                 LeaveBalance leaves = buildLeave(input);
                 HourlySalary hourlySalary = buildSalary(input);
                 HoursWorked hoursWorked = buildHoursWorked(input);
@@ -203,19 +220,19 @@ public class ImportCommand extends Command {
                         hoursWorked, overtime, new CalculatedPay("0"), tagList));
                 rowNumber++;
             } catch (ParseException e) {
-                throw new CommandException(MESSAGE_IMPORT_FAILURE
-                        + String.format("Invalid Input in Row %d: ", rowNumber) + "\n"
-                        + e.getMessage());
+                throw new CommandException(String.format(MESSAGE_FIELD_INVALID_ERROR, rowNumber, e.getMessage()));
+            } catch (DuplicatePersonException e) {
+                throw new CommandException(String.format(MESSAGE_FIELD_DUPLICATE_ERROR, rowNumber));
             }
         }
         return newPersonList;
     }
 
     /**
-     * Creates a LeaveBalance object
-     * @param input PersonInput object created by the bean.
+     * Creates a LeaveBalance object with the corresponding input, or a default value of 0
+     * @param input PersonInput object created by the bean
      * @return An LeaveBalance object for the Person constructor
-     * @throws ParseException If an error occurs while parsing the String input.
+     * @throws ParseException If an error occurs while parsing the String input
      */
     private LeaveBalance buildLeave(PersonInput input) throws ParseException {
         return input.getLeaves() == null
@@ -224,10 +241,10 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Creates a HourlySalary object
-     * @param input PersonInput object created by the bean.
+     * Creates a HourlySalary object with the corresponding input, or a default value of 0
+     * @param input PersonInput object created by the bean
      * @return An HourlySalary object for the Person constructor
-     * @throws ParseException If an error occurs while parsing the String input.
+     * @throws ParseException If an error occurs while parsing the String input
      */
     private HourlySalary buildSalary(PersonInput input) throws ParseException {
         return input.getSalary() == null
@@ -236,7 +253,7 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Creates a HoursWorked object
+     * Creates a HoursWorked object with the corresponding input, or a default value of 0
      * @param input PersonInput object created by the bean.
      * @return An HoursWorked object for the Person constructor
      * @throws ParseException If an error occurs while parsing the String input.
@@ -245,11 +262,10 @@ public class ImportCommand extends Command {
         return input.getHoursWorked() == null
                 ? new HoursWorked("0")
                 : ParserUtil.parseHoursWorked(input.getHoursWorked());
-
     }
 
     /**
-     * Creates an Overtime object
+     * Creates an Overtime object with the corresponding input, or a default value of 0
      * @param input PersonInput object created by the bean.
      * @return An Overtime object for the Person constructor
      * @throws ParseException If an error occurs while parsing the String input.
@@ -261,7 +277,7 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Creates a Set object containing all the corresponding tags for the entry
+     * Creates a Set object containing all the corresponding tags for the entry, or a default value of an empty set
      * @param input PersonInput object created by the bean.
      * @return An Set object for the Person constructor
      * @throws ParseException If an error occurs while parsing the String input.
@@ -283,6 +299,11 @@ public class ImportCommand extends Command {
         return this.filepathString;
     }
 
+    /**
+     * Gets the header naming convention of the specified field
+     * @param field The field of PersonInput object
+     * @return The naming convention to be used in the imported csv file
+     */
     public String getColumnTitle(String field) {
         switch (field) {
         case "name":
@@ -296,7 +317,8 @@ public class ImportCommand extends Command {
         case "role":
             return INPUT_ANNOTATION_ROLE_FIELD;
         default:
-            return null; // Should not reach here.
+            assert(false);
+            return null; // Should not reach here since there are only 5 compulsory fields for import.
         }
     }
 
