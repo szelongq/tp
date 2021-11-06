@@ -331,6 +331,18 @@ in the list.
 
 Step 6. Lastly, the `StartPayrollCommand` returns a `CommandResult` to signal successful execution.
 
+#### Design considerations:
+
+**Aspect: How the feature of calculating payroll is implemented:**
+
+* **Alternative 1 (current choice):** One command for calculating payroll for all employees.
+    * Pros: Easy to implement. Easy to test (little variations in use cases).
+    * Cons: Less flexible for users.
+
+* **Alternative 2:** Command that calculates payroll for a single employee or all employees.
+    * Pros: Provides more flexibility for users.
+    * Cons: We need to check for which use case the user intends to use. Can be harder/more tedious to test
+    as more there are more variations in use cases.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
