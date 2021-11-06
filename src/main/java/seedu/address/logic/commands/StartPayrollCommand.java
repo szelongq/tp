@@ -57,7 +57,7 @@ public class StartPayrollCommand extends Command {
              * has a previous calculated pay that has not been paid yet.
              */
             if (!personToCalculatePay.isPaid()) {
-                throw new CommandException(String.format(MESSAGE_NOT_PAID, personToCalculatePay));
+                throw new CommandException(String.format(MESSAGE_NOT_PAID, personToCalculatePay.getName()));
             }
         }
 
