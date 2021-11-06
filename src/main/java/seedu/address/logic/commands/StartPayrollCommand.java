@@ -45,8 +45,10 @@ public class StartPayrollCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        // Create a deep copy of the filtered list
+        // Create a deep copy of the filtered list for viewing
         List<Person> personList = new ArrayList<>(model.getFilteredPersonList());
+        // Create a second list for storing changed persons
+        List<Person> calculatedPersonsList = new ArrayList<>();
 
         // First, check if there are any unpaid employees
         for (Person personToCalculatePay: personList) {
@@ -74,6 +76,18 @@ public class StartPayrollCommand extends Command {
             Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
             // and reset their hours worked and overtime to zero
             Person personWithPayrollDone = createPersonWithZeroHoursWorkedAndOvertime(personWithCalculatedPay);
+            // Store the changed person in a deep copy list first rather than
+            // immediately replacing into the model
+            calculatedPersonsList.add(personWithPayrollDone);
+        }
+
+        assert personList.size() == calculatedPersonsList.size();
+
+        // After all calculations have been successfully done,
+        // replace the persons with calculated payroll into the model
+        for (int i = 0; i < personList.size(); i++) {
+            Person personToCalculatePay = personList.get(i);
+            Person personWithPayrollDone = calculatedPersonsList.get(i);
             model.setPerson(personToCalculatePay, personWithPayrollDone);
         }
 
