@@ -28,9 +28,9 @@
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <VBox>
+        <FlowPane fx:id="tags" />
         <Label fx:id="role" styleClass="cell_role_label" text="\$role" />
         <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-        <FlowPane fx:id="tags" />
       </VBox>
       <VBox fx:id="calculatedSalary" minHeight="13" maxWidth="40" />
     </VBox>

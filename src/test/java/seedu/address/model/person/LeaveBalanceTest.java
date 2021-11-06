@@ -21,6 +21,9 @@ public class LeaveBalanceTest {
 
         // Negative integer
         assertThrows(IllegalArgumentException.class, LeaveBalance.MESSAGE_CONSTRAINTS, () -> new LeaveBalance("-1"));
+
+        // Negative Zero
+        assertThrows(IllegalArgumentException.class, LeaveBalance.MESSAGE_CONSTRAINTS, () -> new LeaveBalance("-0"));
     }
 
     @Test

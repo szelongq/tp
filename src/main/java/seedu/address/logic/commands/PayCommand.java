@@ -36,19 +36,20 @@ public class PayCommand extends Command {
     public static final String SPECIAL_COMMAND_PHRASE = "all";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Pays the person identified by the index number used OR all persons in the displayed person list.\n"
+            + ": Pays the employee identified by the index number used "
+            + "OR all employees in the displayed employee list.\n"
             + "Parameters: INDEX (must be a positive integer) OR \"all\"\n"
             + "Example 1: " + COMMAND_WORD + " 1\n"
             + "Example 2: " + COMMAND_WORD + " " + SPECIAL_COMMAND_PHRASE;
 
-    public static final String MESSAGE_PAY_PERSON_SUCCESS = "Successfully paid person: %1$s";
+    public static final String MESSAGE_PAY_PERSON_SUCCESS = "Successfully paid $%1$s to employee: %2$s";
 
     public static final String MESSAGE_PAY_ALL_SUCCESS = "Successfully paid all in the list.";
 
     public static final String MESSAGE_ALREADY_PAID = "The employee: %1$s,\n"
             + "is already paid.";
 
-    public static final String MESSAGE_SKIP_ALREADY_PAID = "These employees have already been paid:\n";
+    public static final String MESSAGE_SKIP_ALREADY_PAID = "These employees have already been paid:";
 
     public static final String MESSAGE_NO_ONE_TO_BE_PAID = "All employees in the list have already been paid.";
 
@@ -109,12 +110,15 @@ public class PayCommand extends Command {
         // View the person that has been paid
         model.setViewingPerson(paidPerson);
 
-        return new CommandResult(String.format(MESSAGE_PAY_PERSON_SUCCESS, paidPerson));
+        return new CommandResult(String.format(MESSAGE_PAY_PERSON_SUCCESS,
+                personToPay.getCalculatedPay().toString(),
+                paidPerson.getName().toString()));
     }
 
     private CommandResult executePayAll(Model model) throws CommandException {
         assert nonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        // Create a deep copy of the filtered list
+        List<Person> lastShownList = new ArrayList<>(model.getFilteredPersonList());
         List<Person> personsSkippedList = new ArrayList<>();
         Person firstPersonToBePaid = null;
 
@@ -135,6 +139,9 @@ public class PayCommand extends Command {
             if (!personToPay.isPaid()) {
                 Person paidPerson = createPaidPerson(personToPay);
                 model.setPerson(personToPay, paidPerson);
+                if (personToPay.isSamePerson(firstPersonToBePaid)) {
+                    firstPersonToBePaid = paidPerson;
+                }
             } else {
                 personsSkippedList.add(personToPay);
             }
@@ -152,7 +159,7 @@ public class PayCommand extends Command {
             StringBuilder messageBuilder = new StringBuilder(MESSAGE_PAY_ALL_SUCCESS).append("\n")
                     .append(MESSAGE_SKIP_ALREADY_PAID).append("\n");
             for (Person personSkipped: personsSkippedList) {
-                messageBuilder.append(String.format("Skipped employee: %s\n", personSkipped.toString()));
+                messageBuilder.append(String.format("Skipped employee: %s\n", personSkipped.getName().toString()));
             }
             commandSuccessMessage = messageBuilder.toString().trim();
         }
@@ -170,10 +177,8 @@ public class PayCommand extends Command {
         LeaveBalance leaveBalance = personToPay.getLeaveBalance();
         LeavesTaken leavesTaken = personToPay.getLeavesTaken();
         HourlySalary hourlySalary = personToPay.getSalary();
-
-        // reset hours worked and overtime back to zero after being paid
-        HoursWorked newHours = new HoursWorked("0");
-        Overtime newOvertime = new Overtime("0");
+        HoursWorked hoursWorked = personToPay.getHoursWorked();
+        Overtime overtime = personToPay.getOvertime();
 
         // set calcPay to 0 to represent as paid
         CalculatedPay newCalcPay = new CalculatedPay("0.0");
@@ -181,7 +186,7 @@ public class PayCommand extends Command {
         Set<Tag> tags = personToPay.getTags();
 
         return new Person(name, phone, email, address, role, leaveBalance, leavesTaken, hourlySalary,
-                newHours, newOvertime, newCalcPay, tags);
+                hoursWorked, overtime, newCalcPay, tags);
     }
 
     @Override

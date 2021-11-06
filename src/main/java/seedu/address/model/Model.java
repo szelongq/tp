@@ -3,9 +3,9 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.ObservablePerson;
 import seedu.address.model.person.Person;
 
 /**
@@ -69,6 +69,16 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a person has the same phone number as {@code person} exists in the address book.
+     */
+    boolean hasDuplicatePhone(Person person);
+
+    /**
+     * Returns true if a person has the same email as {@code person} exists in the address book.
+     */
+    boolean hasDuplicateEmail(Person person);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -96,8 +106,19 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    ObservableObjectValue<Person> getViewingPerson();
+    /**
+     * Returns the person that is to be viewed in the InfoPanel
+     */
+    ObservablePerson getViewingPerson();
 
+    /**
+     * Sets the person to be viewed in the InfoPanel
+     */
     void setViewingPerson(Person p);
+
+    /**
+     * Returns true if the employee list is empty, otherwise false.
+     */
+    boolean isFilteredPersonListEmpty();
 
 }

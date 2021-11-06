@@ -21,12 +21,12 @@ public class AssignLeaveCommand extends Command {
     public static final String COMMAND_WORD = "assignLeave";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Allocates a leave with a date to the employee identified "
-            + "by the index number used in the last person listing. \n"
+            + "by the index number used in the last employee listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_DATE + "DATE (of the format YYYY-MM-DD) \n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DATE + "2021-10-30";
     public static final String MESSAGE_SUCCESS =
-            "Leave successfully assigned to person: %1$s";
+            "Leave with date %1$s successfully assigned to employee: %2$s";
 
     private final Index index;
     private final LocalDate date;
@@ -78,7 +78,9 @@ public class AssignLeaveCommand extends Command {
         }
         model.setPerson(personToEdit, editedPerson);
         model.setViewingPerson(editedPerson);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                date.toString(),
+                editedPerson.getName().toString()));
     }
 
     @Override
