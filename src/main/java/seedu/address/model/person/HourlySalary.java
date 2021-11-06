@@ -31,18 +31,24 @@ public class HourlySalary {
     }
 
     /**
-     * Returns true if a given numerical string is non-negative, has
+     * Returns true if a given numerical string is unsigned, non-negative, has
      * two or less decimal places and is within the bounds for hourly salary values.
      */
     public static boolean isValidHourlySalary(String test) {
         requireNonNull(test);
-        boolean isValidDouble = StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces(test);
+        boolean isValidUnsignedDouble = StringUtil.isNonNegativeUnsignedDouble(test);
+        boolean hasTwoOrLessDecimalPlaces = false;
         boolean isWithinBounds = false;
-        if (isValidDouble) {
+
+        if (isValidUnsignedDouble) {
+            hasTwoOrLessDecimalPlaces =
+                    StringUtil.isDoubleWithDpWithinLimit(test, 2);
+
             double testValue = Double.parseDouble(test);
             isWithinBounds = isHourlySalaryWithinBounds(testValue);
         }
-        return isValidDouble && isWithinBounds;
+
+        return isValidUnsignedDouble && hasTwoOrLessDecimalPlaces && isWithinBounds;
     }
 
     /**

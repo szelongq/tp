@@ -50,6 +50,7 @@ public class StringUtilTest {
 
     //---------------- Tests for isNonNegativeDoubleWithTwoOrLessDecimal --------------------------------------
 
+    /*
     @Test
     public void isNonNegativeDoubleWithTwoOrLessDecimal() {
 
@@ -78,6 +79,18 @@ public class StringUtilTest {
         // EP: valid numbers, should return true
         assertTrue(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("0.01")); // Boundary value
         assertTrue(StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces("1"));
+    }
+    */
+
+    //---------------- Tests for checkDecimalPlacesWithinLimit --------------------------------------
+
+    @Test
+    public void checkDecimalPlacesWithinLimit() {
+
+        // EP: empty strings
+        assertFalse(StringUtil.isDoubleWithDpWithinLimit("1.000", 2));
+        assertTrue(StringUtil.isDoubleWithDpWithinLimit("1.000", 3));
+
     }
 
     //---------------- Tests for isNonNegativeInteger --------------------------------------
