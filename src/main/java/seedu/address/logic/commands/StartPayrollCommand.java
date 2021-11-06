@@ -77,7 +77,8 @@ public class StartPayrollCommand extends Command {
             model.setPerson(personToCalculatePay, personWithPayrollDone);
         }
 
-        model.setViewingPerson(personList.get(0));
+        // View the first person in the whole list of employees
+        model.setViewingPerson(model.getFilteredPersonList().get(0));
 
         return new CommandResult(String.format(MESSAGE_START_PAYROLL_SUCCESS));
     }
