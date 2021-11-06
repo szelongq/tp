@@ -6,36 +6,51 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Represents a Person's Salary in the employee book.
- * Guarantees: immutable; is valid as declared in {@link #isValidSalary(String)}
+ * Represents a Person's Hourly Salary in HeRon.
+ * Guarantees: immutable; is valid as declared in {@link #isValidHourlySalary(String)}
  */
 public class HourlySalary {
 
+    public static final double MIN_HOURLY_SALARY = 0;
+    public static final double MAX_HOURLY_SALARY = 1000;
     public static final String MESSAGE_CONSTRAINTS =
-            "Salary should only contain non-negative numbers with two or less decimal places,"
-                    + " and it should not be blank.";
+            "Hourly Salary should only contain non-negative numbers with two or less decimal places "
+                    + "with a value between 0 to 1000, and it should not be blank.";
 
     public final double value;
 
     /**
-     * Constructs a {@code Salary}.
+     * Constructs a {@code HourlySalary}.
      *
-     * @param amount A valid salary amount.
+     * @param amount A valid hourly salary amount.
      */
     public HourlySalary(String amount) {
         requireNonNull(amount);
-        checkArgument(isValidSalary(amount), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidHourlySalary(amount), MESSAGE_CONSTRAINTS);
         this.value = Double.parseDouble(amount);
     }
 
     /**
-     * Returns true if a given numerical string is non-negative and has
-     * two or less decimal places.
+     * Returns true if a given numerical string is non-negative, has
+     * two or less decimal places and has a value within the bounds for hourly salary values.
      */
-    public static boolean isValidSalary(String test) {
+    public static boolean isValidHourlySalary(String test) {
         requireNonNull(test);
+        boolean isValidDouble = StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces(test);
+        boolean isWithinBounds = false;
+        if (isValidDouble) {
+            double testValue = Double.parseDouble(test);
+            isWithinBounds = isHourlySalaryWithinBounds(testValue);
+        }
+        return isValidDouble && isWithinBounds;
+    }
 
-        return StringUtil.isNonNegativeDoubleWithTwoOrLessDecimalPlaces(test);
+    /**
+     * Returns true if a given double is within the bounds of
+     * MIN_HOURLY_SALARY and MAX_HOURLY_SALARY.
+     */
+    private static boolean isHourlySalaryWithinBounds(double testValue) {
+        return (testValue >= MIN_HOURLY_SALARY) && (testValue <= MAX_HOURLY_SALARY);
     }
 
     @Override
