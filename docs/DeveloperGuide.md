@@ -276,41 +276,60 @@ It extends `Command` with the following added methods to calculate the payroll f
 - `StartPayrollCommand#createPersonWithCalculatedPay(Person personWithCalculatedPay,
   CalculatedPay newCalculatedPay)` - Creates a new `Person` that is a copy of the given `Person` parameter
   except with the updated `CalculatedPay` value.
+- `StartPayrollCommand#createPersonWithZeroHoursWorkedAndOvertime(Person person)` - Creates a new `Person` that is a copy of the 
+  given `Person` parameter except with the `HoursWorked` and `Overtime` values set to 0.
 
-Given below is an example of how StartPayrollCommand works.
+Given below is an example of how `StartPayrollCommand` works.
 
-Step 1. The user enters the command word 'startPayroll'. The `addressBookParser` parses the input,
+The following sequence diagram describes the operations in executing a `StartPayrollCommand`.
+
+![StartPayrollSequenceDiagram](images/StartPayrollSequenceDiagram.png)
+
+**Step 1.** The user enters the command word 'startPayroll'. The `addressBookParser` parses the input,
 creates a `StartPayrollCommand` and executes it.
 
-Step 2. In the new instance of `StartPayrollCommand`, upon starting execution,
+**Step 2.** In the new instance of `StartPayrollCommand`, upon starting execution,
 the list of employees to be viewed in `Model` is set to be unfiltered using `Model#updateFilteredPersonList()`.
-The list of all employees is then retrieved by calling `Model#getFilteredPersonList()`.
+The list of all employees is then retrieved by calling `Model#getFilteredPersonList()`,
+storing a deep copy in `personList`.
 
-Step 3. Each employee in the list of employees are checked if they have any previously calculated payroll that have not
+**Step 3.** Each employee in the list of employees are checked if they have any previously calculated payroll that have not
 been paid yet by calling `Person#isPaid()` on the employee. If an employee is unpaid,
 a `CommandException` will be thrown.
 
-Step 4. If there are no employees who are unpaid, calculations of payroll will proceed through the following substeps
-for each employee in the list:
+**Step 4.** If there are no employees who are unpaid, calculations of payroll will proceed through the following substeps:
 
-Step 4.1. Retrieve the current `overtimePayRate` in the application from the `Model`
-using `Model#getOvertimePayRate()`.<br>
-After that, retrieve the following attributes from the employee `Person` object:
+**Step 4.1.** Retrieve the current `overtimePayRate` in the application from the `Model`
+using `Model#getOvertimePayRate()`.
+
+**Step 4.2.** Retrieve an employee from `personList`.
+Retrieve the following attributes from the employee `Person` object:
 - `hourlySalary` - The employee's salary per hour.
 - `hoursWorked` - How many hours the employee has worked for (excluding overtime).
 - `overtime` - How many hours of overtime the employee has worked for.
 
-Step 4.2. The `CalculatedPay` object representing the calculated employee's pay is created by calling
+The new `CalculatedPay` object representing the calculated employee's pay is created by calling
 the `StartPayrollCommand#calculatePay()` method, with the earlier retrieved values (`overtimePayRate`, `hourlySalary`,
 `hoursWorked`, `overtime`) as parameters.
 
-Step 4.3. An updated copy of the employee `Person` object is created with the new `CalculatePay` attribute using
-`StartPayrollCommand#createPersonWithCalculatedPay()`.
+**Step 4.3.** An updated copy of the employee `Person` object is created with the new `CalculatePay` attribute using
+`StartPayrollCommand#createPersonWithCalculatedPay()`, and their `HoursWorked` and `Overtime` attributes reset to zero
+using `StartPayrollCommand#createPersonWithZeroHoursWorkedAndOvertime()`. The updated copy of the employee is then
+inserted into `calculatedPersonsList`.
 
-Step 4.4. The employee `Person` object in the `Model` is then replaced with the updated copy using `Model#setPerson()`.
+Steps 4.2 and 4.3 are repeated for all employees in the `personList`.
 
-Step 5. After every employee in the list has had their payroll calculated, the `StartPayrollCommand` returns a
-`CommandResult` to signal successful execution.
+**Step 4.4.** For every employee in `personList`, its corresponding `Person` object in the `Model` is then replaced 
+with its updated copy in `calculatedPersonsList` using `Model#setPerson()`.
+
+The following sequence diagram describes how the payroll is calculated.
+
+![StartPayrollSequenceDiagram](images/PayrollCalculationSequenceDiagram.png)
+
+Step 5. After every employee in the list has had their payroll calculated, HeRon is set to view the first employee 
+in the list.
+
+Step 6. Lastly, the `StartPayrollCommand` returns a `CommandResult` to signal successful execution.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -657,6 +676,7 @@ Guarantees:
 3.  User requests to calculate the payroll for all employees
 4.  HeRon shows the list of all employees
 5.  HeRon calculates the payroll and updates all employees' calculated pay information.
+6.  HeRon sets the first employee on the list to be viewed in the InfoPanel.
 
     Use case ends.
 

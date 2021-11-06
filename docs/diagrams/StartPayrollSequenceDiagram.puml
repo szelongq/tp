@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "d:StartPayrollCommand" as StartPayrollCommand LOGIC_COLOR
+participant "personList:List<Person>" as personList LOGIC_COLOR
+participant "calculatedPersons:List<Person>" as calculatedPersonsList LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> StartPayrollCommand : execute()
+activate StartPayrollCommand
+
+StartPayrollCommand -> Model : show all employees in Heron
+activate Model
+
+deactivate Model
+
+StartPayrollCommand -> Model : get list of all employees
+activate Model
+
+Model --> StartPayrollCommand : list of all employees
+deactivate Model
+|||
+create personList
+StartPayrollCommand -> personList : create deep copy of the employee list
+activate personList
+personList --> StartPayrollCommand : personList
+deactivate personList
+
+create calculatedPersonsList
+StartPayrollCommand -> calculatedPersonsList : create list for storing changed persons
+activate calculatedPersonsList
+calculatedPersonsList --> StartPayrollCommand : calculatedPersonsList
+deactivate calculatedPersonsList
+
+loop until all Persons have been checked
+    StartPayrollCommand -> personList : check if unpaid
+    activate personList
+    deactivate personList
+end
+
+ref over StartPayrollCommand, personList, calculatedPersonsList, Model
+    calculate payroll
+end
+|||
+StartPayrollCommand -> Model : view first employee in the list
+activate Model
+deactivate Model
+
+create CommandResult
+StartPayrollCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> StartPayrollCommand : result
+deactivate CommandResult
+
+[<--StartPayrollCommand : result
+deactivate StartPayrollCommand
+@enduml
