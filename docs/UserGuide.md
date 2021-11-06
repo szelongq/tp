@@ -47,16 +47,16 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 --------------------------------------------------------------------------------------------------------------------
 ## Interface Layout
-![CommandPanel](images/CommandPanel.png) <br>
+![CommandPanel](images/user-guide/CommandPanel.png) <br>
 _Command Panel_ <br>
 - User commands can be entered in the top section labeled `Enter command here...`
 - Bottom section displays the result of the command. If command was unsuccessful, displays an error instead.
 
-![ListPanel](images/ListPanel.png) <br>
+![ListPanel](images/user-guide/ListPanel.png) <br>
 _List Panel_ <br>
 - Displays the employee list together with its relevant particulars.
 
-![DisplayPanel](images/DisplayPanel.png) <br>
+![DisplayPanel](images/user-guide/DisplayPanel.png) <br>
 _Display Panel_ <br>
 - Displays all of a specified employee's information.
 - On start-up of the application, it displays the first employee in the list.
@@ -96,7 +96,7 @@ _Display Panel_ <br>
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
+![help message](images/user-guide/helpMessage.png)
 
 Format: `help`
 
@@ -130,7 +130,7 @@ An employee can have any number of tags (including 0)
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0`
 * `add n/Betsy Crowe t/friend r/Designer s/25 hw/60  l/21  e/betsycrowe@example.com a/Newgate Prison p/1234567 o/0 t/criminal`
-![Result of successful add](images/addExample.png)
+![Result of successful add](images/user-guide/addExample.png)
 
 #### Listing all employees : `list`
 
@@ -239,7 +239,7 @@ Examples:
   5. has strictly more than 3 days of overtime
 
 * (To be updated) `find n/alex david l/<3` returns `Alex Yeoh`, `David Li` as long as they have less than 3 leaves left.<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+  ![result for 'find alex david'](images/user-guide/findAlexDavidResult.png)
 
 #### Deleting an employee : `delete`
 
@@ -387,15 +387,15 @@ Format: `startPayroll`
 
 Example:
 * Before `startPayroll` command, currently viewing a filtered list.
-  ![before starting payroll](images/startPayroll_before.png)
+  ![before starting payroll](images/user-guide/startPayroll_before.png)
 
 
 * After `startPayroll` command, payroll have been calculated and currently viewing the full list of employees.
-  ![after starting payroll](images/startPayroll_after.png)
+  ![after starting payroll](images/user-guide/startPayroll_after.png)
 
 Notes:
 * All employees must not have any pay pending from the previous payroll. Otherwise, an error will be shown:
-  ![error when there are employees still unpaid](images/startPayrollError_unpaidEmployee.png)
+  ![error when there are employees still unpaid](images/user-guide/startPayrollError_unpaidEmployee.png)
 * To start a new payroll, first make sure to pay all employees using the `pay` command.
 
 #### Paying employee(s) : `pay`
@@ -413,8 +413,8 @@ Format 1: `pay INDEX` - for paying a specific employee
 
 Example:
 * `pay 1` marks the 1st employee in the Employee list as paid clearing the pay owed, number of hours worked and overtime hours of the employee.
-  ![before paying the employee](images/pay_beforePaying.png)<br><br>
-  ![after paying the employee](images/pay_afterPaying.png)
+  ![before paying the employee](images/user-guide/pay_beforePaying.png)<br><br>
+  ![after paying the employee](images/user-guide/pay_afterPaying.png)
 
 Format 2: `pay all` - for paying all employees in the current list
 * Simulates paying of employees in the same way as above, but for all employees instead.
@@ -477,13 +477,13 @@ Field | Rename to ... (Case-Insensitive) | Compulsory for Import?
 
 Example:`import ./toBeImported` should have the following behaviours under the following situations.
 * Successful Import
-  ![Result for successful import](images/multipleTagImport.png)
+  ![Result for successful import](images/user-guide/multipleTagImport.png)
 * Multiple entries missing compulsory fields.
-  ![Picture of CSV file missing compulsory field](images/missingFieldCsv.png)
-  ![Result for missing field import](images/missingFieldImport.png)
+  ![Picture of CSV file missing compulsory field](images/user-guide/missingFieldCsv.png)
+  ![Result for missing field import](images/user-guide/missingFieldImport.png)
 * Multiple Tags present in entry.
-  ![Picture of CSV file with multiple tags](images/multipleTagsCsv.png)
-  ![Result for multiple tag import](images/multipleTagImport.png)
+  ![Picture of CSV file with multiple tags](images/user-guide/multipleTagsCsv.png)
+  ![Result for multiple tag import](images/user-guide/multipleTagImport.png)
 
 #### Saving the data
 
