@@ -32,7 +32,7 @@ public class HourlySalary {
 
     /**
      * Returns true if a given numerical string is non-negative, has
-     * two or less decimal places and has a value within the bounds for hourly salary values.
+     * two or less decimal places and is within the bounds for hourly salary values.
      */
     public static boolean isValidHourlySalary(String test) {
         requireNonNull(test);

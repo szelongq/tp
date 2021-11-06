@@ -11,8 +11,11 @@ import java.io.Serializable;
  */
 public class OvertimePayRate implements Serializable {
 
+    public static final double MIN_OVERTIME_PAY_RATE = 1;
+    public static final double MAX_OVERTIME_PAY_RATE = 10;
+    public static final double DEFAULT_OVERTIME_PAY_RATE = 1.5;
     public static final String MESSAGE_CONSTRAINTS =
-            "Overtime pay rate should only be a number greater than or equals to 1,"
+            "Overtime pay rate should only be a number between 1 to 10,"
                     + " and it should not be blank.";
 
     public final double value;
@@ -21,7 +24,7 @@ public class OvertimePayRate implements Serializable {
      * Constructs a {@code OvertimePayRate} with a default overtime pay rate of 1.5.
      */
     public OvertimePayRate() {
-        this.value = 1.5;
+        this.value = DEFAULT_OVERTIME_PAY_RATE;
     }
 
     /**
@@ -37,22 +40,31 @@ public class OvertimePayRate implements Serializable {
 
     /**
      * Returns true if a given string is a valid numerical string and
-     * is greater than or equals to 1.
+     * is within the bounds of overtime pay rate values.
      */
     public static boolean isValidOvertimePayRate(String test) {
         requireNonNull(test);
-        boolean isValidRate = true;
+        boolean isValidRate;
 
         try {
-            double value = Double.parseDouble(test);
-            if (value < 1 || test.startsWith("+")) {
-                isValidRate = false;
-            }
+            double testValue = Double.parseDouble(test);
+            boolean hasNoPositiveSign = !test.startsWith("+");
+            boolean isWithinBounds = isOvertimePayRateWithinBounds(testValue);
+
+            isValidRate = !hasNoPositiveSign && isWithinBounds;
         } catch (NumberFormatException nfe) {
             isValidRate = false;
         }
 
         return isValidRate;
+    }
+
+    /**
+     * Returns true if a given double is within the bounds of
+     * MIN_OVERTIME_PAY_RATE and MAX_OVERTIME_PAY_RATE.
+     */
+    private static boolean isOvertimePayRateWithinBounds(double testValue) {
+        return (testValue >= MIN_OVERTIME_PAY_RATE) && (testValue <= MAX_OVERTIME_PAY_RATE);
     }
 
     @Override
