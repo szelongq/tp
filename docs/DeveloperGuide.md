@@ -241,27 +241,51 @@ _{Explain here how the data archiving feature will be implemented}_
 ### Updating Info Panel display
 
 #### Current Implementation
-The `InfoPanel` class controls the information to be displayed on the Info Panel, with the method `updateInfoPanel(Person p)`
-which updates the content to be displayed with `Person`'s information.
+`InfoPanel` class controls the content being displayed on the Info Panel. The information to be displayed is dependent 
+on the ObservablePerson object `viewingPerson` in the ModelManager class. `viewingPerson` contains the person to be viewed, as well as
+a `uiObserverList` that contains `UiObserver` that wish to be notified when the person to be viewed has been changed.
 
-`ModelManager` contains viewingPerson which represents the person whose data is to be displayed onto the panel, which the `Logic` interface has access to.
+When the `viewingPerson` is changed, `InfoPanel`
+should get updated automatically to display the new information.
 
-`MainWindow` houses the InfoPanel, which calls the update method with the `viewingPerson` passed into it.
-The updated `viewingPerson` is passed to the update method by through calling the accessor method from the `Logic` component.
+This automatic updating of information to display on the Info Panel is achieved through the Observer pattern.
 
-Walk-through example:
+![InfoPanelClassDiagram](images/InfoPanelClassDiagram.png)
 
-1. User launches the application for the first time. `viewingPerson` will be initialized to be the first person in the addressBook list
-(otherwise it is set to an example person), with `InfoPanel` initialized with `viewingPerson` and displaying its information.
+The following operations are implemented for the classes:
+* `InfoPanel::updateInfoPanel(Person p)` - updates the content to be displayed on the Info panel with the new `Person`'s information.
+* `ObservablePerson::addUiObserver(UiObserver observer)` - subscribes the `UiObserver` to the `ObservablePerson` to get updates when `ObservablePerson` changes
+* `ObservablePerson::updateUi()` - updates the observers with the relevant `Person` information.
 
-2. User executes `view 2` command in order to view the 2nd person in the addressBook. `ViewCommand` then calls `Model#setViewingPerson()`
-which sets the `viewingPerson` to be the 2nd person
+On initialization:
+1. `ObservablePerson` is created, and `InfoPanel` is initialized with the ObservablePerson passed as argument to the constructor
+2. On creation of `InfoPanel`, it adds itself to the `uiObserverList` of the ObservablePerson to be subscribed for updates using `ObservablePerson::addUiObserver(UiObserver observer)`
 
-Upon execution of the command, `MainWindow` calls `InfoPanel#updateInfoPanel())` with the updated viewingPerson, and updates the display.
+When the `ObservablePerson` changes:
+1. `InfoPanel` in the `uiObserverList` is updated with `ObservablePerson::updateUi()`
+2. `InfoPanel` and other `UiObserver` in the list can then update their own Ui with the updated viewingPerson information passed to it.
+
+Below is an example of how `InfoPanel` updates with a view command:
+
+![ViewSequenceDiagram](images/ViewSequenceDiagram.png)
+
+1. User executes `view 2` to view the 2nd employee in the list, and after the command is parsed, `v:ViewCommand` is being created.
+
+2. On execution of `ViewCommand`, `getPersonToView(index)` is called to get the personToView, and then passed to call `setViewingPerson(personToView)` on `Model`.
+
+3. Model calls `setPerson(personToView)` on `ObservablePerson`, causing it to update the viewing person. In the process of updating,
+it informs the other `InfoPanel` in the `uiObserverList` to update, passing the new updated personToView to `InfoPanel`.
+
+4. With the new data passed to `InfoPanel`, it can then update the content to be displayed in however its `update()` method is implemented.
 
 Design Considerations:
-Pros: Easy to implement, ensures that InfoPanel always displays accurate up-to-date information
-Cons: Difficult to extend InfoPanel to display other information with current implementation
+Pros: `InfoPanel` can update by itself without `Model` having a dependency on the UI.
+Cons: Might be harder to figure out what is "observing" the observable just by looking at the source code since there is no direct dependency.
+
+Alternative:
+Constantly update Info Panel with every command executed.
+Pros: Easy to update, ensures that Ui is constantly updated.
+Cons: Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
 
 ### Start Payroll feature
 
