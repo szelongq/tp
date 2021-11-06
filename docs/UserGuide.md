@@ -111,7 +111,7 @@ Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/LEAVEBALANCE s/HO
 
     Field | Requirements | Examples
     --------------|---------------|---------
-    `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`
+    `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
     `PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
     `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters certain special characters (`+_.-`). *domain* start and end with alphanumeric characters, must be at least 2 characters long can contain hyphens.| `alice_pauline@example.com`, `benson+miller@gg.com`
     `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
@@ -450,30 +450,35 @@ Examples:
 Imports the data from a specified `.csv` file.
 
 Format: `import FILEPATH`
-* Imports relevant data from the specified filepath, which can be absolute or relative (to the `.jar` application).
-* Only one `FILEPATH` should be specified.
+* Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
+* Only one `FILEPATH` should be specified. 
+* Filepaths should be written following the current Operating System being used. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
+* Filepaths with spaces present in directory can be written as per usual (e.g. `./My Folder/toBeImported.csv`).
 * A header row is required to indicate the purpose of the various fields, and it must be the first row in the `.csv` file.
-* Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below.
-* Ensure that each field follows the specifications required, which can be found [here](#Adding an Employee).
-* Ensure that the number of columns in each entry matches the number of headers.
-* If multiple tags are present for an entry, they should be seperated by `/`.
 * No specific ordering of the columns is required.
-* If any compulsory fields are missing, the app only alerts the user of the first instance of a missing field.
+* Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below, and are present in the data if compulsory.
+* If multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
+* If there are duplicate `Person` entries, `Email` or `Contact Number`, the import will not be allowed.
+* Ensure that each field follows the specifications required, which can be found in the section "Adding an Employee: `add`".
+* Ensure that the number of fields in each entry matches the number of headers.
+* If multiple tags are present for an entry, they should be seperated by `/`.
+* For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value. 
+* If a value for a field is provided for at least one entry, then all other entries must also have their respective values for the field provided.
 
-#####Header Naming Conventions and Requirements
+#### Field Naming Requirements and Default Values
 
-Field | Rename to ... (Case-Insensitive) | Compulsory for Import?
---------------|---------------|------------------------
-`NAME`|Name|Yes|
-`PHONE_NUMBER` |Contact Number|Yes
-`ADDRESS` |Residential Address|Yes
-`EMAIL` |Email|Yes
-`ROLE` |Role|Yes
-`LEAVEBALANCE` |Leave Balance|No
-`HOURLYSALARY` |Salary|No
-`HOURSWORKED` |Hours Worked|No
-`OVERTIME` |Overtime|No
-`TAGS`|Tags|No
+Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Value
+--------------|---------------|------------------------ | --------
+`NAME`|Name|**Yes**| N.A.
+`PHONE_NUMBER` |Contact Number|**Yes**| N.A.
+`ADDRESS` |Residential Address|**Yes**| N.A.
+`EMAIL` |Email|**Yes**| N.A.
+`ROLE` |Role|**Yes**| N.A.
+`LEAVEBALANCE` |Leave Balance|No | 0
+`HOURLYSALARY` |Salary|No | 0.00
+`HOURSWORKED` |Hours Worked|No | 0
+`OVERTIME` |Overtime|No | 0
+`TAGS`|Tags|No| Empty Set of Tags
 
 Example:`import ./toBeImported` should have the following behaviours under the following situations.
 * Successful Import
@@ -533,4 +538,4 @@ Action | Format, Examples
 **Pay Employee(s)** | `pay INDEX` <br> e.g., `pay 3` <br> OR <br>`pay all`
 **View Overtime Pay Rate** | `viewOvertimePayRate`
 **Set a new Overtime Pay Rate** | `setOvertimePayRate OVERTIMEPAYRATE`<br> e.g., `setOvertimePayRate 2.0`
-**Import** | `import FILEPATH`
+**Import** | `import FILEPATH` e.g., `import ./myData.csv`
