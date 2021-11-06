@@ -17,21 +17,20 @@ Given below are my contributions to the project.
   * Implemented `import` functionality, involving external library Opencsv. Added new test cases accordingly. ([#71](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/71), [#82](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/82), [#97](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/97))
 
 * **Enhancements to existing features**:
-  * Update `add` feature to cater to new fields for HeRon, including Role, LeaveBalance, HourlySalary and HoursWorked, and added new test cases accordingly. ([#41](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/41), [#52](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/52), [#63](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/63))
-  * Update `add` feature to check for duplicate emails and phone numbers. [#186](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/186)
+  * Update `add` feature to cater to new fields for HeRon, including Role, LeaveBalance, HourlySalary and HoursWorked, and check for similar names, or duplicate phone numbers and emails. Added new test cases accordingly ([#41](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/41), [#52](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/52), [#63](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/63))
 
 * **Documentation**:
   * User Guide:
     * Updated documentation for the features `add`. ([#31](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/31))
     * Add documentation for feature `import`.([#91](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/91))
+    * Update all command example screenshots.([#197](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/197))
   * Developer Guide:
-    * Updated implementation details for `add` and `delete` features. 
     * Add implementation details, created UML Diagrams, explain design considerations for `import` feature.
 
 * **Community**:
   * Team-Based Tasks
-    * Add User Stories for application ([#29](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/29)).
+    * Add User Stories for HeRon ([#29](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/29)).
     * Update AboutUs.md ([#31](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/31))
   * Review/Mentoring Contributions
-    * Reviewed the following PRs: [#37](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/37), [#45](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/45), [#54](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/54), [#67](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/67), [#83](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/83), [#92](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/92), [#108](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/108), [#109](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/109)
+    * Reviewed the following PRs: [#37](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/37), [#45](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/45), [#54](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/54), [#67](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/67), [#83](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/83), [#92](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/92), [#108](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/108), [#109](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/109), [#192](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/192), [#194](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/194)
 
