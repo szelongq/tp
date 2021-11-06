@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -44,7 +45,8 @@ public class StartPayrollCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        List<Person> personList = model.getFilteredPersonList();
+        // Create a deep copy of the filtered list
+        List<Person> personList = new ArrayList<>(model.getFilteredPersonList());
 
         // First, check if there are any unpaid employees
         for (Person personToCalculatePay: personList) {
