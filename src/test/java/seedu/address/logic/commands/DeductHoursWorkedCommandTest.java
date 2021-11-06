@@ -40,8 +40,8 @@ public class DeductHoursWorkedCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final HoursWorked removedHoursWorked = new HoursWorked("10");
     private final Overtime removedOvertime = new Overtime("5");
-    private final HoursWorked invalidRemovedHoursWorked = new HoursWorked("1000");
-    private final Overtime invalidRemovedOvertime = new Overtime("1000");
+    private final HoursWorked invalidRemovedHoursWorked = new HoursWorked("100");
+    private final Overtime invalidRemovedOvertime = new Overtime("100");
 
     private Person createPersonWithHoursRemoved(Person personToRemoveHoursFrom, HoursWorked hoursWorked,
                                                 Overtime overtime) {
@@ -72,8 +72,12 @@ public class DeductHoursWorkedCommandTest {
         Person personWithRemovedHours =
                 createPersonWithHoursRemoved(personToRemoveHoursFrom, removedHoursWorked, removedOvertime);
 
-        String expectedMessage =
-                String.format(DeductHoursWorkedCommand.MESSAGE_SUCCESS, personWithRemovedHours);
+        String expectedMessage = String.format(DeductHoursWorkedCommand.MESSAGE_SUCCESS,
+                        personWithRemovedHours.getName().toString(),
+                        personWithRemovedHours.getHoursWorked().toString(),
+                        personWithRemovedHours.getHoursWorked().toString().equals("1") ? "" : "s",
+                        personWithRemovedHours.getOvertime().toString(),
+                        personWithRemovedHours.getOvertime().toString().equals("1") ? "" : "s");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personToRemoveHoursFrom, personWithRemovedHours);
@@ -101,8 +105,12 @@ public class DeductHoursWorkedCommandTest {
         Person personWithRemovedHours =
                 createPersonWithHoursRemoved(personToRemoveHoursFrom, removedHoursWorked, removedOvertime);
 
-        String expectedMessage =
-                String.format(DeductHoursWorkedCommand.MESSAGE_SUCCESS, personWithRemovedHours);
+        String expectedMessage = String.format(DeductHoursWorkedCommand.MESSAGE_SUCCESS,
+                personWithRemovedHours.getName().toString(),
+                personWithRemovedHours.getHoursWorked().toString(),
+                personWithRemovedHours.getHoursWorked().toString().equals("1") ? "" : "s",
+                personWithRemovedHours.getOvertime().toString(),
+                personWithRemovedHours.getOvertime().toString().equals("1") ? "" : "s");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
@@ -129,18 +137,30 @@ public class DeductHoursWorkedCommandTest {
     public void execute_notEnoughHoursWorked_throwsCommandException() {
         DeductHoursWorkedCommand deductHoursWorkedCommand =
                 new DeductHoursWorkedCommand(INDEX_FIRST_PERSON, invalidRemovedHoursWorked, removedOvertime);
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         assertCommandFailure(deductHoursWorkedCommand, model,
-                String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT, invalidRemovedHoursWorked, "hours worked"));
+                String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT,
+                        invalidRemovedHoursWorked.toString(),
+                        invalidRemovedHoursWorked.toString().equals("1") ? "hour worked" : "hours worked",
+                        firstPerson.getHoursWorked().toString(),
+                        firstPerson.getHoursWorked().toString().equals("1") ? "hour worked" : "hours worked"));
     }
 
     @Test
     public void execute_notEnoughOvertime_throwsCommandException() {
         DeductHoursWorkedCommand deductHoursWorkedCommand =
                 new DeductHoursWorkedCommand(INDEX_FIRST_PERSON, removedHoursWorked, invalidRemovedOvertime);
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         assertCommandFailure(deductHoursWorkedCommand, model,
-                String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT, invalidRemovedOvertime, "overtime hours"));
+                String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT,
+                        invalidRemovedOvertime.toString(),
+                        invalidRemovedOvertime.toString().equals("1")
+                                ? "overtime hour worked" : "overtime hours worked",
+                        firstPerson.getOvertime().toString(),
+                        firstPerson.getOvertime().toString().equals("1")
+                                ? "overtime hour worked" : "overtime hours worked"));
     }
 
     @Test

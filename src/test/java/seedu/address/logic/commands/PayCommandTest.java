@@ -36,18 +36,25 @@ public class PayCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    private Person createPersonWithCalculatedPay(Person personWithCalculatedPay, CalculatedPay newCalculatedPay) {
-        Name name = personWithCalculatedPay.getName();
-        Phone phone = personWithCalculatedPay.getPhone();
-        Email email = personWithCalculatedPay.getEmail();
-        Address address = personWithCalculatedPay.getAddress();
-        Role role = personWithCalculatedPay.getRole();
-        LeaveBalance leaves = personWithCalculatedPay.getLeaveBalance();
-        HourlySalary salary = personWithCalculatedPay.getSalary();
-        HoursWorked hours = personWithCalculatedPay.getHoursWorked();
-        Set<Tag> tags = personWithCalculatedPay.getTags();
+    private Person createPersonWithCalculatedPay(Person person, CalculatedPay newCalculatedPay) {
+        assert person != null;
+        assert newCalculatedPay != null;
 
-        return new Person(name, phone, email, address, role, leaves, salary, hours, newCalculatedPay, tags);
+        Name name = person.getName();
+        Phone phone = person.getPhone();
+        Email email = person.getEmail();
+        Address address = person.getAddress();
+        Role role = person.getRole();
+        LeaveBalance leaves = person.getLeaveBalance();
+        LeavesTaken leavesTaken = person.getLeavesTaken();
+        HourlySalary hourlySalary = person.getSalary();
+        HoursWorked hoursWorked = person.getHoursWorked();
+        Overtime overtime = person.getOvertime();
+        // New calculatedPay taken from input parameter
+        Set<Tag> tags = person.getTags();
+
+        return new Person(name, phone, email, address, role, leaves, leavesTaken, hourlySalary,
+                hoursWorked, overtime, newCalculatedPay, tags);
     }
 
     private static Person createPaidPerson(Person personToPay) {
@@ -61,10 +68,8 @@ public class PayCommandTest {
         LeaveBalance leaveBalance = personToPay.getLeaveBalance();
         LeavesTaken leavesTaken = personToPay.getLeavesTaken();
         HourlySalary hourlySalary = personToPay.getSalary();
-
-        // reset hours worked and overtime back to zero after being paid
-        HoursWorked newHours = new HoursWorked("0");
-        Overtime newOvertime = new Overtime("0");
+        HoursWorked hoursWorked = personToPay.getHoursWorked();
+        Overtime overtime = personToPay.getOvertime();
 
         // set calcPay to 0 to represent as paid
         CalculatedPay newCalcPay = new CalculatedPay("0.0");
@@ -72,7 +77,7 @@ public class PayCommandTest {
         Set<Tag> tags = personToPay.getTags();
 
         return new Person(name, phone, email, address, role, leaveBalance, leavesTaken, hourlySalary,
-                newHours, newOvertime, newCalcPay, tags);
+                hoursWorked, overtime, newCalcPay, tags);
     }
 
     @Test
@@ -86,7 +91,9 @@ public class PayCommandTest {
 
         Person paidPerson = createPaidPerson(personToPay);
 
-        String expectedMessage = String.format(PayCommand.MESSAGE_PAY_PERSON_SUCCESS, paidPerson);
+        String expectedMessage = String.format(PayCommand.MESSAGE_PAY_PERSON_SUCCESS,
+                personToPay.getCalculatedPay().toString(),
+                paidPerson.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personToPay, paidPerson);

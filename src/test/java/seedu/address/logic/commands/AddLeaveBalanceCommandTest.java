@@ -64,8 +64,10 @@ public class AddLeaveBalanceCommandTest {
 
         Person personWithAddedLeaves = createPersonWithAddedLeaves(personToAddLeavesTo, addedLeaves);
 
-        String expectedMessage =
-                String.format(AddLeaveBalanceCommand.MESSAGE_SUCCESS, personWithAddedLeaves);
+        String expectedMessage = String.format(AddLeaveBalanceCommand.MESSAGE_SUCCESS,
+                personWithAddedLeaves.getName().toString(),
+                personWithAddedLeaves.getLeaveBalance().toString(),
+                personWithAddedLeaves.getLeaveBalance().toString().equals("1") ? "" : "s");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personToAddLeavesTo, personWithAddedLeaves);
@@ -90,8 +92,10 @@ public class AddLeaveBalanceCommandTest {
 
         Person personWithAddedLeaves = createPersonWithAddedLeaves(personToAddLeavesTo, addedLeaves);
 
-        String expectedMessage =
-                String.format(AddLeaveBalanceCommand.MESSAGE_SUCCESS, personWithAddedLeaves);
+        String expectedMessage = String.format(AddLeaveBalanceCommand.MESSAGE_SUCCESS,
+                personWithAddedLeaves.getName().toString(),
+                personWithAddedLeaves.getLeaveBalance().toString(),
+                personWithAddedLeaves.getLeaveBalance().toString().equals("1") ? "" : "s");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);

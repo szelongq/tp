@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INTEGER_INPUT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_HOURS_WORKED_INPUT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_OVERTIME_INPUT;
+import static seedu.address.commons.util.StringUtil.isNonNegativeInteger;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
 
@@ -46,25 +48,70 @@ public class DeductHoursWorkedCommandParser implements Parser<DeductHoursWorkedC
                     DeductHoursWorkedCommand.MESSAGE_USAGE));
         }
 
-        String hoursWorkedString = argMultimap.getValue(PREFIX_HOURSWORKED).orElse("0");
-        String overtimeString = argMultimap.getValue(PREFIX_OVERTIME).orElse("0");
-
-        int hoursWorked;
-        int overtime;
-        try {
-            hoursWorked = Integer.parseInt(hoursWorkedString);
-            overtime = Integer.parseInt(overtimeString);
-        } catch (NumberFormatException nfe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
-                    DeductHoursWorkedCommand.MESSAGE_USAGE), nfe);
+        // If either prefix contains a 0, reject the input
+        if (argMultimap.getValue(PREFIX_HOURSWORKED).isPresent()
+                && argMultimap.getValue(PREFIX_HOURSWORKED).get().equals("0")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_HOURS_WORKED_INPUT,
+                    DeductHoursWorkedCommand.MESSAGE_USAGE));
         }
-        // At least one of the inputs must be a positive integer
-        if (hoursWorked <= 0 && overtime <= 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
+        if (argMultimap.getValue(PREFIX_OVERTIME).isPresent()
+                && argMultimap.getValue(PREFIX_OVERTIME).get().equals("0")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_OVERTIME_INPUT,
                     DeductHoursWorkedCommand.MESSAGE_USAGE));
         }
 
-        return new DeductHoursWorkedCommand(index, new HoursWorked(hoursWorkedString),
-                new Overtime(overtimeString));
+        String hoursWorkedString = argMultimap.getValue(PREFIX_HOURSWORKED).orElse("0");
+        String overtimeString = argMultimap.getValue(PREFIX_OVERTIME).orElse("0");
+
+        return new DeductHoursWorkedCommand(index, parseHoursWorkedString(hoursWorkedString),
+                parseOvertimeString(overtimeString));
+    }
+
+    /**
+     * Parses the given {@code String} that represents the number of hours worked into a
+     * HoursWorked object that contains that number of hours worked.
+     *
+     * @param hoursWorkedString A string representing the number of hours worked.
+     * @return A new HoursWorked object.
+     * @throws ParseException if an invalid integer input for the hours worked is given.
+     */
+    private HoursWorked parseHoursWorkedString(String hoursWorkedString) throws ParseException {
+        if (!isNonNegativeInteger(hoursWorkedString)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_HOURS_WORKED_INPUT,
+                    DeductHoursWorkedCommand.MESSAGE_USAGE));
+        }
+
+        HoursWorked hoursWorked;
+        try {
+            hoursWorked = new HoursWorked(hoursWorkedString);
+        } catch (IllegalArgumentException iae) {
+            throw new ParseException(String.format(MESSAGE_INVALID_HOURS_WORKED_INPUT,
+                    DeductHoursWorkedCommand.MESSAGE_USAGE));
+        }
+        return hoursWorked;
+    }
+
+    /**
+     * Parses the given {@code String} that represents the number of overtime hours worked into a
+     * Overtime object that contains that number of overtime hours worked.
+     *
+     * @param overtimeString A string representing the number of overtime hours worked.
+     * @return A new Overtime object.
+     * @throws ParseException if an invalid integer input for the overtime hours worked is given.
+     */
+    private Overtime parseOvertimeString(String overtimeString) throws ParseException {
+        if (!isNonNegativeInteger(overtimeString)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_OVERTIME_INPUT,
+                    DeductHoursWorkedCommand.MESSAGE_USAGE));
+        }
+
+        Overtime overtime;
+        try {
+            overtime = new Overtime(overtimeString);
+        } catch (IllegalArgumentException iae) {
+            throw new ParseException(String.format(MESSAGE_INVALID_OVERTIME_INPUT,
+                    DeductHoursWorkedCommand.MESSAGE_USAGE));
+        }
+        return overtime;
     }
 }

@@ -26,7 +26,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             filepath = new StringBuffer(input[1]);
             for (int i = 2; i < inputLength; i++) {
                 // StringBuffer.append has lower runtime than String.concat
-                filepath = filepath.append(" ".concat(input[i]));
+                filepath = filepath.append(" ").append(input[i]);
             }
         }
         return new ImportCommand(filepath.toString());

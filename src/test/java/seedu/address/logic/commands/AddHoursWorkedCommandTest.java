@@ -69,8 +69,12 @@ public class AddHoursWorkedCommandTest {
 
         Person personWithAddedHours = createPersonWithAddedHours(personToAddHoursTo, addedHoursWorked, addedOvertime);
 
-        String expectedMessage =
-                String.format(AddHoursWorkedCommand.MESSAGE_SUCCESS, personWithAddedHours);
+        String expectedMessage = String.format(AddHoursWorkedCommand.MESSAGE_SUCCESS,
+                        personWithAddedHours.getName().toString(),
+                        personWithAddedHours.getHoursWorked().toString(),
+                        personWithAddedHours.getHoursWorked().toString().equals("1") ? "" : "s",
+                        personWithAddedHours.getOvertime().toString(),
+                        personWithAddedHours.getOvertime().toString().equals("1") ? "" : "s");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personToAddHoursTo, personWithAddedHours);
@@ -97,8 +101,12 @@ public class AddHoursWorkedCommandTest {
 
         Person personWithAddedHours = createPersonWithAddedHours(personToAddHoursTo, addedHoursWorked, addedOvertime);
 
-        String expectedMessage =
-                String.format(AddHoursWorkedCommand.MESSAGE_SUCCESS, personWithAddedHours);
+        String expectedMessage = String.format(AddHoursWorkedCommand.MESSAGE_SUCCESS,
+                personWithAddedHours.getName().toString(),
+                personWithAddedHours.getHoursWorked().toString(),
+                personWithAddedHours.getHoursWorked().toString().equals("1") ? "" : "s",
+                personWithAddedHours.getOvertime().toString(),
+                personWithAddedHours.getOvertime().toString().equals("1") ? "" : "s");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);

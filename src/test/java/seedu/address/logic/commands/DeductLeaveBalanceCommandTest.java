@@ -37,7 +37,7 @@ import seedu.address.model.tag.Tag;
 public class DeductLeaveBalanceCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final LeaveBalance removedLeaves = new LeaveBalance("3");
-    private final LeaveBalance invalidRemovedLeaves = new LeaveBalance("1000");
+    private final LeaveBalance invalidRemovedLeaves = new LeaveBalance("100");
 
     private Person createPersonWithRemovedLeaves(Person personToRemoveLeavesFrom, LeaveBalance removedLeaves) {
         Name name = personToRemoveLeavesFrom.getName();
@@ -66,8 +66,10 @@ public class DeductLeaveBalanceCommandTest {
 
         Person personWithRemovedLeaves = createPersonWithRemovedLeaves(personToRemoveLeavesFrom, removedLeaves);
 
-        String expectedMessage =
-                String.format(DeductLeaveBalanceCommand.MESSAGE_SUCCESS, personWithRemovedLeaves);
+        String expectedMessage = String.format(DeductLeaveBalanceCommand.MESSAGE_SUCCESS,
+                personWithRemovedLeaves.getName().toString(),
+                personWithRemovedLeaves.getLeaveBalance().toString(),
+                personWithRemovedLeaves.getLeaveBalance().toString().equals("1") ? "" : "s");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personToRemoveLeavesFrom, personWithRemovedLeaves);
@@ -94,8 +96,10 @@ public class DeductLeaveBalanceCommandTest {
 
         Person personWithRemovedLeaves = createPersonWithRemovedLeaves(personToRemoveLeavesFrom, removedLeaves);
 
-        String expectedMessage =
-                String.format(DeductLeaveBalanceCommand.MESSAGE_SUCCESS, personWithRemovedLeaves);
+        String expectedMessage = String.format(DeductLeaveBalanceCommand.MESSAGE_SUCCESS,
+                personWithRemovedLeaves.getName().toString(),
+                personWithRemovedLeaves.getLeaveBalance().toString(),
+                personWithRemovedLeaves.getLeaveBalance().toString().equals("1") ? "" : "s");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
@@ -122,9 +126,14 @@ public class DeductLeaveBalanceCommandTest {
     public void execute_notEnoughLeaves_throwsCommandException() {
         DeductLeaveBalanceCommand deductLeaveBalanceCommand =
                 new DeductLeaveBalanceCommand(INDEX_FIRST_PERSON, invalidRemovedLeaves);
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         assertCommandFailure(deductLeaveBalanceCommand, model,
-                String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT, invalidRemovedLeaves, "leaves"));
+                String.format(Messages.MESSAGE_INVALID_REMOVE_INPUT,
+                        invalidRemovedLeaves.toString(),
+                        invalidRemovedLeaves.toString().equals("1") ? "leave" : "leaves",
+                        firstPerson.getLeaveBalance().toString(),
+                        firstPerson.getLeaveBalance().toString().equals("1") ? "leave" : "leaves"));
     }
 
     @Test

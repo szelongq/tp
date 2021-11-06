@@ -2,7 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INTEGER_INPUT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_LEAVES_INPUT;
+import static seedu.address.commons.util.StringUtil.isNonZeroUnsignedInteger;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 
 import seedu.address.commons.core.index.Index;
@@ -44,20 +45,31 @@ public class AddLeaveBalanceCommandParser implements Parser<AddLeaveBalanceComma
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddLeaveBalanceCommand.MESSAGE_USAGE));
         }
-        int numberOfLeaves;
-        try {
-            numberOfLeaves = Integer.parseInt(numberOfLeavesString);
-        } catch (NumberFormatException nfe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
-                    AddLeaveBalanceCommand.MESSAGE_USAGE), nfe);
-        }
-        // If a non-positive integer is given
-        if (numberOfLeaves <= 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_INTEGER_INPUT,
+        return new AddLeaveBalanceCommand(index, parseLeaveString(numberOfLeavesString));
+    }
+
+    /**
+     * Parses the given {@code String} that represents a number of leaves into a
+     * LeaveBalance object that contains that number of leaves.
+     *
+     * @param numberOfLeavesString A string representing the number of leaves.
+     * @return A new LeaveBalance object.
+     * @throws ParseException if an invalid integer input for the number of leaves is given.
+     */
+    private LeaveBalance parseLeaveString(String numberOfLeavesString) throws ParseException {
+        // If a non-positive integer is given, reject the input
+        if (!isNonZeroUnsignedInteger(numberOfLeavesString)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_LEAVES_INPUT,
                     AddLeaveBalanceCommand.MESSAGE_USAGE));
         }
 
-        return new AddLeaveBalanceCommand(index, new LeaveBalance(numberOfLeavesString));
+        LeaveBalance leaveBalance;
+        try {
+            leaveBalance = new LeaveBalance(numberOfLeavesString);
+        } catch (IllegalArgumentException iae) {
+            throw new ParseException(String.format(MESSAGE_INVALID_LEAVES_INPUT,
+                    AddLeaveBalanceCommand.MESSAGE_USAGE), iae);
+        }
+        return leaveBalance;
     }
-
 }

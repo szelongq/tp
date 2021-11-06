@@ -54,7 +54,7 @@ _Command Panel_ <br>
 
 ![ListPanel](images/ListPanel.png) <br>
 _List Panel_ <br>
-- Displays the employee list together with its relevant particulars. 
+- Displays the employee list together with its relevant particulars.
 
 ![DisplayPanel](images/DisplayPanel.png) <br>
 _Display Panel_ <br>
@@ -170,7 +170,6 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
 * The order of the fields do not matter except for the `[STATUS]` field, which must come right after `find`.
 * To search a field with multiple values, separate each value with a space after their respective tag. 
   * Example: Use `find n/Alice Charlotte` to search for `Alice` or `Charlotte` in the `name` field.
-  
 * The filters work differently for each field and can be generalised to 4 types of queries, described below. A single find command can contain all 4 types of queries at once.
   * **Type 1 Query: Keyword Matching**
     * Fields: `n/NAME`, `p/PHONE`, `e/EMAIL`, `a/ADDRESS`, `r/ROLE`, `t/TAG`
@@ -178,12 +177,11 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
       * The exceptions are:
          * `p/PHONE` field, which only find exact matches.
          * `n/NAME` field, which can find matches when a complete part (first/middle/last) of a name is given. (e.g. For name "Charlotte Oliverio", both `n/Charlotte` and `n/Oliverio` works, but `n/Char` or `n/Oliver` will not)
-      
     * For example, `find p/91234567 e/alice bob r/Admin` will find anyone who satisfies all the following 3 criteria:
-      1. has the phone number 91234567, 
-      2. whose email contains `alice` or `bob`, and 
+      1. has the phone number 91234567,
+      2. whose email contains `alice` or `bob`, and
       3. whose role contains `Admin`.
-      
+
   * **Type 2 Query: Value Based Comparison**  
     * Fields: `hw/HOURS_WORKED`, `l/NUMBER_OF_LEAVES`, `s/HOURLYSALARY`, `o/OVERTIME`
       * These fields must be specified with a comparison and a value to compare the respective field to. Valid comparisons are
@@ -192,11 +190,11 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
         * `=`: equal to
         * `<`: less than
         * `<=`: less than or equal to
-        
+
     * For example, `find hw/>=10 l/<7` will find anyone who satisfies the both of the following 2 criteria:
       1. has worked more than or exactly 10 hours, and
       2. has less than 7 days of leave left (e.g. 6 and below)
-          
+
     * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.
       
   * **Type 3 Query: Status Based Filter**
@@ -299,7 +297,7 @@ Format: `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
 * The number of leaves **must be a positive integer** 1, 2, 3, …
-* The number of leaves to be deducted **cannot be greater than the amount of leaves in the employee's leave balance.** 
+* The number of leaves to be deducted **cannot be greater than the amount of leaves in the employee's leave balance.**
 
 Examples:
 * `list` followed by `deductLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in HeRon.
@@ -312,7 +310,7 @@ Assigns a leave that is associated with a date to a chosen employee.
 Format: `assignLeave INDEX d/DATE`
 
 * Assigns a leave to the employee at the specified `INDEX`, while deducting 1 leave from the employee's leave balance.
-* The employee must have **at least 1 leave** in their leave balance.   
+* The employee must have **at least 1 leave** in their leave balance.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
 * The date **must be valid** and of the form **YYYY-MM-DD**.
@@ -333,7 +331,7 @@ Format: `removeLeavesBefore d/DATE`
 
 Examples:
 * `list` followed by `removeLeavesBefore d/2021-11-10` removes all leaves occurring on and before 2021-11-10 for all employees.
-* `find n/Anthony` followed by `removeLeavesBefore 1 d/2021-01-08` removes all leaves occurring on and before 2021-01-08 
+* `find n/Anthony` followed by `removeLeavesBefore 1 d/2021-01-08` removes all leaves occurring on and before 2021-01-08
    for all employees that have 'Anthony' in their names.
 
 ### Payroll-related Features
@@ -382,19 +380,21 @@ It can be viewed through the `viewOvertimePayRate` command or changed through th
 Format: `startPayroll`
 * Calculates the payroll of **all employees regardless of current viewing list** based on the formula above.
 * After that, marks all employees as awaiting payment of the calculated amount.
-  This will produce red labels under each employee data stating 'NOT PAID' and the amount they are owed.
+<br>This will produce red labels under each employee data stating 'NOT PAID' and the amount they are owed.
+* The number of hours worked and overtime hours worked for the employee will be reset to 0 as well 
+  so that hours counting towards the next payroll can continue to be added.
 * Finally, display the list of all employees.
-* This command is typically followed up by `pay` commands to mark employees as paid, 
+* This command is typically followed up by `pay` commands to mark employees as paid,
   after their salaries are given in real life.
 
 Example:
 * Before `startPayroll` command, currently viewing a filtered list.
   ![before starting payroll](images/startPayroll_before.png)
-  
+
 
 * After `startPayroll` command, payroll have been calculated and currently viewing the full list of employees.
   ![after starting payroll](images/startPayroll_after.png)
-  
+
 Notes:
 * All employees must not have any pay pending from the previous payroll. Otherwise, an error will be shown:
   ![error when there are employees still unpaid](images/startPayrollError_unpaidEmployee.png)
@@ -407,13 +407,12 @@ Marks the specified employee, or all employees in the current list, as paid.
 Format 1: `pay INDEX` - for paying a specific employee
 * Simulates the paying of an employee by clearing the salary owed to the employee by setting it back to 0. This clears the red
   `NOT PAID` label under the employee's data.
-* The number of hours worked and overtime hours of the employee will be reset to 0 as well.
 * This command is typically used after the `startPayroll` command, which sets the pay owed to the respective employees.
   The pay command can then be followed after to clear the pay owed.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * The employee must have payment pending from a `startPayroll` command.
-  
+
 Example:
 * `pay 1` marks the 1st employee in the Employee list as paid clearing the pay owed, number of hours worked and overtime hours of the employee.
   ![before paying the employee](images/pay_beforePaying.png)
@@ -434,8 +433,6 @@ Displays the current overtime pay rate set in the application.
 Format: `viewOvertimePayRate`
 
 * Displays the current overtime pay rate in the feedback panel.
-  
-![viewing overtime pay rate](images/viewOvertimePayRate.png)
 
 #### Set a new Overtime Pay Rate : `setOvertimePayRate`
 
@@ -448,11 +445,8 @@ Format: `setOvertimePayRate OVERTIMEPAYRATE`
 
 Examples:
 * `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2x.
-  ![successfully changed overtime pay rate](images/setOvertimePayRate_success.png)
-  
 
 * `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
-  ![error: overtime pay rate too low](images/setOvertimePayRate_error.png)
 
 ### Data-related Features
 
@@ -461,31 +455,35 @@ Examples:
 Imports the data from a specified `.csv` file.
 
 Format: `import FILEPATH`
-* Imports relevant data from the specified filepath, which can be absolute or relative (to the `.jar` application).
-* Only one `FILEPATH` should be specified.
+* Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
+* Only one `FILEPATH` should be specified. 
+* Filepaths should be written following the current Operating System being used. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
+* Filepaths with spaces present in directory can be written as per usual (e.g. `./My Folder/toBeImported.csv`).
 * A header row is required to indicate the purpose of the various fields, and it must be the first row in the `.csv` file.
-* Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below.
-  * Any columns that do not match the naming convention below will be ignored completely, and the default value will be given instead, if any.
-* Ensure that each field follows the specifications required, which can be found [here](#Adding an Employee).
-* Ensure that the number of columns in each entry matches the number of headers.
-* If multiple tags are present for an entry, they should be seperated by `/`.
 * No specific ordering of the columns is required.
-* If any compulsory fields are missing, the app only alerts the user of the first instance of a missing field.
+* Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below, and are present in the data if compulsory.
+* If multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
+* If there are duplicate `Person` entries, `Email` or `Contact Number`, the import will not be allowed.
+* Ensure that each field follows the specifications required, which can be found in the section ["Adding an Employee: `add`"](#Adding an Employee).
+* Ensure that the number of fields in each entry matches the number of headers.
+* If multiple tags are present for an entry, they should be separated by `/`.
+* For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value. 
+* If a value for a field is provided for at least one entry, then all other entries must also have their respective values for the field provided.
 
-##### Header Naming Conventions and Requirements
+#### Field Naming Requirements and Default Values
 
 Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Value
---------------|---------------|------------------------|--------------------
-`NAME`|Name|Yes|-
-`PHONE_NUMBER` |Contact Number|Yes|-
-`ADDRESS` |Residential Address|Yes|-
-`EMAIL` |Email|Yes|-
-`ROLE` |Role|Yes|-
-`LEAVEBALANCE` |Leave Balance|No|0
-`HOURLYSALARY` |Salary|No|0
-`HOURSWORKED` |Hours Worked|No|0
-`OVERTIME` |Overtime|No|0
-`TAGS`|Tags|No|-
+--------------|---------------|------------------------ | --------
+`NAME`|Name|**Yes**| N.A.
+`PHONE_NUMBER` |Contact Number|**Yes**| N.A.
+`ADDRESS` |Residential Address|**Yes**| N.A.
+`EMAIL` |Email|**Yes**| N.A.
+`ROLE` |Role|**Yes**| N.A.
+`LEAVEBALANCE` |Leave Balance|No | 0
+`HOURLYSALARY` |Salary|No | 0.00
+`HOURSWORKED` |Hours Worked|No | 0
+`OVERTIME` |Overtime|No | 0
+`TAGS`|Tags|No| Empty Set of Tags
 
 Example:`import ./toBeImported` should have the following behaviours under the following situations.
 * Successful Import
@@ -545,4 +543,4 @@ Action | Format, Examples
 **Pay Employee(s)** | `pay INDEX` <br> e.g., `pay 3` <br> OR <br>`pay all`
 **View Overtime Pay Rate** | `viewOvertimePayRate`
 **Set a new Overtime Pay Rate** | `setOvertimePayRate OVERTIMEPAYRATE`<br> e.g., `setOvertimePayRate 2.0`
-**Import** | `import FILEPATH`
+**Import** | `import FILEPATH` e.g., `import ./myData.csv`

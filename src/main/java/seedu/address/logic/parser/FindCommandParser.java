@@ -63,6 +63,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         LESS_THAN_EQUAL, LESS_THAN, EQUAL, MORE_THAN, MORE_THAN_EQUAL
     }
 
+    private static final String UNPAID_PREDICATE_KEYWORD = "unpaid";
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -77,8 +79,13 @@ public class FindCommandParser implements Parser<FindCommand> {
                         PREFIX_LEAVE, PREFIX_DATE, PREFIX_HOURLYSALARY, PREFIX_HOURSWORKED, PREFIX_TAG,
                         PREFIX_OVERTIME);
 
-        String preamble = argMultimap.getPreamble();
+        String preamble = argMultimap.getPreamble().trim();
         if (trimmedArgs.isEmpty() && preamble.isEmpty()) {
+            // no arguments provided to the command
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+        if (!preamble.isBlank() && !preamble.equals(UNPAID_PREDICATE_KEYWORD)) { // preamble that is not 'unpaid'
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
@@ -86,7 +93,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArrayList<Predicate<Person>> filters = new ArrayList<>();
 
         // Check if prefix exists and add the relevant predicate into the list of filters
-        if (preamble.contains("unpaid")) {
+        if (preamble.equals(UNPAID_PREDICATE_KEYWORD)) {
             filters.add(new PersonIsPaidPredicate());
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
@@ -357,18 +364,24 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private String getComparisonValue(String input, CompareType type) {
         String stringValue = "";
-        assert (input.length() > 2);
         switch (type) {
         case MORE_THAN_EQUAL:
+            // Fallthrough
         case LESS_THAN_EQUAL:
+            assert (input.length() > 2);
             stringValue = input.substring(2);
             break;
         case LESS_THAN:
+            // Fallthrough
         case MORE_THAN:
+            // Fallthrough
         case EQUAL:
+            assert (input.length() > 1);
             stringValue = input.substring(1);
             break;
         default:
+            // Should not reach here as all 5 CompareTypes are accounted for
+            assert(false);
             break;
         }
         return stringValue;
