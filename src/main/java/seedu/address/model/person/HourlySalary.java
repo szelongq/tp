@@ -13,6 +13,7 @@ public class HourlySalary {
 
     public static final double MIN_HOURLY_SALARY = 0;
     public static final double MAX_HOURLY_SALARY = 1000;
+    public static final int MAX_DECIMAL_PLACES = 2;
     public static final String MESSAGE_CONSTRAINTS =
             "Hourly Salary should only contain non-negative numbers with two or less decimal places "
                     + "with a value between 0 to 1000, and it should not be blank.";
@@ -42,7 +43,7 @@ public class HourlySalary {
 
         if (isValidUnsignedDouble) {
             hasTwoOrLessDecimalPlaces =
-                    StringUtil.isDoubleWithDpWithinLimit(test, 2);
+                    StringUtil.isDoubleWithDpWithinLimit(test, MAX_DECIMAL_PLACES);
 
             double testValue = Double.parseDouble(test);
             isWithinBounds = isHourlySalaryWithinBounds(testValue);

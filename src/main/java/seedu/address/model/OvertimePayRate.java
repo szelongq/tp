@@ -5,6 +5,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.Serializable;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents a pay rate for overtime used in the employee payroll calculations.
  * Guarantees: immutable; is valid as declared in {@link #isValidOvertimePayRate(String)}
@@ -14,9 +16,10 @@ public class OvertimePayRate implements Serializable {
     public static final double MIN_OVERTIME_PAY_RATE = 1;
     public static final double MAX_OVERTIME_PAY_RATE = 10;
     public static final double DEFAULT_OVERTIME_PAY_RATE = 1.5;
+    public static final int MAX_DECIMAL_PLACES = 5;
     public static final String MESSAGE_CONSTRAINTS =
-            "Overtime pay rate should only be a number between 1 to 10,"
-                    + " and it should not be blank.";
+            "Overtime pay rate should only be a number between 1 to 10, "
+                    + "with 5 or less decimal places and it should not be blank.";
 
     public final double value;
 
@@ -39,24 +42,24 @@ public class OvertimePayRate implements Serializable {
     }
 
     /**
-     * Returns true if a given string is a valid numerical string and
-     * is within the bounds of overtime pay rate values.
+     * Returns true if a given string is a valid numerical string with
+     * less than 5 decimal places and is within the bounds of overtime pay rate values.
      */
     public static boolean isValidOvertimePayRate(String test) {
         requireNonNull(test);
-        boolean isValidRate;
+        boolean isValidUnsignedDouble = StringUtil.isNonNegativeUnsignedDouble(test);
+        boolean hasFiveOrLessDecimalPlaces = false;
+        boolean isWithinBounds = false;
 
-        try {
+        if (isValidUnsignedDouble) {
+            hasFiveOrLessDecimalPlaces =
+                    StringUtil.isDoubleWithDpWithinLimit(test, MAX_DECIMAL_PLACES);
+
             double testValue = Double.parseDouble(test);
-            boolean hasNoPositiveSign = !test.startsWith("+");
-            boolean isWithinBounds = isOvertimePayRateWithinBounds(testValue);
-
-            isValidRate = !hasNoPositiveSign && isWithinBounds;
-        } catch (NumberFormatException nfe) {
-            isValidRate = false;
+            isWithinBounds = isOvertimePayRateWithinBounds(testValue);
         }
 
-        return isValidRate;
+        return isValidUnsignedDouble && hasFiveOrLessDecimalPlaces && isWithinBounds;
     }
 
     /**
@@ -69,7 +72,7 @@ public class OvertimePayRate implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%f", value);
+        return String.format("%.5f", value);
     }
 
     @Override

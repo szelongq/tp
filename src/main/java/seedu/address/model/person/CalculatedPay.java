@@ -7,6 +7,7 @@ import seedu.address.commons.util.StringUtil;
 
 public class CalculatedPay {
 
+    public static final int MAX_DECIMAL_PLACES = 2;
     public static final String MESSAGE_CONSTRAINTS =
             "Calculated pay should only contain non-negative numbers with two or less decimal places.";
 
@@ -32,7 +33,7 @@ public class CalculatedPay {
 
         boolean isNonNegativeUnsignedDouble = StringUtil.isNonNegativeUnsignedDouble(test);
         boolean hasTwoOrLessDecimalPlaces =
-                    StringUtil.isDoubleWithDpWithinLimit(test, 2);
+                    StringUtil.isDoubleWithDpWithinLimit(test, MAX_DECIMAL_PLACES);
 
         return isNonNegativeUnsignedDouble && hasTwoOrLessDecimalPlaces;
     }
