@@ -249,7 +249,7 @@ Cons:
 The implemented import feature mechanism is facilitated by `ImportCommandParser`, `ImportCommand` and `PersonInput`. `ImportCommandParser` implements the interface `Parser`.`ImportCommand` extends abstract class `Command`, and implements the following additional operation:
 * `ImportCommand#importData(Model)` Takes the filepath attributed to the ImportCommand and imports its content.
 
-`PersonInput` is a class which stores the field inputs for a data entry as Strings, and implements getter and setter methods for all fields as required by the 3rd-party library opencsv. While parsing the csv file, `PersonInput` objects are created to consolidate all the information present, before being converted into `Person` objects and added into HeRon`.
+`PersonInput` is a class which stores the field inputs for a data entry as Strings, and implements getter and setter methods for all fields as required by the 3rd-party library opencsv. While parsing the csv file, `PersonInput` objects are created to consolidate all the information present, before being converted into `Person` objects and added into HeRon.
 
 The fields `name`,`phone`, `address`, `email` and `role` must be present in all entries before the data can be imported successfully. This is to prevent junk data from being imported. These fields were selected as they are highly likely to be present in existing data to be used for import.
 
@@ -266,20 +266,20 @@ Given below is an example usage scenario and how the import mechanism behaves at
 
 **Step 2.** The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which in this case, refers to the file `toBeImported.csv` in the root directory.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`.</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
 
    
 **Step 3.** Program processes the .csv file. The first row is identified as the header row, which is used to determine which field of the PersonInput class the column represents. The remaining rows are parsed and PersonInput Objects are created and added into a List. Once done, the List of PersonInput Objects will be used to create a separate list of Person objects used to update the address book.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current `AddressBook`.</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current AddressBook.</div>
 
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Data present in the imported file must adhere to respective requirements for each field. `Name`, `Email` and `Phone` fields cannot be the same as other entries. If duplicate values exist, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Data present in the imported file must adhere to respective requirements for each field. `Name`, `Email` and `Phone` fields cannot be the same as other entries. If duplicate values exist, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
 
  
-**Step 4.** A new `AddressBook` is created, and updated it with the entries in the file. The current existing `AddressBook` is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
+**Step 4.** A new `AddressBook` is created, and updated it with the entries in the file. The current existing AddressBook is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
 
-**Step 5.** The updated `AddressBook` would be saved as per the process after the execution of a command.
+**Step 5.** The updated AddressBook would be saved as per the process after the execution of a command.
 
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
@@ -1242,3 +1242,15 @@ testers are expected to do more *exploratory* testing.
     7. Test case: `pay all`
         Expected: All employees should be paid. Any employees that were not being owed payment should have their names
         printed in the bottom section of the command panel as being skipped.
+
+### Importing from an external .csv file
+
+1. Importing data from a csv file.
+    
+    1. Prerequisites: Ensure that a csv file with the compulsory fields present, and valid data exists. In this section, this file will be referred to as "toBeImported.csv"
+   
+    2. Test case: `import /fileNotExist.csv`<br>
+        Expected: An error message is returned.
+   
+    3. Test case: `import /toBeImported.csv`
+        Expected: A message indicating a successful import is returned.
