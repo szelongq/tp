@@ -197,7 +197,7 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
       2. has less than 7 days of leave left (e.g. 6 and below)
 
     * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.
-      
+          <div style="page-break-after: always;"></div>
   * **Type 3 Query: Status Based Filter**
     * There are no fields attached to this query. Instead, specific keywords are available for use.
       * These status keywords must be used right after `find` and cannot be used after a field is specified (for example `n/`).
@@ -219,7 +219,7 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
 
 * For each field, you can search using multiple keywords by separating each keyword with a space, in the same field.
   * For example, `find n/John Mike` will return all employees whose name contains either John or Mike.
-
+    <div style="page-break-after: always;"></div>
 Examples:
 * `find unpaid n/John Mike r/admin l/<=5 o/>3` finds all employees who satisfy all the following criteria:
   1. is considered unpaid in the system,
