@@ -44,7 +44,7 @@ public class HourlySalaryTest {
         assertFalse(HourlySalary.isValidHourlySalary("-0.00")); // contains negative values
         assertFalse(HourlySalary.isValidHourlySalary("0.001")); // contains more than 2 decimal places
 
-        // valid hourlySalary
+        // valid values in equivalence partition [0.00, 1000.00]
         assertTrue(HourlySalary.isValidHourlySalary("123")); // numeric characters as integers only
         assertTrue(HourlySalary.isValidHourlySalary("9.99")); // numeric characters as floating values only
 
