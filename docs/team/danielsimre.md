@@ -72,3 +72,4 @@ Given below are my contributions to the project.
       * For example, `find d/2021-10-10 2021-11-01:2021-11-05` will find anyone who satisfies **either** of the following 2 criteria:
         1. has taken a leave on October 10th 2021, or
         2. has taken a leave between the dates November 1st 2021 and November 5th 2021, start and end dates inclusive.
+  
