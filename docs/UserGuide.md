@@ -46,7 +46,7 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 7. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>## Interface Layout
+## Interface Layout
 ![CommandPanel](images/user-guide/CommandPanel.png) <br>
 _Command Panel_ <br>
 - User commands can be entered in the top section labeled `Enter command here...`
@@ -64,7 +64,6 @@ _Display Panel_ <br>
 
 --------------------------------------------------------------------------------------------------------------------
 ## Features
-<div style="page-break-after: always;"></div>
 <div markdown="block" class="alert alert-info">
 
 **Please read this information panel for more information on commands before proceeding.**
