@@ -7,6 +7,8 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 skinparam minClassWidth 100
 
+scale 500 height
+
 Package "Person attribute classes" <<Rectangle>>{
 
 Class PersonClass
