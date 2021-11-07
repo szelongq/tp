@@ -10,7 +10,7 @@ title: Developer Guide
 ## **Acknowledgements**
 
 ### Third-Party Libraries Used
-* [Opencsv](http://opencsv.sourceforge.net/)
+* The Import Feature implemented uses [Opencsv].(http://opencsv.sourceforge.net/)
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -268,12 +268,15 @@ Given below is an example usage scenario and how the import mechanism behaves at
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`.</div>
 
+   
 **Step 3.** Program processes the .csv file. The first row is identified as the header row, which is used to determine which field of the PersonInput class the column represents. The remaining rows are parsed and PersonInput Objects are created and added into a List. Once done, the List of PersonInput Objects will be used to create a separate list of Person objects used to update the address book.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current `AddressBook`.</div>
 
+
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Data present in the imported file must adhere to respective requirements for each field. `Name`, `Email` and `Phone` fields cannot be the same as other entries. If duplicate values exist, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`</div>
 
+ 
 **Step 4.** A new `AddressBook` is created, and updated it with the entries in the file. The current existing `AddressBook` is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
 
 **Step 5.** The updated `AddressBook` would be saved as per the process after the execution of a command.
@@ -999,7 +1002,13 @@ Guarantees:
   
 * 2b. File specified exists, but the formatting of data in the given file is invalid.
 
-    * 2a1. HeRon shows an error message.
+    * 2b1. HeRon shows an error message.
+
+      Use case resumes at step 1.
+   
+* 2c. File specified exists, but the invalid data is present in the given file.
+
+    * 2c1. HeRon shows an error message.
 
       Use case resumes at step 1.
 
