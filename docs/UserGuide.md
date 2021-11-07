@@ -464,7 +464,7 @@ Format: `import FILEPATH`
 * Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below, and are present in the data if compulsory.
 * If multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
 * If there are duplicate `Person` entries, `Email` or `Contact Number`, the import will not be allowed.
-* Ensure that each field follows the specifications required, which can be found in the section ["Adding an Employee: `add`"](#Adding an Employee).
+* Ensure that each field follows the specifications required, which can be found in the section for [`add` command](UserGuide.md#adding-an-employee-add).
 * Ensure that the number of fields in each entry matches the number of headers.
 * If multiple tags are present for an entry, they should be separated by `/`.
 * For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value. 
