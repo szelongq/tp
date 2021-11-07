@@ -35,7 +35,7 @@ This User Guide will bring you through the features that HeRon has to offer, as 
    Some example commands you can try:
 
    * `list` : Lists all contacts.
-   
+
    * `import ./toBeImported.csv` : Imports the .csv file named `toBeImported.csv` the same directory as the application into HeRon.
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0` : Adds a contact named `John Doe` with the above details to HeRon.
@@ -154,7 +154,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_
 * When editing tags, the existing tags of the employee will be removed i.e adding of tags is not cumulative.
 * You can remove all the employee’s tags by typing `t/` without
     specifying any tags after it.
-* The values you provide to the command must be valid. For information on which values are valid, you may refer to the table under the [`add` command](UserGuide.md#adding-an-employee-add) for more information. 
+* The values you provide to the command must be valid. For information on which values are valid, you may refer to the table under the [`add` command](UserGuide.md#adding-an-employee-add) for more information.
 * **NOTE:** The edit command is unable to directly edit the dates of leaves taken by employees.
 Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to edit the dates.
 
@@ -171,7 +171,7 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
 
 * At least one field should be specified.
 * The order of the fields do not matter except for the `[STATUS]` field, which must come right after `find`.
-* To search a field with multiple values, separate each value with a space after their respective tag. 
+* To search a field with multiple values, separate each value with a space after their respective tag.
   * Example: Use `find n/Alice Charlotte` to search for `Alice` or `Charlotte` in the `name` field.
 * The filters work differently for each field and can be generalised to 4 types of queries, described below. A single find command can contain all 4 types of queries at once.
   * **Type 1 Query: Keyword Matching**
@@ -185,7 +185,7 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
       2. whose email contains `alice` or `bob`, and
       3. whose role contains `Admin`.
 
-  * **Type 2 Query: Value Based Comparison**  
+  * **Type 2 Query: Value Based Comparison**
     * Fields: `hw/HOURS_WORKED`, `l/NUMBER_OF_LEAVES`, `s/HOURLYSALARY`, `o/OVERTIME`
       * These fields must be specified with a comparison and a value to compare the respective field to. Valid comparisons are
         * `>`: more than
@@ -209,7 +209,7 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
         * `unpaid`
         * More to be added.
     * For example, `find unpaid` will find all employees who are considered unpaid.
-  
+
   * **Type 4 Query: Date Based Comparison**
     * Fields: `d/DATE`
       * This field will find all people who have taken a leave on a given date or within a range of dates. (start and end dates inclusive)
@@ -233,8 +233,6 @@ Examples:
   3. whose role contains the word `admin`,
   4. has 5 or less than 5 leaves, and
   5. has strictly more than 3 days of overtime
-  
-
 * `find unpaid n/carl Elle l/<3` returns `Carl Kurz`, `Elle Meyer` as long as they have less than 3 leaves left and are still unpaid.<br>
   ![result for 'find alex david'](images/user-guide/findCarlElleResult.png)
 
@@ -398,7 +396,7 @@ Format: `startPayroll`
 * Calculates the payroll of **all employees regardless of current viewing list** based on the formula above.
 * After that, marks all employees as awaiting payment of the calculated amount.
 <br>This will produce red labels under each employee data stating 'NOT PAID' and the amount they are owed.
-* The number of hours worked and overtime hours worked for the employee will be reset to 0 as well 
+* The number of hours worked and overtime hours worked for the employee will be reset to 0 as well
   so that hours counting towards the next payroll can continue to be added.
 * Finally, display the list of all employees.
 * This command is typically followed up by `pay` commands to mark employees as paid,
@@ -484,7 +482,7 @@ Imports the data from a specified `.csv` file.
 
 Format: `import FILEPATH`
 * Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
-* Only one `FILEPATH` should be specified. 
+* Only one `FILEPATH` should be specified.
 * Filepaths should be written following the current Operating System being used. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
 * Filepaths with spaces present in directory can be written as per usual (e.g. `./My Folder/toBeImported.csv`).
 * A header row is required to indicate the purpose of the various fields, and it must be the first row in the `.csv` file.
@@ -495,7 +493,7 @@ Format: `import FILEPATH`
 * Ensure that each field follows the specifications required, which can be found in the section for [`add` command](UserGuide.md#adding-an-employee-add).
 * Ensure that the number of fields in each entry matches the number of headers.
 * If multiple tags are present for an entry, they should be separated by `/`.
-* For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value. 
+* For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value.
 * If a value for a field is provided for at least one entry, then all other entries must also have their respective values for the field provided.
 
 #### Field Naming Requirements and Default Values

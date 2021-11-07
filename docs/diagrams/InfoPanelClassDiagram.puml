@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+scale 512 width
+scale 384 height
+
+skinparam arrowThickness 1.1
+
+package Model {
+class ModelManager MODEL_COLOR
+class ObservablePerson MODEL_COLOR
+}
+
+package Ui {
+class UiObserver <<Interface>> UI_COLOR
+class InfoPanel UI_COLOR
+}
+
+ModelManager -down-> "1" ObservablePerson
+InfoPanel .up[#green].|> UiObserver
+ObservablePerson -right[#black]-> "*" UiObserver
+
+@enduml

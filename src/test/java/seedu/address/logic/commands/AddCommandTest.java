@@ -182,7 +182,6 @@ public class AddCommandTest {
             Although the class is meant to have all methods failing,
             addCommand on execute is supposed to call function to update the InfoPanel.
             */
-            System.out.println("Setting viewing person...");
         }
 
         @Override

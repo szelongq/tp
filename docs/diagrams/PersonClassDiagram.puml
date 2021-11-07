@@ -1,0 +1,60 @@
+@startuml
+scale 720 width
+scale 540 height
+
+!include style.puml
+!define PersonClass "             Person             "
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam minClassWidth 100
+
+
+Package "Person attribute classes" <<Rectangle>>{
+
+Class PersonClass
+Class Address
+Class Email
+Class Name
+Class Phone
+Class Role
+Class LeaveBalance
+Class LeavesTaken
+Class HourlySalary
+Class HoursWorked
+Class Overtime
+Class CalculatedPay
+Class Tag
+
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> PersonClass
+
+PersonClass *-left-> Name
+PersonClass *--> Phone
+PersonClass *--> Email
+PersonClass *--> Address
+PersonClass *--> Role
+PersonClass *--> LeaveBalance
+PersonClass *--> LeavesTaken
+PersonClass *--> HourlySalary
+PersonClass *--> HoursWorked
+PersonClass *--> Overtime
+PersonClass *--> CalculatedPay
+PersonClass *-right-> "*" Tag
+
+Name -[hidden]down> Phone
+Phone -[hidden]right-> Email
+Email -[hidden]right> Address
+Address -[hidden]right> Role
+Role -[hidden]right> LeaveBalance
+LeaveBalance -[hidden]right-> LeavesTaken
+LeavesTaken -[hidden]right-> HourlySalary
+HourlySalary -[hidden]right> HoursWorked
+HoursWorked -[hidden]right> Overtime
+Overtime -[hidden]right> CalculatedPay
+Tag -[hidden]down> CalculatedPay
+
+@enduml

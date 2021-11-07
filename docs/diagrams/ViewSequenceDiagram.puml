@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+scale 1024 width
+scale 768 height
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "v:ViewCommand" as ViewCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ObservablePerson" as ObservablePerson MODEL_COLOR
+end box
+[-> LogicManager : execute("view 2")
+activate LogicManager
+
+box UI UI_COLOR_T1
+participant "InfoPanel:UiObserver" as UiObserver UI_COLOR
+
+LogicManager -> AddressBookParser : parseCommand("view 2")
+activate AddressBookParser
+
+create ViewCommand
+AddressBookParser -> ViewCommand
+activate ViewCommand
+
+ViewCommand --> AddressBookParser
+deactivate ViewCommand
+
+AddressBookParser --> LogicManager : v
+deactivate AddressBookParser
+
+LogicManager -> ViewCommand : execute()
+activate ViewCommand
+
+ViewCommand -> Model : getPersonToView(index)
+activate Model
+
+Model --> ViewCommand : personToView
+deactivate Model
+
+ViewCommand -> Model : setViewingPerson(personToView)
+activate Model
+
+Model -> ObservablePerson : setPerson(personToView)
+activate ObservablePerson
+
+ObservablePerson -> ObservablePerson : updateUi()
+activate ObservablePerson
+ObservablePerson -> UiObserver : update(personToView)
+activate UiObserver
+
+UiObserver --> ObservablePerson
+deactivate UiObserver
+
+ObservablePerson --> Model
+
+deactivate ObservablePerson
+deactivate ObservablePerson
+
+Model --> ViewCommand
+deactivate Model
+
+ViewCommand --> LogicManager : result
+deactivate ViewCommand
+ViewCommand -[hidden]-> LogicManager : result
+destroy ViewCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
