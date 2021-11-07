@@ -281,7 +281,8 @@ Format: `addLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 * Adds the specified number to the number of leaves of the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
-* The number of leaves **must be a positive integer** 1, 2, 3, …
+* The number of leaves **must be a positive integer between 1 and 365** 1, 2, 3, …, 365
+* The number of leaves to be added **cannot cause the employee's total leave balance to exceed 365 leaves.**
 
 Examples:
 * `list` followed by `addLeaveBalance 3 l/4` adds 4 days of leave to the 3rd employee in HeRon.
@@ -296,7 +297,7 @@ Format: `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 * Deducts the specified number from the number of leaves of the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
-* The number of leaves **must be a positive integer** 1, 2, 3, …
+* The number of leaves **must be a positive integer between 1 and 365** 1, 2, 3, …, 365
 * The number of leaves to be deducted **cannot be greater than the amount of leaves in the employee's leave balance.**
 
 Examples:
@@ -346,7 +347,9 @@ Format: `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 * Adds the specified number of hours worked/overtime to the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
-* The number of hours worked/overtime **must be a positive integer** 1, 2, 3, …
+* The number of hours worked/overtime **must be a positive integer between 1 and 744** 1, 2, 3, …, 744
+* The number of hours worked/overtime to be added **cannot cause the employee's total hours worked/overtime to exceed 744.** 
+  <br> (Note: Limit of 744 is applied separately to hours worked and overtime, e.g hours worked and overtime can both be set to 744)
 
 Examples:
 * `list` followed by `addHoursWorked 5 hw/5 o/5` adds 5 hours worked and 5 hours of overtime to the 5th employee in HeRon.
@@ -362,7 +365,7 @@ Format: `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 * Deducts the specified number of hours worked/overtime from the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
-* The number of hours worked/overtime **must be a positive integer** 1, 2, 3, …
+* The number of hours worked/overtime **must be a positive integer between 1 and 744** 1, 2, 3, …, 744
 * The number of hours worked/overtime to be removed **cannot be greater than the employee's current number of hours worked/overtime.**
 
 Examples:
