@@ -18,5 +18,8 @@ mainframe sd get predicates
     deactivate Predicate
 
     FindCommandParser -> FindCommandParser : add(XYZ Predicate)
+    activate FindCommandParser
+    FindCommandParser --> FindCommandParser
+    deactivate FindCommandParser
 
 @enduml

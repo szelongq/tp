@@ -184,7 +184,7 @@ In general, there are 2 main types of predicates.
         * For example, to get a `SalaryIsLessThanPredicate`, `FindCommandParser#getSalaryComparisonPredicate` is called with the user's input.
     * The comparison type is found using the `parseComparator()` method in FindCommandParser, which returns a CompareType, an enum found in FindCommandParser which has 5 values representing the different available comparisons: "more than", "more than or equal", "less than", "less than or equal", and "equal".
     * The value to compare to is then found using the `getComparisonValue()` method in FindCommandParser, which returns a String to be parsed.
-        * This is done because the different fields take in different number types. For example, the Salary field takes in a `float`, whereas the Leave field takes in an `int`.
+        * This is done because the different fields take in different number types. For example, the HourlySalary field takes in a `double`, whereas the Leave field takes in an `int`.
     * Finally, the predicate is created by checking the CompareType and then passing the parsed value to the constructor.
 
 After each predicate is generated, it is added to a list of filters in the parser, and after all predicates are added, they are combined into a single predicate using the `Predicate#reduce()` function, which is used to create the FindCommand.

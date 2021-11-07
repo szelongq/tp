@@ -19,7 +19,7 @@ create FindCommandParser
 AddressBookParser -> FindCommandParser
 activate FindCommandParser
 
-FindCommandParser -> AddressBookParser
+FindCommandParser --> AddressBookParser
 deactivate FindCommandParser
 
 AddressBookParser -> FindCommandParser : parse("unpaid n/John s/<10")
