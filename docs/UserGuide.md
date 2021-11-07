@@ -28,7 +28,9 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
+   
     <div style="page-break-after: always;"></div>
+   
 6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
