@@ -117,10 +117,10 @@ Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES 
     `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
     `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
     `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
-    `LEAVEBALANCE`| Non-negative integers only. |`12`,`0`
+    `NUMBER_OF_LEAVES`| Non-negative integers less than or equal to 365. |`12`,`0`
     `HOURLYSALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
-    `HOURSWORKED`| Positive integers only. | `12`,`1`
-    `OVERTIME`| Non-negative integers only. | `12`,`0`
+    `HOURSWORKED`| Positive integers less than or equal to 744.| `12`,`1`
+    `OVERTIME`| Non-negative integers less than or equal to 744. | `12`,`0`
     `TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
 
 
@@ -475,7 +475,7 @@ Format: `import FILEPATH`
 * Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below, and are present in the data if compulsory.
 * If multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
 * If there are duplicate `Person` entries, `Email` or `Contact Number`, the import will not be allowed.
-* Ensure that each field follows the specifications required, which can be found in the section ["Adding an Employee: `add`"](#Adding an Employee).
+* Ensure that each field follows the specifications required, which can be found in the section for [`add` command](UserGuide.md#adding-an-employee-add).
 * Ensure that the number of fields in each entry matches the number of headers.
 * If multiple tags are present for an entry, they should be separated by `/`.
 * For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value. 
@@ -490,7 +490,7 @@ Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Valu
 `ADDRESS` |Residential Address|**Yes**| N.A.
 `EMAIL` |Email|**Yes**| N.A.
 `ROLE` |Role|**Yes**| N.A.
-`LEAVEBALANCE` |Leave Balance|No | 0
+`NUMBER_OF_LEAVES` |Leave Balance|No | 0
 `HOURLYSALARY` |Salary|No | 0.00
 `HOURSWORKED` |Hours Worked|No | 0
 `OVERTIME` |Overtime|No | 0
@@ -540,7 +540,7 @@ Action | Format, Examples
 **List** | `list`
 **View** | `view INDEX`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
-**Find** | `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
+**Find** | `find [STATUS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Clear** | `clear`
 **Exit** | `exit`
