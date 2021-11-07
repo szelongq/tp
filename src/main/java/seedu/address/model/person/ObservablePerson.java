@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.ui.UiObserver;
 
 
@@ -21,6 +20,7 @@ public class ObservablePerson {
      * @param person Person to be viewed
      */
     public ObservablePerson(Person person) {
+        requireNonNull(person);
         personToView = person;
     }
 
