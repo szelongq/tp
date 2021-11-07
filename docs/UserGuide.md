@@ -138,6 +138,7 @@ Examples:
 Shows a list of all employees in HeRon.
 
 Format: `list`
+<div style="page-break-after: always;"></div>
 
 #### Editing an employee : `edit`
 
@@ -158,6 +159,7 @@ Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to ed
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
+<div style="page-break-after: always;"></div>
 
 #### Locating specific employees: `find`
 
