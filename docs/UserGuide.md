@@ -198,7 +198,7 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
 
     * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.
   
-<div style="page-break-after: always;"></div>
+    <div style="page-break-after: always;"></div>
 
   * **Type 3 Query: Status Based Filter**
     * There are no fields attached to this query. Instead, specific keywords are available for use.
@@ -381,7 +381,9 @@ Format: `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 Examples:
 * `list` followed by `deductHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in HeRon.
 * `find n/Sam` followed by `deductHoursWorked 1 o/2` removes 2 hours of overtime from the 1st employee in the results of the `find` command.
-<br><br>
+
+<div style="page-break-after: always;"></div>
+
 #### Start Payroll : `startPayroll`
 
 Calculates the payroll of all employees and mark them as awaiting the payment.
