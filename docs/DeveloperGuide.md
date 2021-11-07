@@ -101,7 +101,7 @@ How the `Logic` component works:
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
-<div style="page-break-after: always;"></div>
+
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -109,6 +109,8 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:<br>
 <img src="images/ParserClasses.png" width="600"/>
+
+<div style="page-break-after: always;"></div>
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
@@ -201,8 +203,6 @@ Below is the sequence diagram which shows a quick overview of how the FindComman
 
 ![FindCommandGetPredicates](images/FindCommandGetPredicateDiagram.png)
 
-<div style="page-break-after: always;"></div>
-
 This allows multiple types of predicates to be chained together so that it is possible to handle a large query with multiple filters.
 Therefore, it is also easy to extend this implementation to contain other predicates by following the below steps.
 
@@ -220,7 +220,7 @@ Modifying the code for `FindCommand#execute` to account for multiple predicates 
 One alternative for combining predicates is to create a new `CombinedPredicate` class which contains all the possible fields to be compared with.
 
 ![CombinedPredicateExample](images/CombinedPredicateExample.png)
-
+<div style="page-break-after: always;"></div>
 Using the `CombinedPredicate`, one can easily parse the user's command and create the appropriate `CombinedPredicate` to be passed into `FindCommand`.
 
 Pros:
@@ -261,8 +261,6 @@ HeRon detects fields using column titles (first row of the csv file). Naming con
 * `email` as Email
 * `role` as Role
    
-<div style="page-break-after: always;"></div>
-   
 Given below is an example usage scenario and how the import mechanism behaves at each step.
 
 **Step 1.** The user launches the application. HeRon initializes with the initial address book state or loaded with data from the previous session (if any).
@@ -277,10 +275,9 @@ Given below is an example usage scenario and how the import mechanism behaves at
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Data present in the imported file must adhere to respective requirements for each field. `Name`, `Email` and `Phone` fields cannot be the same as other entries. If duplicate values exist, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
    
 **Step 4.** A new `AddressBook` is created, and updated it with the entries in the file. The current existing AddressBook is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
-   
-**Step 5.** The updated AddressBook would be saved as per the process after the execution of a command.
 
 <div style="page-break-after: always;"></div>
+**Step 5.** The updated AddressBook would be saved as per the process after the execution of a command.
    
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
@@ -313,11 +310,10 @@ The following activity diagram summarizes what happens when a user uses the `imp
     * Pros: Allows for multiple names for the fields in the header row, albeit still fixed. Files can be imported even if there are missing entries.
     * Cons:  Files can be imported regardless of any formatting issues or missing fields in entries, thus data can be imported even without any cleaning, making it harder to be used in the program.
 
+<div style="page-break-after: always;"></div>
 * **Alternative 3 : All fields are compulsory**
     * Pros: Ensures data imported have all the required fields to utilise all the functionality of the program.
     * Cons: Files cannot be imported if any entry has any fields missing.
-
-<div style="page-break-after: always;"></div>
 
 ### Updating Info Panel display
 
@@ -337,12 +333,10 @@ The following operations are implemented for the classes:
 * `InfoPanel::updateInfoPanel(Person p)` - updates the content to be displayed on the Info panel with the new `Person`'s information.
 * `ObservablePerson::addUiObserver(UiObserver observer)` - subscribes the `UiObserver` to the `ObservablePerson` to get updates when `ObservablePerson` changes
 * `ObservablePerson::updateUi()` - updates the observers with the relevant `Person` information.
-
+<div style="page-break-after: always;"></div>
 On initialization:
 1. `ObservablePerson` is created, and `InfoPanel` is initialized with the ObservablePerson passed as argument to the constructor
 2. On creation of `InfoPanel`, it adds itself to the `uiObserverList` of the ObservablePerson to be subscribed for updates using `ObservablePerson::addUiObserver(UiObserver observer)`
-
-<div style="page-break-after: always;"></div>
    
 When the `ObservablePerson` changes:
 1. `InfoPanel` in the `uiObserverList` is updated with `ObservablePerson::updateUi()`
@@ -360,7 +354,7 @@ Below is an example of how `InfoPanel` updates with a view command:
 it informs the other `InfoPanel` in the `uiObserverList` to update, passing the new updated personToView to `InfoPanel`.
 
 **Step 4.** With the new data passed to `InfoPanel`, it can then update the content to be displayed in however its `update()` method is implemented.  
-
+<div style="page-break-after: always;"></div>
 **Design Considerations:**
 
 Use Observer pattern to track when to update InfoPanel (Current Implementation)
@@ -368,7 +362,7 @@ Use Observer pattern to track when to update InfoPanel (Current Implementation)
 **Pros:** `InfoPanel` can update by itself without `Model` having a dependency on the UI.
 
 **Cons:** Might be harder to figure out what is "observing" the observable just by looking at the source code since there is no direct dependency.
-<div style="page-break-after: always;"></div>
+
 **Alternative:**
 
 Constantly update Info Panel with every command executed.
@@ -401,7 +395,7 @@ The command object contains two attributes: `index`, which corresponds to the in
 **Step 3.** Using the input `Index` value, the second person from the filtered list is retrieved as the `personToEdit` object.
 
 **Step 4.** `AddLeaveBalanceCommand#getUpdatedPerson` is called, with `personToEdit` as an input.
-
+<div style="page-break-after: always;"></div>
 **Step 5.** Inside `getUpdatedPerson`, `LeaveBalance#addLeaves` is called with the input `LeaveBalance` value as a parameter.
 
 **Step 6.** `getUpdatedPerson` returns a copy of the `personToEdit` object with an updated `LeaveBalance`.
@@ -410,14 +404,13 @@ The command object contains two attributes: `index`, which corresponds to the in
 
 **Step 8.** `AddLeaveBalanceCommand#execute` returns a `CommandResult` to signal a successful execution.
 
-<div style="page-break-after: always;"></div>
    
 The following sequence diagram shows how `AddLeaveBalanceCommand` works:
 
 ![AddLeaveBalanceSequenceDiagram](images/AddLeaveBalanceSequenceDiagram.png)
 
 `DeductLeaveBalanceCommand` works similarly, except instead of calling `LeaveBalance#addLeaves` in step 5, `LeaveBalance#removeLeaves` is called.
-
+<div style="page-break-after: always;"></div>
 ### Assigned Leaves
 
 **Current Implementation**
@@ -436,7 +429,7 @@ This class extends `Command` with the following added method to get the updated 
 except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#addDate` is called. In addition,
 `LeaveBalance#removeLeaves` is called with a `LeaveBalance` object containing the value 1. 
 (In other words, assigning a leave deducts 1 leave from the leave balance.)
-<div style="page-break-after: always;"></div>
+
 The remove outdated leaves feature is implemented by the class `RemoveLeavesBeforeCommand`.
 This class extends `Command` with the following added method to get the updated person:
 - `getUpdatedPerson(Person personToEdit)` - Returns a new `Person` object that is a copy of the input `personToEdit` object,
@@ -445,7 +438,7 @@ This class extends `Command` with the following added method to get the updated 
 `RemoveLeavesBeforeCommand` works similarly to `AddLeaveBalanceCommand`,
 except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#removeDatesBefore` is called.
 In addition, `LeavesTaken#removeDatesBefore` is called for all `Person` objects in the filtered list.
-
+<div style="page-break-after: always;"></div>
 The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 
 ![RemoveLeavesBeforeSequenceDiagram](images/RemoveLeavesBeforeSequenceDiagram.png)
@@ -508,7 +501,7 @@ been paid yet by calling `Person#isPaid()` on the employee. If an employee is un
 a `CommandException` will be thrown.
    
 **Step 4.** If there are no employees who are unpaid, calculations of payroll will proceed through the following substeps:
-
+<div style="page-break-after: always;"></div>
 --Start of Calculating Payroll--
 
 The following sequence diagram describes how the payroll is calculated.
@@ -517,8 +510,6 @@ The following sequence diagram describes how the payroll is calculated.
 
 **Step 4.1.** Retrieve the current `overtimePayRate` in the application from the `Model`
 using `Model#getOvertimePayRate()`.
-
-<div style="page-break-after: always;"></div>
    
 **Step 4.2.** Retrieve an employee from `personList`.
 Retrieve the following attributes from the employee `Person` object:
@@ -529,7 +520,7 @@ Retrieve the following attributes from the employee `Person` object:
 The new `CalculatedPay` object representing the calculated employee's pay is created by calling
 the `StartPayrollCommand#calculatePay()` method, with the earlier retrieved values (`overtimePayRate`, `hourlySalary`,
 `hoursWorked`, `overtime`) as parameters.
-
+<div style="page-break-after: always;"></div>
 **Step 4.3.** An updated copy of the employee `Person` object is created with the new `CalculatePay` attribute using
 `StartPayrollCommand#createPersonWithCalculatedPay()`, and their `HoursWorked` and `Overtime` attributes reset to zero
 using `StartPayrollCommand#createPersonWithZeroHoursWorkedAndOvertime()`. The updated copy of the employee is then
@@ -684,7 +675,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. HeRon shows an error message.
 
       Use case resumes at step 2.
-<div style="page-break-after: always;"></div>
+
 * 3b. The number of leaves to be added is invalid. (If the input is not a positive integer)
 
     * 3b1. HeRon shows an error message.
@@ -778,7 +769,7 @@ Guarantees:
     Steps 4-5 are repeated for all employees in the list.
     
     Use case ends.
-<div style="page-break-after: always;"></div>
+
 **Extensions**
 
 * 2a. The list is empty.
@@ -813,7 +804,7 @@ Guarantees:
     * 3b1. HeRon shows an error message.
 
       Use case resumes at step 2.
-
+<div style="page-break-after: always;"></div>
 **Use case: Remove hours worked/overtime from an employee**
 
 Guarantees:
@@ -827,7 +818,7 @@ Guarantees:
 4.  HeRon removes the hours worked/overtime from the employee
 
     Use case ends.
-<div style="page-break-after: always;"></div>
+
 **Extensions**
 
 * 2a. The list is empty.
@@ -981,7 +972,7 @@ Guarantees:
 * 2a. The result list is empty.
 
   Use case ends.
-<div style="page-break-after: always;"></div>
+
 * 3a. The given corresponding tag of the detail(s) to be updated is invalid.
 
     * 3a1. HeRon shows an error message.
