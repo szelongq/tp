@@ -47,16 +47,16 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 --------------------------------------------------------------------------------------------------------------------
 ## Interface Layout
-![CommandPanel](images/CommandPanel.png) <br>
+![CommandPanel](images/user-guide/CommandPanel.png) <br>
 _Command Panel_ <br>
 - User commands can be entered in the top section labeled `Enter command here...`
 - Bottom section displays the result of the command. If command was unsuccessful, displays an error instead.
 
-![ListPanel](images/ListPanel.png) <br>
+![ListPanel](images/user-guide/ListPanel.png) <br>
 _List Panel_ <br>
 - Displays the employee list together with its relevant particulars.
 
-![DisplayPanel](images/DisplayPanel.png) <br>
+![DisplayPanel](images/user-guide/DisplayPanel.png) <br>
 _Display Panel_ <br>
 - Displays all of a specified employee's information.
 - On start-up of the application, it displays the first employee in the list.
@@ -98,7 +98,7 @@ _Display Panel_ <br>
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
+![help message](images/user-guide/helpMessage.png)
 
 Format: `help`
 
@@ -117,10 +117,10 @@ Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES 
     `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
     `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
     `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
-    `LEAVEBALANCE`| Non-negative integers only. |`12`,`0`
+    `NUMBER_OF_LEAVES`| Non-negative integers less than or equal to 365. |`12`,`0`
     `HOURLYSALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
-    `HOURSWORKED`| Positive integers only. | `12`,`1`
-    `OVERTIME`| Non-negative integers only. | `12`,`0`
+    `HOURSWORKED`| Positive integers less than or equal to 744.| `12`,`1`
+    `OVERTIME`| Non-negative integers less than or equal to 744. | `12`,`0`
     `TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
 
 
@@ -131,8 +131,8 @@ An employee can have any number of tags (including 0)
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0`
 * `add n/Betsy Crowe r/Designer s/25 hw/60  l/21  e/betsycrowe@example.com a/Newgate Prison p/1234567 o/0 t/criminal t/friend`
-![Result of successful add](images/addExample.png)
-_Result of adding a new employee Betsy successfully to HeRon_ <br>
+![Result of successful add](images/user-guide/addExample.png)
+  _Result of adding a new employee Betsy successfully to HeRon_ <br>
 
 #### Listing all employees : `list`
 
@@ -226,9 +226,8 @@ Examples:
   3. whose role contains the word `admin`,
   4. has 5 or less than 5 leaves, and
   5. has strictly more than 3 days of overtime
-
 * `find unpaid n/carl Elle l/<3` returns `Carl Kurz`, `Elle Meyer` as long as they have less than 3 leaves left and are still unpaid.<br>
-  ![result for 'find alex david'](images/findCarlElleResult.png)
+  ![result for 'find alex david'](images/user-guide/findCarlElleResult.png)
 
 #### Deleting an employee : `delete`
 
@@ -258,9 +257,11 @@ Example:
 * `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
 * `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
 
-#### Clearing all entries : `clear`
+#### Clearing all employees : `clear`
 
-Clears all entries from HeRon.
+Clears all employees from the employee list. Upon clearing, it should display the screen shown below.
+
+![ClearScreen](images/user-guide/clear.png)
 
 Format: `clear`
 
@@ -281,7 +282,8 @@ Format: `addLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 * Adds the specified number to the number of leaves of the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
-* The number of leaves **must be a positive integer** 1, 2, 3, …
+* The number of leaves **must be a positive integer between 1 and 365** 1, 2, 3, …, 365
+* The number of leaves to be added **cannot cause the employee's total leave balance to exceed 365 leaves.**
 
 Examples:
 * `list` followed by `addLeaveBalance 3 l/4` adds 4 days of leave to the 3rd employee in HeRon.
@@ -296,7 +298,7 @@ Format: `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 * Deducts the specified number from the number of leaves of the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
-* The number of leaves **must be a positive integer** 1, 2, 3, …
+* The number of leaves **must be a positive integer between 1 and 365** 1, 2, 3, …, 365
 * The number of leaves to be deducted **cannot be greater than the amount of leaves in the employee's leave balance.**
 
 Examples:
@@ -346,7 +348,9 @@ Format: `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 * Adds the specified number of hours worked/overtime to the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
-* The number of hours worked/overtime **must be a positive integer** 1, 2, 3, …
+* The number of hours worked/overtime **must be a positive integer between 1 and 744** 1, 2, 3, …, 744
+* The number of hours worked/overtime to be added **cannot cause the employee's total hours worked/overtime to exceed 744.** 
+  <br> (Note: Limit of 744 is applied separately to hours worked and overtime, e.g hours worked and overtime can both be set to 744)
 
 Examples:
 * `list` followed by `addHoursWorked 5 hw/5 o/5` adds 5 hours worked and 5 hours of overtime to the 5th employee in HeRon.
@@ -362,7 +366,7 @@ Format: `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 * Deducts the specified number of hours worked/overtime from the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …
-* The number of hours worked/overtime **must be a positive integer** 1, 2, 3, …
+* The number of hours worked/overtime **must be a positive integer between 1 and 744** 1, 2, 3, …, 744
 * The number of hours worked/overtime to be removed **cannot be greater than the employee's current number of hours worked/overtime.**
 
 Examples:
@@ -389,16 +393,19 @@ Format: `startPayroll`
 
 Example:
 * Before `startPayroll` command, currently viewing a filtered list.
-  ![before starting payroll](images/startPayroll_before.png)
+  ![before starting payroll](images/user-guide/startPayroll_before.png)
 
 
 * After `startPayroll` command, payroll have been calculated and currently viewing the full list of employees.
-  ![after starting payroll](images/startPayroll_after.png)
+  ![after starting payroll](images/user-guide/startPayroll_after.png)
 
-Notes:
-* All employees must not have any pay pending from the previous payroll. Otherwise, an error will be shown:
-  ![error when there are employees still unpaid](images/startPayrollError_unpaidEmployee.png)
+<div markdown="block" class="alert alert-info">
+**:information_source: Notes:**
+
+* All employees must not have any pay pending from the previous payroll (i.e. no red 'NOT PAID' label). Otherwise, an error will be thrown
+  and no action will be taken.
 * To start a new payroll, first make sure to pay all employees using the `pay` command.
+</div>
 
 #### Paying employee(s) : `pay`
 
@@ -414,12 +421,13 @@ Format 1: `pay INDEX` - for paying a specific employee
 * The employee must have payment pending from a `startPayroll` command.
 
 Example:
-* `pay 1` marks the 1st employee in the Employee list as paid clearing the pay owed, number of hours worked and overtime hours of the employee.
-  ![before paying the employee](images/pay_beforePaying.png)
-  _Alice is marked as unpaid in HeRon_ <br>
+* `pay 1` marks the 1st employee in the Employee list as paid, clearing the pay owed to the employee and removing
+  the red 'NOT PAID' label.
+  ![before paying the employee](images/user-guide/pay_beforePaying.png)
+  _Alex is marked as unpaid in HeRon_ <br>
   <br>
-  ![after paying the employee](images/pay_afterPaying.png)
-  _After executing `pay 1`, Alice (being the 1st person in this list) is marked as paid_ <br>
+  ![after paying the employee](images/user-guide/pay_afterPaying.png)
+  _After executing `pay 1`, Alex (being the 1st person in this list) is marked as paid_ <br>
 
 Format 2: `pay all` - for paying all employees in the current list
 * Simulates paying of employees in the same way as above, but for all employees instead.
@@ -441,12 +449,13 @@ Sets a new overtime pay rate to be used in payroll calculations.
 Format: `setOvertimePayRate OVERTIMEPAYRATE`
 
 * Sets the overtime pay rate in the application to `OVERTIMEPAYRATE`.
-* `OVERTIMEPAYRATE` should have a value of at least 1.
+* `OVERTIMEPAYRATE` should have a value between 1 to 10, and have at most 5 decimal places.
 
 Examples:
 * `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2x.
 
 * `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
+* `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places. An error message would be shown.
 
 ### Data-related Features
 
@@ -464,7 +473,7 @@ Format: `import FILEPATH`
 * Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below, and are present in the data if compulsory.
 * If multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
 * If there are duplicate `Person` entries, `Email` or `Contact Number`, the import will not be allowed.
-* Ensure that each field follows the specifications required, which can be found in the section ["Adding an Employee: `add`"](#Adding an Employee).
+* Ensure that each field follows the specifications required, which can be found in the section for [`add` command](UserGuide.md#adding-an-employee-add).
 * Ensure that the number of fields in each entry matches the number of headers.
 * If multiple tags are present for an entry, they should be separated by `/`.
 * For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value.
@@ -479,7 +488,7 @@ Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Valu
 `ADDRESS` |Residential Address|**Yes**| N.A.
 `EMAIL` |Email|**Yes**| N.A.
 `ROLE` |Role|**Yes**| N.A.
-`LEAVEBALANCE` |Leave Balance|No | 0
+`NUMBER_OF_LEAVES` |Leave Balance|No | 0
 `HOURLYSALARY` |Salary|No | 0.00
 `HOURSWORKED` |Hours Worked|No | 0
 `OVERTIME` |Overtime|No | 0
@@ -487,13 +496,13 @@ Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Valu
 
 Example:`import ./toBeImported` should have the following behaviours under the following situations.
 * Successful Import
-  ![Result for successful import](images/multipleTagImport.png)
+  ![Result for successful import](images/user-guide/multipleTagImport.png)
 * Multiple entries missing compulsory fields.
-  ![Picture of CSV file missing compulsory field](images/missingFieldCsv.png)
-  ![Result for missing field import](images/missingFieldImport.png)
+  ![Picture of CSV file missing compulsory field](images/user-guide/missingFieldCsv.png)
+  ![Result for missing field import](images/user-guide/missingFieldImport.png)
 * Multiple Tags present in entry.
-  ![Picture of CSV file with multiple tags](images/multipleTagsCsv.png)
-  ![Result for multiple tag import](images/multipleTagImport.png)
+  ![Picture of CSV file with multiple tags](images/user-guide/multipleTagsCsv.png)
+  ![Result for multiple tag import](images/user-guide/multipleTagImport.png)
 
 #### Saving the data
 
@@ -529,7 +538,7 @@ Action | Format, Examples
 **List** | `list`
 **View** | `view INDEX`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
-**Find** | `find [KEYWORDS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
+**Find** | `find [STATUS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Clear** | `clear`
 **Exit** | `exit`
