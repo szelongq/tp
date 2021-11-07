@@ -514,9 +514,15 @@ Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Valu
 Example:`import ./toBeImported` should have the following behaviours under the following situations.
 * Successful Import
   ![Result for successful import](images/user-guide/multipleTagImport.png)
+
+    <div style="page-break-after: always;"></div>
+  
 * Multiple entries missing compulsory fields.
   ![Picture of CSV file missing compulsory field](images/user-guide/missingFieldCsv.png)
   ![Result for missing field import](images/user-guide/missingFieldImport.png)
+  
+    <div style="page-break-after: always;"></div>
+
 * Multiple Tags present in entry.
   ![Picture of CSV file with multiple tags](images/user-guide/multipleTagsCsv.png)
   ![Result for multiple tag import](images/user-guide/multipleTagImport.png)
@@ -536,6 +542,8 @@ If your changes to the data file makes its format invalid, HeRon will discard al
 _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## FAQ - Frequently Asked Questions
 
