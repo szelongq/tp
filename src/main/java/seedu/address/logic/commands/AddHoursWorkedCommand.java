@@ -74,7 +74,8 @@ public class AddHoursWorkedCommand extends Command {
     }
 
     /**
-     * Returns a {@code Person} object with updated hours worked and overtime hours worked.
+     * Returns a {@code Person} object that is a copy of the input person, except
+     * with updated hours worked and overtime hours worked.
      *
      * @param personToEdit The person object that is to be edited.
      * @return An updated Person object.

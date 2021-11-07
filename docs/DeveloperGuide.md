@@ -9,7 +9,9 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+### Third-Party Libraries Used
+* [Opencsv](http://opencsv.sourceforge.net/)
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -23,7 +25,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-F11-3/tp/tree/master/docs/diagrams) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
@@ -36,7 +38,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** has two classes called [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
+**`Main`** has two classes called [`Main`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
@@ -69,13 +71,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -86,7 +88,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -114,19 +116,22 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
-
+<img src="images/PersonClassDiagram.png" />
 
 The `Model` component,
-
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. 
+It has a `Tag` and `Leave` list in the `AddressBook`, which `Person` references. 
+This allows `AddressBook` to only require one `Tag` object per unique tag, and one `Leave` object per unique date, 
+instead of each `Person` needing their own `Tag` and `LeavesTaken` objects. More information on how leaves are currently implemented
+can be found [here](#assigned-leaves). <br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
@@ -135,7 +140,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -237,114 +242,217 @@ Cons:
 * Testing becomes harder because there are many branches to account for, since the `test()` method will change its behaviour based on the comparison type passed into it.
 * May become less flexible if more types of comparisons are needed. The current implementation allows each predicate to be responsible for only one type of comparison.
 
-### \[Proposed\] Undo/redo feature
+### \[Implemented\] Import feature
 
-#### Proposed Implementation
+#### Feature Implementation
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The implemented import feature mechanism is facilitated by `ImportCommandParser`, `ImportCommand` and `PersonInput`. `ImportCommandParser` implements the interface `Parser`.`ImportCommand` extends abstract class `Command`, and implements the following additional operation:
+* `ImportCommand#importData(Model)` Takes the filepath attributed to the ImportCommand and imports its content.
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+`PersonInput` is a class which stores the field inputs for a data entry as Strings, and implements getter and setter methods for all fields as required by the 3rd-party library opencsv. While parsing the csv file, `PersonInput` objects are created to consolidate all the information present, before being converted into `Person` objects and added into HeRon`.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The fields `name`,`phone`, `address`, `email` and `role` must be present in all entries before the data can be imported successfully. This is to prevent junk data from being imported. These fields were selected as they are highly likely to be present in existing data to be used for import.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The program detects the fields using column titles (taken as the first row of the csv file). The naming convention (case-insensitive) of the following fields must be followed for HeRon to detect the field, as per opencsv library requirements.
+* `name` as Name
+* `phone` as Contact Number
+* `address` as Residential Address
+* `email` as Email
+* `role` as Role
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Given below is an example usage scenario and how the import mechanism behaves at each step.
 
-![UndoRedoState0](images/UndoRedoState0.png)
+Step 1. The user launches the application. HeRon initializes with the initial address book state or loaded with data from the previous session (if any).
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which in this case, refers to the file `toBeImported.csv` in the root directory.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`.</div>
 
-![UndoRedoState1](images/UndoRedoState1.png)
+Step 3. Program processes the .csv file, and creates a new `AddressBook`, and updates it with the entries in the file. The current existing `AddressBook` is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current `AddressBook`.</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Data present in the imported file must adhere to respective requirements for each field. `Name`, `Email` and `Phone` fields cannot be the same as other entries. If duplicate values exist, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`</div>
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 4. The updated `AddressBook` would be saved as per the process after the execution of a command.
 
-![UndoRedoState2](images/UndoRedoState2.png)
+The following sequence diagram shows how the import feature works:
+![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
+![ImportProcessData](images/ImportProcessData.png)
+![ImportUpdateGUI](images/ImportUpdateGUI.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `ImportCommandParser`, `ImportCommand` and `CommandResult` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.</div>
 
-</div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how the undo operation works:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
+The following activity diagram summarizes what happens when a user uses the `import` command:
+![ImportActivityDiagram](images/ImportActivityDiagram.png)
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+**Aspect: How the imported file is processed:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+* **Alternative 1 (current choice): Uses a header row to determine the data used**
+    * Pros: No need to follow specific column ordering.
+    * Cons: The names of the headers for the specific columns must be the exact name used (less case-sensitivity), and a header row must be present.
 
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 2: Uses positioning of columns to import data**
+    * Pros: No need for header rows.
+    * Cons: Unable to ensure that the data is formatted in the correct order.
 
-_{more aspects and alternatives to be added}_
+**Aspect: Making fields compulsory for import:**
 
-### \[Proposed\] Data archiving
+* **Alternative 1 (current choice): Only fields `Name`, `Contact Number`, `Residential Address`, `Email` and `Role` are compulsory**
+    * Pros: Ensures that imported data have the minimum fields required before being imported, which most organizations should have.
+    * Cons: Files cannot be imported if any entry has any of the compulsory fields missing.
 
-_{Explain here how the data archiving feature will be implemented}_
+* **Alternative 2: No compulsory fields**
+    * Pros: Allows for multiple names for the fields in the header row, albeit still fixed. Files can be imported even if there are missing entries.
+    * Cons:  Files can be imported regardless of any formatting issues or missing fields in entries, thus data can be imported even without any cleaning, making it harder to be used in the program.
+
+* **Alternative 3 : All fields are compulsory**
+    * Pros: Ensures data imported have all the required fields to utilise all the functionality of the program.
+    * Cons: Files cannot be imported if any entry has any fields missing.
 
 ### Updating Info Panel display
 
 #### Current Implementation
-The `InfoPanel` class controls the information to be displayed on the Info Panel, with the method `updateInfoPanel(Person p)`
-which updates the content to be displayed with `Person`'s information.
+`InfoPanel` class controls the content being displayed on the Info Panel. The information to be displayed is dependent
+on the ObservablePerson object `viewingPerson` in the ModelManager class. `viewingPerson` contains the person to be viewed, as well as
+a `uiObserverList` that contains `UiObserver` that wish to be notified when the person to be viewed has been changed.
 
-`ModelManager` contains viewingPerson which represents the person whose data is to be displayed onto the panel, which the `Logic` interface has access to.
+When the `viewingPerson` is changed, `InfoPanel`
+should get updated automatically to display the new information.
 
-`MainWindow` houses the InfoPanel, which calls the update method with the `viewingPerson` passed into it.
-The updated `viewingPerson` is passed to the update method by through calling the accessor method from the `Logic` component.
+This automatic updating of information to display on the Info Panel is achieved through the Observer pattern.
 
-Walk-through example:
+![InfoPanelClassDiagram](images/InfoPanelClassDiagram.png)
 
-1. User launches the application for the first time. `viewingPerson` will be initialized to be the first person in the addressBook list
-(otherwise it is set to an example person), with `InfoPanel` initialized with `viewingPerson` and displaying its information.
+The following operations are implemented for the classes:
+* `InfoPanel::updateInfoPanel(Person p)` - updates the content to be displayed on the Info panel with the new `Person`'s information.
+* `ObservablePerson::addUiObserver(UiObserver observer)` - subscribes the `UiObserver` to the `ObservablePerson` to get updates when `ObservablePerson` changes
+* `ObservablePerson::updateUi()` - updates the observers with the relevant `Person` information.
 
-2. User executes `view 2` command in order to view the 2nd person in the addressBook. `ViewCommand` then calls `Model#setViewingPerson()`
-which sets the `viewingPerson` to be the 2nd person
+On initialization:
+1. `ObservablePerson` is created, and `InfoPanel` is initialized with the ObservablePerson passed as argument to the constructor
+2. On creation of `InfoPanel`, it adds itself to the `uiObserverList` of the ObservablePerson to be subscribed for updates using `ObservablePerson::addUiObserver(UiObserver observer)`
 
-Upon execution of the command, `MainWindow` calls `InfoPanel#updateInfoPanel())` with the updated viewingPerson, and updates the display.
+When the `ObservablePerson` changes:
+1. `InfoPanel` in the `uiObserverList` is updated with `ObservablePerson::updateUi()`
+2. `InfoPanel` and other `UiObserver` in the list can then update their own Ui with the updated viewingPerson information passed to it.
+
+Below is an example of how `InfoPanel` updates with a view command:
+
+![ViewSequenceDiagram](images/ViewSequenceDiagram.png)
+
+1. User executes `view 2` to view the 2nd employee in the list, and after the command is parsed, `v:ViewCommand` is being created.
+
+2. On execution of `ViewCommand`, `getPersonToView(index)` is called to get the personToView, and then passed to call `setViewingPerson(personToView)` on `Model`.
+
+3. Model calls `setPerson(personToView)` on `ObservablePerson`, causing it to update the viewing person. In the process of updating,
+it informs the other `InfoPanel` in the `uiObserverList` to update, passing the new updated personToView to `InfoPanel`.
+
+4. With the new data passed to `InfoPanel`, it can then update the content to be displayed in however its `update()` method is implemented.
 
 Design Considerations:
-Pros: Easy to implement, ensures that InfoPanel always displays accurate up-to-date information
-Cons: Difficult to extend InfoPanel to display other information with current implementation
+Pros: `InfoPanel` can update by itself without `Model` having a dependency on the UI.
+Cons: Might be harder to figure out what is "observing" the observable just by looking at the source code since there is no direct dependency.
+
+Alternative:
+Constantly update Info Panel with every command executed.
+Pros: Easy to update, ensures that Ui is constantly updated.
+Cons: Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
+
+### Leave Balance
+
+#### Current Implementation
+
+Currently, leaves are represented by two attributes of `Person`: `LeaveBalance`, which represents the amount of leaves the employee has remaining, 
+and `LeavesTaken`, which represents the leaves that the employee has taken on a given date.
+
+`LeaveBalance` is internally represented as an integer value, and must have a value of at least 0 and at most 365.
+The add to/deduct from leave balance features are implemented by the classes 
+`AddLeaveBalanceCommand` and `DeductLeaveBalanceCommand` respectively.
+Both classes extend `Command` with the following added method to get the updated person:
+- `getUpdatedPerson(Person personToEdit)` - Returns a new `Person` object that is a copy of the input `personToEdit` object,
+except with an updated `LeaveBalance` value.
+
+Given below is an example of how `AddLeaveBalanceCommand` works.
+
+Step 1. The user enters the command 'addLeaveBalance 2 l/1'. The `AddLeaveBalanceCommandParser` parses the input, creates a `AddLeaveBalanceCommand` object and executes it.
+The command object contains two attributes: `index`, which corresponds to the input index of 2, and `leaveBalance` which corresponds to the input number of leaves, in this case 1.
+
+Step 2. Inside `AddLeaveBalanceCommand#execute`, the list of all employees is retrieved by calling `Model#getFilteredPersonList()`.
+
+Step 3. Using the input `Index` value, the second person from the filtered list is retrieved as the `personToEdit` object.
+
+Step 4. `AddLeaveBalanceCommand#getUpdatedPerson` is called, with `personToEdit` as an input.
+
+Step 5. Inside `getUpdatedPerson`, `LeaveBalance#addLeaves` is called with the input `LeaveBalance` value as a parameter.
+
+Step 6. `getUpdatedPerson` returns a copy of the `personToEdit` object with an updated `LeaveBalance`.
+
+Step 7. The old `Person` object in the `Model` is then replaced with its updated copy using `Model#setPerson()`.
+
+Step 8. `AddLeaveBalanceCommand#execute` returns a `CommandResult` to signal a successful execution.
+
+The following sequence diagram shows how `AddLeaveBalanceCommand` works:
+
+![AddLeaveBalanceSequenceDiagram](images/AddLeaveBalanceSequenceDiagram.png)
+
+`DeductLeaveBalanceCommand` works similarly, except instead of calling `LeaveBalance#addLeaves` in step 5, `LeaveBalance#removeLeaves` is called.
+
+### Assigned Leaves
+
+#### Current Implementation
+
+`LeavesTaken` is internally represented as a `PriorityQueue` of `LocalDate` values. A `PriorityQueue` was chosen as it would 
+automatically sort the `LocalDate` values from least to most recent after each add/remove date operation. 
+There may be multiple `LocalDate` objects representing the same date. For example, if two employees have a leave on 2021-11-10,
+each of them will have a different `LocalDate` object corresponding to 2021-11-10 inside their `LeavesTaken` attribute object.
+
+The assign leave feature is implemented by the class `AssignLeaveCommand`.
+This class extends `Command` with the following added method to get the updated person:
+- `getUpdatedPerson(Person personToEdit)` - Returns a new `Person` object that is a copy of the input `personToEdit` object,
+  except with updated `LeavesTaken` and `LeaveBalance` values.
+  
+`AssignLeaveCommand` works similarly to `AddLeaveBalanceCommand`, 
+except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#addDate` is called. In addition,
+`LeaveBalance#removeLeaves` is called with a `LeaveBalance` object containing the value 1. 
+(In other words, assigning a leave deducts 1 leave from the leave balance.)
+
+The remove outdated leaves feature is implemented by the class `RemoveLeavesBeforeCommand`.
+This class extends `Command` with the following added method to get the updated person:
+- `getUpdatedPerson(Person personToEdit)` - Returns a new `Person` object that is a copy of the input `personToEdit` object,
+  except with an updated `LeavesTaken` value.
+
+`RemoveLeavesBeforeCommand` works similarly to `AddLeaveBalanceCommand`,
+except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#removeDatesBefore` is called.
+In addition, `LeavesTaken#removeDatesBefore` is called for all `Person` objects in the filtered list.
+
+The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
+
+![RemoveLeavesBeforeSequenceDiagram](images/RemoveLeavesBeforeSequenceDiagram.png)
+
+#### Design considerations:
+
+**Aspect: How assigned leaves are represented**
+
+* **Alternative 1 (current choice):** Each `Person` object has a `LeavesTaken` object that contains a set of `LocalDate` values that 
+  corresponds to the employee's assigned leaves.
+    * Pros: Easier to implement, able to delete individual `LocalDate` objects without needing to check other `Person` objects.
+    * Cons: May have issues in regard to memory usage, as each unique date can potentially have many `LocalDate` objects that correspond to it.
+
+* **Alternative 2:** Each unique date is represented by a `Leave` object.
+    * Pros: Potentially more object-oriented, reduced memory usage as only one object is required for each date.
+    * Cons: Need to keep track of how many `Person` objects are associated with each `Leave`, which might lead to increased coupling between `Leave` and `Person`.
+
+**Aspect: How outdated assigned leaves are removed:**
+
+* **Alternative 1 (current choice):** Manually clear outdated leaves via a command (`removeLeavesBefore`).
+    * Pros: Easier to implement and test than an automated solution, gives more control to the user in which leaves they want to clear.
+    * Cons: Less convenience for the user, could lead to accidental deletion of certain leaves if the user makes a typo with the input date.
+
+* **Alternative 2:** Assigned leaves will automatically clear themselves once the date has passed.
+    * Pros: More convenient for the user.
+    * Cons: Harder to test, and it could lead to unexpected behaviour. (e.g. What happens if the user changes their timezone, or if the user's system clock fails)
+      Also, the user might want to keep a full record of all assigned leaves.
 
 ### Start Payroll feature
 
@@ -358,42 +466,73 @@ It extends `Command` with the following added methods to calculate the payroll f
 - `StartPayrollCommand#createPersonWithCalculatedPay(Person personWithCalculatedPay,
   CalculatedPay newCalculatedPay)` - Creates a new `Person` that is a copy of the given `Person` parameter
   except with the updated `CalculatedPay` value.
+- `StartPayrollCommand#createPersonWithZeroHoursWorkedAndOvertime(Person person)` - Creates a new `Person` that is a copy of the 
+  given `Person` parameter except with the `HoursWorked` and `Overtime` values set to 0.
 
-Given below is an example of how StartPayrollCommand works.
+Given below is an example of how `StartPayrollCommand` works.
 
-Step 1. The user enters the command word 'startPayroll'. The `addressBookParser` parses the input,
+The following sequence diagram describes the operations in executing a `StartPayrollCommand`.
+
+![StartPayrollSequenceDiagram](images/StartPayrollSequenceDiagram.png)
+
+**Step 1.** The user enters the command word 'startPayroll'. The `addressBookParser` parses the input,
 creates a `StartPayrollCommand` and executes it.
 
-Step 2. In the new instance of `StartPayrollCommand`, upon starting execution,
+**Step 2.** In the new instance of `StartPayrollCommand`, upon starting execution,
 the list of employees to be viewed in `Model` is set to be unfiltered using `Model#updateFilteredPersonList()`.
-The list of all employees is then retrieved by calling `Model#getFilteredPersonList()`.
+The list of all employees is then retrieved by calling `Model#getFilteredPersonList()`,
+storing a deep copy in `personList`.
 
-Step 3. Each employee in the list of employees are checked if they have any previously calculated payroll that have not
+**Step 3.** Each employee in the list of employees are checked if they have any previously calculated payroll that have not
 been paid yet by calling `Person#isPaid()` on the employee. If an employee is unpaid,
 a `CommandException` will be thrown.
 
-Step 4. If there are no employees who are unpaid, calculations of payroll will proceed through the following substeps
-for each employee in the list:
+**Step 4.** If there are no employees who are unpaid, calculations of payroll will proceed through the following substeps:
 
-Step 4.1. Retrieve the current `overtimePayRate` in the application from the `Model`
-using `Model#getOvertimePayRate()`.<br>
-After that, retrieve the following attributes from the employee `Person` object:
+**Step 4.1.** Retrieve the current `overtimePayRate` in the application from the `Model`
+using `Model#getOvertimePayRate()`.
+
+**Step 4.2.** Retrieve an employee from `personList`.
+Retrieve the following attributes from the employee `Person` object:
 - `hourlySalary` - The employee's salary per hour.
 - `hoursWorked` - How many hours the employee has worked for (excluding overtime).
 - `overtime` - How many hours of overtime the employee has worked for.
 
-Step 4.2. The `CalculatedPay` object representing the calculated employee's pay is created by calling
+The new `CalculatedPay` object representing the calculated employee's pay is created by calling
 the `StartPayrollCommand#calculatePay()` method, with the earlier retrieved values (`overtimePayRate`, `hourlySalary`,
 `hoursWorked`, `overtime`) as parameters.
 
-Step 4.3. An updated copy of the employee `Person` object is created with the new `CalculatePay` attribute using
-`StartPayrollCommand#createPersonWithCalculatedPay()`.
+**Step 4.3.** An updated copy of the employee `Person` object is created with the new `CalculatePay` attribute using
+`StartPayrollCommand#createPersonWithCalculatedPay()`, and their `HoursWorked` and `Overtime` attributes reset to zero
+using `StartPayrollCommand#createPersonWithZeroHoursWorkedAndOvertime()`. The updated copy of the employee is then
+inserted into `calculatedPersonsList`.
 
-Step 4.4. The employee `Person` object in the `Model` is then replaced with the updated copy using `Model#setPerson()`.
+Steps 4.2 and 4.3 are repeated for all employees in the `personList`.
 
-Step 5. After every employee in the list has had their payroll calculated, the `StartPayrollCommand` returns a
-`CommandResult` to signal successful execution.
+**Step 4.4.** For every employee in `personList`, its corresponding `Person` object in the `Model` is then replaced 
+with its updated copy in `calculatedPersonsList` using `Model#setPerson()`.
 
+The following sequence diagram describes how the payroll is calculated.
+
+![StartPayrollSequenceDiagram](images/PayrollCalculationSequenceDiagram.png)
+
+Step 5. After every employee in the list has had their payroll calculated, HeRon is set to view the first employee 
+in the list.
+
+Step 6. Lastly, the `StartPayrollCommand` returns a `CommandResult` to signal successful execution.
+
+#### Design considerations:
+
+**Aspect: How the feature of calculating payroll is implemented:**
+
+* **Alternative 1 (current choice):** One command for calculating payroll for all employees.
+    * Pros: Easy to implement. Easy to test (little variations in use cases).
+    * Cons: Less flexible for users.
+
+* **Alternative 2:** Command that calculates payroll for a single employee or all employees.
+    * Pros: Provides more flexibility for users.
+    * Cons: We need to check for which use case the user intends to use. Can be harder/more tedious to test
+    as more there are more variations in use cases.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -495,14 +634,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: Add leaves to an employee**
+**Use case: Add leaves to an employee's leave balance**
 
 **MSS**
 
 1.  User requests to list employees
 2.  HeRon shows a list of employees
 3.  User requests to add a certain number of leaves to a specific employee in the list
-4.  HeRon adds the leaves to the employee
+4.  HeRon adds the leaves to the employee's leave balance
 
     Use case ends.
 
@@ -524,7 +663,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: Remove leaves from an employee**
+**Use case: Remove leaves from an employee's leave balance**
 
 Guarantees:
 * The number of leaves of the employee after the operation will never be negative.
@@ -534,7 +673,7 @@ Guarantees:
 1.  User requests to list employees
 2.  HeRon shows a list of employees
 3.  User requests to remove a certain number of leaves from a specific employee in the list
-4.  HeRon removes the leaves from the employee
+4.  HeRon removes the leaves from the employee's leave balance
 
     Use case ends.
 
@@ -599,6 +738,25 @@ Guarantees:
     * 3c1. HeRon shows an error message.
 
       Use case resumes at step 2.
+
+**Use case: Remove outdated assigned leaves from a list of employees**
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to clear all leaves before a given date from all employees in the list 
+4.  HeRon gets a list of leave dates from an employee
+5.  HeRon removes all leave dates that occur before the given input date, and updates the employee's list accordingly
+    Steps 4-5 are repeated for all employees in the list.
+    
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
 
 **Use case: Add hours worked/overtime to an employee**
 
@@ -739,6 +897,7 @@ Guarantees:
 3.  User requests to calculate the payroll for all employees
 4.  HeRon shows the list of all employees
 5.  HeRon calculates the payroll and updates all employees' calculated pay information.
+6.  HeRon sets the first employee on the list to be viewed in the InfoPanel.
 
     Use case ends.
 
@@ -803,6 +962,28 @@ Guarantees:
     * 3b1. HeRon shows an error message.
 
       Use case resumes at step 3.
+
+**Use case: Importing an external .csv file.**
+
+**MSS**
+1. User specifies the filepath of the file to be imported.
+2. File is found and data from the file is imported into HeRon.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. File specified from the given filepath foes not exist.
+    
+    * 2a1. HeRon shows an error message. 
+  
+      Use case resumes at step 1.
+  
+* 2b. File specified exists, but the formatting of data in the given file is invalid.
+
+    * 2a1. HeRon shows an error message.
+
+      Use case resumes at step 1.
 
 *{More to be added}*
 
@@ -871,7 +1052,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Editing an employee
 
-1. Editing an employee while list of employees are shown
+1. Editing an employee while a list of employees is shown
 
     1. Prerequisites: List all persons using the `list` command. Multiple employees in the list.
 
@@ -888,6 +1069,137 @@ testers are expected to do more *exploratory* testing.
         Expected: No employee data is being edited. Error details shown in the status message. Status bar remains the same.
 
 2. _{ possibly more test cases? …​ }_
+
+### Adding to/Deducting from an employee's leave balance
+
+1. Adding to/Deducting from an employee's leave balance while a list of employees is shown
+
+    1. Prerequisites: List all persons using the `list` command. At least 1 employee in the list. First employee must have a `LeaveBalance` of 0.
+       (Set with `edit 1 l/0`) All test cases are meant to be tested in order.
+
+    2. Test case: `addLeaveBalance 1 l/1`<br>
+       Expected: First employee's leave balance is now 1. Details of the new leave balance are shown in the status message.
+
+    3. Test case: `addLeaveBalance`<br>
+       Expected: No leaves are added. Error details shown in the status message indicate that the command format is invalid.
+
+    4. Test case: `addLeaveBalance 1 l/365`<br>
+       Expected: No leaves are added. Error details shown in the status message indicate that only 364 leaves can be added.
+
+    5. Test case: `addLeaveBalance 1 l/364`<br>
+       Expected: First employee's leave balance is now 365. Details of the new leave balance are shown in the status message.
+
+    6. Test case: `deductLeaveBalance 1 l/366`<br>
+       Expected: No leaves are deducted. Error details shown in the status message indicate that only integers between 1-365 are valid.
+
+    7. Test case: `deductLeaveBalance 1 l/365`<br>
+       Expected: 365 leaves are deducted. Details of the new leave balance are shown in the status message.
+
+    8. Test case: `deductLeaveBalance 1 l/1`<br>
+       Expected: No leaves are deducted. Error details shown in the status message indicate that the employee has 0 leaves remaining.
+
+### Assigning leaves to/Removing outdated leaves from an employee
+
+1. Assigning leaves/Removing outdated leaves while a list of employees is shown
+
+    1. Prerequisites: List all persons using the `list` command. At least 1 employee in the list. First employee must have a `LeaveBalance` of 0.
+       (Set with `edit 1 l/0`) All test cases are meant to be tested in order.
+
+    2. Test case: `assignLeave 1 d/2021-08-10`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that the employee has no more leaves.
+
+    3. Test case: `assignLeave`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that the command format is invalid.
+
+    4. Test case: `addLeaveBalance 2 l/2`, followed by `assignLeave 1 d/2021-8-10`<br>
+       Expected: 2 leaves are added to the leave balance successfully, but no leaves are assigned.
+       Error details shown in the status message indicate that the date format or value is invalid. (In this case the date format is invalid)
+
+    5. Test case: `assignLeave 1 d/2021-13-10`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that the date format or value is invalid. (In this case the date value is invalid)
+
+    6. Test case: `assignLeave 1 d/2021-08-10`<br>
+       Expected: The leave is assigned. Details of the new assigned leave are shown in the status message.
+
+    7. Test case: `assignLeave 1 d/2021-08-10`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that a leave with date is already assigned.
+
+    8. Test case: `assignLeave 1 d/2021-08-11`, followed by `removeLeavesBefore 1 d/2021-08-10`<br>
+       Expected: The leave with date 2021-08-11 is assigned, and then the leave on 2021-08-10 is removed.
+
+### Adding/Deducting from an employee's hours worked
+
+1. Adding to/Deducting from an employee's hours worked while a list of employees is shown
+
+    1. Prerequisites: List all persons using the `list` command. At least 1 employee in the list. First employee must have `HoursWorked` and `Overtime` set to 0.
+       (Set with `edit 1 hw/0 o/0`) All test cases are meant to be tested in order.
+
+    2. Test case: `addHoursWorked 1 hw/1`<br>
+       Expected: First employee's hours worked is now 1. Details of the new hours worked are shown in the status message.
+
+    3. Test case: `addHoursWorked`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that the command format is invalid.
+
+    4. Test case: `addHoursWorked 1 hw/0 o/1`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that the input for hours worked must be a value between 1 and 744.
+
+    5. Test case: `addHoursWorked 1 hw/1 o/745`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that the input for overtime must be a value between 1 and 744.
+
+    6. Test case: `addHoursWorked 1 hw/744`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that at most 743 hours worked can be added to the employee.
+      
+    7. Test case: `deductHoursWorked 1 o/1`<br>
+       Expected: No hours worked are deducted. Error details shown in the status message indicate that the employee has 0 overtime hours worked.
+
+    8. Test case: `deductHoursWorked 1 hw/1`<br>
+       Expected: 1 work hour is deducted. Details of the new hours worked are shown in the status message.
+
+### Calculating payroll and paying employees
+
+1. Starting payroll while in a filtered list
+
+    1. Prerequisites: Ensure all employees are already paid using `pay` command. Ensure at least some employees have
+       non-zero salary and hoursWorked/overtime values.
+    2. Test case: `find n/Bernice`<br>
+       Expected: Employee list is filtered to only employees with 'Bernice' in their names.
+    3. Test case: `startPayroll`
+       Expected: Employee list is set back to full list. All employees should have their calculated pay and have a red
+       'NOT PAID' label displayed under their data if their pay owed is not 0. The first person in the list is being
+       viewed in the InfoPanel.
+    4. Test case: `startPayroll`
+       Expected: An error should be thrown if there are still employees with pay owed.
+    5. Test case: `pay 1`
+       Expected: The first person in the list should be paid and any red 'NOT PAID' label disappears.
+    6. Test case: `find n/Bernice` followed by `pay all` followed by `list`
+       Expected: Only employees with 'Bernice' in their names will be paid. Other employees that were not in the
+       filtered list should still have their red 'NOT PAID' labels if they had them.
+    7. Test case: `pay all`
+       Expected: All employees should be paid. Any employees that were not being owed payment should have their names
+       printed in the bottom section of the command panel as being skipped.
+       
+### Calculating payroll and paying employees
+
+1. Starting payroll while in a filtered list
+    
+    1. Prerequisites: Ensure all employees are already paid using `pay` command. Ensure at least some employees have
+        non-zero salary and hoursWorked/overtime values.
+    2. Test case: `find n/Bernice`<br>
+        Expected: Employee list is filtered to only employees with 'Bernice' in their names.
+    3. Test case: `startPayroll`
+        Expected: Employee list is set back to full list. All employees should have their calculated pay and have a red
+       'NOT PAID' label displayed under their data if their pay owed is not 0. The first person in the list is being 
+        viewed in the InfoPanel.
+    4. Test case: `startPayroll`
+        Expected: An error should be thrown if there are still employees with pay owed.
+    5. Test case: `pay 1`
+        Expected: The first person in the list should be paid and any red 'NOT PAID' label disappears.
+    6. Test case: `find n/Bernice` followed by `pay all` followed by `list`
+        Expected: Only employees with 'Bernice' in their names will be paid. Other employees that were not in the 
+        filtered list should still have their red 'NOT PAID' labels if they had them.
+    7. Test case: `pay all`
+        Expected: All employees should be paid. Any employees that were not being owed payment should have their names
+        printed in the bottom section of the command panel as being skipped.
 
 ### Saving data
 
