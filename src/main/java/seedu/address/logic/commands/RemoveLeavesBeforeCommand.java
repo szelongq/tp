@@ -46,12 +46,7 @@ public class RemoveLeavesBeforeCommand extends Command {
 
         // Remove dates from all persons in the filtered list
         for (Person personToEdit : lastShownList) {
-            Person personWithDatesRemoved = new Person(
-                    personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-                    personToEdit.getRole(), personToEdit.getLeaveBalance(),
-                    personToEdit.getLeavesTaken().removeDatesBefore(beforeDate), personToEdit.getSalary(),
-                    personToEdit.getHoursWorked(), personToEdit.getOvertime(), personToEdit.getCalculatedPay(),
-                    personToEdit.getTags());
+            Person personWithDatesRemoved = getUpdatedPerson(personToEdit);
             model.setPerson(personToEdit, personWithDatesRemoved);
         }
 
@@ -62,6 +57,21 @@ public class RemoveLeavesBeforeCommand extends Command {
         model.setViewingPerson(personToView);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, beforeDate));
+    }
+
+    /**
+     * Returns a {@code Person} object that is a copy of the input person, except with an updated leaves taken list.
+     *
+     * @param personToEdit The person object that is to be edited.
+     * @return An updated Person object.
+     */
+    private Person getUpdatedPerson(Person personToEdit) throws CommandException {
+        return new Person(
+                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
+                personToEdit.getRole(), personToEdit.getLeaveBalance(),
+                personToEdit.getLeavesTaken().removeDatesBefore(beforeDate), personToEdit.getSalary(),
+                personToEdit.getHoursWorked(), personToEdit.getOvertime(), personToEdit.getCalculatedPay(),
+                personToEdit.getTags());
     }
 
     @Override
