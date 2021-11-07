@@ -109,12 +109,10 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:<br>
 <img src="images/ParserClasses.png" width="600"/>
 
-<div style="page-break-after: always;"></div>
-
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
-
+<div style="page-break-after: always;"></div>
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
@@ -228,7 +226,7 @@ Pros:
 Cons:
 * Harder to write the implementation for `CombinedPredicate#test()` as it requires checking for null values if the user does not query with that field.
 * Will require a new field to be added every time a new field is added to `Person`, so that a user can filter by that field. Not as extensible compared to creating a new predicate and adding it to the chain.
-<div style="page-break-after: always;"></div>
+
 ##### Creating the comparison based predicates
 Another place for consideration of alternative implementation is the implementation of the comparison based predicates such as `SalaryIsLessThanPredicate`.
 
