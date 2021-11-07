@@ -26,9 +26,10 @@ Given below are my contributions to the project.
 * **Documentation**:
     * User Guide:
         * Added the documentation for the `find` features.
+        * Fix typos in user guide. [#188](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/188)
     * Developer Guide:
         * Added use cases for the `find` feature.
-        * Added implementation details of the `find` feature.
+        * Added implementation details and UML diagrams for the `find` feature. [#95](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/95)
 
 * **Reviewing**:
     * Reviewed the following PRs:
