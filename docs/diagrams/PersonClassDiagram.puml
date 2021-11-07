@@ -23,7 +23,7 @@ Class LeavesTaken
 Class HourlySalary
 Class HoursWorked
 Class Overtime
-Class CalculatedSalary
+Class CalculatedPay
 Class Tag
 
 }
@@ -41,7 +41,7 @@ PersonClass *--> LeavesTaken
 PersonClass *--> HourlySalary
 PersonClass *--> HoursWorked
 PersonClass *--> Overtime
-PersonClass *--> CalculatedSalary
+PersonClass *--> CalculatedPay
 PersonClass *-right-> "*" Tag
 
 Name -[hidden]down> Phone
@@ -53,7 +53,7 @@ LeaveBalance -[hidden]right> LeavesTaken
 LeavesTaken -[hidden]right> HourlySalary
 HourlySalary -[hidden]right> HoursWorked
 HoursWorked -[hidden]right> Overtime
-Overtime -[hidden]right> CalculatedSalary
-Tag -[hidden]down> CalculatedSalary
+Overtime -[hidden]right> CalculatedPay
+Tag -[hidden]down> CalculatedPay
 
 @enduml
