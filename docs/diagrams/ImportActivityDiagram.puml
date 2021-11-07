@@ -8,15 +8,16 @@ start
 if () then ([filepath given is valid])
     :Program checks file formatting
     and all data entries;
-if() then ([all required data present
-    and no formatting errors])
+if() then ([all required data present,
+no formatting errors,
+no invalid data])
     :Imports all data in csv file;
     :GUI updates with newly imported data;
 else ([else])
-    : GUI displays formatting/missing data error;
+    : GUI displays formatting/missing data/invalid data error;
 endif
 else ([else])
-    : GUI displays file not file error;
+    : GUI displays file not found error;
 endif
 stop
 @enduml

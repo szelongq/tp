@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-mainframe sd "Import Data"
+mainframe sd Import Data
 title Import Data
 
 box Logic LOGIC_COLOR_T1
