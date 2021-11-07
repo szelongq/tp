@@ -34,14 +34,42 @@ Given below are my contributions to the project.
         * `removeLeavesBefore`
         * `find` (Section about searching with dates)
   * Developer Guide:
-    * Added use cases for the following commands:
+    * Added implementation details for:
+        * `LeaveBalance`
+        * `addLeaveBalance` and `deductLeaveBalance`
+        * `LeavesTaken`
+        * `assignLeave` and `removeLeavesBefore`
+    * Added use cases and manual test cases for the following commands:
         * `addLeaveBalance`
         * `deductLeaveBalance`
         * `addHoursWorked`
         * `deductHoursWorked`
         * `assignLeave`
+        * `removeLeavesBefore`
+
 * **Team Contributions**
   * Helped to create issues relating to each milestone
+
 * **Review Contributions**
   * Main reviewer for Sze Long's pull requests
+
+* **Contributions to the Developer Guide (Extracts)**
+  * Class diagram for `Person` attribute classes
+    ![PersonClassDiagram](../images/PersonClassDiagram.png)
+  * Sequence diagram for `AddLeaveBalancCommand`
+    ![AddLeaveBalanceSequenceDiagram](../images/AddLeaveBalanceSequenceDiagram.png)
+  * Sequence diagram for `RemoveLeavesBeforeCommand`
+    ![RemoveLeavesBeforeSequenceDiagram](../images/RemoveLeavesBeforeSequenceDiagram.png)
+
+* **Contributions to the User Guide (Extracts)**
+    * **Type 4 Query: Date Based Comparison**
+      * Fields: `d/DATE`
+        * This field will find all people who have taken a leave on a given date or within a range of dates. (start and end dates inclusive)
+        * There are two ways to search using dates: individual dates or date ranges.
+          * For individual dates, simply type in a date of the form YYYY-MM-DD.
+          * For date ranges, simply type in two dates in the form YYYY-MM-DD:YYYY-MM-DD.
+        * Both individual dates and date ranges can be combined into one query.
+      * For example, `find d/2021-10-10 2021-11-01:2021-11-05` will find anyone who satisfies **either** of the following 2 criteria:
+        1. has taken a leave on October 10th 2021, or
+        2. has taken a leave between the dates November 1st 2021 and November 5th 2021, start and end dates inclusive.
   

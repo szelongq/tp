@@ -1,4 +1,7 @@
 @startuml
+scale 1024 width
+scale 768 height
+
 !include style.puml
 !define PersonClass "             Person             "
 
@@ -6,8 +9,6 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 skinparam minClassWidth 100
-
-scale 500 height
 
 Package "Person attribute classes" <<Rectangle>>{
 
