@@ -46,7 +46,7 @@ public class OvertimePayRateTest {
         assertFalse(OvertimePayRate.isValidOvertimePayRate("-3.00")); // contains negative values
         assertFalse(OvertimePayRate.isValidOvertimePayRate("0.000001")); // contains more than 5 decimal places
 
-        // valid overtime pay rate
+        // valid values in equivalence partition [1.00000, 10.00000]
         assertTrue(OvertimePayRate.isValidOvertimePayRate("5")); // numeric characters as integers only
         assertTrue(OvertimePayRate.isValidOvertimePayRate("5.99")); // numeric characters as floating values only
 
