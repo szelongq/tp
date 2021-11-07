@@ -14,8 +14,8 @@ We are a team based in the [School of Computing, National University of Singapor
 [[github](https://github.com/boonhaii)]
 [[portfolio](team/boonhaii.md)]
 
-* Role: UI/UX Designer
-* Responsibilities: Designs the user interface of the application.
+* Role: Documentation Manager
+* Responsibilities: Manages the updating of the documentations.
 
 ### Ng Wee Han
 
@@ -54,5 +54,5 @@ We are a team based in the [School of Computing, National University of Singapor
 [[github](http://github.com/1waykiat)]
 [[portfolio](team/1waykiat.md)]
 
-* Role: Documentation Manager
-* Responsibilities: Manages the updating of the documentations.
+* Role: UI/UX Manager
+* Responsibilities: Designs the UI/UX interface and implementation of its components.
