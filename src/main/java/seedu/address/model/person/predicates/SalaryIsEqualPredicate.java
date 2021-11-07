@@ -5,9 +5,11 @@ import java.util.function.Predicate;
 import seedu.address.model.person.Person;
 
 public class SalaryIsEqualPredicate implements Predicate<Person> {
-    private final float value;
+    private final double value;
 
-    public SalaryIsEqualPredicate(float value) {
+    private final double threshold = 0.01; // Salaries are 2 d.p
+
+    public SalaryIsEqualPredicate(double value) {
         this.value = value;
     }
 
@@ -18,7 +20,8 @@ public class SalaryIsEqualPredicate implements Predicate<Person> {
      */
     @Override
     public boolean test(Person person) {
-        return person.getSalary().value == this.value;
+        double salaryToCompare = person.getSalary().value;
+        return (Math.abs(salaryToCompare - value) < threshold);
     }
 
     @Override
