@@ -5,7 +5,7 @@ title: Developer Guide
 * Table of Contents
 {:toc}
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
+
 ## **Acknowledgements**
 
 ### Third-Party Libraries Used
@@ -220,7 +220,7 @@ Modifying the code for `FindCommand#execute` to account for multiple predicates 
 One alternative for combining predicates is to create a new `CombinedPredicate` class which contains all the possible fields to be compared with.
 
 ![CombinedPredicateExample](images/CombinedPredicateExample.png)
-<div style="page-break-after: always;"></div>
+   
 Using the `CombinedPredicate`, one can easily parse the user's command and create the appropriate `CombinedPredicate` to be passed into `FindCommand`.
 
 Pros:
@@ -242,7 +242,7 @@ Pros:
 Cons:
 * Testing becomes harder because there are many branches to account for, since the `test()` method will change its behaviour based on the comparison type passed into it.
 * May become less flexible if more types of comparisons are needed. The current implementation allows each predicate to be responsible for only one type of comparison.
-
+<div style="page-break-after: always;"></div>
 ### Import Feature
 
 **Current Implementation** <br>
@@ -276,9 +276,8 @@ Given below is an example usage scenario and how the import mechanism behaves at
    
 **Step 4.** A new `AddressBook` is created, and updated it with the entries in the file. The current existing AddressBook is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
 
-<div style="page-break-after: always;"></div>
 **Step 5.** The updated AddressBook would be saved as per the process after the execution of a command.
-   
+<div style="page-break-after: always;"></div> 
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
 ![ImportProcessData](images/ImportProcessData.png)
@@ -333,7 +332,7 @@ The following operations are implemented for the classes:
 * `InfoPanel::updateInfoPanel(Person p)` - updates the content to be displayed on the Info panel with the new `Person`'s information.
 * `ObservablePerson::addUiObserver(UiObserver observer)` - subscribes the `UiObserver` to the `ObservablePerson` to get updates when `ObservablePerson` changes
 * `ObservablePerson::updateUi()` - updates the observers with the relevant `Person` information.
-<div style="page-break-after: always;"></div>
+
 On initialization:
 1. `ObservablePerson` is created, and `InfoPanel` is initialized with the ObservablePerson passed as argument to the constructor
 2. On creation of `InfoPanel`, it adds itself to the `uiObserverList` of the ObservablePerson to be subscribed for updates using `ObservablePerson::addUiObserver(UiObserver observer)`
@@ -395,7 +394,7 @@ The command object contains two attributes: `index`, which corresponds to the in
 **Step 3.** Using the input `Index` value, the second person from the filtered list is retrieved as the `personToEdit` object.
 
 **Step 4.** `AddLeaveBalanceCommand#getUpdatedPerson` is called, with `personToEdit` as an input.
-<div style="page-break-after: always;"></div>
+
 **Step 5.** Inside `getUpdatedPerson`, `LeaveBalance#addLeaves` is called with the input `LeaveBalance` value as a parameter.
 
 **Step 6.** `getUpdatedPerson` returns a copy of the `personToEdit` object with an updated `LeaveBalance`.
@@ -756,7 +755,7 @@ Guarantees:
     * 3c1. HeRon shows an error message.
 
       Use case resumes at step 2.
-
+<div style="page-break-after: always;"></div>
 **Use case: Remove outdated assigned leaves from a list of employees**
 
 **MSS**
