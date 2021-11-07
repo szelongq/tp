@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "alb:AddLeaveBalanceCommand" as AddLeaveBalanceCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "old:LeaveBalance" as OldLeaveBalance MODEL_COLOR
+participant "new:LeaveBalance" as NewLeaveBalance MODEL_COLOR
+end box
+
+[-> AddLeaveBalanceCommand : execute()
+activate AddLeaveBalanceCommand
+
+AddLeaveBalanceCommand -> Model : getFilteredPersonList()
+activate Model
+
+AddLeaveBalanceCommand <-- Model
+deactivate Model
+
+AddLeaveBalanceCommand -> AddLeaveBalanceCommand : getUpdatedPerson(personToEdit)
+activate AddLeaveBalanceCommand
+
+AddLeaveBalanceCommand -> OldLeaveBalance : addLeaves(leaveBalance)
+activate OldLeaveBalance
+
+create NewLeaveBalance
+OldLeaveBalance -> NewLeaveBalance
+activate NewLeaveBalance
+
+OldLeaveBalance <-- NewLeaveBalance
+deactivate NewLeaveBalance
+
+AddLeaveBalanceCommand <-- OldLeaveBalance : new
+deactivate OldLeaveBalance
+
+AddLeaveBalanceCommand --> AddLeaveBalanceCommand : editedPerson
+deactivate AddLeaveBalanceCommand
+
+AddLeaveBalanceCommand -> Model : setPerson(personToEdit, editedPerson)
+activate Model
+
+AddLeaveBalanceCommand <-- Model
+deactivate Model
+
+create CommandResult
+AddLeaveBalanceCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddLeaveBalanceCommand
+deactivate CommandResult
+
+[<-- AddLeaveBalanceCommand : result
+deactivate AddLeaveBalanceCommand
+@enduml

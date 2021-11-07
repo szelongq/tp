@@ -129,7 +129,7 @@ The `Model` component,
 It has a `Tag` and `Leave` list in the `AddressBook`, which `Person` references. 
 This allows `AddressBook` to only require one `Tag` object per unique tag, and one `Leave` object per unique date, 
 instead of each `Person` needing their own `Tag` and `LeavesTaken` objects. More information on how leaves are currently implemented
-can be found [here](#leave-balance-and-assigned-leaves). <br>
+can be found [here](#assigned-leaves). <br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
@@ -266,16 +266,89 @@ Design Considerations:
 Pros: Easy to implement, ensures that InfoPanel always displays accurate up-to-date information
 Cons: Difficult to extend InfoPanel to display other information with current implementation
 
-### Leave Balance and Assigned Leaves
+### Leave Balance
 
 #### Current Implementation
 
-Currently, leaves are represented by two attributes of `Person`: `LeaveBalance`, which represents the amount of leaves the employee has reamining, 
+Currently, leaves are represented by two attributes of `Person`: `LeaveBalance`, which represents the amount of leaves the employee has remaining, 
 and `LeavesTaken`, which represents the leaves that the employee has taken on a given date.
 
-insert UML Diagram here for removeLeavesBefore
+`LeaveBalance` is internally represented as an integer value, and must have a value of at least 0 and at most 365.
+The add to/deduct from leave balance features are implemented by the classes 
+`AddLeaveBalanceCommand` and `DeductLeaveBalanceCommand` respectively.
+Both classes extend `Command` with the following added method to get the updated person:
+- `getUpdatedPerson(Person personToEdit)` - Returns a new `Person` object that is a copy of the input `personToEdit` object,
+except with an updated `LeaveBalance` value.
+
+Given below is an example of how `AddLeaveBalanceCommand` works.
+
+Step 1. The user enters the command 'addLeaveBalance 2 l/1'. The `AddLeaveBalanceCommandParser` parses the input, creates a `AddLeaveBalanceCommand` object and executes it.
+The command object contains two attributes: `index`, which corresponds to the input index of 2, and `leaveBalance` which corresponds to the input number of leaves, in this case 1.
+
+Step 2. Inside `AddLeaveBalanceCommand#execute`, the list of all employees is retrieved by calling `Model#getFilteredPersonList()`.
+
+Step 3. Using the input `Index` value, the second person from the filtered list is retrieved as the `personToEdit` object.
+
+Step 4. `AddLeaveBalanceCommand#getUpdatedPerson` is called, with `personToEdit` as an input.
+
+Step 5. Inside `getUpdatedPerson`, `LeaveBalance#addLeaves` is called with the input `LeaveBalance` value as a parameter.
+
+Step 6. `getUpdatedPerson` returns a copy of the `personToEdit` object with an updated `LeaveBalance`.
+
+Step 7. The old `Person` object in the `Model` is then replaced with its updated copy using `Model#setPerson()`.
+
+Step 8. `AddLeaveBalanceCommand#execute` returns a `CommandResult` to signal a successful execution.
+
+The following sequence diagram shows how `AddLeaveBalanceCommand` works:
+
+![AddLeaveBalanceSequenceDiagram](images/AddLeaveBalanceSequenceDiagram.png)
+
+`DeductLeaveBalanceCommand` works similarly, except instead of calling `LeaveBalance#addLeaves` in step 5, `LeaveBalance#removeLeaves` is called.
+
+### Assigned Leaves
+
+#### Current Implementation
+
+`LeavesTaken` is internally represented as a `PriorityQueue` of `LocalDate` values. A `PriorityQueue` was chosen as it would 
+automatically sort the `LocalDate` values from least to most recent after each add/remove date operation. 
+There may be multiple `LocalDate` objects representing the same date. For example, if two employees have a leave on 2021-11-10,
+each of them will have a different `LocalDate` object corresponding to 2021-11-10 inside their `LeavesTaken` attribute object.
+
+The assign leave feature is implemented by the class `AssignLeaveCommand`.
+This class extends `Command` with the following added method to get the updated person:
+- `getUpdatedPerson(Person personToEdit)` - Returns a new `Person` object that is a copy of the input `personToEdit` object,
+  except with updated `LeavesTaken` and `LeaveBalance` values.
+  
+`AssignLeaveCommand` works similarly to `AddLeaveBalanceCommand`, 
+except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#addDate` is called. In addition,
+`LeaveBalance#removeLeaves` is called with a `LeaveBalance` object containing the value 1. 
+(In other words, assigning a leave deducts 1 leave from the leave balance.)
+
+The remove outdated leaves feature is implemented by the class `RemoveLeavesBeforeCommand`.
+This class extends `Command` with the following added method to get the updated person:
+- `getUpdatedPerson(Person personToEdit)` - Returns a new `Person` object that is a copy of the input `personToEdit` object,
+  except with an updated `LeavesTaken` value.
+
+`RemoveLeavesBeforeCommand` works similarly to `AddLeaveBalanceCommand`,
+except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#removeDatesBefore` is called.
+In addition, `LeavesTaken#removeDatesBefore` is called for all `Person` objects in the filtered list.
+
+The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
+
+![RemoveLeavesBeforeSequenceDiagram](images/RemoveLeavesBeforeSequenceDiagram.png)
 
 #### Design considerations:
+
+**Aspect: How assigned leaves are represented**
+
+* **Alternative 1 (current choice):** Each `Person` object has a `LeavesTaken` object that contains a set of `LocalDate` values that 
+  corresponds to the employee's assigned leaves.
+    * Pros: Easier to implement, able to delete individual `LocalDate` objects without needing to check other `Person` objects.
+    * Cons: May have issues in regard to memory usage, as each unique date can potentially have many `LocalDate` objects that correspond to it.
+
+* **Alternative 2:** Each unique date is represented by a `Leave` object.
+    * Pros: Potentially more object-oriented, reduced memory usage as only one object is required for each date.
+    * Cons: Need to keep track of how many `Person` objects are associated with each `Leave`, which might lead to increased coupling between `Leave` and `Person`.
 
 **Aspect: How outdated assigned leaves are removed:**
 
@@ -287,8 +360,6 @@ insert UML Diagram here for removeLeavesBefore
     * Pros: More convenient for the user.
     * Cons: Harder to test, and it could lead to unexpected behaviour. (e.g. What happens if the user changes their timezone, or if the user's system clock fails)
       Also, the user might want to keep a full record of all assigned leaves.
-
-### Hours Worked and Overtime
 
 ### Start Payroll feature
 
