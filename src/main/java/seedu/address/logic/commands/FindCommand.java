@@ -13,22 +13,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.HashSet;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.CalculatedPay;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.HourlySalary;
-import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.LeaveBalance;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Role;
-import seedu.address.model.tag.Tag;
 
 /**
  * Finds and lists all persons in HeRon that passes the given predicate.
@@ -81,15 +70,8 @@ public class FindCommand extends Command {
         model.updateFilteredPersonList(predicate);
 
         if (model.getFilteredPersonList().size() == 0) {
-            // If the filtered list is empty, display a default person
-            HashSet<Tag> egTags = new HashSet<>();
-            egTags.add(new Tag("example"));
-            Person examplePerson = new Person(new Name("Example person"), new Phone("62353535"),
-                    new Email("example@empl.com"), new Address("Example Street, Blk 404"),
-                    new Role("Exemplar"), new LeaveBalance("69"),
-                    new HourlySalary("666"), new HoursWorked("420"),
-                    new CalculatedPay("0"), egTags);
-            model.setViewingPerson(examplePerson);
+            // clear display
+            model.setViewingPerson(null);
         } else {
             // Else, display the first person
             Person firstPerson = model.getFilteredPersonList().get(0);
