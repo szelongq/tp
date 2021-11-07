@@ -9,7 +9,9 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+### Third-Party Libraries Used
+* [Opencsv](http://opencsv.sourceforge.net/)
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -157,89 +159,73 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### \[Implemented\] Import feature
 
-#### Proposed Implementation
+#### Feature Implementation
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The implemented import feature mechanism is facilitated by `ImportCommandParser`, `ImportCommand` and `PersonInput`. `ImportCommandParser` implements the interface `Parser`.`ImportCommand` extends abstract class `Command`, and implements the following additional operation:
+* `ImportCommand#importData(Model)` Takes the filepath attributed to the ImportCommand and imports its content.
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+`PersonInput` is a class which stores the field inputs for a data entry as Strings, and implements getter and setter methods for all fields as required by the 3rd-party library opencsv. While parsing the csv file, `PersonInput` objects are created to consolidate all the information present, before being converted into `Person` objects and added into HeRon`.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The fields `name`,`phone`, `address`, `email` and `role` must be present in all entries before the data can be imported successfully. This is to prevent junk data from being imported. These fields were selected as they are highly likely to be present in existing data to be used for import.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The program detects the fields using column titles (taken as the first row of the csv file). The naming convention (case-insensitive) of the following fields must be followed for HeRon to detect the field, as per opencsv library requirements.
+* `name` as Name
+* `phone` as Contact Number
+* `address` as Residential Address
+* `email` as Email
+* `role` as Role
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Given below is an example usage scenario and how the import mechanism behaves at each step.
 
-![UndoRedoState0](images/UndoRedoState0.png)
+Step 1. The user launches the application. HeRon initializes with the initial address book state or loaded with data from the previous session (if any).
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which in this case, refers to the file `toBeImported.csv` in the root directory.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`.</div>
 
-![UndoRedoState1](images/UndoRedoState1.png)
+Step 3. Program processes the .csv file, and creates a new `AddressBook`, and updates it with the entries in the file. The current existing `AddressBook` is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current `AddressBook`.</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Data present in the imported file must adhere to respective requirements for each field. `Name`, `Email` and `Phone` fields cannot be the same as other entries. If duplicate values exist, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`</div>
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 4. The updated `AddressBook` would be saved as per the process after the execution of a command.
 
-![UndoRedoState2](images/UndoRedoState2.png)
+The following sequence diagram shows how the import feature works:
+![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
+![ImportProcessData](images/ImportProcessData.png)
+![ImportUpdateGUI](images/ImportUpdateGUI.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `ImportCommandParser`, `ImportCommand` and `CommandResult` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.</div>
 
-</div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how the undo operation works:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
+The following activity diagram summarizes what happens when a user uses the `import` command:
+![ImportActivityDiagram](images/ImportActivityDiagram.png)
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+**Aspect: How the imported file is processed:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+* **Alternative 1 (current choice): Uses a header row to determine the data used**
+    * Pros: No need to follow specific column ordering.
+    * Cons: The names of the headers for the specific columns must be the exact name used (less case-sensitivity), and a header row must be present.
 
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 2: Uses positioning of columns to import data**
+    * Pros: No need for header rows.
+    * Cons: Unable to ensure that the data is formatted in the correct order.
 
-_{more aspects and alternatives to be added}_
+**Aspect: Making fields compulsory for import:**
 
-### \[Proposed\] Data archiving
+* **Alternative 1 (current choice): Only fields `Name`, `Contact Number`, `Residential Address`, `Email` and `Role` are compulsory**
+    * Pros: Ensures that imported data have the minimum fields required before being imported, which most organizations should have.
+    * Cons: Files cannot be imported if any entry has any of the compulsory fields missing.
 
-_{Explain here how the data archiving feature will be implemented}_
+* **Alternative 2: No compulsory fields**
+    * Pros: Allows for multiple names for the fields in the header row, albeit still fixed. Files can be imported even if there are missing entries.
+    * Cons:  Files can be imported regardless of any formatting issues or missing fields in entries, thus data can be imported even without any cleaning, making it harder to be used in the program.
+
+* **Alternative 3 : All fields are compulsory**
+    * Pros: Ensures data imported have all the required fields to utilise all the functionality of the program.
+    * Cons: Files cannot be imported if any entry has any fields missing.
 
 ### Updating Info Panel display
 
@@ -893,6 +879,28 @@ Guarantees:
     * 3b1. HeRon shows an error message.
 
       Use case resumes at step 3.
+
+**Use case: Importing an external .csv file.**
+
+**MSS**
+1. User specifies the filepath of the file to be imported.
+2. File is found and data from the file is imported into HeRon.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. File specified from the given filepath foes not exist.
+    
+    * 2a1. HeRon shows an error message. 
+  
+      Use case resumes at step 1.
+  
+* 2b. File specified exists, but the formatting of data in the given file is invalid.
+
+    * 2a1. HeRon shows an error message.
+
+      Use case resumes at step 1.
 
 *{More to be added}*
 
