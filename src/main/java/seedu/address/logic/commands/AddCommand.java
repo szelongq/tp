@@ -42,7 +42,7 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_ROLE + "Admin Assistant "
             + PREFIX_LEAVE + "14 "
-            + PREFIX_HOURLYSALARY + "3000 "
+            + PREFIX_HOURLYSALARY + "20 "
             + PREFIX_HOURSWORKED + "40 "
             + PREFIX_OVERTIME + "5 "
             + PREFIX_TAG + "friends "
