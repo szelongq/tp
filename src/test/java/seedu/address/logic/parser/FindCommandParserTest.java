@@ -232,7 +232,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_validSalary_returnsFindCommand() {
         FindCommand expectedFindCommand =
-                new FindCommand(new SalaryIsEqualPredicate(Float.parseFloat(VALID_HOURLYSALARY_AMY)));
+                new FindCommand(new SalaryIsEqualPredicate(Double.parseDouble(VALID_HOURLYSALARY_AMY)));
         try {
             // Test equals comparison
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_HOURLYSALARY + "=" + VALID_HOURLYSALARY_AMY);
@@ -244,7 +244,7 @@ public class FindCommandParserTest {
             // Test more than comparison
             parsedFindCommand = parser.parse(" " + PREFIX_HOURLYSALARY + ">" + VALID_HOURLYSALARY_AMY);
             expectedFindCommand =
-                    new FindCommand(new SalaryIsMoreThanPredicate(Float.parseFloat(VALID_HOURLYSALARY_AMY)));
+                    new FindCommand(new SalaryIsMoreThanPredicate(Double.parseDouble(VALID_HOURLYSALARY_AMY)));
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
             assertFalse(parsedFindCommand.getPredicate().test(AMY));
@@ -253,7 +253,7 @@ public class FindCommandParserTest {
             // Test less than equal comparison
             parsedFindCommand = parser.parse(" " + PREFIX_HOURLYSALARY + "<=" + VALID_HOURLYSALARY_AMY);
             expectedFindCommand =
-                    new FindCommand(new SalaryIsLessThanEqualPredicate(Float.parseFloat(VALID_HOURLYSALARY_AMY)));
+                    new FindCommand(new SalaryIsLessThanEqualPredicate(Double.parseDouble(VALID_HOURLYSALARY_AMY)));
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
             assertTrue(parsedFindCommand.getPredicate().test(AMY));
