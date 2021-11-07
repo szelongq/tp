@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.ObservablePerson;
 import seedu.address.model.person.Person;
 
 /**
@@ -40,6 +41,16 @@ public interface Model {
     Path getAddressBookFilePath();
 
     /**
+     * Sets the user prefs' pay rate for overtime.
+     */
+    void setOvertimePayRate(OvertimePayRate overtimePayRate);
+
+    /**
+     * Returns the user prefs' pay rate for overtime.
+     */
+    OvertimePayRate getOvertimePayRate();
+
+    /**
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
@@ -56,6 +67,16 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    /**
+     * Returns true if a person has the same phone number as {@code person} exists in the address book.
+     */
+    boolean hasDuplicatePhone(Person person);
+
+    /**
+     * Returns true if a person has the same email as {@code person} exists in the address book.
+     */
+    boolean hasDuplicateEmail(Person person);
 
     /**
      * Deletes the given person.
@@ -84,4 +105,20 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns the person that is to be viewed in the InfoPanel
+     */
+    ObservablePerson getViewingPerson();
+
+    /**
+     * Sets the person to be viewed in the InfoPanel
+     */
+    void setViewingPerson(Person p);
+
+    /**
+     * Returns true if the employee list is empty, otherwise false.
+     */
+    boolean isFilteredPersonListEmpty();
+
 }

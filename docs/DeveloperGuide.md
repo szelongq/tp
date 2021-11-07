@@ -225,6 +225,134 @@ The following activity diagram summarizes what happens when a user uses the `imp
     * Pros: Ensures data imported have all the required fields to utilise all the functionality of the program.
     * Cons: Files cannot be imported if any entry has any fields missing.
 
+### Updating Info Panel display
+
+#### Current Implementation
+`InfoPanel` class controls the content being displayed on the Info Panel. The information to be displayed is dependent
+on the ObservablePerson object `viewingPerson` in the ModelManager class. `viewingPerson` contains the person to be viewed, as well as
+a `uiObserverList` that contains `UiObserver` that wish to be notified when the person to be viewed has been changed.
+
+When the `viewingPerson` is changed, `InfoPanel`
+should get updated automatically to display the new information.
+
+This automatic updating of information to display on the Info Panel is achieved through the Observer pattern.
+
+![InfoPanelClassDiagram](images/InfoPanelClassDiagram.png)
+
+The following operations are implemented for the classes:
+* `InfoPanel::updateInfoPanel(Person p)` - updates the content to be displayed on the Info panel with the new `Person`'s information.
+* `ObservablePerson::addUiObserver(UiObserver observer)` - subscribes the `UiObserver` to the `ObservablePerson` to get updates when `ObservablePerson` changes
+* `ObservablePerson::updateUi()` - updates the observers with the relevant `Person` information.
+
+On initialization:
+1. `ObservablePerson` is created, and `InfoPanel` is initialized with the ObservablePerson passed as argument to the constructor
+2. On creation of `InfoPanel`, it adds itself to the `uiObserverList` of the ObservablePerson to be subscribed for updates using `ObservablePerson::addUiObserver(UiObserver observer)`
+
+When the `ObservablePerson` changes:
+1. `InfoPanel` in the `uiObserverList` is updated with `ObservablePerson::updateUi()`
+2. `InfoPanel` and other `UiObserver` in the list can then update their own Ui with the updated viewingPerson information passed to it.
+
+Below is an example of how `InfoPanel` updates with a view command:
+
+![ViewSequenceDiagram](images/ViewSequenceDiagram.png)
+
+1. User executes `view 2` to view the 2nd employee in the list, and after the command is parsed, `v:ViewCommand` is being created.
+
+2. On execution of `ViewCommand`, `getPersonToView(index)` is called to get the personToView, and then passed to call `setViewingPerson(personToView)` on `Model`.
+
+3. Model calls `setPerson(personToView)` on `ObservablePerson`, causing it to update the viewing person. In the process of updating,
+it informs the other `InfoPanel` in the `uiObserverList` to update, passing the new updated personToView to `InfoPanel`.
+
+4. With the new data passed to `InfoPanel`, it can then update the content to be displayed in however its `update()` method is implemented.
+
+Design Considerations:
+Pros: `InfoPanel` can update by itself without `Model` having a dependency on the UI.
+Cons: Might be harder to figure out what is "observing" the observable just by looking at the source code since there is no direct dependency.
+
+Alternative:
+Constantly update Info Panel with every command executed.
+Pros: Easy to update, ensures that Ui is constantly updated.
+Cons: Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
+
+### Start Payroll feature
+
+#### Current Implementation
+
+The start payroll feature is provided through `StartPayrollCommand`.
+It extends `Command` with the following added methods to calculate the payroll for every employee:
+- `StartPayrollCommand#calculatePay(HourlySalary salary, HoursWorked hoursWorked,
+  Overtime overtime, OvertimePayRate overtimePayRate)` - Calculates the payroll based on the given parameters and
+  returns a new `CalculatedPay` object.
+- `StartPayrollCommand#createPersonWithCalculatedPay(Person personWithCalculatedPay,
+  CalculatedPay newCalculatedPay)` - Creates a new `Person` that is a copy of the given `Person` parameter
+  except with the updated `CalculatedPay` value.
+- `StartPayrollCommand#createPersonWithZeroHoursWorkedAndOvertime(Person person)` - Creates a new `Person` that is a copy of the 
+  given `Person` parameter except with the `HoursWorked` and `Overtime` values set to 0.
+
+Given below is an example of how `StartPayrollCommand` works.
+
+The following sequence diagram describes the operations in executing a `StartPayrollCommand`.
+
+![StartPayrollSequenceDiagram](images/StartPayrollSequenceDiagram.png)
+
+**Step 1.** The user enters the command word 'startPayroll'. The `addressBookParser` parses the input,
+creates a `StartPayrollCommand` and executes it.
+
+**Step 2.** In the new instance of `StartPayrollCommand`, upon starting execution,
+the list of employees to be viewed in `Model` is set to be unfiltered using `Model#updateFilteredPersonList()`.
+The list of all employees is then retrieved by calling `Model#getFilteredPersonList()`,
+storing a deep copy in `personList`.
+
+**Step 3.** Each employee in the list of employees are checked if they have any previously calculated payroll that have not
+been paid yet by calling `Person#isPaid()` on the employee. If an employee is unpaid,
+a `CommandException` will be thrown.
+
+**Step 4.** If there are no employees who are unpaid, calculations of payroll will proceed through the following substeps:
+
+**Step 4.1.** Retrieve the current `overtimePayRate` in the application from the `Model`
+using `Model#getOvertimePayRate()`.
+
+**Step 4.2.** Retrieve an employee from `personList`.
+Retrieve the following attributes from the employee `Person` object:
+- `hourlySalary` - The employee's salary per hour.
+- `hoursWorked` - How many hours the employee has worked for (excluding overtime).
+- `overtime` - How many hours of overtime the employee has worked for.
+
+The new `CalculatedPay` object representing the calculated employee's pay is created by calling
+the `StartPayrollCommand#calculatePay()` method, with the earlier retrieved values (`overtimePayRate`, `hourlySalary`,
+`hoursWorked`, `overtime`) as parameters.
+
+**Step 4.3.** An updated copy of the employee `Person` object is created with the new `CalculatePay` attribute using
+`StartPayrollCommand#createPersonWithCalculatedPay()`, and their `HoursWorked` and `Overtime` attributes reset to zero
+using `StartPayrollCommand#createPersonWithZeroHoursWorkedAndOvertime()`. The updated copy of the employee is then
+inserted into `calculatedPersonsList`.
+
+Steps 4.2 and 4.3 are repeated for all employees in the `personList`.
+
+**Step 4.4.** For every employee in `personList`, its corresponding `Person` object in the `Model` is then replaced 
+with its updated copy in `calculatedPersonsList` using `Model#setPerson()`.
+
+The following sequence diagram describes how the payroll is calculated.
+
+![StartPayrollSequenceDiagram](images/PayrollCalculationSequenceDiagram.png)
+
+Step 5. After every employee in the list has had their payroll calculated, HeRon is set to view the first employee 
+in the list.
+
+Step 6. Lastly, the `StartPayrollCommand` returns a `CommandResult` to signal successful execution.
+
+#### Design considerations:
+
+**Aspect: How the feature of calculating payroll is implemented:**
+
+* **Alternative 1 (current choice):** One command for calculating payroll for all employees.
+    * Pros: Easy to implement. Easy to test (little variations in use cases).
+    * Cons: Less flexible for users.
+
+* **Alternative 2:** Command that calculates payroll for a single employee or all employees.
+    * Pros: Provides more flexibility for users.
+    * Cons: We need to check for which use case the user intends to use. Can be harder/more tedious to test
+    as more there are more variations in use cases.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -333,7 +461,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  User requests to list employees
 2.  HeRon shows a list of employees
 3.  User requests to add a certain number of leaves to a specific employee in the list
-4.  HeRon adds the leave to the employee
+4.  HeRon adds the leaves to the employee
 
     Use case ends.
 
@@ -356,6 +484,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 2.
 
 **Use case: Remove leaves from an employee**
+
+Guarantees:
+* The number of leaves of the employee after the operation will never be negative.
 
 **MSS**
 
@@ -385,6 +516,111 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 2.
 
 * 3c. The number of leaves to be removed is greater than the amount of leaves the employee actually has.
+
+    * 3c1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: Assign a leave to an employee**
+
+Guarantees:
+* The number of leaves of the employee after the operation will never be negative.
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to assign a leave to an employee with a date
+4.  HeRon assigns the leave to the employee and subtracts a leave from the employee's leave balance
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The date associated with the leave is invalid.
+
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The employee has no more leaves remaining in their leave balance.
+
+    * 3c1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: Add hours worked/overtime to an employee**
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to add a certain number hours worked and/or overtime to a specific employee in the list
+4.  HeRon adds the hours worked/overtime to the employee
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The number of hours worked/overtime to be added is invalid. (If the input is not a positive integer)
+
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: Remove hours worked/overtime from an employee**
+
+Guarantees:
+* The number of hours worked/overtime of the employee after the operation will never be negative.
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to remove a certain number hours worked and/or overtime from a specific employee in the list
+4.  HeRon removes the hours worked/overtime from the employee
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The hours worked/overtime to be removed is invalid. (If the input is not a positive integer)
+
+    * 3b1. HeRon shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The number of hours worked/overtime to be removed is greater than the number of hours worked/overtime the employee actually has.
 
     * 3c1. HeRon shows an error message.
 
@@ -453,28 +689,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
         Use case resumes at step 2.
 
-**Use case: Calculate an employee's salary**
+**Use case: Calculate payroll for all employees**
 
 **MSS**
 
 1.  User requests to list employees
 2.  HeRon shows a list of employees
-3.  User requests to calculate the salary of a specific employee in the list
-4.  HeRon calculates and displays the salary of that employee
+3.  User requests to calculate the payroll for all employees
+4.  HeRon shows the list of all employees
+5.  HeRon calculates the payroll and updates all employees' calculated pay information.
+6.  HeRon sets the first employee on the list to be viewed in the InfoPanel.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 5a. There is an employee who has not yet been paid the previous calculated pay.
 
-    Use case ends.
+    * 5a1. HeRon shows an error message.
 
-* 3a. The given index is invalid.
-
-    * 3a1. HeRon shows an error message.
-
-        Use case resumes at step 2.
+        Use case resumes at step 4.
 
 **Use case: Adding a Tag to an employee**
 
@@ -636,6 +870,29 @@ testers are expected to do more *exploratory* testing.
         Expected: No employee data is being edited. Error details shown in the status message. Status bar remains the same.
 
 2. _{ possibly more test cases? …​ }_
+
+### Calculating payroll and paying employees
+
+1. Starting payroll while in a filtered list
+    
+    1. Prerequisites: Ensure all employees are already paid using `pay` command. Ensure at least some employees have
+        non-zero salary and hoursWorked/overtime values.
+    2. Test case: `find n/Bernice`<br>
+        Expected: Employee list is filtered to only employees with 'Bernice' in their names.
+    3. Test case: `startPayroll`
+        Expected: Employee list is set back to full list. All employees should have their calculated pay and have a red
+       'NOT PAID' label displayed under their data if their pay owed is not 0. The first person in the list is being 
+        viewed in the InfoPanel.
+    4. Test case: `startPayroll`
+        Expected: An error should be thrown if there are still employees with pay owed.
+    5. Test case: `pay 1`
+        Expected: The first person in the list should be paid and any red 'NOT PAID' label disappears.
+    6. Test case: `find n/Bernice` followed by `pay all` followed by `list`
+        Expected: Only employees with 'Bernice' in their names will be paid. Other employees that were not in the 
+        filtered list should still have their red 'NOT PAID' labels if they had them.
+    7. Test case: `pay all`
+        Expected: All employees should be paid. Any employees that were not being owed payment should have their names
+        printed in the bottom section of the command panel as being skipped.
 
 ### Saving data
 

@@ -20,9 +20,17 @@ checkstyle {
     toolVersion = '8.29'
 }
 
+run {
+    enableAssertions = true
+}
+
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
+}
+
+run {
+    enableAssertions = true
 }
 
 task coverage(type: JacocoReport) {
@@ -37,6 +45,7 @@ task coverage(type: JacocoReport) {
     reports {
         html.enabled = true
         xml.enabled = true
+
     }
 }
 
@@ -67,8 +76,17 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
+run {
+    enableAssertions = true
+}
+
 shadowJar {
     archiveName = 'addressbook.jar'
 }
 
 defaultTasks 'clean', 'test'
+
+run {
+    enableAssertions = true
+}
+

@@ -29,7 +29,8 @@ import seedu.address.model.person.CalculatedPay;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
+import seedu.address.model.person.LeavesTaken;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Person;
@@ -44,8 +45,8 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the employee identified "
+            + "by the index number used in the displayed employee list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -62,9 +63,13 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Employee: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+
+    public static final String MESSAGE_DUPLICATE_PERSON = "This employee already exists in HeRon.";
+    public static final String MESSAGE_DUPLICATE_PHONE = "The given phone number is already used by "
+            + "another employee in HeRon";
+    public static final String MESSAGE_DUPLICATE_EMAIL = "The given email is already used by another employee in HeRon";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -93,12 +98,33 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!personToEdit.isSamePerson(editedPerson)) {
+            if (model.hasPerson(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
+
+            if (model.hasDuplicatePhone(editedPerson) && !editedPerson.getPhone().equals(personToEdit.getPhone())) {
+                throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+            }
+
+            if (model.hasDuplicateEmail(editedPerson) && !editedPerson.getEmail().equals(personToEdit.getEmail())) {
+                throw new CommandException(MESSAGE_DUPLICATE_EMAIL);
+            }
+        }
+
+        if (personToEdit.isSamePerson(editedPerson)) {
+            if (model.hasDuplicatePhone(editedPerson) && !editedPerson.getPhone().equals(personToEdit.getPhone())) {
+                throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+            }
+
+            if (model.hasDuplicateEmail(editedPerson) && !editedPerson.getEmail().equals(personToEdit.getEmail())) {
+                throw new CommandException(MESSAGE_DUPLICATE_EMAIL);
+            }
         }
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setViewingPerson(editedPerson);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
@@ -114,7 +140,9 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
-        Leave updatedLeave = editPersonDescriptor.getLeaves().orElse(personToEdit.getLeaves());
+        LeaveBalance updatedLeaveBalance = editPersonDescriptor.getLeaves().orElse(personToEdit.getLeaveBalance());
+        // Edit command does not allow editing dates in leaves taken
+        LeavesTaken updatedLeavesTaken = personToEdit.getLeavesTaken();
         HourlySalary updatedHourlySalary = editPersonDescriptor.getSalary().orElse(personToEdit.getSalary());
         HoursWorked updatedHours = editPersonDescriptor.getHoursWorked().orElse(personToEdit.getHoursWorked());
         Overtime updatedOvertime = editPersonDescriptor.getOvertime().orElse(personToEdit.getOvertime());
@@ -122,8 +150,8 @@ public class EditCommand extends Command {
                 editPersonDescriptor.getCalculatedPay().orElse(personToEdit.getCalculatedPay());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
-                updatedRole, updatedLeave, updatedHourlySalary, updatedHours, updatedOvertime,
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRole,
+                updatedLeaveBalance, updatedLeavesTaken, updatedHourlySalary, updatedHours, updatedOvertime,
                 updatedCalculatedPay, updatedTags);
     }
 
@@ -155,7 +183,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Role role;
-        private Leave leave;
+        private LeaveBalance leaveBalance;
         private HourlySalary hourlySalary;
         private HoursWorked hoursWorked;
         private Overtime overtime;
@@ -175,9 +203,10 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setRole(toCopy.role);
-            setLeaves(toCopy.leave);
+            setLeaves(toCopy.leaveBalance);
             setSalary(toCopy.hourlySalary);
             setHoursWorked(toCopy.hoursWorked);
+            setOvertime(toCopy.overtime);
             setCalculatedPay(toCopy.calculatedPay);
             setTags(toCopy.tags);
         }
@@ -186,8 +215,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, role, leave, hourlySalary, hoursWorked,
-                    overtime, calculatedPay, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, role, leaveBalance, hourlySalary,
+                    hoursWorked, overtime, calculatedPay, tags);
         }
 
         public void setName(Name name) {
@@ -230,12 +259,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(role);
         }
 
-        public void setLeaves(Leave leave) {
-            this.leave = leave;
+        public void setLeaves(LeaveBalance leaveBalance) {
+            this.leaveBalance = leaveBalance;
         }
 
-        public Optional<Leave> getLeaves() {
-            return Optional.ofNullable(leave);
+        public Optional<LeaveBalance> getLeaves() {
+            return Optional.ofNullable(leaveBalance);
         }
 
         public void setSalary(HourlySalary hourlySalary) {

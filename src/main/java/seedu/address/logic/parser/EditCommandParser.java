@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -37,7 +38,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_ROLE, PREFIX_LEAVE, PREFIX_HOURLYSALARY, PREFIX_HOURSWORKED, PREFIX_TAG);
+                        PREFIX_ROLE, PREFIX_LEAVE, PREFIX_HOURLYSALARY, PREFIX_HOURSWORKED, PREFIX_OVERTIME,
+                        PREFIX_TAG);
 
         Index index;
 
@@ -64,7 +66,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setRole(ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get()));
         }
         if (argMultimap.getValue(PREFIX_LEAVE).isPresent()) {
-            editPersonDescriptor.setLeaves(ParserUtil.parseLeaves(argMultimap.getValue(PREFIX_LEAVE).get()));
+            editPersonDescriptor.setLeaves(ParserUtil.parseLeaveBalance(argMultimap.getValue(PREFIX_LEAVE).get()));
         }
         if (argMultimap.getValue(PREFIX_HOURLYSALARY).isPresent()) {
             editPersonDescriptor.setSalary(ParserUtil.parseSalary(argMultimap.getValue(PREFIX_HOURLYSALARY).get()));
@@ -72,6 +74,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_HOURSWORKED).isPresent()) {
             editPersonDescriptor.setHoursWorked(
                     ParserUtil.parseHoursWorked(argMultimap.getValue(PREFIX_HOURSWORKED).get()));
+        }
+        if (argMultimap.getValue(PREFIX_OVERTIME).isPresent()) {
+            editPersonDescriptor.setOvertime(
+                    ParserUtil.parseOvertime(argMultimap.getValue(PREFIX_OVERTIME).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

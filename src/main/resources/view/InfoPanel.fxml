@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.layout.BorderPane?>
+<StackPane fx:id="placeHolder" xmlns="http://javafx.com/javafx/8" styleClass="stack-pane"
+           xmlns:fx="http://javafx.com/fxml/1" maxWidth="Infinity">
+    <ScrollPane styleClass="scroll-pane-info" maxHeight="Infinity" maxWidth="Infinity" />
+
+    <BorderPane>
+        <center>
+            <Label fx:id="textOverlay" text="The Employee List is Empty!!" styleClass="label-base"
+                   BorderPane.alignment="CENTER" />
+        </center>
+    </BorderPane>
+
+    <ScrollPane fx:id="main" styleClass="scroll-pane-info" maxHeight="Infinity" maxWidth="Infinity" >
+        <HBox styleClass="scroll-pane-info">
+            <VBox minWidth="5" />
+            <VBox>
+                <Label fx:id="name" styleClass="label-header" />
+                <Label fx:id="role" styleClass="label-role" />
+                <FlowPane fx:id="tags" />
+                <VBox minHeight="10" />
+
+                <Label text="🛈 Personal Information" styleClass="label-underlined" />
+                <Label fx:id="email" styleClass="label-bright" />
+                <Label fx:id="phone" styleClass="label-bright" />
+                <Label fx:id="address" styleClass="label-bright" />
+                <VBox minHeight="10" />
+
+                <Label text="Salary" styleClass="label-underlined" />
+                <Label fx:id="salary" styleClass="label-bright" />
+                <Label fx:id="hoursWorked" styleClass="label-bright" />
+                <Label fx:id="overtime" styleClass="label-bright" />
+                <Label fx:id="salaryOwed" styleClass="label-alert" />
+
+                <Label text="Leaves" styleClass="label-underlined" />
+                <Label fx:id="leaveBalance" styleClass="label-bright" />
+                <Label fx:id="leaveDates" styleClass="label-bright" />
+            </VBox>
+        </HBox>
+    </ScrollPane>
+</StackPane>

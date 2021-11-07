@@ -26,7 +26,7 @@ public class PersonInput {
     @CsvBindByName(column = "Role", required = true)
     private String role;
 
-    @CsvBindByName(column = "Leaves", required = false)
+    @CsvBindByName(column = "Leave Balance", required = false)
     private String leave;
     @CsvBindByName(column = "Salary", required = false)
     private String salary;
