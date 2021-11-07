@@ -130,10 +130,10 @@ The `Model` component,
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. 
-It has a `Tag` and `Leave` list in the `AddressBook`, which `Person` references. </div> 
+It has a `Tag` and `Leave` list in the `AddressBook`, which `Person` references.
 This allows `AddressBook` to only require one `Tag` object per unique tag, and one `Leave` object per unique date, 
 instead of each `Person` needing their own `Tag` and `LeavesTaken` objects. More information on how leaves are currently implemented
-can be found <a href="DeveloperGuide.md#assigned-leaves">here</a>. 
+can be found <a href="DeveloperGuide.md#assigned-leaves">here</a>. </div> 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
 <div style="page-break-after: always;"></div>
@@ -188,9 +188,6 @@ In general, there are 2 main types of predicates.
         * For example, a LeaveLessThanPredicate will check if the `Person` has a number of leaves strictly less than the given value.
     * First, the respective method found in `FindCommandParser` for creating a comparison predicate is called.
         * For example, to get a `SalaryIsLessThanPredicate`, `FindCommandParser#getSalaryComparisonPredicate` is called with the user's input.
-
-<div style="page-break-after: always;"></div>
-
     * The comparison type is found using the `parseComparator()` method in FindCommandParser, which returns a CompareType, an enum found in FindCommandParser which has 5 values representing the different available comparisons: "more than", "more than or equal", "less than", "less than or equal", and "equal".
     * The value to compare to is then found using the `getComparisonValue()` method in FindCommandParser, which returns a String to be parsed.
         * This is done because the different fields take in different number types. For example, the HourlySalary field takes in a `double`, whereas the Leave field takes in an `int`.
@@ -252,7 +249,7 @@ Cons:
 <div style="page-break-after: always;"></div> 
 ### Import Feature
 
-**CUrrent Implementation**
+**Current Implementation** <br>
 
 The implemented import feature mechanism is facilitated by `ImportCommandParser`, `ImportCommand` and `PersonInput`. `ImportCommandParser` implements the interface `Parser`.`ImportCommand` extends abstract class `Command`, and implements the following additional operation:
 * `ImportCommand#importData(Model)` Takes the filepath attributed to the ImportCommand and imports its content.
@@ -922,7 +919,7 @@ Guarantees:
     * 3c1. HeRon shows an error message informing user about which field has invalid input and why it is invalid
 
         Use case resumes at step 2.
-<div style="page-break-after: always;"></div>
+   
 **Use case: Calculate payroll for all employees**
 
 **MSS**
@@ -943,7 +940,7 @@ Guarantees:
     * 5a1. HeRon shows an error message.
 
         Use case resumes at step 4.
-
+<div style="page-break-after: always;"></div>
 **Use case: Adding a Tag to an employee**
 
 **MSS**
