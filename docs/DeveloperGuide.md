@@ -133,8 +133,9 @@ It has a `Tag` and `Leave` list in the `AddressBook`, which `Person` references.
 This allows `AddressBook` to only require one `Tag` object per unique tag, and one `Leave` object per unique date, 
 instead of each `Person` needing their own `Tag` and `LeavesTaken` objects. More information on how leaves are currently implemented
 can be found <a href="DeveloperGuide.md#assigned-leaves">here</a>. </div> 
-<div style="page-break-after: always;"></div>
 <img src="images/BetterModelClassDiagram.png" width="450" />
+
+<div style="page-break-after: always;"></div>
 
 ### Storage component
 
@@ -146,8 +147,6 @@ The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
-
-<div style="page-break-after: always;"></div>
 
 ### Common classes
 
@@ -232,8 +231,6 @@ Pros:
 Cons:
 * Harder to write the implementation for `CombinedPredicate#test()` as it requires checking for null values if the user does not query with that field.
 * Will require a new field to be added every time a new field is added to `Person`, so that a user can filter by that field. Not as extensible compared to creating a new predicate and adding it to the chain.
-
-<div style="page-break-after: always;"></div>
    
 ##### Creating the comparison based predicates
 Another place for consideration of alternative implementation is the implementation of the comparison based predicates such as `SalaryIsLessThanPredicate`.
@@ -265,7 +262,9 @@ The program detects the fields using column titles (taken as the first row of th
 * `address` as Residential Address
 * `email` as Email
 * `role` as Role
-
+   
+<div style="page-break-after: always;"></div>
+   
 Given below is an example usage scenario and how the import mechanism behaves at each step.
 
 **Step 1.** The user launches the application. HeRon initializes with the initial address book state or loaded with data from the previous session (if any).
@@ -273,7 +272,7 @@ Given below is an example usage scenario and how the import mechanism behaves at
 **Step 2.** The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which in this case, refers to the file `toBeImported.csv` in the root directory.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
-<div style="page-break-after: always;"></div>
+
 **Step 3.** Program processes the .csv file. The first row is identified as the header row, which is used to determine which field of the PersonInput class the column represents. The remaining rows are parsed and PersonInput Objects are created and added into a List. Once done, the List of PersonInput Objects will be used to create a separate list of Person objects used to update the address book.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current AddressBook.</div>
@@ -281,18 +280,19 @@ Given below is an example usage scenario and how the import mechanism behaves at
    
 **Step 4.** A new `AddressBook` is created, and updated it with the entries in the file. The current existing AddressBook is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
 
+   <div style="page-break-after: always;"></div>
+   
 **Step 5.** The updated AddressBook would be saved as per the process after the execution of a command.
 
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
-<div style="page-break-after: always;"></div>
 ![ImportProcessData](images/ImportProcessData.png)
 
 The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display".
-   
+<div style="page-break-after: always;"></div>
 The following activity diagram summarizes what happens when a user uses the `import` command:
 ![ImportActivityDiagram](images/ImportActivityDiagram.png)
-<div style="page-break-after: always;"></div>
+
 **Design considerations:**
 
 **Aspect: How the imported file is processed:**
@@ -305,6 +305,7 @@ The following activity diagram summarizes what happens when a user uses the `imp
     * Pros: No need for header rows.
     * Cons: Unable to ensure that the data is formatted in the correct order.
 
+<div style="page-break-after: always;"></div>
 **Aspect: Making fields compulsory for import:**
 
 * **Alternative 1 (current choice): Only fields `Name`, `Contact Number`, `Residential Address`, `Email` and `Role` are compulsory**
@@ -344,6 +345,8 @@ On initialization:
 1. `ObservablePerson` is created, and `InfoPanel` is initialized with the ObservablePerson passed as argument to the constructor
 2. On creation of `InfoPanel`, it adds itself to the `uiObserverList` of the ObservablePerson to be subscribed for updates using `ObservablePerson::addUiObserver(UiObserver observer)`
 
+<div style="page-break-after: always;"></div>
+   
 When the `ObservablePerson` changes:
 1. `InfoPanel` in the `uiObserverList` is updated with `ObservablePerson::updateUi()`
 2. `InfoPanel` and other `UiObserver` in the list can then update their own Ui with the updated viewingPerson information passed to it.
@@ -445,8 +448,6 @@ This class extends `Command` with the following added method to get the updated 
 `RemoveLeavesBeforeCommand` works similarly to `AddLeaveBalanceCommand`,
 except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#removeDatesBefore` is called.
 In addition, `LeavesTaken#removeDatesBefore` is called for all `Person` objects in the filtered list.
-
-<div style="page-break-after: always;"></div>
 
 The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 
@@ -1023,7 +1024,7 @@ Guarantees:
     * 2c1. HeRon shows an error message.
 
       Use case resumes at step 1.
-
+<div style="page-break-after: always;"></div>
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
