@@ -541,6 +541,8 @@ If your changes to the data file makes its format invalid, HeRon will discard al
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## FAQ - Frequently Asked Questions
 
 **Q**: How do I transfer my data to another computer?<br>
