@@ -396,10 +396,13 @@ Example:
 * After `startPayroll` command, payroll have been calculated and currently viewing the full list of employees.
   ![after starting payroll](images/user-guide/startPayroll_after.png)
 
-Notes:
-* All employees must not have any pay pending from the previous payroll. Otherwise, an error will be shown:
-  ![error when there are employees still unpaid](images/user-guide/startPayrollError_unpaidEmployee.png)
+<div markdown="block" class="alert alert-info">
+**:information_source: Notes:**
+
+* All employees must not have any pay pending from the previous payroll (i.e. no red 'NOT PAID' label). Otherwise, an error will be thrown
+  and no action will be taken.
 * To start a new payroll, first make sure to pay all employees using the `pay` command.
+</div>
 
 #### Paying employee(s) : `pay`
 
@@ -415,8 +418,8 @@ Format 1: `pay INDEX` - for paying a specific employee
 * The employee must have payment pending from a `startPayroll` command.
 
 Example:
-* `pay 1` marks the 1st employee in the Employee list as paid clearing the pay owed, number of hours worked and overtime hours of the employee.
-
+* `pay 1` marks the 1st employee in the Employee list as paid, clearing the pay owed to the employee and removing
+  the red 'NOT PAID' label.
   ![before paying the employee](images/user-guide/pay_beforePaying.png)
   _Alex is marked as unpaid in HeRon_ <br>
   <br>
@@ -443,12 +446,13 @@ Sets a new overtime pay rate to be used in payroll calculations.
 Format: `setOvertimePayRate OVERTIMEPAYRATE`
 
 * Sets the overtime pay rate in the application to `OVERTIMEPAYRATE`.
-* `OVERTIMEPAYRATE` should have a value of at least 1.
+* `OVERTIMEPAYRATE` should have a value between 1 to 10, and have at most 5 decimal places.
 
 Examples:
 * `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2x.
 
 * `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
+* `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places. An error message would be shown.
 
 ### Data-related Features
 
