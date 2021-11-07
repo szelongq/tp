@@ -309,6 +309,7 @@ Format: `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 Examples:
 * `list` followed by `deductLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in HeRon.
 * `find n/Anthony` followed by `deductLeaveBalance 4 l/2` removes 2 days of leave from the 4th employee in the results of the `find` command.
+<div style="page-break-after: always;"></div>
 
 #### Assign a leave with a date to an employee : `assignLeave`
 
@@ -340,6 +341,7 @@ Examples:
 * `list` followed by `removeLeavesBefore d/2021-11-10` removes all leaves occurring on and before 2021-11-10 for all employees.
 * `find n/Anthony` followed by `removeLeavesBefore 1 d/2021-01-08` removes all leaves occurring on and before 2021-01-08
    for all employees that have 'Anthony' in their names.
+<div style="page-break-after: always;"></div>
 
 ### Payroll-related Features
 
