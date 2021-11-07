@@ -219,7 +219,7 @@ One alternative for combining predicates is to create a new `CombinedPredicate` 
 ![CombinedPredicateExample](images/CombinedPredicateExample.png)
    
 Using the `CombinedPredicate`, one can easily parse the user's command and create the appropriate `CombinedPredicate` to be passed into `FindCommand`.
-
+<div style="page-break-after: always;"></div>
 Pros:
 * Easier to test for equality by comparing each field. This means it is easier to test if the FindCommandParser has parsed the user input correctly.
 
@@ -274,16 +274,16 @@ Given below is an example usage scenario and how the import mechanism behaves at
 **Step 4.** A new `AddressBook` is created, and updated it with the entries in the file. The current existing AddressBook is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
 
 **Step 5.** The updated AddressBook would be saved as per the process after the execution of a command.
-<div style="page-break-after: always;"></div> 
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
+   <div style="page-break-after: always;"></div>
 ![ImportProcessData](images/ImportProcessData.png)
 
 The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display".
-<div style="page-break-after: always;"></div>
+
 The following activity diagram summarizes what happens when a user uses the `import` command:
 ![ImportActivityDiagram](images/ImportActivityDiagram.png)
-
+<div style="page-break-after: always;"></div>
 **Design considerations:**
 
 **Aspect: How the imported file is processed:**
@@ -305,12 +305,11 @@ The following activity diagram summarizes what happens when a user uses the `imp
 * **Alternative 2: No compulsory fields**
     * Pros: Allows for multiple names for the fields in the header row, albeit still fixed. Files can be imported even if there are missing entries.
     * Cons:  Files can be imported regardless of any formatting issues or missing fields in entries, thus data can be imported even without any cleaning, making it harder to be used in the program.
-
-<div style="page-break-after: always;"></div>
+   
 * **Alternative 3 : All fields are compulsory**
     * Pros: Ensures data imported have all the required fields to utilise all the functionality of the program.
     * Cons: Files cannot be imported if any entry has any fields missing.
-
+<div style="page-break-after: always;"></div>
 ### Updating Info Panel display
 
 **Current Implementation** <br>
@@ -350,7 +349,7 @@ Below is an example of how `InfoPanel` updates with a view command:
 it informs the other `InfoPanel` in the `uiObserverList` to update, passing the new updated personToView to `InfoPanel`.
 
 **Step 4.** With the new data passed to `InfoPanel`, it can then update the content to be displayed in however its `update()` method is implemented.  
-<div style="page-break-after: always;"></div>
+
 **Design Considerations:**
 
 Use Observer pattern to track when to update InfoPanel (Current Implementation)
@@ -366,7 +365,7 @@ Constantly update Info Panel with every command executed.
 **Pros:** Easy to update, ensures that Ui is constantly updated.
 
 **Cons:** Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
-
+<div style="page-break-after: always;"></div>
 ### Leave Balance
 
 **Current Implementation**
