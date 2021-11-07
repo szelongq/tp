@@ -12,6 +12,7 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Quick start
 
@@ -27,7 +28,9 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
-
+   
+    <div style="page-break-after: always;"></div>
+   
 6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
@@ -63,9 +66,7 @@ _Display Panel_ <br>
     If the employee list is empty, it displays an example person with example attributes. The example is purely visual, and does not exist in the employee list.
 
 --------------------------------------------------------------------------------------------------------------------
-
 ## Features
-
 <div markdown="block" class="alert alert-info">
 
 **Please read this information panel for more information on commands before proceeding.**
@@ -101,7 +102,7 @@ Shows a message explaining how to access the help page.
 ![help message](images/user-guide/helpMessage.png)
 
 Format: `help`
-
+<div style="page-break-after: always;"></div>
 #### Adding an employee: `add`
 
 Adds an employee to HeRon.
@@ -139,6 +140,7 @@ Examples:
 Shows a list of all employees in HeRon.
 
 Format: `list`
+<div style="page-break-after: always;"></div>
 
 #### Editing an employee : `edit`
 
@@ -159,6 +161,7 @@ Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to ed
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
+<div style="page-break-after: always;"></div>
 
 #### Locating specific employees: `find`
 
@@ -196,6 +199,8 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
       2. has less than 7 days of leave left (e.g. 6 and below)
 
     * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.
+  
+    <div style="page-break-after: always;"></div>
 
   * **Type 3 Query: Status Based Filter**
     * There are no fields attached to this query. Instead, specific keywords are available for use.
@@ -218,6 +223,8 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
 
 * For each field, you can search using multiple keywords by separating each keyword with a space, in the same field.
   * For example, `find n/John Mike` will return all employees whose name contains either John or Mike.
+  
+<div style="page-break-after: always;"></div>
 
 Examples:
 * `find unpaid n/John Mike r/admin l/<=5 o/>3` finds all employees who satisfy all the following criteria:
@@ -304,6 +311,7 @@ Format: `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 Examples:
 * `list` followed by `deductLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in HeRon.
 * `find n/Anthony` followed by `deductLeaveBalance 4 l/2` removes 2 days of leave from the 4th employee in the results of the `find` command.
+<div style="page-break-after: always;"></div>
 
 #### Assign a leave with a date to an employee : `assignLeave`
 
@@ -335,6 +343,7 @@ Examples:
 * `list` followed by `removeLeavesBefore d/2021-11-10` removes all leaves occurring on and before 2021-11-10 for all employees.
 * `find n/Anthony` followed by `removeLeavesBefore 1 d/2021-01-08` removes all leaves occurring on and before 2021-01-08
    for all employees that have 'Anthony' in their names.
+<div style="page-break-after: always;"></div>
 
 ### Payroll-related Features
 
@@ -373,6 +382,8 @@ Examples:
 * `list` followed by `deductHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in HeRon.
 * `find n/Sam` followed by `deductHoursWorked 1 o/2` removes 2 hours of overtime from the 1st employee in the results of the `find` command.
 
+<div style="page-break-after: always;"></div>
+
 #### Start Payroll : `startPayroll`
 
 Calculates the payroll of all employees and mark them as awaiting the payment.
@@ -407,6 +418,8 @@ Example:
 * To start a new payroll, first make sure to pay all employees using the `pay` command.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### Paying employee(s) : `pay`
 
 Marks the specified employee, or all employees in the current list, as paid.
@@ -434,6 +447,8 @@ Format 2: `pay all` - for paying all employees in the current list
 * If there are employees already paid in the list, they will be skipped and will not be paid again.
 * There must be at least 1 employee in the list that has not been paid.
 
+<div style="page-break-after: always;"></div>
+
 #### View the Overtime Pay Rate : `viewOvertimePayRate`
 
 Displays the current overtime pay rate set in the application.
@@ -456,6 +471,8 @@ Examples:
 
 * `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
 * `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places. An error message would be shown.
+
+<div style="page-break-after: always;"></div>
 
 ### Data-related Features
 
@@ -497,9 +514,15 @@ Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Valu
 Example:`import ./toBeImported` should have the following behaviours under the following situations.
 * Successful Import
   ![Result for successful import](images/user-guide/multipleTagImport.png)
+
+    <div style="page-break-after: always;"></div>
+  
 * Multiple entries missing compulsory fields.
   ![Picture of CSV file missing compulsory field](images/user-guide/missingFieldCsv.png)
   ![Result for missing field import](images/user-guide/missingFieldImport.png)
+  
+    <div style="page-break-after: always;"></div>
+
 * Multiple Tags present in entry.
   ![Picture of CSV file with multiple tags](images/user-guide/multipleTagsCsv.png)
   ![Result for multiple tag import](images/user-guide/multipleTagImport.png)
@@ -516,9 +539,9 @@ HeRon data are saved as a JSON file `[JAR file location]/data/HeRon.json`. Advan
 If your changes to the data file makes its format invalid, HeRon will discard all data and start with an empty data file at the next run.
 </div>
 
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## FAQ - Frequently Asked Questions
 
