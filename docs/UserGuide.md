@@ -12,6 +12,7 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Quick start
 
@@ -99,7 +100,7 @@ Shows a message explaining how to access the help page.
 ![help message](images/user-guide/helpMessage.png)
 
 Format: `help`
-
+<div style="page-break-after: always;"></div>
 #### Adding an employee: `add`
 
 Adds an employee to HeRon.
