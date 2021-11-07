@@ -539,11 +539,7 @@ HeRon data are saved as a JSON file `[JAR file location]/data/HeRon.json`. Advan
 If your changes to the data file makes its format invalid, HeRon will discard all data and start with an empty data file at the next run.
 </div>
 
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
-
-<div style="page-break-after: always;"></div>
 
 ## FAQ - Frequently Asked Questions
 
