@@ -10,7 +10,7 @@ title: Developer Guide
 ## **Acknowledgements**
 
 ### Third-Party Libraries Used
-* The Import Feature implemented uses [Opencsv].(http://opencsv.sourceforge.net/)
+* The Import Feature implemented uses [Opencsv](http://opencsv.sourceforge.net/).
 
 
 --------------------------------------------------------------------------------------------------------------------
