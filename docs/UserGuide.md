@@ -259,9 +259,11 @@ Example:
 * `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
 * `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
 
-#### Clearing all entries : `clear`
+#### Clearing all employees : `clear`
 
-Clears all entries from HeRon.
+Clears all employees from the employee list. Upon clearing, it should display the screen shown below.
+
+![ClearScreen](images/user-guide/clear.png)
 
 Format: `clear`
 
