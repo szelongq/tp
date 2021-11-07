@@ -65,14 +65,15 @@ public class HoursWorkedTest {
     }
 
     @Test
-    public void addHoursWorked_throwsAssertionError() {
+    public void addHoursWorked_addZeroHoursWorked_throwsAssertionError() {
         HoursWorked validHoursWorked = new HoursWorked("10");
-        HoursWorked noHoursWorked = new HoursWorked("0"); // Negative values are caught by isValidHoursWorked
+        // Negative values are caught by isValidHoursWorked, so 0 is the only possible value to cause an assertion error
+        HoursWorked noHoursWorked = new HoursWorked("0");
         assertThrows(AssertionError.class, () -> validHoursWorked.addHoursWorked(noHoursWorked));
     }
 
     @Test
-    public void addHoursWorked_throwsIllegalArgumentException() {
+    public void addHoursWorked_exceedMaxHoursWorked_throwsIllegalArgumentException() {
         HoursWorked validHoursWorked = new HoursWorked("10");
         HoursWorked validOtherHoursWorked = new HoursWorked("735");
         assertThrows(IllegalArgumentException.class, () -> validHoursWorked.addHoursWorked(validOtherHoursWorked));
@@ -87,14 +88,15 @@ public class HoursWorkedTest {
     }
 
     @Test
-    public void removeHoursWorked_throwsAssertionError() {
+    public void removeHoursWorked_removeZeroHoursWorked_throwsAssertionError() {
         HoursWorked validHoursWorked = new HoursWorked("10");
-        HoursWorked noHoursWorked = new HoursWorked("0"); // Negative values are caught by isValidHoursWorked
+        // Negative values are caught by isValidHoursWorked, so 0 is the only possible value to cause an assertion error
+        HoursWorked noHoursWorked = new HoursWorked("0");
         assertThrows(AssertionError.class, () -> validHoursWorked.removeHoursWorked(noHoursWorked));
     }
 
     @Test
-    public void removeHoursWorked_throwsIllegalArgumentException() {
+    public void removeHoursWorked_insufficientHoursWorked_throwsIllegalArgumentException() {
         HoursWorked validHoursWorked = new HoursWorked("10");
         HoursWorked validOtherHoursWorked = new HoursWorked("11");
         assertThrows(IllegalArgumentException.class, () -> validHoursWorked.removeHoursWorked(validOtherHoursWorked));

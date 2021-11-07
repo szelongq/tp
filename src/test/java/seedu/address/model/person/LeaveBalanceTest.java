@@ -54,14 +54,15 @@ public class LeaveBalanceTest {
     }
 
     @Test
-    public void addLeaves_throwsAssertionError() {
+    public void addLeaves_addZeroLeaves_throwsAssertionError() {
         LeaveBalance validLeaveBalance = new LeaveBalance("10");
-        LeaveBalance noLeaveBalance = new LeaveBalance("0"); // Negative values are caught by isValidLeaves
+        // Negative values are caught by isValidLeaves, so 0 is the only possible value to cause an assertion error
+        LeaveBalance noLeaveBalance = new LeaveBalance("0");
         assertThrows(AssertionError.class, () -> validLeaveBalance.addLeaves(noLeaveBalance));
     }
 
     @Test
-    public void addLeaves_throwsIllegalArgumentException() {
+    public void addLeaves_exceedMaxLeaveBalance_throwsIllegalArgumentException() {
         LeaveBalance validLeaveBalance = new LeaveBalance("10");
         LeaveBalance validOtherLeaveBalance = new LeaveBalance("356");
         assertThrows(IllegalArgumentException.class, () -> validLeaveBalance.addLeaves(validOtherLeaveBalance));
@@ -76,14 +77,15 @@ public class LeaveBalanceTest {
     }
 
     @Test
-    public void removeLeaves_throwsAssertionError() {
+    public void removeLeaves_removeZeroLeaves_throwsAssertionError() {
         LeaveBalance validLeaveBalance = new LeaveBalance("10");
-        LeaveBalance noLeaveBalance = new LeaveBalance("0"); // Negative values are caught by isValidLeaves
+        // Negative values are caught by isValidLeaves, so 0 is the only possible value to cause an assertion error
+        LeaveBalance noLeaveBalance = new LeaveBalance("0");
         assertThrows(AssertionError.class, () -> validLeaveBalance.removeLeaves(noLeaveBalance));
     }
 
     @Test
-    public void removeLeaves_throwsIllegalArgumentException() {
+    public void removeLeaves_insufficientLeaveBalance_throwsIllegalArgumentException() {
         LeaveBalance validLeaveBalance = new LeaveBalance("10");
         LeaveBalance validOtherLeaveBalance = new LeaveBalance("11");
         assertThrows(IllegalArgumentException.class, () -> validLeaveBalance.removeLeaves(validOtherLeaveBalance));

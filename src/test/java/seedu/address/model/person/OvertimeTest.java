@@ -65,14 +65,15 @@ public class OvertimeTest {
     }
 
     @Test
-    public void addOvertime_throwsAssertionError() {
+    public void addOvertime_addZeroOvertime_throwsAssertionError() {
         Overtime validOvertime = new Overtime("10");
-        Overtime noOvertime = new Overtime("0"); // Negative values are caught by isValidOvertime
+        // Negative values are caught by isValidOvertime, so 0 is the only possible value to cause an assertion error
+        Overtime noOvertime = new Overtime("0");
         assertThrows(AssertionError.class, () -> validOvertime.addOvertime(noOvertime));
     }
 
     @Test
-    public void addOvertime_throwsIllegalArgumentException() {
+    public void addOvertime_exceedMaxOvertime_throwsIllegalArgumentException() {
         Overtime validOvertime = new Overtime("10");
         Overtime validOtherOvertime = new Overtime("735");
         assertThrows(IllegalArgumentException.class, () -> validOvertime.addOvertime(validOtherOvertime));
@@ -87,14 +88,15 @@ public class OvertimeTest {
     }
 
     @Test
-    public void removeOvertime_throwsAssertionError() {
+    public void removeOvertime_removeZeroOvertime_throwsAssertionError() {
         Overtime validOvertime = new Overtime("10");
-        Overtime noOvertime = new Overtime("0"); // Negative values are caught by isValidOvertime
+        // Negative values are caught by isValidOvertime, so 0 is the only possible value to cause an assertion error
+        Overtime noOvertime = new Overtime("0");
         assertThrows(AssertionError.class, () -> validOvertime.removeOvertime(noOvertime));
     }
 
     @Test
-    public void removeOvertime_throwsIllegalArgumentException() {
+    public void removeOvertime_insufficientOvertime_throwsIllegalArgumentException() {
         Overtime validOvertime = new Overtime("10");
         Overtime validOtherOvertime = new Overtime("11");
         assertThrows(IllegalArgumentException.class, () -> validOvertime.removeOvertime(validOtherOvertime));
