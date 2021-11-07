@@ -5,9 +5,9 @@ import java.util.function.Predicate;
 import seedu.address.model.person.Person;
 
 public class SalaryIsMoreThanEqualPredicate implements Predicate<Person> {
-    private final float value;
+    private final double value;
 
-    public SalaryIsMoreThanEqualPredicate(float value) {
+    public SalaryIsMoreThanEqualPredicate(double value) {
         this.value = value;
     }
 
