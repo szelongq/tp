@@ -17,12 +17,15 @@ Given below are my contributions to the project.
 * **Project management**:
 
 * **Enhancements to existing features**:
+    - Updated the `find` command to allow the user to find an employee by their fields such as email, role, hourly salary, number of leaves, whether they are unpaid, and so on.
+    - Added tests for the above enhancement as well
 
 * **Documentation**:
     * User Guide:
         * Added documentation for the features `find`
     * Developer Guide:
         * Added use cases for the `find` feature.
+        * Added implementation details of the `find` feature.
 
 * **Community**:
 

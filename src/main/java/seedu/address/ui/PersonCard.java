@@ -20,6 +20,9 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
+    private static final String ROLE_ICON = "\uD83D\uDC64 ";
+    private static final String EMAIL_ICON = "@  ";
+
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -37,23 +40,14 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
+    private FlowPane tags;
     @FXML
     private Label email;
     @FXML
     private Label role;
     @FXML
-    private Label leave;
-    @FXML
-    private Label hoursWorked;
-    @FXML
-    private Label overtime;
-    @FXML
     private VBox calculatedSalary;
-    @FXML
-    private FlowPane tags;
+
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -63,13 +57,8 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         role.setText(person.getRole().value);
-        leave.setText(String.format("Leaves Remaining: %s", person.getLeaves().toString()));
-        hoursWorked.setText(String.format("Hours Worked: %s", person.getHoursWorked().toString()));
-        overtime.setText(String.format("Overtime Hours Worked: %s", person.getOvertime().toString()));
 
         String salaryDue = person.getCalculatedPay().toString(); // To be replaced by calculated salary
         if (!salaryDue.equals("0.00")) {

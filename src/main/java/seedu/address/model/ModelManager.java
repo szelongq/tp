@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.ObservablePerson;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +24,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+
+    private final ObservablePerson viewingPerson;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +39,15 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        ObservableList<Person> personList = this.addressBook.getPersonList();
+        if (personList.isEmpty()) {
+            // Set view to blank
+            viewingPerson = new ObservablePerson();
+        } else {
+            // Default to view first person in employee list
+            viewingPerson = new ObservablePerson(this.addressBook.getPersonList().get(0));
+        }
     }
 
     public ModelManager() {
@@ -76,6 +89,17 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public OvertimePayRate getOvertimePayRate() {
+        return userPrefs.getOvertimePayRate();
+    }
+
+    @Override
+    public void setOvertimePayRate(OvertimePayRate overtimePayRate) {
+        requireNonNull(overtimePayRate);
+        userPrefs.setOvertimePayRate(overtimePayRate);
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override
@@ -92,6 +116,18 @@ public class ModelManager implements Model {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasDuplicatePhone(Person person) {
+        requireNonNull(person);
+        return addressBook.hasDuplicatePhone(person);
+    }
+
+    @Override
+    public boolean hasDuplicateEmail(Person person) {
+        requireNonNull(person);
+        return addressBook.hasDuplicateEmail(person);
     }
 
     @Override
@@ -127,6 +163,26 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean isFilteredPersonListEmpty() {
+        return filteredPersons.isEmpty();
+    }
+
+    //=========== Viewing Person Details =====================================================================
+    @Override
+    public ObservablePerson getViewingPerson() {
+        return viewingPerson;
+    }
+
+    @Override
+    public void setViewingPerson(Person p) {
+        Optional<Person> toView = Optional.ofNullable(p);
+        toView.ifPresentOrElse(
+                viewingPerson::setPerson,
+                viewingPerson::setEmptyPerson
+        );
     }
 
     @Override

@@ -14,19 +14,19 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddLeavesCommand;
+import seedu.address.logic.commands.AddLeaveBalanceCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeductLeaveBalanceCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.ExitCommand;
 //import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RemoveLeavesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Leave;
-//import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.LeaveBalance;
+//import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -94,18 +94,20 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addLeaves() throws Exception {
-        final Leave leave = new Leave("3");
-        AddLeavesCommand command = (AddLeavesCommand) parser.parseCommand(AddLeavesCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVE + leave);
-        assertEquals(new AddLeavesCommand(INDEX_FIRST_PERSON, leave), command);
+        final LeaveBalance leaveBalance = new LeaveBalance("3");
+        AddLeaveBalanceCommand command =
+                (AddLeaveBalanceCommand) parser.parseCommand(AddLeaveBalanceCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVE + leaveBalance);
+        assertEquals(new AddLeaveBalanceCommand(INDEX_FIRST_PERSON, leaveBalance), command);
     }
 
     @Test
     public void parseCommand_removeLeaves() throws Exception {
-        final Leave numberOfLeave = new Leave("3");
-        RemoveLeavesCommand command = (RemoveLeavesCommand) parser.parseCommand(RemoveLeavesCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVE + numberOfLeave);
-        assertEquals(new RemoveLeavesCommand(INDEX_FIRST_PERSON, numberOfLeave), command);
+        final LeaveBalance numberOfLeaves = new LeaveBalance("3");
+        DeductLeaveBalanceCommand command =
+                (DeductLeaveBalanceCommand) parser.parseCommand(DeductLeaveBalanceCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVE + numberOfLeaves);
+        assertEquals(new DeductLeaveBalanceCommand(INDEX_FIRST_PERSON, numberOfLeaves), command);
     }
 
     @Test

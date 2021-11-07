@@ -1,6 +1,17 @@
+* {
+    -fx-baseBack: #2C423F;
+    -fx-baseLight: #211A1D;
+    -fx-baseOdd: #98AE98;
+    -fx-baseEven: #AFC0AF;
+    -fx-baseDark: #20312F;
+    -fx-base5: #f0f3bd;
+}
+
+
+
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    -fx-background-color: -fx-baseBack;
+    background-color: -fx-baseBack; /* Used in the default.html file */
 }
 
 .label {
@@ -10,27 +21,61 @@
     -fx-opacity: 0.9;
 }
 
+.label-base {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Open Sans Semibold";
+    -fx-text-fill: -fx-baseDark;
+    -fx-opacity: 1;
+}
+
+
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Open Sans Semibold";
+    -fx-text-fill: -fx-baseLight;
+    -fx-opacity: 1;
+}
+
+.label-role {
+    -fx-font-size: 16pt;
+    -fx-font-family: "Open Sans Semibold";
+    -fx-text-fill: #555555;
+    -fx-opacity: 0.9;
+}
+
+.label-alert {
+    -fx-font-size: 16pt;
+    -fx-font-family: "Open Sans Semibold";
     -fx-text-fill: white;
+    -fx-background-color: #C41E3A;
+}
+
+.label-underlined {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Open Sans Semibold";
+    -fx-text-fill: -fx-baseLight;
+    -fx-underline: true;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Open Sans Light";
-    -fx-text-fill: white;
+    -fx-text-fill: -fx-baseLight;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Open Sans Semibold";
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 
 .tab-pane {
     -fx-padding: 0 0 0 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 
 .tab-pane .tab-header-area {
@@ -40,11 +85,11 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
-    -fx-table-cell-border-color: transparent;
-    -fx-table-header-border-color: transparent;
+    -fx-base: -fx-baseBack;
+    -fx-control-inner-background: -fx-baseBack;
+    -fx-background-color: -fx-baseBack;
+    -fx-table-cell-border-color: -fx-baseBack;
+    -fx-table-header-border-color: -fx-baseBack;
     -fx-padding: 5;
 }
 
@@ -59,7 +104,7 @@
     -fx-border-color:
         transparent
         transparent
-        derive(-fx-base, 80%)
+        -fx-baseBack
         transparent;
     -fx-border-insets: 0 10 1 0;
 }
@@ -77,80 +122,100 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: transparent transparent transparent #4d4d4d;
+    -fx-background-color: -fx-baseBack;
+    -fx-border-color: transparent transparent transparent -fx-baseBack;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: -fx-baseBack;
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: -fx-baseBack;
 }
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-width: 10;
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: -fx-baseEven
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: -fx-baseOdd
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+    -fx-background-color: #00B4D8;
 }
 
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
+
 }
 
 .list-cell .label {
-    -fx-text-fill: white;
+    -fx-text-fill: -fx-baseLight;
 }
 
 .cell_big_label {
     -fx-font-family: "Open Sans Semibold";
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-font-size: 20px;
+    -fx-text-fill: -fx-baseBack;
 }
 
 .cell_small_label {
     -fx-font-family: "Open Sans Regular";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: -fx-baseBack;
+}
+
+.cell_role_label {
+    -fx-font-family: "Open Sans Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #555555;
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: -fx-baseBack;
+     -fx-border-radius: 10;
+     -fx-background-radius: 10;
 }
 
+/*
+BACKGROUND COLOuR omg
+*/
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-background-color: -fx-baseBack;
+     -fx-border-color: -fx-baseBack;
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: -fx-baseDark;
 }
 
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Open Sans Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: -fx-baseLight;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+
 }
 
 .result-display .label {
@@ -165,27 +230,29 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-background-color: -fx-baseBack;
+    -fx-border-color: -fx-baseBack;
     -fx-border-width: 1px;
+
 }
 
 .status-bar-with-border .label {
-    -fx-text-fill: white;
+    -fx-text-fill: -fx-baseLight;
 }
 
 .grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-background-color: -fx-baseBack;
+    -fx-border-color: -fx-baseBack;
     -fx-border-width: 1px;
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: -fx-baseBack;
+
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: -fx-baseBack;
 }
 
 .context-menu .label {
@@ -193,7 +260,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: -fx-baseDark;
 }
 
 .menu-bar .label {
@@ -204,7 +271,7 @@
 }
 
 .menu .left-container {
-    -fx-background-color: black;
+    -fx-background-color: -fx-baseBack;
 }
 
 /*
@@ -257,11 +324,11 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: -fx-baseBack;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: -fx-baseBack;
 }
 
 .dialog-pane > *.label.content {
@@ -271,7 +338,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#1d1d1d, 25%);
+    -fx-background-color: -fx-baseBack;
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -282,11 +349,11 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(-fx-baseBack, 50%);
     -fx-background-insets: 3;
 }
 
@@ -307,14 +374,27 @@
     -fx-padding: 8 1 8 1;
 }
 
+.scroll-pane {
+    -fx-background: transparent;
+}
+
+.scroll-pane-info {
+    -fx-background: -fx-baseEven;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 2.1 2.5 2.5 2.5;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 
 #commandTypeLabel {
     -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+    -fx-text-fill: -fx-baseBack;
 }
 
 #commandTextField {
@@ -326,15 +406,22 @@
     -fx-font-family: "Open Sans Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 
+/* RESULT DISPLAY CHANGE COLOR */
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
+    -fx-background-color: transparent, -fx-baseOdd, transparent, -fx-baseOdd;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+
 }
 
 #tags {
@@ -344,9 +431,9 @@
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: #6475A6;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-font-size: 13;
 }
