@@ -13,12 +13,17 @@ public class PayCommandParser implements Parser<PayCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public PayCommand parse(String args) throws ParseException {
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            return new PayCommand(index);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, PayCommand.MESSAGE_USAGE), pe);
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.equals(PayCommand.SPECIAL_COMMAND_PHRASE)) {
+            return new PayCommand();
+        } else {
+            try {
+                Index index = ParserUtil.parseIndex(args);
+                return new PayCommand(index);
+            } catch (ParseException pe) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, PayCommand.MESSAGE_USAGE), pe);
+            }
         }
     }
 }

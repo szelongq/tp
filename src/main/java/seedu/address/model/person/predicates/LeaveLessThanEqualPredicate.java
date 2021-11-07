@@ -18,7 +18,7 @@ public class LeaveLessThanEqualPredicate implements Predicate<Person> {
      */
     @Override
     public boolean test(Person person) {
-        return person.getLeaves().value <= this.value;
+        return person.getLeaveBalance().value <= this.value;
     }
 
     @Override

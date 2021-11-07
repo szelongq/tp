@@ -13,7 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HourlySalary;
 import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Leave;
+import seedu.address.model.person.LeaveBalance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Overtime;
 import seedu.address.model.person.Phone;
@@ -118,19 +118,18 @@ public class ParserUtil {
     }
 
     /**
->>>>>>> master
-     * Parses a {@code String amount} into a {@code Leaves}.
+     * Parses a {@code String amount} into a {@code LeaveBalance}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code amount} is invalid.
      */
-    public static Leave parseLeaves(String amount) throws ParseException {
+    public static LeaveBalance parseLeaveBalance(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
-        if (!Leave.isValidLeaves(trimmedAmount)) {
-            throw new ParseException(Leave.MESSAGE_CONSTRAINTS);
+        if (!LeaveBalance.isValidLeaveBalance(trimmedAmount)) {
+            throw new ParseException(LeaveBalance.MESSAGE_CONSTRAINTS);
         }
-        return new Leave(trimmedAmount);
+        return new LeaveBalance(trimmedAmount);
     }
 
     /**
@@ -142,7 +141,7 @@ public class ParserUtil {
     public static HourlySalary parseSalary(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
-        if (!HourlySalary.isValidSalary(trimmedAmount)) {
+        if (!HourlySalary.isValidHourlySalary(trimmedAmount)) {
             throw new ParseException(HourlySalary.MESSAGE_CONSTRAINTS);
         }
         return new HourlySalary(trimmedAmount);

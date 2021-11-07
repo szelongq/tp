@@ -13,7 +13,6 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.OvertimePayRate;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.ObservablePerson;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -49,7 +49,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EMPLOYEE, () ->
+                addCommand.execute(modelStub));
     }
 
     @Test
@@ -141,6 +142,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasDuplicatePhone(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDuplicateEmail(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -161,7 +172,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableObjectValue<Person> getViewingPerson() {
+        public ObservablePerson getViewingPerson() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -170,9 +181,13 @@ public class AddCommandTest {
             /*
             Although the class is meant to have all methods failing,
             addCommand on execute is supposed to call function to update the InfoPanel.
-            Unsure what to do with this.
             */
             System.out.println("Setting viewing person...");
+        }
+
+        @Override
+        public boolean isFilteredPersonListEmpty() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 
@@ -192,6 +207,18 @@ public class AddCommandTest {
             requireNonNull(person);
             return this.person.isSamePerson(person);
         }
+
+        @Override
+        public boolean hasDuplicatePhone(Person person) {
+            requireNonNull(person);
+            return this.person.hasSamePhone(person);
+        }
+
+        @Override
+        public boolean hasDuplicateEmail(Person person) {
+            requireNonNull(person);
+            return this.person.hasSameEmail(person);
+        }
     }
 
     /**
@@ -204,6 +231,18 @@ public class AddCommandTest {
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public boolean hasDuplicatePhone(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSamePhone);
+        }
+
+        @Override
+        public boolean hasDuplicateEmail(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSameEmail);
         }
 
         @Override

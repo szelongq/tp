@@ -25,10 +25,12 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.PersonIsPaidPredicate;
 import seedu.address.model.person.predicates.PhoneNumberMatchesPredicate;
 import seedu.address.model.person.predicates.RoleContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.SalaryIsEqualPredicate;
 import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
+import seedu.address.testutil.PersonBuilder;
 
 public class FindCommandParserTest {
 
@@ -41,6 +43,11 @@ public class FindCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidPreamble_throwsParseException() {
+        assertParseFailure(parser, " asdfpw", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -73,6 +80,21 @@ public class FindCommandParserTest {
      * Current workaround: test both predicates of FindCommand with given
      * inputs and see if both predicates return the same result for the inputs.
      */
+    @Test
+    public void parse_validPreamble_returnsFindCommand() {
+        FindCommand expectedFindCommand =
+                new FindCommand(new PersonIsPaidPredicate());
+        try {
+            FindCommand parsedFindCommand = parser.parse("unpaid");
+            Person unpaidPerson = new PersonBuilder().withCalculatedPay("100").build();
+            Person paidPerson = new PersonBuilder().build();
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, unpaidPerson);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, paidPerson);
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
+
     @Test
     public void parse_validNameArgs_returnsFindCommand() {
         FindCommand expectedFindCommand =

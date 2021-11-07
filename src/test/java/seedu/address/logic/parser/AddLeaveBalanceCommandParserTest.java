@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INTEGER_INPUT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_LEAVES_INPUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -10,24 +10,25 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddLeavesCommand;
-import seedu.address.model.person.Leave;
+import seedu.address.logic.commands.AddLeaveBalanceCommand;
+import seedu.address.model.person.LeaveBalance;
 
-public class AddLeaveCommandParserTest {
-    private final AddLeavesCommandParser parser = new AddLeavesCommandParser();
+public class AddLeaveBalanceCommandParserTest {
+    private final AddLeaveBalanceCommandParser parser = new AddLeaveBalanceCommandParser();
     private final String validNumberOfLeaves = "3";
 
     @Test
     public void parse_indexSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_LEAVE + validNumberOfLeaves;
-        AddLeavesCommand expectedCommand = new AddLeavesCommand(targetIndex, new Leave(validNumberOfLeaves));
+        AddLeaveBalanceCommand expectedCommand =
+                new AddLeaveBalanceCommand(targetIndex, new LeaveBalance(validNumberOfLeaves));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_missingCompulsoryField_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLeavesCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLeaveBalanceCommand.MESSAGE_USAGE);
 
         // No parameters
         assertParseFailure(parser, " ", expectedMessage);
@@ -45,7 +46,7 @@ public class AddLeaveCommandParserTest {
 
     @Test
     public void parse_invalidInteger_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_INTEGER_INPUT, AddLeavesCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_LEAVES_INPUT, AddLeaveBalanceCommand.MESSAGE_USAGE);
         String userInput = INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_LEAVE;
 
         // Not an integer
