@@ -273,7 +273,7 @@ Given below is an example usage scenario and how the import mechanism behaves at
 **Step 2.** The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which in this case, refers to the file `toBeImported.csv` in the root directory.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
-<div markdown="span" class="alert alert-info">
+<div style="page-break-after: always;"></div>
 **Step 3.** Program processes the .csv file. The first row is identified as the header row, which is used to determine which field of the PersonInput class the column represents. The remaining rows are parsed and PersonInput Objects are created and added into a List. Once done, the List of PersonInput Objects will be used to create a separate list of Person objects used to update the address book.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current AddressBook.</div>
@@ -292,7 +292,7 @@ The reference frame for "Update GUI" is similar to the sequence diagram given in
    
 The following activity diagram summarizes what happens when a user uses the `import` command:
 ![ImportActivityDiagram](images/ImportActivityDiagram.png)
-<div markdown="span" class="alert alert-info">
+<div style="page-break-after: always;"></div>
 #### Design considerations:
 
 **Aspect: How the imported file is processed:**
@@ -318,7 +318,9 @@ The following activity diagram summarizes what happens when a user uses the `imp
 * **Alternative 3 : All fields are compulsory**
     * Pros: Ensures data imported have all the required fields to utilise all the functionality of the program.
     * Cons: Files cannot be imported if any entry has any fields missing.
+
 <div style="page-break-after: always;"></div>
+
 ### Updating Info Panel display
 
 #### Current Implementation
@@ -374,7 +376,9 @@ Constantly update Info Panel with every command executed.
 **Pros:** Easy to update, ensures that Ui is constantly updated.
 
 **Cons:** Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
+
 <div style="page-break-after: always;"></div>
+
 ### Leave Balance
 
 #### Current Implementation
@@ -444,7 +448,8 @@ This class extends `Command` with the following added method to get the updated 
 except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#removeDatesBefore` is called.
 In addition, `LeavesTaken#removeDatesBefore` is called for all `Person` objects in the filtered list.
 
-<div markdown="span" class="alert alert-info">
+<div style="page-break-after: always;"></div>
+
 The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 
 ![RemoveLeavesBeforeSequenceDiagram](images/RemoveLeavesBeforeSequenceDiagram.png)
