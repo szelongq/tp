@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_OUT_OF_BOUNDS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HOURLYSALARY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HOURSWORKED_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVES_AMY;
@@ -41,6 +40,8 @@ import seedu.address.model.person.predicates.PersonIsPaidPredicate;
 import seedu.address.model.person.predicates.PhoneNumberMatchesPredicate;
 import seedu.address.model.person.predicates.RoleContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.SalaryIsEqualPredicate;
+import seedu.address.model.person.predicates.SalaryIsLessThanEqualPredicate;
+import seedu.address.model.person.predicates.SalaryIsMoreThanPredicate;
 import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
 import seedu.address.testutil.PersonBuilder;
 
@@ -84,38 +85,6 @@ public class FindCommandParserTest {
     public void parse_invalidSalaryTooManyArgs_throwsParseException() {
         assertParseFailure(parser, " " + PREFIX_HOURLYSALARY + ">5 <10",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-    }
-
-    @Test
-    public void parse_invalidSalaryOutOfBounds_throwsParseException() {
-        assertParseFailure(parser, " " + PREFIX_HOURLYSALARY + ">1001",
-                String.format(MESSAGE_OUT_OF_BOUNDS, "salary"));
-        assertParseFailure(parser, " " + PREFIX_HOURLYSALARY + "<=-1",
-                String.format(MESSAGE_OUT_OF_BOUNDS, "salary"));
-    }
-
-    @Test
-    public void parse_invalidHoursWorkedOutOfBounds_throwsParseException() {
-        assertParseFailure(parser, " " + PREFIX_HOURSWORKED + ">745",
-                String.format(MESSAGE_OUT_OF_BOUNDS, "hours worked"));
-        assertParseFailure(parser, " " + PREFIX_HOURSWORKED + "<=-1",
-                String.format(MESSAGE_OUT_OF_BOUNDS, "hours worked"));
-    }
-
-    @Test
-    public void parse_invalidOvertimeOutOfBounds_throwsParseException() {
-        assertParseFailure(parser, " " + PREFIX_OVERTIME + ">745",
-                String.format(MESSAGE_OUT_OF_BOUNDS, "overtime"));
-        assertParseFailure(parser, " " + PREFIX_OVERTIME + "<=-1",
-                String.format(MESSAGE_OUT_OF_BOUNDS, "overtime"));
-    }
-
-    @Test
-    public void parse_invalidLeavesLeftOutOfBounds_throwsParseException() {
-        assertParseFailure(parser, " " + PREFIX_LEAVE + ">366",
-                String.format(MESSAGE_OUT_OF_BOUNDS, "number of leaves"));
-        assertParseFailure(parser, " " + PREFIX_LEAVE + "<=-1",
-                String.format(MESSAGE_OUT_OF_BOUNDS, "number of leaves"));
     }
 
     /**
@@ -265,11 +234,30 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand =
                 new FindCommand(new SalaryIsEqualPredicate(Float.parseFloat(VALID_HOURLYSALARY_AMY)));
         try {
+            // Test equals comparison
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_HOURLYSALARY + "=" + VALID_HOURLYSALARY_AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
             assertTrue(parsedFindCommand.getPredicate().test(AMY));
             assertFalse(parsedFindCommand.getPredicate().test(BOB));
+
+            // Test more than comparison
+            parsedFindCommand = parser.parse(" " + PREFIX_HOURLYSALARY + ">" + VALID_HOURLYSALARY_AMY);
+            expectedFindCommand =
+                    new FindCommand(new SalaryIsMoreThanPredicate(Float.parseFloat(VALID_HOURLYSALARY_AMY)));
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertFalse(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
+
+            // Test less than equal comparison
+            parsedFindCommand = parser.parse(" " + PREFIX_HOURLYSALARY + "<=" + VALID_HOURLYSALARY_AMY);
+            expectedFindCommand =
+                    new FindCommand(new SalaryIsLessThanEqualPredicate(Float.parseFloat(VALID_HOURLYSALARY_AMY)));
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertTrue(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -345,6 +333,8 @@ public class FindCommandParserTest {
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_TAG + "husband");
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertFalse(parsedFindCommand.getPredicate().test(AMY));
+            assertTrue(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }

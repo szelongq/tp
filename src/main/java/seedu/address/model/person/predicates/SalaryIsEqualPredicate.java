@@ -7,7 +7,7 @@ import seedu.address.model.person.Person;
 public class SalaryIsEqualPredicate implements Predicate<Person> {
     private final double value;
 
-    private final double threshold = 0.001; // Salaries are 2 d.p
+    private final double threshold = 0.01; // Salaries are 2 d.p
 
     public SalaryIsEqualPredicate(double value) {
         this.value = value;

@@ -35,5 +35,4 @@ public class Messages {
             "Dates should be of the form YYYY-MM-DD or YYYY-MM-DD:YYYY-MM-DD (for ranges)! \n%1$s";
     public static final String MESSAGE_DATE_ALREADY_ASSIGNED =
             "Employee %1$s already has a leave assigned to the date %2$s! \n";
-    public static final String MESSAGE_OUT_OF_BOUNDS = "The value provided for %1$s comparison is out of bounds!";
 }

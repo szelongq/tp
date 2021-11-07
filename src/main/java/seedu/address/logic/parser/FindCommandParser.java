@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FINDDATE_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_OUT_OF_BOUNDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -14,14 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.person.HourlySalary.MAX_HOURLY_SALARY;
-import static seedu.address.model.person.HourlySalary.MIN_HOURLY_SALARY;
-import static seedu.address.model.person.HoursWorked.MAX_HOURS_WORKED;
-import static seedu.address.model.person.HoursWorked.MIN_HOURS_WORKED;
-import static seedu.address.model.person.LeaveBalance.MAX_LEAVES;
-import static seedu.address.model.person.LeaveBalance.MIN_LEAVES;
-import static seedu.address.model.person.Overtime.MAX_OVERTIME;
-import static seedu.address.model.person.Overtime.MIN_OVERTIME;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -218,9 +209,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         try {
             CompareType compareType = parseComparator(input);
             double value = Double.parseDouble(getComparisonValue(input, compareType));
-            if (value > MAX_HOURLY_SALARY || value < MIN_HOURLY_SALARY) {
-                throw new IllegalArgumentException();
-            }
             if (compareType == CompareType.MORE_THAN) {
                 return new SalaryIsMoreThanPredicate(value);
             } else if (compareType == CompareType.MORE_THAN_EQUAL) {
@@ -237,8 +225,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         } catch (NumberFormatException | StringIndexOutOfBoundsException | ParseException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(String.format(MESSAGE_OUT_OF_BOUNDS, "salary"));
         }
     }
 
@@ -252,9 +238,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         try {
             CompareType compareType = parseComparator(input);
             int value = Integer.parseInt(getComparisonValue(input, compareType));
-            if (value > MAX_OVERTIME || value < MIN_OVERTIME) {
-                throw new IllegalArgumentException();
-            }
             if (compareType == CompareType.MORE_THAN) {
                 return new OvertimeMoreThanPredicate(value);
             } else if (compareType == CompareType.MORE_THAN_EQUAL) {
@@ -271,8 +254,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         } catch (NumberFormatException | StringIndexOutOfBoundsException | ParseException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(String.format(MESSAGE_OUT_OF_BOUNDS, "overtime"));
         }
     }
 
@@ -286,9 +267,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         try {
             CompareType compareType = parseComparator(input);
             int value = Integer.parseInt(getComparisonValue(input, compareType));
-            if (value > MAX_LEAVES || value < MIN_LEAVES) {
-                throw new IllegalArgumentException();
-            }
             if (compareType == CompareType.MORE_THAN) {
                 return new LeaveMoreThanPredicate(value);
             } else if (compareType == CompareType.MORE_THAN_EQUAL) {
@@ -305,8 +283,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         } catch (NumberFormatException | StringIndexOutOfBoundsException | ParseException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(String.format(MESSAGE_OUT_OF_BOUNDS, "number of leaves"));
         }
     }
 
@@ -320,9 +296,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         try {
             CompareType compareType = parseComparator(input);
             int value = Integer.parseInt(getComparisonValue(input, compareType));
-            if (value > MAX_HOURS_WORKED || value < MIN_HOURS_WORKED) {
-                throw new IllegalArgumentException();
-            }
             if (compareType == CompareType.MORE_THAN) {
                 return new HoursMoreThanPredicate(value);
             } else if (compareType == CompareType.MORE_THAN_EQUAL) {
@@ -339,8 +312,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         } catch (NumberFormatException | StringIndexOutOfBoundsException | ParseException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(String.format(MESSAGE_OUT_OF_BOUNDS, "hours worked"));
         }
     }
 
