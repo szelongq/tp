@@ -510,14 +510,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: Add leaves to an employee**
+**Use case: Add leaves to an employee's leave balance**
 
 **MSS**
 
 1.  User requests to list employees
 2.  HeRon shows a list of employees
 3.  User requests to add a certain number of leaves to a specific employee in the list
-4.  HeRon adds the leaves to the employee
+4.  HeRon adds the leaves to the employee's leave balance
 
     Use case ends.
 
@@ -539,7 +539,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: Remove leaves from an employee**
+**Use case: Remove leaves from an employee's leave balance**
 
 Guarantees:
 * The number of leaves of the employee after the operation will never be negative.
@@ -549,7 +549,7 @@ Guarantees:
 1.  User requests to list employees
 2.  HeRon shows a list of employees
 3.  User requests to remove a certain number of leaves from a specific employee in the list
-4.  HeRon removes the leaves from the employee
+4.  HeRon removes the leaves from the employee's leave balance
 
     Use case ends.
 
@@ -614,6 +614,25 @@ Guarantees:
     * 3c1. HeRon shows an error message.
 
       Use case resumes at step 2.
+
+**Use case: Remove outdated assigned leaves from a list of employees**
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to clear all leaves before a given date from all employees in the list 
+4.  HeRon gets a list of leave dates from an employee
+5.  HeRon removes all leave dates that occur before the given input date, and updates the employee's list accordingly
+    Steps 4-5 are repeated for all employees in the list.
+    
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
 
 **Use case: Add hours worked/overtime to an employee**
 
@@ -886,7 +905,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Editing an employee
 
-1. Editing an employee while list of employees are shown
+1. Editing an employee while a list of employees is shown
 
     1. Prerequisites: List all persons using the `list` command. Multiple employees in the list.
 
@@ -904,6 +923,91 @@ testers are expected to do more *exploratory* testing.
 
 2. _{ possibly more test cases? …​ }_
 
+### Adding to/Deducting from an employee's leave balance
+
+1. Adding to/Deducting from an employee's leave balance while a list of employees is shown
+
+    1. Prerequisites: List all persons using the `list` command. At least 1 employee in the list. First employee must have a `LeaveBalance` of 0.
+       (Set with `edit 1 l/0`) All test cases are meant to be tested in order.
+
+    2. Test case: `addLeaveBalance 1 l/1`<br>
+       Expected: First employee's leave balance is now 1. Details of the new leave balance are shown in the status message.
+
+    3. Test case: `addLeaveBalance`<br>
+       Expected: No leaves are added. Error details shown in the status message indicate that the command format is invalid.
+
+    4. Test case: `addLeaveBalance 1 l/365`<br>
+       Expected: No leaves are added. Error details shown in the status message indicate that only 364 leaves can be added.
+
+    5. Test case: `addLeaveBalance 1 l/364`<br>
+       Expected: First employee's leave balance is now 365. Details of the new leave balance are shown in the status message.
+
+    6. Test case: `deductLeaveBalance 1 l/366`<br>
+       Expected: No leaves are deducted. Error details shown in the status message indicate that only integers between 1-365 are valid.
+
+    7. Test case: `deductLeaveBalance 1 l/365`<br>
+       Expected: 365 leaves are deducted. Details of the new leave balance are shown in the status message.
+
+    8. Test case: `deductLeaveBalance 1 l/1`<br>
+       Expected: No leaves are deducted. Error details shown in the status message indicate that the employee has 0 leaves remaining.
+
+### Assigning leaves to/Removing outdated leaves from an employee
+
+1. Assigning leaves/Removing outdated leaves while a list of employees is shown
+
+    1. Prerequisites: List all persons using the `list` command. At least 1 employee in the list. First employee must have a `LeaveBalance` of 0.
+       (Set with `edit 1 l/0`) All test cases are meant to be tested in order.
+
+    2. Test case: `assignLeave 1 d/2021-08-10`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that the employee has no more leaves.
+
+    3. Test case: `assignLeave`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that the command format is invalid.
+
+    4. Test case: `addLeaveBalance 2 l/2`, followed by `assignLeave 1 d/2021-8-10`<br>
+       Expected: 2 leaves are added to the leave balance successfully, but no leaves are assigned.
+       Error details shown in the status message indicate that the date format or value is invalid. (In this case the date format is invalid)
+
+    5. Test case: `assignLeave 1 d/2021-13-10`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that the date format or value is invalid. (In this case the date value is invalid)
+
+    6. Test case: `assignLeave 1 d/2021-08-10`<br>
+       Expected: The leave is assigned. Details of the new assigned leave are shown in the status message.
+
+    7. Test case: `assignLeave 1 d/2021-08-10`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that a leave with date is already assigned.
+
+    8. Test case: `assignLeave 1 d/2021-08-11`, followed by `removeLeavesBefore 1 d/2021-08-10`<br>
+       Expected: The leave with date 2021-08-11 is assigned, and then the leave on 2021-08-10 is removed.
+
+### Adding/Deducting from an employee's hours worked
+
+1. Adding to/Deducting from an employee's hours worked while a list of employees is shown
+
+    1. Prerequisites: List all persons using the `list` command. At least 1 employee in the list. First employee must have `HoursWorked` and `Overtime` set to 0.
+       (Set with `edit 1 hw/0 o/0`) All test cases are meant to be tested in order.
+
+    2. Test case: `addHoursWorked 1 hw/1`<br>
+       Expected: First employee's hours worked is now 1. Details of the new hours worked are shown in the status message.
+
+    3. Test case: `addHoursWorked`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that the command format is invalid.
+
+    4. Test case: `addHoursWorked 1 hw/0 o/1`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that the input for hours worked must be a value between 1 and 744.
+
+    5. Test case: `addHoursWorked 1 hw/1 o/745`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that the input for overtime must be a value between 1 and 744.
+
+    6. Test case: `addHoursWorked 1 hw/744`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that at most 743 hours worked can be added to the employee.
+      
+    7. Test case: `deductHoursWorked 1 o/1`<br>
+       Expected: No hours worked are deducted. Error details shown in the status message indicate that the employee has 0 overtime hours worked.
+
+    8. Test case: `deductHoursWorked 1 hw/1`<br>
+       Expected: 1 work hour is deducted. Details of the new hours worked are shown in the status message.
+       
 ### Saving data
 
 1. Dealing with missing/corrupted data files
