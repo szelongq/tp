@@ -51,7 +51,7 @@ public class OvertimeTest {
         assertFalse(Overtime.isValidOvertime("-0")); // contains negative 0
         assertFalse(Overtime.isValidOvertime("1.1")); // contains floating point values
 
-        // invalid overtime (equivalence partitions: [INTEGER_MIN, -1], [366, INTEGER_MAX])
+        // invalid overtime (equivalence partitions: [INTEGER_MIN, -1], [745, INTEGER_MAX])
         assertFalse(Overtime.isValidOvertime("745")); // boundary value
         assertFalse(Overtime.isValidOvertime("-1")); // boundary value
         assertFalse(Overtime.isValidOvertime("12345")); // value inside equivalence partition
@@ -101,7 +101,7 @@ public class OvertimeTest {
     }
 
     @Test
-    public void removeHoursWorked_success() {
+    public void removeOvertime_success() {
         Overtime validOvertime = new Overtime("30");
         Overtime validOtherOvertime = new Overtime("20");
         Overtime validFinalOvertime = new Overtime("10");
@@ -117,5 +117,18 @@ public class OvertimeTest {
 
         assertEquals(overtimeCapacity, validOvertime.getRemainingOvertimeCapacity());
         assertEquals(otherOvertimeCapacity, validOtherOvertime.getRemainingOvertimeCapacity());
+    }
+
+    @Test
+    public void equals() {
+        Overtime overtime = new Overtime("3");
+        Overtime sameOvertime = overtime;
+
+        assertTrue(overtime.equals(sameOvertime)); // Same object
+        assertTrue(overtime.equals(new Overtime("3"))); // Same number of overtime hours
+
+        assertFalse(overtime.equals(null)); // Null object
+        assertFalse(overtime.equals(new HoursWorked("3"))); // Not an Overtime object
+        assertFalse(overtime.equals(new Overtime("2"))); // Different number of overtime hours
     }
 }

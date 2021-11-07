@@ -51,7 +51,7 @@ public class HoursWorkedTest {
         assertFalse(HoursWorked.isValidHoursWorked("-0")); // contains negative 0
         assertFalse(HoursWorked.isValidHoursWorked("1.1")); // contains floating point values
 
-        // invalid hoursWorked (equivalence partitions: [INTEGER_MIN, -1], [366, INTEGER_MAX])
+        // invalid hoursWorked (equivalence partitions: [INTEGER_MIN, -1], [745, INTEGER_MAX])
         assertFalse(HoursWorked.isValidHoursWorked("745")); // boundary value
         assertFalse(HoursWorked.isValidHoursWorked("-1")); // boundary value
         assertFalse(HoursWorked.isValidHoursWorked("12345")); // value inside equivalence partition
@@ -117,5 +117,18 @@ public class HoursWorkedTest {
 
         assertEquals(hoursWorkedCapacity, validHoursWorked.getRemainingHoursWorkedCapacity());
         assertEquals(otherHoursWorkedCapacity, validOtherHoursWorked.getRemainingHoursWorkedCapacity());
+    }
+
+    @Test
+    public void equals() {
+        HoursWorked hoursWorked = new HoursWorked("3");
+        HoursWorked sameHoursWorked = hoursWorked;
+
+        assertTrue(hoursWorked.equals(sameHoursWorked)); // Same object
+        assertTrue(hoursWorked.equals(new HoursWorked("3"))); // Same number of hours worked
+
+        assertFalse(hoursWorked.equals(null)); // Null object
+        assertFalse(hoursWorked.equals(new Overtime("3"))); // Not an HoursWorked object
+        assertFalse(hoursWorked.equals(new HoursWorked("2"))); // Different number of hours worked
     }
 }
