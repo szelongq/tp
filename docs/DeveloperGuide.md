@@ -129,9 +129,11 @@ The `Model` component,
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. 
 It has a `Tag` and `Leave` list in the `AddressBook`, which `Person` references. 
+<br>
 This allows `AddressBook` to only require one `Tag` object per unique tag, and one `Leave` object per unique date, 
 instead of each `Person` needing their own `Tag` and `LeavesTaken` objects. More information on how leaves are currently implemented
-can be found [here](DeveloperGuide.md#assigned-leaves). <br>
+can be found [here](DeveloperGuide.md#assigned-leaves). 
+<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
