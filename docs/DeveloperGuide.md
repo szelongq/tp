@@ -342,23 +342,30 @@ Below is an example of how `InfoPanel` updates with a view command:
 
 ![ViewSequenceDiagram](images/ViewSequenceDiagram.png)
 
-1. User executes `view 2` to view the 2nd employee in the list, and after the command is parsed, `v:ViewCommand` is being created.
+**Step 1.** User executes `view 2` to view the 2nd employee in the list, and after the command is parsed, `v:ViewCommand` is being created.
 
-2. On execution of `ViewCommand`, `getPersonToView(index)` is called to get the personToView, and then passed to call `setViewingPerson(personToView)` on `Model`.
+**Step 2.** On execution of `ViewCommand`, `getPersonToView(index)` is called to get the personToView, and then passed to call `setViewingPerson(personToView)` on `Model`.
 
-3. Model calls `setPerson(personToView)` on `ObservablePerson`, causing it to update the viewing person. In the process of updating,
+**Step 3.** Model calls `setPerson(personToView)` on `ObservablePerson`, causing it to update the viewing person. In the process of updating,
 it informs the other `InfoPanel` in the `uiObserverList` to update, passing the new updated personToView to `InfoPanel`.
 
-4. With the new data passed to `InfoPanel`, it can then update the content to be displayed in however its `update()` method is implemented.
+**Step 4.** With the new data passed to `InfoPanel`, it can then update the content to be displayed in however its `update()` method is implemented.
 
-Design Considerations:
-Pros: `InfoPanel` can update by itself without `Model` having a dependency on the UI.
-Cons: Might be harder to figure out what is "observing" the observable just by looking at the source code since there is no direct dependency.
+**Design Considerations:**
 
-Alternative:
+Use Observer pattern to track when to update InfoPanel (Current Implementation)
+
+**Pros:** `InfoPanel` can update by itself without `Model` having a dependency on the UI.
+
+**Cons:** Might be harder to figure out what is "observing" the observable just by looking at the source code since there is no direct dependency.
+
+**Alternative:**
+
 Constantly update Info Panel with every command executed.
-Pros: Easy to update, ensures that Ui is constantly updated.
-Cons: Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
+
+**Pros:** Easy to update, ensures that Ui is constantly updated.
+
+**Cons:** Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
 
 ### Leave Balance
 
