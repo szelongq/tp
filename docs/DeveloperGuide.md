@@ -815,7 +815,6 @@ Guarantees:
 5. Should be usable offline.
 6. Should respond within 2 seconds within the users’ command.
 7. Should only allow authorized personnel to have access to the application’s data.
-8. Should secure any files it produces.
 
 ### Glossary
 
@@ -852,6 +851,18 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Finding a person
+
+1. Finding a person with their name
+
+    1. Prerequisites: Have at least one person in the list. Note down their name. For this example, we assume their name is `Alex Yeoh`. 
+    
+    1. Test case: `find n/Alex`<br>
+       Expected: Alex appears in the list on the left side, while the rest of the people whose names do not contain `Alex` are not shown.
+
+    1. Test case: `find n/Yeoh`<br>
+       Expected: The same should happen as before, with the rest of the list containing all people with `Yeoh` in their name, if any.
+       
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
