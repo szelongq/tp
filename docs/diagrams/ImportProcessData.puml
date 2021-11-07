@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
-
-title Process Data
+mainframe sd "Import Data"
+title Import Data
 
 box Logic LOGIC_COLOR_T1
 participant ":ImportCommand" as ImportCommand LOGIC_COLOR
@@ -16,6 +16,9 @@ end box
 
 activate ImportCommand
 ImportCommand -> ImportCommand : processCsv(filepath)
+activate ImportCommand
+ImportCommand --> ImportCommand : newPersonList
+deactivate ImportCommand
 
 create AddressBook
 ImportCommand -> AddressBook : AddressBook()

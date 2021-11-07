@@ -156,7 +156,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Implemented\] Import feature
+### Import Feature
 
 #### Feature Implementation
 
@@ -189,8 +189,9 @@ Step 4. The updated `AddressBook` would be saved as per the process after the ex
 
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
+The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display".
 ![ImportProcessData](images/ImportProcessData.png)
-![ImportUpdateGUI](images/ImportUpdateGUI.png)
+
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `ImportCommandParser`, `ImportCommand` and `CommandResult` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.</div>
 

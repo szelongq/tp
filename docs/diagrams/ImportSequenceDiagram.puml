@@ -45,7 +45,7 @@ destroy AddressBookParser
 LogicManager -> ImportCommand : execute(model)
 activate ImportCommand
 
-ref over ImportCommand: Process Data
+ref over ImportCommand: Import Data
 
 ref over ImportCommand: Update GUI
 
