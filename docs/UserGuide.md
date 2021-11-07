@@ -398,6 +398,7 @@ Example:
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Notes:**
+
 * All employees must not have any pay pending from the previous payroll (i.e. no red 'NOT PAID' label). Otherwise, an error will be thrown
   and no action will be taken.
 * To start a new payroll, first make sure to pay all employees using the `pay` command.
