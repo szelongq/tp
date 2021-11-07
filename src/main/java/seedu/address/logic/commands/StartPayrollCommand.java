@@ -41,6 +41,8 @@ public class StartPayrollCommand extends Command {
 
     public static final String MESSAGE_START_PAYROLL_SUCCESS = "Payroll done.";
 
+    public static final String MESSAGE_NO_ONE_TO_PAY = "There are no employees to be paid. Maybe try adding employees?";
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -50,7 +52,12 @@ public class StartPayrollCommand extends Command {
         // Create a second list for storing changed persons
         List<Person> calculatedPersonsList = new ArrayList<>();
 
-        // First, check if there are any unpaid employees
+        // First, check if the employee list is empty
+        if (personList.isEmpty()) {
+            throw new CommandException(MESSAGE_NO_ONE_TO_PAY);
+        }
+
+        // Secondly, check if there are any unpaid employees
         for (Person personToCalculatePay: personList) {
             /*
              * An exception is thrown if the employee to be calculated for still
