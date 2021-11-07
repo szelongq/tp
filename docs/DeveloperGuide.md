@@ -11,6 +11,7 @@ title: Developer Guide
 
 ### Third-Party Libraries Used
 * The Import Feature implemented uses [Opencsv](http://opencsv.sourceforge.net/).
+
 --------------------------------------------------------------------------------------------------------------------
 ## **Setting up, getting started**
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
