@@ -27,10 +27,8 @@ public class InfoPanel extends UiPart<Region> implements UiObserver {
     private static final String OVERTIME_ICON = "↷  ";
     private static final String LEAVES_ICON = "\uD83C\uDF42 ";
     private static final String DATES_ICON = "\uD83D\uDDD3 ";
-    private static final String LEFT_ARROW_ICON = "\uD83E\uDC14 ";
 
-    private static final String LIST_EMPTY_MSG = LEFT_ARROW_ICON + LEFT_ARROW_ICON + LEFT_ARROW_ICON + '\n'
-            + "Your employee list is empty!! \n"
+    private static final String LIST_EMPTY_MSG = "Your employee list is empty!! \n"
             + "Start adding employees with 'add n/NAME e/EMAIL ...'";
 
     @FXML
