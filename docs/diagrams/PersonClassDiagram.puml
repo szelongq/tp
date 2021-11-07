@@ -1,6 +1,5 @@
 @startuml
 scale 1024 width
-scale 768 height
 
 !include style.puml
 !define PersonClass "             Person             "

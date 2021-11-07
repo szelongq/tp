@@ -262,25 +262,26 @@ The program detects the fields using column titles (taken as the first row of th
 
 Given below is an example usage scenario and how the import mechanism behaves at each step.
 
-Step 1. The user launches the application. HeRon initializes with the initial address book state or loaded with data from the previous session (if any).
+**Step 1.** The user launches the application. HeRon initializes with the initial address book state or loaded with data from the previous session (if any).
 
-Step 2. The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which in this case, refers to the file `toBeImported.csv` in the root directory.
+**Step 2.** The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which in this case, refers to the file `toBeImported.csv` in the root directory.
+
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`.</div>
 
-Step 3. Program processes the .csv file, and creates a new `AddressBook`, and updates it with the entries in the file. The current existing `AddressBook` is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
+**Step 3.** Program processes the .csv file. The first row is identified as the header row, which is used to determine which field of the PersonInput class the column represents. The remaining rows are parsed and PersonInput Objects are created and added into a List. Once done, the List of PersonInput Objects will be used to create a separate list of Person objects used to update the address book.
+
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current `AddressBook`.</div>
+
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Data present in the imported file must adhere to respective requirements for each field. `Name`, `Email` and `Phone` fields cannot be the same as other entries. If duplicate values exist, the command fails to complete and an error message is returned. There will be no changes made to the current `AddressBook`</div>
 
-Step 4. The updated `AddressBook` would be saved as per the process after the execution of a command.
+**Step 4.** A new `AddressBook` is created, and updated it with the entries in the file. The current existing `AddressBook` is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
+
+**Step 5.** The updated `AddressBook` would be saved as per the process after the execution of a command.
 
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
-The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display".
 ![ImportProcessData](images/ImportProcessData.png)
-
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `ImportCommandParser`, `ImportCommand` and `CommandResult` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.</div>
-
+The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display".
 
 The following activity diagram summarizes what happens when a user uses the `import` command:
 ![ImportActivityDiagram](images/ImportActivityDiagram.png)
