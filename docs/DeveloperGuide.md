@@ -160,6 +160,8 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Find Command
 
+**Current Implementation**
+
 The find command allows a user to specify all the different fields which they want to search by.
 It is implemented by parsing all the different fields that the user is searching with, and creating the relevant predicate for each field.
 For example:
@@ -214,11 +216,11 @@ Therefore, it is also easy to extend this implementation to contain other predic
 3. Add that field's prefix into `ArgumentTokenizer#tokenize()` in `FindCommandParser#parse()`.
 4. Within `FindCommandParser#parse()`, create the respective predicate and add it to the `filters` list in FindCommandParser.
 
-#### Alternatives considered
+**Alternatives considered**
 There are many alternatives for different parts of the FindCommandParser implementation.
 The first alternative implementation concerns the predicate portion.
 
-##### Predicates
+**Predicates**
 Modifying the code for `FindCommand#execute` to account for multiple predicates is very likely to cause errors. Therefore, it is much easier to find a way to combine predicates into a single one.
 One alternative for combining predicates is to create a new `CombinedPredicate` class which contains all the possible fields to be compared with.
 
@@ -250,7 +252,7 @@ Cons:
 <div style="page-break-after: always;"></div> 
 ### Import Feature
 
-#### Feature Implementation
+**CUrrent Implementation**
 
 The implemented import feature mechanism is facilitated by `ImportCommandParser`, `ImportCommand` and `PersonInput`. `ImportCommandParser` implements the interface `Parser`.`ImportCommand` extends abstract class `Command`, and implements the following additional operation:
 * `ImportCommand#importData(Model)` Takes the filepath attributed to the ImportCommand and imports its content.
@@ -293,7 +295,7 @@ The reference frame for "Update GUI" is similar to the sequence diagram given in
 The following activity diagram summarizes what happens when a user uses the `import` command:
 ![ImportActivityDiagram](images/ImportActivityDiagram.png)
 <div style="page-break-after: always;"></div>
-#### Design considerations:
+**Design considerations:**
 
 **Aspect: How the imported file is processed:**
 
@@ -323,7 +325,7 @@ The following activity diagram summarizes what happens when a user uses the `imp
 
 ### Updating Info Panel display
 
-#### Current Implementation
+**Current Implementation**
 `InfoPanel` class controls the content being displayed on the Info Panel. The information to be displayed is dependent
 on the ObservablePerson object `viewingPerson` in the ModelManager class. `viewingPerson` contains the person to be viewed, as well as
 a `uiObserverList` that contains `UiObserver` that wish to be notified when the person to be viewed has been changed.
@@ -368,7 +370,7 @@ Use Observer pattern to track when to update InfoPanel (Current Implementation)
 **Pros:** `InfoPanel` can update by itself without `Model` having a dependency on the UI.
 
 **Cons:** Might be harder to figure out what is "observing" the observable just by looking at the source code since there is no direct dependency.
-<div markdown="span" class="alert alert-info">
+<div style="page-break-after: always;"></div>
 **Alternative:**
 
 Constantly update Info Panel with every command executed.
@@ -381,7 +383,7 @@ Constantly update Info Panel with every command executed.
 
 ### Leave Balance
 
-#### Current Implementation
+**Current Implementation**
 
 Currently, leaves are represented by two attributes of `Person`: `LeaveBalance`, which represents the amount of leaves the employee has remaining, 
 and `LeavesTaken`, which represents the leaves that the employee has taken on a given date.
@@ -422,7 +424,7 @@ The following sequence diagram shows how `AddLeaveBalanceCommand` works:
 <div style="page-break-after: always;"></div>
 ### Assigned Leaves
 
-#### Current Implementation
+**Current Implementation**
 
 `LeavesTaken` is internally represented as a `PriorityQueue` of `LocalDate` values. A `PriorityQueue` was chosen as it would 
 automatically sort the `LocalDate` values from least to most recent after each add/remove date operation. 
@@ -454,7 +456,7 @@ The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 
 ![RemoveLeavesBeforeSequenceDiagram](images/RemoveLeavesBeforeSequenceDiagram.png)
    
-#### Design considerations:
+**Design considerations:**
 
 **Aspect: How assigned leaves are represented**
 
@@ -466,7 +468,7 @@ The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 * **Alternative 2:** Each unique date is represented by a `Leave` object.
     * Pros: Potentially more object-oriented, reduced memory usage as only one object is required for each date.
     * Cons: Need to keep track of how many `Person` objects are associated with each `Leave`, which might lead to increased coupling between `Leave` and `Person`.
-<div markdown="span" class="alert alert-info">
+<div style="page-break-after: always;"></div>
 **Aspect: How outdated assigned leaves are removed:**
 
 * **Alternative 1 (current choice):** Manually clear outdated leaves via a command (`removeLeavesBefore`).
@@ -480,7 +482,7 @@ The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 <div style="page-break-after: always;"></div>
 ### Start Payroll feature
 
-#### Current Implementation
+**Current Implementation**
 
 The start payroll feature is provided through `StartPayrollCommand`.
 It extends `Command` with the following added methods to calculate the payroll for every employee:
@@ -551,7 +553,7 @@ in the list.
 
 **Step 6.** Lastly, the `StartPayrollCommand` returns a `CommandResult` to signal successful execution.
 
-#### Design considerations:
+**Design considerations:**
 
 **Aspect: How the feature of calculating payroll is implemented:**
 
@@ -769,7 +771,7 @@ Guarantees:
     * 3c1. HeRon shows an error message.
 
       Use case resumes at step 2.
-<div style="page-break-after: always;"></div>
+
 **Use case: Remove outdated assigned leaves from a list of employees**
 
 **MSS**
@@ -782,7 +784,7 @@ Guarantees:
     Steps 4-5 are repeated for all employees in the list.
     
     Use case ends.
-
+<div style="page-break-after: always;"></div>
 **Extensions**
 
 * 2a. The list is empty.
@@ -817,7 +819,7 @@ Guarantees:
     * 3b1. HeRon shows an error message.
 
       Use case resumes at step 2.
-<div style="page-break-after: always;"></div>
+
 **Use case: Remove hours worked/overtime from an employee**
 
 Guarantees:
@@ -831,7 +833,7 @@ Guarantees:
 4.  HeRon removes the hours worked/overtime from the employee
 
     Use case ends.
-
+<div style="page-break-after: always;"></div>
 **Extensions**
 
 * 2a. The list is empty.
@@ -866,7 +868,7 @@ Guarantees:
 4.  HeRon shows a list of employees with that given name
    
    Use case ends.
-<div style="page-break-after: always;"></div>
+
 **Extensions**
 
 * 2a. The list is empty.
@@ -884,7 +886,7 @@ Guarantees:
     * 3b1. HeRon shows an error message.
 
       Use case resumes at step 2.
-
+<div style="page-break-after: always;"></div>
 **Use case: Edit an employee**
 
 **MSS**
