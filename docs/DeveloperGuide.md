@@ -839,6 +839,29 @@ testers are expected to do more *exploratory* testing.
 
 2. _{ possibly more test cases? …​ }_
 
+### Calculating payroll and paying employees
+
+1. Starting payroll while in a filtered list
+    
+    1. Prerequisites: Ensure all employees are already paid using `pay` command. Ensure at least some employees have
+        non-zero salary and hoursWorked/overtime values.
+    2. Test case: `find n/Bernice`<br>
+        Expected: Employee list is filtered to only employees with 'Bernice' in their names.
+    3. Test case: `startPayroll`
+        Expected: Employee list is set back to full list. All employees should have their calculated pay and have a red
+       'NOT PAID' label displayed under their data if their pay owed is not 0. The first person in the list is being 
+        viewed in the InfoPanel.
+    4. Test case: `startPayroll`
+        Expected: An error should be thrown if there are still employees with pay owed.
+    5. Test case: `pay 1`
+        Expected: The first person in the list should be paid and any red 'NOT PAID' label disappears.
+    6. Test case: `find n/Bernice` followed by `pay all` followed by `list`
+        Expected: Only employees with 'Bernice' in their names will be paid. Other employees that were not in the 
+        filtered list should still have their red 'NOT PAID' labels if they had them.
+    7. Test case: `pay all`
+        Expected: All employees should be paid. Any employees that were not being owed payment should have their names
+        printed in the bottom section of the command panel as being skipped.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
