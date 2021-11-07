@@ -1,5 +1,7 @@
 @startuml
 !include style.puml
+scale 1024 width
+scale 768 height
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR

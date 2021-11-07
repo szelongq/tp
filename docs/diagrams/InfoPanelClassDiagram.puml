@@ -1,8 +1,9 @@
 @startuml
 !include style.puml
+scale 1024 width
+scale 768 height
 
 skinparam arrowThickness 1.1
-
 
 package Model {
 class ModelManager MODEL_COLOR
