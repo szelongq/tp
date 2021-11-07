@@ -1,0 +1,61 @@
+@startuml
+!include style.puml
+
+mainframe sd calculate payroll
+
+box Logic LOGIC_COLOR_T1
+participant "d:StartPayrollCommand" as StartPayrollCommand LOGIC_COLOR
+participant "personList:List<Person>" as personList LOGIC_COLOR
+participant "calculatedPersons:List<Person>" as calculatedPersonsList LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+activate StartPayrollCommand
+
+StartPayrollCommand -> Model : get the OvertimePayRate
+activate Model
+
+Model --> StartPayrollCommand : OvertimePayRate
+deactivate Model
+
+loop until all payroll calculated
+    StartPayrollCommand -> personList : retrieve a person
+    activate personList
+    personList --> StartPayrollCommand : person
+    deactivate personList
+    |||
+    StartPayrollCommand -> StartPayrollCommand : calculate pay for the person
+    activate StartPayrollCommand
+    StartPayrollCommand --> StartPayrollCommand : calculated pay
+    deactivate StartPayrollCommand
+    |||
+    StartPayrollCommand -> StartPayrollCommand : create new person with\nthe CalculatedPay, with\nHoursWorked and\nOvertime reset to zero
+    activate StartPayrollCommand
+    StartPayrollCommand --> StartPayrollCommand : updated copy of person
+    deactivate StartPayrollCommand
+
+    StartPayrollCommand -> calculatedPersonsList : add updated copy of person to the calculatedPersonsList
+    activate calculatedPersonsList
+    deactivate
+end
+
+loop until all persons updated into model
+    StartPayrollCommand -> personList : retrieve original person
+    activate personList
+    personList --> StartPayrollCommand : original person
+    deactivate personList
+
+    StartPayrollCommand -> calculatedPersonsList : retrieve updated copy of person
+    activate calculatedPersonsList
+    calculatedPersonsList --> StartPayrollCommand : updated copy of person
+    deactivate calculatedPersonsList
+
+    StartPayrollCommand -> Model : replace original person in the model with the edited person
+    activate Model
+    deactivate Model
+end
+@enduml

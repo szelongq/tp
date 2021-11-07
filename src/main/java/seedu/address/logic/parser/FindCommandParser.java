@@ -208,7 +208,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     private Predicate<Person> getSalaryComparisonPredicate(String input) throws ParseException {
         try {
             CompareType compareType = parseComparator(input);
-            float value = Float.parseFloat(getComparisonValue(input, compareType));
+            double value = Double.parseDouble(getComparisonValue(input, compareType));
             if (compareType == CompareType.MORE_THAN) {
                 return new SalaryIsMoreThanPredicate(value);
             } else if (compareType == CompareType.MORE_THAN_EQUAL) {

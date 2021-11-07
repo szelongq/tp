@@ -1,13 +1,21 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HOURLYSALARY_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HOURSWORKED_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVES_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_OVERTIME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OVERTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -24,11 +32,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.HoursEqualPredicate;
+import seedu.address.model.person.predicates.LeaveEqualPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.OvertimeEqualPredicate;
 import seedu.address.model.person.predicates.PersonIsPaidPredicate;
 import seedu.address.model.person.predicates.PhoneNumberMatchesPredicate;
 import seedu.address.model.person.predicates.RoleContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.SalaryIsEqualPredicate;
+import seedu.address.model.person.predicates.SalaryIsLessThanEqualPredicate;
+import seedu.address.model.person.predicates.SalaryIsMoreThanPredicate;
 import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
 import seedu.address.testutil.PersonBuilder;
 
@@ -85,11 +98,14 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand =
                 new FindCommand(new PersonIsPaidPredicate());
         try {
+            // parsedFindCommand returns true for unpaid person
             FindCommand parsedFindCommand = parser.parse("unpaid");
             Person unpaidPerson = new PersonBuilder().withCalculatedPay("100").build();
             Person paidPerson = new PersonBuilder().build();
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, unpaidPerson);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, paidPerson);
+            assertTrue(parsedFindCommand.getPredicate().test(unpaidPerson));
+            assertFalse(parsedFindCommand.getPredicate().test(paidPerson));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -101,8 +117,12 @@ public class FindCommandParserTest {
                 new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("Amy", "Bryan")));
         try {
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_NAME + "Amy Bryan");
-            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY); // true for both
-            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB); // false for both
+            // Amy's name contains Amy => true
+            // Bob's name does not contain Amy or Bryan => false
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -117,6 +137,8 @@ public class FindCommandParserTest {
             // Amy's phone number = "11111111" => true
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -125,13 +147,15 @@ public class FindCommandParserTest {
     @Test
     public void parse_validRoleArgs_returnsFindCommand() {
         FindCommand expectedFindCommand =
-                new FindCommand(new RoleContainsKeywordsPredicate(Arrays.asList("Mobile", "Front-end")));
+                new FindCommand(new RoleContainsKeywordsPredicate(Arrays.asList("Mobile", "Front")));
         try {
-            FindCommand parsedFindCommand = parser.parse(" " + PREFIX_ROLE + "Mobile Front-end");
-            // Amy's Role is Mobile App Developer => true
-            // Bob's Role is Front End Developer => true
+            FindCommand parsedFindCommand = parser.parse(" " + PREFIX_ROLE + "Mobile Front");
+            // Amy's Role is Mobile App Developer (contains "Mobile") => true
+            // Bob's Role is Front-End Developer (contains "Front") => true
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertTrue(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -147,6 +171,8 @@ public class FindCommandParserTest {
             // Bob's Role is Front End Developer => true
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertTrue(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -159,9 +185,11 @@ public class FindCommandParserTest {
         try {
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_ROLE + "Mobile");
             // Amy's Role is Mobile App Developer => true
-            // Bob's Role is Front End Developer => true
+            // Bob's Role is Front End Developer => false
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -177,6 +205,8 @@ public class FindCommandParserTest {
             // Bob's address contains "Street" => true
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertTrue(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -192,6 +222,8 @@ public class FindCommandParserTest {
             // Bob's address does not contain "312" => false
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -200,11 +232,77 @@ public class FindCommandParserTest {
     @Test
     public void parse_validSalary_returnsFindCommand() {
         FindCommand expectedFindCommand =
-                new FindCommand(new SalaryIsEqualPredicate(Float.parseFloat(VALID_HOURLYSALARY_AMY)));
+                new FindCommand(new SalaryIsEqualPredicate(Double.parseDouble(VALID_HOURLYSALARY_AMY)));
         try {
+            // Test equals comparison
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_HOURLYSALARY + "=" + VALID_HOURLYSALARY_AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
+
+            // Test more than comparison
+            parsedFindCommand = parser.parse(" " + PREFIX_HOURLYSALARY + ">" + VALID_HOURLYSALARY_AMY);
+            expectedFindCommand =
+                    new FindCommand(new SalaryIsMoreThanPredicate(Double.parseDouble(VALID_HOURLYSALARY_AMY)));
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertFalse(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
+
+            // Test less than equal comparison
+            parsedFindCommand = parser.parse(" " + PREFIX_HOURLYSALARY + "<=" + VALID_HOURLYSALARY_AMY);
+            expectedFindCommand =
+                    new FindCommand(new SalaryIsLessThanEqualPredicate(Double.parseDouble(VALID_HOURLYSALARY_AMY)));
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertTrue(parsedFindCommand.getPredicate().test(BOB));
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
+
+    @Test
+    public void parse_validHoursWorked_returnsFindCommand() {
+        FindCommand expectedFindCommand =
+                new FindCommand(new HoursEqualPredicate(Integer.parseInt(VALID_HOURSWORKED_AMY)));
+        try {
+            FindCommand parsedFindCommand = parser.parse(" " + PREFIX_HOURSWORKED + "=" + VALID_HOURSWORKED_AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
+
+    @Test
+    public void parse_validLeavesLeft_returnsFindCommand() {
+        FindCommand expectedFindCommand =
+                new FindCommand(new LeaveEqualPredicate(Integer.parseInt(VALID_LEAVES_AMY)));
+        try {
+            FindCommand parsedFindCommand = parser.parse(" " + PREFIX_LEAVE + "=" + VALID_LEAVES_AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
+
+    @Test
+    public void parse_validOvertime_returnsFindCommand() {
+        FindCommand expectedFindCommand =
+                new FindCommand(new OvertimeEqualPredicate(Integer.parseInt(VALID_OVERTIME_AMY)));
+        try {
+            FindCommand parsedFindCommand = parser.parse(" " + PREFIX_OVERTIME + "=" + VALID_OVERTIME_AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -216,8 +314,12 @@ public class FindCommandParserTest {
                 new FindCommand(new EmailContainsKeywordsPredicate(Arrays.asList("amy", "bill")));
         try {
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_EMAIL + "amy bill");
-            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY); // true for both
-            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB); // false for both
+            // Amy's email contains amy => true
+            // Bob's email does not contain either amy or bill => false
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -229,8 +331,10 @@ public class FindCommandParserTest {
                 new FindCommand(new TagContainsKeywordsPredicate(Arrays.asList("husband")));
         try {
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_TAG + "husband");
-            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY); // true for both
-            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB); // false for both
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertFalse(parsedFindCommand.getPredicate().test(AMY));
+            assertTrue(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
