@@ -418,6 +418,8 @@ Example:
 * To start a new payroll, first make sure to pay all employees using the `pay` command.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### Paying employee(s) : `pay`
 
 Marks the specified employee, or all employees in the current list, as paid.
@@ -445,6 +447,8 @@ Format 2: `pay all` - for paying all employees in the current list
 * If there are employees already paid in the list, they will be skipped and will not be paid again.
 * There must be at least 1 employee in the list that has not been paid.
 
+<div style="page-break-after: always;"></div>
+
 #### View the Overtime Pay Rate : `viewOvertimePayRate`
 
 Displays the current overtime pay rate set in the application.
@@ -467,6 +471,8 @@ Examples:
 
 * `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
 * `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places. An error message would be shown.
+
+<div style="page-break-after: always;"></div>
 
 ### Data-related Features
 
