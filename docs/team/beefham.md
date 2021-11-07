@@ -19,7 +19,7 @@ Given below are my contributions to the project.
 * **Enhancements to existing features**:
     - Updated the `find` command to allow the user to find an employee by their fields such as email, role, hourly salary, number of leaves, whether they are unpaid, and so on.
     - Added tests for the above enhancement as well
-    
+
 * **Documentation**:
     * User Guide:
         * Added documentation for the features `find`

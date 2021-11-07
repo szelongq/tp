@@ -241,7 +241,7 @@ _{Explain here how the data archiving feature will be implemented}_
 ### Updating Info Panel display
 
 #### Current Implementation
-`InfoPanel` class controls the content being displayed on the Info Panel. The information to be displayed is dependent 
+`InfoPanel` class controls the content being displayed on the Info Panel. The information to be displayed is dependent
 on the ObservablePerson object `viewingPerson` in the ModelManager class. `viewingPerson` contains the person to be viewed, as well as
 a `uiObserverList` that contains `UiObserver` that wish to be notified when the person to be viewed has been changed.
 
