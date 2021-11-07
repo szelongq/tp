@@ -281,6 +281,7 @@ Given below is an example usage scenario and how the import mechanism behaves at
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
 ![ImportProcessData](images/ImportProcessData.png)
+
 The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display".
 
 The following activity diagram summarizes what happens when a user uses the `import` command:
@@ -384,22 +385,22 @@ except with an updated `LeaveBalance` value.
 
 Given below is an example of how `AddLeaveBalanceCommand` works.
 
-Step 1. The user enters the command 'addLeaveBalance 2 l/1'. The `AddLeaveBalanceCommandParser` parses the input, creates a `AddLeaveBalanceCommand` object and executes it.
+**Step 1.** The user enters the command 'addLeaveBalance 2 l/1'. The `AddLeaveBalanceCommandParser` parses the input, creates a `AddLeaveBalanceCommand` object and executes it.
 The command object contains two attributes: `index`, which corresponds to the input index of 2, and `leaveBalance` which corresponds to the input number of leaves, in this case 1.
 
-Step 2. Inside `AddLeaveBalanceCommand#execute`, the list of all employees is retrieved by calling `Model#getFilteredPersonList()`.
+**Step 2.** Inside `AddLeaveBalanceCommand#execute`, the list of all employees is retrieved by calling `Model#getFilteredPersonList()`.
 
-Step 3. Using the input `Index` value, the second person from the filtered list is retrieved as the `personToEdit` object.
+**Step 3.** Using the input `Index` value, the second person from the filtered list is retrieved as the `personToEdit` object.
 
-Step 4. `AddLeaveBalanceCommand#getUpdatedPerson` is called, with `personToEdit` as an input.
+**Step 4.** `AddLeaveBalanceCommand#getUpdatedPerson` is called, with `personToEdit` as an input.
 
-Step 5. Inside `getUpdatedPerson`, `LeaveBalance#addLeaves` is called with the input `LeaveBalance` value as a parameter.
+**Step 5.** Inside `getUpdatedPerson`, `LeaveBalance#addLeaves` is called with the input `LeaveBalance` value as a parameter.
 
-Step 6. `getUpdatedPerson` returns a copy of the `personToEdit` object with an updated `LeaveBalance`.
+**Step 6.** `getUpdatedPerson` returns a copy of the `personToEdit` object with an updated `LeaveBalance`.
 
-Step 7. The old `Person` object in the `Model` is then replaced with its updated copy using `Model#setPerson()`.
+**Step 7.** The old `Person` object in the `Model` is then replaced with its updated copy using `Model#setPerson()`.
 
-Step 8. `AddLeaveBalanceCommand#execute` returns a `CommandResult` to signal a successful execution.
+**Step 8.** `AddLeaveBalanceCommand#execute` returns a `CommandResult` to signal a successful execution.
 
 The following sequence diagram shows how `AddLeaveBalanceCommand` works:
 
@@ -846,6 +847,8 @@ Guarantees:
 2.  HeRon shows a list of employees
 3.  User requests to find all employees with a given query (name, phone, tags, and other valid queries)
 4.  HeRon shows a list of employees with that given name
+   
+   Use case ends.
 
 **Extensions**
 
@@ -931,6 +934,8 @@ Guarantees:
 4. Tag is added to the employee.
 
    Use case ends.
+   
+**Extensions**
 
 * 2a. The list is empty.
 
@@ -998,8 +1003,6 @@ Guarantees:
 
       Use case resumes at step 1.
 
-*{More to be added}*
-
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
@@ -1043,8 +1046,6 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 ### Finding a person
 
 1. Finding a person with their name
@@ -1072,8 +1073,6 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-2. _{ more test cases …​ }_
-
 ### Editing an employee
 
 1. Editing an employee while a list of employees is shown
@@ -1091,8 +1090,6 @@ testers are expected to do more *exploratory* testing.
 
     5. Other incorrect edit commands to try: `edit x` (where x is larger than list size), `edit 1 s/-2.00` (salary should not be negative) etc. <br>
         Expected: No employee data is being edited. Error details shown in the status message. Status bar remains the same.
-
-2. _{ possibly more test cases? …​ }_
 
 ### Adding to/Deducting from an employee's leave balance
 
@@ -1185,19 +1182,25 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: Ensure all employees are already paid using `pay` command. Ensure at least some employees have
        non-zero salary and hoursWorked/overtime values.
+   
     2. Test case: `find n/Bernice`<br>
        Expected: Employee list is filtered to only employees with 'Bernice' in their names.
+   
     3. Test case: `startPayroll`
        Expected: Employee list is set back to full list. All employees should have their calculated pay and have a red
        'NOT PAID' label displayed under their data if their pay owed is not 0. The first person in the list is being
        viewed in the InfoPanel.
+   
     4. Test case: `startPayroll`
        Expected: An error should be thrown if there are still employees with pay owed.
+   
     5. Test case: `pay 1`
        Expected: The first person in the list should be paid and any red 'NOT PAID' label disappears.
+   
     6. Test case: `find n/Bernice` followed by `pay all` followed by `list`
        Expected: Only employees with 'Bernice' in their names will be paid. Other employees that were not in the
        filtered list should still have their red 'NOT PAID' labels if they had them.
+   
     7. Test case: `pay all`
        Expected: All employees should be paid. Any employees that were not being owed payment should have their names
        printed in the bottom section of the command panel as being skipped.
@@ -1208,27 +1211,25 @@ testers are expected to do more *exploratory* testing.
     
     1. Prerequisites: Ensure all employees are already paid using `pay` command. Ensure at least some employees have
         non-zero salary and hoursWorked/overtime values.
+   
     2. Test case: `find n/Bernice`<br>
         Expected: Employee list is filtered to only employees with 'Bernice' in their names.
+   
     3. Test case: `startPayroll`
         Expected: Employee list is set back to full list. All employees should have their calculated pay and have a red
        'NOT PAID' label displayed under their data if their pay owed is not 0. The first person in the list is being 
         viewed in the InfoPanel.
+   
     4. Test case: `startPayroll`
         Expected: An error should be thrown if there are still employees with pay owed.
+   
     5. Test case: `pay 1`
         Expected: The first person in the list should be paid and any red 'NOT PAID' label disappears.
+   
     6. Test case: `find n/Bernice` followed by `pay all` followed by `list`
         Expected: Only employees with 'Bernice' in their names will be paid. Other employees that were not in the 
         filtered list should still have their red 'NOT PAID' labels if they had them.
+   
     7. Test case: `pay all`
         Expected: All employees should be paid. Any employees that were not being owed payment should have their names
         printed in the bottom section of the command panel as being skipped.
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
