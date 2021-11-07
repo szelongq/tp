@@ -54,5 +54,5 @@ We are a team based in the [School of Computing, National University of Singapor
 [[github](http://github.com/1waykiat)]
 [[portfolio](team/1waykiat.md)]
 
-* Role: Documentation Manager
-* Responsibilities: Manages the updating of the documentations.
+* Role: UI/UX Manager
+* Responsibilities: Manages the implementation and design of the UI/UX components.
