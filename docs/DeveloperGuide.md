@@ -4,10 +4,8 @@ title: Developer Guide
 ---
 * Table of Contents
 {:toc}
-
-<div style="page-break-after: always;"></div>
 --------------------------------------------------------------------------------------------------------------------
-
+<div style="page-break-after: always;"></div>
 ## **Acknowledgements**
 
 ### Third-Party Libraries Used
@@ -71,7 +69,6 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 The sections below give more details of each component.
 
 <div style="page-break-after: always;"></div>
-
 ### UI component
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
@@ -137,7 +134,6 @@ It has a `Tag` and `Leave` list in the `AddressBook`, which `Person` references.
 This allows `AddressBook` to only require one `Tag` object per unique tag, and one `Leave` object per unique date, 
 instead of each `Person` needing their own `Tag` and `LeavesTaken` objects. More information on how leaves are currently implemented
 can be found <a href="DeveloperGuide.md#assigned-leaves">here</a>. 
-<div style="page-break-after: always;"></div>
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
 <div style="page-break-after: always;"></div>
@@ -190,7 +186,9 @@ In general, there are 2 main types of predicates.
         * For example, a LeaveLessThanPredicate will check if the `Person` has a number of leaves strictly less than the given value.
     * First, the respective method found in `FindCommandParser` for creating a comparison predicate is called.
         * For example, to get a `SalaryIsLessThanPredicate`, `FindCommandParser#getSalaryComparisonPredicate` is called with the user's input.
+
 <div style="page-break-after: always;"></div>
+
     * The comparison type is found using the `parseComparator()` method in FindCommandParser, which returns a CompareType, an enum found in FindCommandParser which has 5 values representing the different available comparisons: "more than", "more than or equal", "less than", "less than or equal", and "equal".
     * The value to compare to is then found using the `getComparisonValue()` method in FindCommandParser, which returns a String to be parsed.
         * This is done because the different fields take in different number types. For example, the HourlySalary field takes in a `double`, whereas the Leave field takes in an `int`.
@@ -275,7 +273,7 @@ Given below is an example usage scenario and how the import mechanism behaves at
 **Step 2.** The user executes `import /toBeImported.csv` command to import the .csv file in the specified directory, which in this case, refers to the file `toBeImported.csv` in the root directory.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
-
+<div markdown="span" class="alert alert-info">
 **Step 3.** Program processes the .csv file. The first row is identified as the header row, which is used to determine which field of the PersonInput class the column represents. The remaining rows are parsed and PersonInput Objects are created and added into a List. Once done, the List of PersonInput Objects will be used to create a separate list of Person objects used to update the address book.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current AddressBook.</div>
@@ -292,11 +290,9 @@ The following sequence diagram shows how the import feature works:
 
 The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display".
    
-<div style="page-break-after: always;"></div>
-   
 The following activity diagram summarizes what happens when a user uses the `import` command:
 ![ImportActivityDiagram](images/ImportActivityDiagram.png)
-
+<div markdown="span" class="alert alert-info">
 #### Design considerations:
 
 **Aspect: How the imported file is processed:**
@@ -362,7 +358,7 @@ Below is an example of how `InfoPanel` updates with a view command:
 it informs the other `InfoPanel` in the `uiObserverList` to update, passing the new updated personToView to `InfoPanel`.
 
 **Step 4.** With the new data passed to `InfoPanel`, it can then update the content to be displayed in however its `update()` method is implemented.  
-<div style="page-break-after: always;"></div>
+
 **Design Considerations:**
 
 Use Observer pattern to track when to update InfoPanel (Current Implementation)
@@ -370,7 +366,7 @@ Use Observer pattern to track when to update InfoPanel (Current Implementation)
 **Pros:** `InfoPanel` can update by itself without `Model` having a dependency on the UI.
 
 **Cons:** Might be harder to figure out what is "observing" the observable just by looking at the source code since there is no direct dependency.
-
+<div markdown="span" class="alert alert-info">
 **Alternative:**
 
 Constantly update Info Panel with every command executed.
@@ -448,11 +444,10 @@ This class extends `Command` with the following added method to get the updated 
 except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#removeDatesBefore` is called.
 In addition, `LeavesTaken#removeDatesBefore` is called for all `Person` objects in the filtered list.
 
+<div markdown="span" class="alert alert-info">
 The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 
 ![RemoveLeavesBeforeSequenceDiagram](images/RemoveLeavesBeforeSequenceDiagram.png)
-
-<div style="page-break-after: always;"></div>
    
 #### Design considerations:
 
@@ -466,7 +461,7 @@ The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 * **Alternative 2:** Each unique date is represented by a `Leave` object.
     * Pros: Potentially more object-oriented, reduced memory usage as only one object is required for each date.
     * Cons: Need to keep track of how many `Person` objects are associated with each `Leave`, which might lead to increased coupling between `Leave` and `Person`.
-
+<div markdown="span" class="alert alert-info">
 **Aspect: How outdated assigned leaves are removed:**
 
 * **Alternative 1 (current choice):** Manually clear outdated leaves via a command (`removeLeavesBefore`).
@@ -637,6 +632,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *  `  | user                                       | can see everything                                                                                                    | feel like I am in charge.                                                                                                 |
 | `* *  `  | user dealing with confidential information | have some form of authentication                                                                                      | ensure only authorized personnel are allowed to access the data.                                                          |
 | `* *  `  | user                                       | mark important days such as payday                                                                                    | manage my work more effectively.                                                                                          |
+
 <div style="page-break-after: always;"></div>
 ### Use cases
 
@@ -687,13 +683,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. HeRon shows an error message.
 
       Use case resumes at step 2.
-
+<div style="page-break-after: always;"></div>
 * 3b. The number of leaves to be added is invalid. (If the input is not a positive integer)
 
     * 3b1. HeRon shows an error message.
 
       Use case resumes at step 2.
-<div style="page-break-after: always;"></div>
 **Use case: Remove leaves from an employee's leave balance**
 
 Guarantees:
@@ -731,7 +726,7 @@ Guarantees:
     * 3c1. HeRon shows an error message.
 
       Use case resumes at step 2.
-
+<div style="page-break-after: always;"></div>
 **Use case: Assign a leave to an employee**
 
 Guarantees:
@@ -1025,7 +1020,7 @@ Guarantees:
     * 2c1. HeRon shows an error message.
 
       Use case resumes at step 1.
-<div style="page-break-after: always;"></div>
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
@@ -1129,7 +1124,7 @@ testers are expected to do more *exploratory* testing.
 
     4. Test case: `addLeaveBalance 1 l/365`<br>
        Expected: No leaves are added. Error details shown in the status message indicate that only 364 leaves can be added.
-<div style="page-break-after: always;"></div>
+   
     5. Test case: `addLeaveBalance 1 l/364`<br>
        Expected: First employee's leave balance is now 365. Details of the new leave balance are shown in the status message.
 
@@ -1141,7 +1136,7 @@ testers are expected to do more *exploratory* testing.
 
     8. Test case: `deductLeaveBalance 1 l/1`<br>
        Expected: No leaves are deducted. Error details shown in the status message indicate that the employee has 0 leaves remaining.
-
+<div style="page-break-after: always;"></div>
 ### Assigning leaves to/Removing outdated leaves from an employee
 
 1. Assigning leaves/Removing outdated leaves while a list of employees is shown
@@ -1170,7 +1165,7 @@ testers are expected to do more *exploratory* testing.
 
     8. Test case: `assignLeave 1 d/2021-08-11`, followed by `removeLeavesBefore 1 d/2021-08-10`<br>
        Expected: The leave with date 2021-08-11 is assigned, and then the leave on 2021-08-10 is removed.
-
+<div style="page-break-after: always;"></div>
 ### Adding/Deducting from an employee's hours worked
 
 1. Adding to/Deducting from an employee's hours worked while a list of employees is shown
@@ -1256,7 +1251,7 @@ testers are expected to do more *exploratory* testing.
     7. Test case: `pay all`
         Expected: All employees should be paid. Any employees that were not being owed payment should have their names
         printed in the bottom section of the command panel as being skipped.
-<div style="page-break-after: always;"></div>
+
 ### Importing from an external .csv file
 
 1. Importing data from a csv file.
