@@ -100,16 +100,14 @@ How the `Logic` component works:
 1. The command can communicate with the `Model` when it is executed (e.g. to add a person).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
-<div style="page-break-after: always;"></div>
-
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
-
+<div style="page-break-after: always;"></div>
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
-Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
+Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:<br>
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
@@ -244,7 +242,7 @@ Pros:
 Cons:
 * Testing becomes harder because there are many branches to account for, since the `test()` method will change its behaviour based on the comparison type passed into it.
 * May become less flexible if more types of comparisons are needed. The current implementation allows each predicate to be responsible for only one type of comparison.
-<div style="page-break-after: always;"></div> 
+
 ### Import Feature
 
 **Current Implementation** <br>
@@ -279,11 +277,11 @@ Given below is an example usage scenario and how the import mechanism behaves at
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Data present in the imported file must adhere to respective requirements for each field. `Name`, `Email` and `Phone` fields cannot be the same as other entries. If duplicate values exist, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
    
 **Step 4.** A new `AddressBook` is created, and updated it with the entries in the file. The current existing AddressBook is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
-
-   <div style="page-break-after: always;"></div>
    
 **Step 5.** The updated AddressBook would be saved as per the process after the execution of a command.
 
+<div style="page-break-after: always;"></div>
+   
 The following sequence diagram shows how the import feature works:
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
 ![ImportProcessData](images/ImportProcessData.png)
@@ -305,7 +303,6 @@ The following activity diagram summarizes what happens when a user uses the `imp
     * Pros: No need for header rows.
     * Cons: Unable to ensure that the data is formatted in the correct order.
 
-<div style="page-break-after: always;"></div>
 **Aspect: Making fields compulsory for import:**
 
 * **Alternative 1 (current choice): Only fields `Name`, `Contact Number`, `Residential Address`, `Email` and `Role` are compulsory**
@@ -978,7 +975,7 @@ Guarantees:
 4. Employees in the group tag have their details updated.
 
    Use case ends.
-<div style="page-break-after: always;"></div>
+
 **Extensions**
 
 * 2a. The result list is empty.
@@ -990,7 +987,7 @@ Guarantees:
     * 3a1. HeRon shows an error message.
 
       Use case resumes at step 3.
-
+<div style="page-break-after: always;"></div>
 * 3b. The given detail(s) to be updated is invalid.
 
     * 3b1. HeRon shows an error message.
