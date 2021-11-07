@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Predicate <|.. CombinedPredicate
+
+interface Predicate<Person> {
+    test()
+}
+
+hide circle
+class CombinedPredicate {
+    nameToTest: Optional<Name>
+    emailToTest: Optional<Email>
+    salaryMoreThan: Optional<Integer>
+    test()
+}
+
+note right of CombinedPredicate : Only shows a small portion of attributes for brevity. \nConsider all other fields to be tested as an attribute inside as well.
+
+@enduml

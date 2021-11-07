@@ -63,7 +63,8 @@ public class AddLeaveBalanceCommand extends Command {
     }
 
     /**
-     * Returns a {@code Person} object with an updated leave balance.
+     * Returns a {@code Person} object that is a copy of the input person,
+     * except with an updated leave balance.
      *
      * @param personToEdit The person object that is to be edited.
      * @return An updated Person object.
