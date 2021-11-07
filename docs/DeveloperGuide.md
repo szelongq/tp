@@ -116,7 +116,6 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
-<div style="page-break-after: always;"></div>
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
@@ -134,9 +133,9 @@ It has a `Tag` and `Leave` list in the `AddressBook`, which `Person` references.
 This allows `AddressBook` to only require one `Tag` object per unique tag, and one `Leave` object per unique date, 
 instead of each `Person` needing their own `Tag` and `LeavesTaken` objects. More information on how leaves are currently implemented
 can be found <a href="DeveloperGuide.md#assigned-leaves">here</a>. </div> 
+<div style="page-break-after: always;"></div>
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
-<div style="page-break-after: always;"></div>
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
@@ -147,6 +146,8 @@ The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+
+<div style="page-break-after: always;"></div>
 
 ### Common classes
 
@@ -322,7 +323,7 @@ The following activity diagram summarizes what happens when a user uses the `imp
 
 ### Updating Info Panel display
 
-**Current Implementation**
+**Current Implementation** <br>
 `InfoPanel` class controls the content being displayed on the Info Panel. The information to be displayed is dependent
 on the ObservablePerson object `viewingPerson` in the ModelManager class. `viewingPerson` contains the person to be viewed, as well as
 a `uiObserverList` that contains `UiObserver` that wish to be notified when the person to be viewed has been changed.
@@ -376,8 +377,6 @@ Constantly update Info Panel with every command executed.
 
 **Cons:** Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
 
-<div style="page-break-after: always;"></div>
-
 ### Leave Balance
 
 **Current Implementation**
@@ -418,7 +417,7 @@ The following sequence diagram shows how `AddLeaveBalanceCommand` works:
 ![AddLeaveBalanceSequenceDiagram](images/AddLeaveBalanceSequenceDiagram.png)
 
 `DeductLeaveBalanceCommand` works similarly, except instead of calling `LeaveBalance#addLeaves` in step 5, `LeaveBalance#removeLeaves` is called.
-<div style="page-break-after: always;"></div>
+
 ### Assigned Leaves
 
 **Current Implementation**
@@ -437,7 +436,7 @@ This class extends `Command` with the following added method to get the updated 
 except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#addDate` is called. In addition,
 `LeaveBalance#removeLeaves` is called with a `LeaveBalance` object containing the value 1. 
 (In other words, assigning a leave deducts 1 leave from the leave balance.)
-
+<div style="page-break-after: always;"></div>
 The remove outdated leaves feature is implemented by the class `RemoveLeavesBeforeCommand`.
 This class extends `Command` with the following added method to get the updated person:
 - `getUpdatedPerson(Person personToEdit)` - Returns a new `Person` object that is a copy of the input `personToEdit` object,
@@ -452,7 +451,7 @@ In addition, `LeavesTaken#removeDatesBefore` is called for all `Person` objects 
 The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 
 ![RemoveLeavesBeforeSequenceDiagram](images/RemoveLeavesBeforeSequenceDiagram.png)
-   
+<div style="page-break-after: always;"></div>
 **Design considerations:**
 
 **Aspect: How assigned leaves are represented**
@@ -465,7 +464,7 @@ The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 * **Alternative 2:** Each unique date is represented by a `Leave` object.
     * Pros: Potentially more object-oriented, reduced memory usage as only one object is required for each date.
     * Cons: Need to keep track of how many `Person` objects are associated with each `Leave`, which might lead to increased coupling between `Leave` and `Person`.
-<div style="page-break-after: always;"></div>
+
 **Aspect: How outdated assigned leaves are removed:**
 
 * **Alternative 1 (current choice):** Manually clear outdated leaves via a command (`removeLeavesBefore`).
@@ -940,7 +939,7 @@ Guarantees:
     * 5a1. HeRon shows an error message.
 
         Use case resumes at step 4.
-<div style="page-break-after: always;"></div>
+
 **Use case: Adding a Tag to an employee**
 
 **MSS**
@@ -968,7 +967,7 @@ Guarantees:
     * 3b1. HeRon shows an error message.
 
         Use case resumes at step 3.
-<div style="page-break-after: always;"></div>
+
 **Use case: Updating details of group of employees with specified tag.**
 
 **MSS**
@@ -978,7 +977,7 @@ Guarantees:
 4. Employees in the group tag have their details updated.
 
    Use case ends.
-
+<div style="page-break-after: always;"></div>
 **Extensions**
 
 * 2a. The result list is empty.
