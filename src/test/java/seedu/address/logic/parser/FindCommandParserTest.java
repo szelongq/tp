@@ -129,11 +129,14 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand =
                 new FindCommand(new PersonIsPaidPredicate());
         try {
+            // parsedFindCommand returns true for unpaid person
             FindCommand parsedFindCommand = parser.parse("unpaid");
             Person unpaidPerson = new PersonBuilder().withCalculatedPay("100").build();
             Person paidPerson = new PersonBuilder().build();
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, unpaidPerson);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, paidPerson);
+            assertTrue(parsedFindCommand.getPredicate().test(unpaidPerson));
+            assertFalse(parsedFindCommand.getPredicate().test(paidPerson));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -310,6 +313,8 @@ public class FindCommandParserTest {
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_OVERTIME + "=" + VALID_OVERTIME_AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
