@@ -27,7 +27,7 @@ Given below are my contributions to the project.
         Also, for the case where one of the inputs is valid while the other is invalid, the command throws an error that specifies
         which input is causing the error. (If both inputs are invalid, an error is thrown for `HoursWorked`)
         
-    * Implemented `assignLeave` and `removeLeavesBefore` commands.
+    * Implemented `LeavesTaken` attribute for `Person`, as well as `assignLeave` and `removeLeavesBefore` commands.
       * What it does: `assignLeave` assigns a leave associated with a date to an employee.
         `removeLeavesBefore` removes all assigned leaves that occur on and before a given input date from all employees in the current list.
       * Justification: This allows the user to keep track of when an employee is taking a leave, to allow
