@@ -28,8 +28,7 @@ public class InfoPanel extends UiPart<Region> implements UiObserver {
     private static final String LEAVES_ICON = "\uD83C\uDF42 ";
     private static final String DATES_ICON = "\uD83D\uDDD3 ";
 
-    private static final String LIST_EMPTY_MSG = "Your employee list is empty!! \n"
-            + "Start adding employees with 'add n/NAME e/EMAIL ...'";
+    private static final String LIST_EMPTY_MSG = "No employee information to show! \n";
 
     @FXML
     private ScrollPane main;

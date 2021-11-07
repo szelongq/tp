@@ -81,15 +81,8 @@ public class FindCommand extends Command {
         model.updateFilteredPersonList(predicate);
 
         if (model.getFilteredPersonList().size() == 0) {
-            // If the filtered list is empty, display a default person
-            HashSet<Tag> egTags = new HashSet<>();
-            egTags.add(new Tag("example"));
-            Person examplePerson = new Person(new Name("Example person"), new Phone("62353535"),
-                    new Email("example@empl.com"), new Address("Example Street, Blk 404"),
-                    new Role("Exemplar"), new LeaveBalance("69"),
-                    new HourlySalary("666"), new HoursWorked("420"),
-                    new CalculatedPay("0"), egTags);
-            model.setViewingPerson(examplePerson);
+            // clear display
+            model.setViewingPerson(null);
         } else {
             // Else, display the first person
             Person firstPerson = model.getFilteredPersonList().get(0);
