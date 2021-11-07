@@ -472,12 +472,12 @@ It extends `Command` with the following added methods to calculate the payroll f
 
 Given below is an example of how `StartPayrollCommand` works.
 
+**Step 1.** The user enters the command word 'startPayroll'. The `addressBookParser` parses the input,
+creates a `StartPayrollCommand` and executes it.
+
 The following sequence diagram describes the operations in executing a `StartPayrollCommand`.
 
 ![StartPayrollSequenceDiagram](images/StartPayrollSequenceDiagram.png)
-
-**Step 1.** The user enters the command word 'startPayroll'. The `addressBookParser` parses the input,
-creates a `StartPayrollCommand` and executes it.
 
 **Step 2.** In the new instance of `StartPayrollCommand`, upon starting execution,
 the list of employees to be viewed in `Model` is set to be unfiltered using `Model#updateFilteredPersonList()`.
@@ -489,6 +489,12 @@ been paid yet by calling `Person#isPaid()` on the employee. If an employee is un
 a `CommandException` will be thrown.
 
 **Step 4.** If there are no employees who are unpaid, calculations of payroll will proceed through the following substeps:
+
+--Start of Calculating Payroll--
+
+The following sequence diagram describes how the payroll is calculated.
+
+![StartPayrollSequenceDiagram](images/PayrollCalculationSequenceDiagram.png)
 
 **Step 4.1.** Retrieve the current `overtimePayRate` in the application from the `Model`
 using `Model#getOvertimePayRate()`.
@@ -513,14 +519,12 @@ Steps 4.2 and 4.3 are repeated for all employees in the `personList`.
 **Step 4.4.** For every employee in `personList`, its corresponding `Person` object in the `Model` is then replaced 
 with its updated copy in `calculatedPersonsList` using `Model#setPerson()`.
 
-The following sequence diagram describes how the payroll is calculated.
+--End of Calculating Payroll--
 
-![StartPayrollSequenceDiagram](images/PayrollCalculationSequenceDiagram.png)
-
-Step 5. After every employee in the list has had their payroll calculated, HeRon is set to view the first employee 
+**Step 5.** After every employee in the list has had their payroll calculated, HeRon is set to view the first employee 
 in the list.
 
-Step 6. Lastly, the `StartPayrollCommand` returns a `CommandResult` to signal successful execution.
+**Step 6.** Lastly, the `StartPayrollCommand` returns a `CommandResult` to signal successful execution.
 
 #### Design considerations:
 
