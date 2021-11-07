@@ -41,7 +41,7 @@ public class StartPayrollCommand extends Command {
 
     public static final String MESSAGE_START_PAYROLL_SUCCESS = "Payroll done.";
 
-    public static final String MESSAGE_NO_ONE_TO_PAY = "There is no one to be paid. Maybe try adding employees?";
+    public static final String MESSAGE_NO_ONE_TO_PAY = "There are no employees to be paid. Maybe try adding employees?";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
