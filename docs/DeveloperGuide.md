@@ -213,11 +213,11 @@ Therefore, it is also easy to extend this implementation to contain other predic
 3. Add that field's prefix into `ArgumentTokenizer#tokenize()` in `FindCommandParser#parse()`.
 4. Within `FindCommandParser#parse()`, create the respective predicate and add it to the `filters` list in FindCommandParser.
 
-**Alternatives considered**
+**Alternatives considered**<br>
 There are many alternatives for different parts of the FindCommandParser implementation.
 The first alternative implementation concerns the predicate portion.
 
-**Predicates**
+**Predicates**<br>
 Modifying the code for `FindCommand#execute` to account for multiple predicates is very likely to cause errors. Therefore, it is much easier to find a way to combine predicates into a single one.
 One alternative for combining predicates is to create a new `CombinedPredicate` class which contains all the possible fields to be compared with.
 
