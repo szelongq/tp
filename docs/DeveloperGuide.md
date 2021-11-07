@@ -28,6 +28,8 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-F11-3/tp/tree/master/docs/diagrams) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 ### Architecture
 
 <img src="images/ArchitectureDiagram.png" width="280" />
@@ -51,6 +53,7 @@ The rest of the App consists of four components.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
+<div style="page-break-after: always;"></div>
 
 **How the architecture components interact with each other**
 
@@ -66,6 +69,8 @@ Each of the four main components (also shown in the diagram above),
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
 <img src="images/ComponentManagers.png" width="300" />
+
+<div style="page-break-after: always;"></div>
 
 The sections below give more details of each component.
 
@@ -86,6 +91,8 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
 
+<div style="page-break-after: always;"></div>
+
 ### Logic component
 
 **API** : [`Logic.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
@@ -100,6 +107,8 @@ How the `Logic` component works:
 1. The command can communicate with the `Model` when it is executed (e.g. to add a person).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
+<div style="page-break-after: always;"></div>
+
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
@@ -111,13 +120,16 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 <img src="images/ParserClasses.png" width="600"/>
 
+<div style="page-break-after: always;"></div>
+
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
+<div style="page-break-after: always;"></div>
+
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/model/Model.java)
-
 <img src="images/ModelClassDiagram.png" width="450" />
 <img src="images/PersonClassDiagram.png" />
 
@@ -135,6 +147,7 @@ can be found <a href="DeveloperGuide.md#assigned-leaves">here</a>.
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
+<div style="page-break-after: always;"></div>
 
 ### Storage component
 
@@ -152,6 +165,8 @@ The `Storage` component,
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Implementation**
 
@@ -186,6 +201,9 @@ In general, there are 2 main types of predicates.
     * First, the respective method found in `FindCommandParser` for creating a comparison predicate is called.
         * For example, to get a `SalaryIsLessThanPredicate`, `FindCommandParser#getSalaryComparisonPredicate` is called with the user's input.
     * The comparison type is found using the `parseComparator()` method in FindCommandParser, which returns a CompareType, an enum found in FindCommandParser which has 5 values representing the different available comparisons: "more than", "more than or equal", "less than", "less than or equal", and "equal".
+
+<div style="page-break-after: always;"></div>
+
     * The value to compare to is then found using the `getComparisonValue()` method in FindCommandParser, which returns a String to be parsed.
         * This is done because the different fields take in different number types. For example, the HourlySalary field takes in a `double`, whereas the Leave field takes in an `int`.
     * Finally, the predicate is created by checking the CompareType and then passing the parsed value to the constructor.
@@ -199,6 +217,8 @@ Below is the sequence diagram which shows a quick overview of how the FindComman
 ![FindCommand](images/FindSequenceDiagram.png)
 
 ![FindCommandGetPredicates](images/FindCommandGetPredicateDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 This allows multiple types of predicates to be chained together so that it is possible to handle a large query with multiple filters.
 Therefore, it is also easy to extend this implementation to contain other predicates by following the below steps.
@@ -227,6 +247,8 @@ Cons:
 * Harder to write the implementation for `CombinedPredicate#test()` as it requires checking for null values if the user does not query with that field.
 * Will require a new field to be added every time a new field is added to `Person`, so that a user can filter by that field. Not as extensible compared to creating a new predicate and adding it to the chain.
 
+<div style="page-break-after: always;"></div>
+   
 ##### Creating the comparison based predicates
 Another place for consideration of alternative implementation is the implementation of the comparison based predicates such as `SalaryIsLessThanPredicate`.
 
@@ -240,6 +262,8 @@ Cons:
 * Testing becomes harder because there are many branches to account for, since the `test()` method will change its behaviour based on the comparison type passed into it.
 * May become less flexible if more types of comparisons are needed. The current implementation allows each predicate to be responsible for only one type of comparison.
 
+<div style="page-break-after: always;"></div> 
+  
 ### Import Feature
 
 #### Feature Implementation
@@ -270,10 +294,10 @@ Given below is an example usage scenario and how the import mechanism behaves at
 **Step 3.** Program processes the .csv file. The first row is identified as the header row, which is used to determine which field of the PersonInput class the column represents. The remaining rows are parsed and PersonInput Objects are created and added into a List. Once done, the List of PersonInput Objects will be used to create a separate list of Person objects used to update the address book.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current AddressBook.</div>
-<br>
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Data present in the imported file must adhere to respective requirements for each field. `Name`, `Email` and `Phone` fields cannot be the same as other entries. If duplicate values exist, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
-<br>
  
+<div style="page-break-after: always;"></div>
+   
 **Step 4.** A new `AddressBook` is created, and updated it with the entries in the file. The current existing AddressBook is replaced with the newly created one. The display panel is updated to show the first entry present in the csv file.
 
 **Step 5.** The updated AddressBook would be saved as per the process after the execution of a command.
@@ -283,7 +307,9 @@ The following sequence diagram shows how the import feature works:
 ![ImportProcessData](images/ImportProcessData.png)
 
 The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display".
-
+   
+<div style="page-break-after: always;"></div>
+   
 The following activity diagram summarizes what happens when a user uses the `import` command:
 ![ImportActivityDiagram](images/ImportActivityDiagram.png)
 
@@ -313,6 +339,8 @@ The following activity diagram summarizes what happens when a user uses the `imp
     * Pros: Ensures data imported have all the required fields to utilise all the functionality of the program.
     * Cons: Files cannot be imported if any entry has any fields missing.
 
+<div style="page-break-after: always;"></div>
+   
 ### Updating Info Panel display
 
 #### Current Implementation
@@ -340,6 +368,8 @@ When the `ObservablePerson` changes:
 1. `InfoPanel` in the `uiObserverList` is updated with `ObservablePerson::updateUi()`
 2. `InfoPanel` and other `UiObserver` in the list can then update their own Ui with the updated viewingPerson information passed to it.
 
+<div style="page-break-after: always;"></div>
+   
 Below is an example of how `InfoPanel` updates with a view command:
 
 ![ViewSequenceDiagram](images/ViewSequenceDiagram.png)
@@ -369,6 +399,8 @@ Constantly update Info Panel with every command executed.
 
 **Cons:** Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
 
+<div style="page-break-after: always;"></div>
+   
 ### Leave Balance
 
 #### Current Implementation
@@ -402,12 +434,16 @@ The command object contains two attributes: `index`, which corresponds to the in
 
 **Step 8.** `AddLeaveBalanceCommand#execute` returns a `CommandResult` to signal a successful execution.
 
+<div style="page-break-after: always;"></div>
+   
 The following sequence diagram shows how `AddLeaveBalanceCommand` works:
 
 ![AddLeaveBalanceSequenceDiagram](images/AddLeaveBalanceSequenceDiagram.png)
 
 `DeductLeaveBalanceCommand` works similarly, except instead of calling `LeaveBalance#addLeaves` in step 5, `LeaveBalance#removeLeaves` is called.
 
+<div style="page-break-after: always;"></div>
+   
 ### Assigned Leaves
 
 #### Current Implementation
@@ -440,6 +476,8 @@ The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 
 ![RemoveLeavesBeforeSequenceDiagram](images/RemoveLeavesBeforeSequenceDiagram.png)
 
+<div style="page-break-after: always;"></div>
+   
 #### Design considerations:
 
 **Aspect: How assigned leaves are represented**
@@ -464,6 +502,8 @@ The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
     * Cons: Harder to test, and it could lead to unexpected behaviour. (e.g. What happens if the user changes their timezone, or if the user's system clock fails)
       Also, the user might want to keep a full record of all assigned leaves.
 
+<div style="page-break-after: always;"></div>
+   
 ### Start Payroll feature
 
 #### Current Implementation
@@ -497,6 +537,8 @@ storing a deep copy in `personList`.
 been paid yet by calling `Person#isPaid()` on the employee. If an employee is unpaid,
 a `CommandException` will be thrown.
 
+<div style="page-break-after: always;"></div>
+   
 **Step 4.** If there are no employees who are unpaid, calculations of payroll will proceed through the following substeps:
 
 --Start of Calculating Payroll--
@@ -523,6 +565,8 @@ the `StartPayrollCommand#calculatePay()` method, with the earlier retrieved valu
 using `StartPayrollCommand#createPersonWithZeroHoursWorkedAndOvertime()`. The updated copy of the employee is then
 inserted into `calculatedPersonsList`.
 
+ <div style="page-break-after: always;"></div>
+   
 Steps 4.2 and 4.3 are repeated for all employees in the `personList`.
 
 **Step 4.4.** For every employee in `personList`, its corresponding `Person` object in the `Model` is then replaced 
@@ -548,7 +592,8 @@ in the list.
     * Cons: We need to check for which use case the user intends to use. Can be harder/more tedious to test
     as more there are more variations in use cases.
 --------------------------------------------------------------------------------------------------------------------
-
+<div style="page-break-after: always;"></div>
+   
 ## **Documentation, logging, testing, configuration, dev-ops**
 
 * [Documentation guide](Documentation.md)
@@ -559,6 +604,8 @@ in the list.
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+   
 ## **Appendix: Requirements**
 
 ### Product scope
