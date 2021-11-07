@@ -328,7 +328,7 @@ The following operations are implemented for the classes:
 * `InfoPanel::updateInfoPanel(Person p)` - updates the content to be displayed on the Info panel with the new `Person`'s information.
 * `ObservablePerson::addUiObserver(UiObserver observer)` - subscribes the `UiObserver` to the `ObservablePerson` to get updates when `ObservablePerson` changes
 * `ObservablePerson::updateUi()` - updates the observers with the relevant `Person` information.
-
+<div style="page-break-after: always;"></div>
 On initialization:
 1. `ObservablePerson` is created, and `InfoPanel` is initialized with the ObservablePerson passed as argument to the constructor
 2. On creation of `InfoPanel`, it adds itself to the `uiObserverList` of the ObservablePerson to be subscribed for updates using `ObservablePerson::addUiObserver(UiObserver observer)`
@@ -349,7 +349,7 @@ Below is an example of how `InfoPanel` updates with a view command:
 it informs the other `InfoPanel` in the `uiObserverList` to update, passing the new updated personToView to `InfoPanel`.
 
 **Step 4.** With the new data passed to `InfoPanel`, it can then update the content to be displayed in however its `update()` method is implemented.  
-
+<div style="page-break-after: always;"></div>
 **Design Considerations:**
 
 Use Observer pattern to track when to update InfoPanel (Current Implementation)
@@ -398,8 +398,7 @@ The command object contains two attributes: `index`, which corresponds to the in
 **Step 7.** The old `Person` object in the `Model` is then replaced with its updated copy using `Model#setPerson()`.
 
 **Step 8.** `AddLeaveBalanceCommand#execute` returns a `CommandResult` to signal a successful execution.
-
-   
+<div style="page-break-after: always;"></div>
 The following sequence diagram shows how `AddLeaveBalanceCommand` works:
 
 ![AddLeaveBalanceSequenceDiagram](images/AddLeaveBalanceSequenceDiagram.png)
@@ -676,6 +675,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3b1. HeRon shows an error message.
 
       Use case resumes at step 2.
+   
 **Use case: Remove leaves from an employee's leave balance**
 
 Guarantees:
@@ -837,7 +837,7 @@ Guarantees:
     * 3c1. HeRon shows an error message.
 
       Use case resumes at step 2.
-
+<div style="page-break-after: always;"></div>
 **Use Case: Finding an employee**
 
 **MSS**
