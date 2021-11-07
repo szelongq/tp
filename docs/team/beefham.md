@@ -25,7 +25,7 @@ Given below are my contributions to the project.
     
 * **Documentation**:
     * User Guide:
-        * Added the documentation for the features `find`.
+        * Added the documentation for the `find` features.
     * Developer Guide:
         * Added use cases for the `find` feature.
         * Added implementation details of the `find` feature.
