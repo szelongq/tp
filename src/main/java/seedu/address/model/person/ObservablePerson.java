@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.ui.UiObserver;
 
 
@@ -72,5 +73,12 @@ public class ObservablePerson {
         for (UiObserver obs : uiObserverList) {
             obs.update(personToView);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ObservablePerson // instanceof handles nulls
+                && personToView.equals(((ObservablePerson) other).getPerson()));
     }
 }
