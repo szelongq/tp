@@ -8,7 +8,9 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.exceptions.DuplicateEmailException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.DuplicatePhoneException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -34,6 +36,22 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
+    }
+
+    /**
+     * Returns true if the list contains an equivalent phone number used by another person.
+     */
+    public boolean hasDuplicatePhone(Person toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::hasSamePhone);
+    }
+
+    /**
+     * Returns true if the list contains an equivalent email used by another person.
+     */
+    public boolean hasDuplicateEmail(Person toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::hasSameEmail);
     }
 
     /**
@@ -90,10 +108,17 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public void setPersons(List<Person> persons) {
         requireAllNonNull(persons);
+        int[] phonesCheckResult = phonesAreUnique(persons);
+        int[] emailCheckResult = emailsAreUnique(persons);
         if (!personsAreUnique(persons)) {
             throw new DuplicatePersonException();
         }
-
+        if (phonesCheckResult != null) {
+            throw new DuplicatePhoneException(phonesCheckResult);
+        }
+        if (emailCheckResult != null) {
+            throw new DuplicateEmailException(emailCheckResult);
+        }
         internalList.setAll(persons);
     }
 
@@ -133,5 +158,27 @@ public class UniquePersonList implements Iterable<Person> {
             }
         }
         return true;
+    }
+
+    private int[] emailsAreUnique(List<Person> persons) {
+        for (int i = 0; i < persons.size() - 1; i++) {
+            for (int j = i + 1; j < persons.size(); j++) {
+                if (persons.get(i).hasSameEmail(persons.get(j))) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return null;
+    }
+
+    private int[] phonesAreUnique(List<Person> persons) {
+        for (int i = 0; i < persons.size() - 1; i++) {
+            for (int j = i + 1; j < persons.size(); j++) {
+                if (persons.get(i).hasSamePhone(persons.get(j))) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return null;
     }
 }

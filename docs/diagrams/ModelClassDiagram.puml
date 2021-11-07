@@ -23,6 +23,12 @@ Class Email
 Class Name
 Class Phone
 Class Tag
+Class Role
+Class LeaveBalance
+Class LeavesTaken
+Class HourlySalary
+Class Overtime
+Class CalculatedPay
 
 }
 
@@ -45,6 +51,13 @@ Person *--> Phone
 Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
+Person *--> Role
+Person *--> LeaveBalance
+Person *--> LeavesTaken
+Person *--> HourlySalary
+Person *--> Overtime
+Person *--> CalculatedPay
+
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address

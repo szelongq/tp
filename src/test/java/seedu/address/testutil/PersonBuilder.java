@@ -33,7 +33,7 @@ public class PersonBuilder {
     public static final String DEFAULT_ROLE = "HeRon Developer";
     public static final String DEFAULT_LEAVES = "0";
     public static final List<LocalDate> DEFAULT_LEAVES_TAKEN = new ArrayList<>();
-    public static final String DEFAULT_SALARY = "5000";
+    public static final String DEFAULT_SALARY = "15";
     public static final String DEFAULT_HOURSWORKED = "70";
     public static final String DEFAULT_OVERTIME = "5";
 
@@ -149,6 +149,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withLeavesTaken(List<LocalDate> dates) {
         this.leavesTaken = new LeavesTaken(dates);
+        return this;
+    }
+
+    /**
+     * Sets the {@code CalculatedPay} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withCalculatedPay(String pay) {
+        this.calculatedPay = new CalculatedPay(pay);
         return this;
     }
 
