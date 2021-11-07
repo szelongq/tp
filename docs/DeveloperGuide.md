@@ -254,7 +254,7 @@ The implemented import feature mechanism is facilitated by `ImportCommandParser`
 
 The fields `name`,`phone`, `address`, `email` and `role` must be present in all entries before the data can be imported successfully. This is to prevent junk data from being imported. These fields were selected as they are highly likely to be present in existing data to be used for import.
 
-The program detects the fields using column titles (taken as the first row of the csv file). The naming convention (case-insensitive) of the following fields must be followed for HeRon to detect the field, as per opencsv library requirements.
+The program detects the fields using column titles (first row of the csv file). Naming convention (case-insensitive) of the following fields must be followed for HeRon to detect the field, as per opencsv library requirements.
 * `name` as Name
 * `phone` as Contact Number
 * `address` as Residential Address
