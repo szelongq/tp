@@ -63,8 +63,8 @@ _Display Panel_ <br>
     If the employee list is empty, it displays an example person with example attributes. The example is purely visual, and does not exist in the employee list.
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>## Features
-
+## Features
+<div style="page-break-after: always;"></div>
 <div markdown="block" class="alert alert-info">
 
 **Please read this information panel for more information on commands before proceeding.**
