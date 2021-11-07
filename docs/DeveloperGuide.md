@@ -130,7 +130,7 @@ The `Model` component,
 It has a `Tag` and `Leave` list in the `AddressBook`, which `Person` references.
 This allows `AddressBook` to only require one `Tag` object per unique tag, and one `Leave` object per unique date, 
 instead of each `Person` needing their own `Tag` and `LeavesTaken` objects. More information on how leaves are currently implemented
-can be found <a href="DeveloperGuide.md#assigned-leaves">here</a>. </div> 
+can be found [here](#assigned-leaves). </div> 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
 <div style="page-break-after: always;"></div>
@@ -229,7 +229,7 @@ Pros:
 Cons:
 * Harder to write the implementation for `CombinedPredicate#test()` as it requires checking for null values if the user does not query with that field.
 * Will require a new field to be added every time a new field is added to `Person`, so that a user can filter by that field. Not as extensible compared to creating a new predicate and adding it to the chain.
-   
+<div style="page-break-after: always;"></div>
 ##### Creating the comparison based predicates
 Another place for consideration of alternative implementation is the implementation of the comparison based predicates such as `SalaryIsLessThanPredicate`.
 
@@ -449,7 +449,7 @@ In addition, `LeavesTaken#removeDatesBefore` is called for all `Person` objects 
 The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 
 ![RemoveLeavesBeforeSequenceDiagram](images/RemoveLeavesBeforeSequenceDiagram.png)
-<div style="page-break-after: always;"></div>
+
 **Design considerations:**
 
 **Aspect: How assigned leaves are represented**
@@ -462,7 +462,7 @@ The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
 * **Alternative 2:** Each unique date is represented by a `Leave` object.
     * Pros: Potentially more object-oriented, reduced memory usage as only one object is required for each date.
     * Cons: Need to keep track of how many `Person` objects are associated with each `Leave`, which might lead to increased coupling between `Leave` and `Person`.
-
+<div style="page-break-after: always;"></div>
 **Aspect: How outdated assigned leaves are removed:**
 
 * **Alternative 1 (current choice):** Manually clear outdated leaves via a command (`removeLeavesBefore`).
@@ -929,7 +929,7 @@ Guarantees:
 6.  HeRon sets the first employee on the list to be viewed in the InfoPanel.
 
     Use case ends.
-
+<div style="page-break-after: always;"></div>
 **Extensions**
 
 * 5a. There is an employee who has not yet been paid the previous calculated pay.
@@ -981,13 +981,13 @@ Guarantees:
 * 2a. The result list is empty.
 
   Use case ends.
-
+<div style="page-break-after: always;"></div>
 * 3a. The given corresponding tag of the detail(s) to be updated is invalid.
 
     * 3a1. HeRon shows an error message.
 
       Use case resumes at step 3.
-<div style="page-break-after: always;"></div>
+   
 * 3b. The given detail(s) to be updated is invalid.
 
     * 3b1. HeRon shows an error message.
