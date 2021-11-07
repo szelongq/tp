@@ -23,7 +23,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-F11-3/tp/tree/master/docs/diagrams) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
@@ -36,7 +36,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** has two classes called [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
+**`Main`** has two classes called [`Main`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
@@ -69,13 +69,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -86,7 +86,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -114,19 +114,22 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
-
+<img src="images/PersonClassDiagram.png" />
 
 The `Model` component,
-
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. 
+It has a `Tag` and `Leave` list in the `AddressBook`, which `Person` references. 
+This allows `AddressBook` to only require one `Tag` object per unique tag, and one `Leave` object per unique date, 
+instead of each `Person` needing their own `Tag` and `LeavesTaken` objects. More information on how leaves are currently implemented
+can be found [here](#assigned-leaves). <br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
@@ -135,7 +138,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -286,6 +289,101 @@ Alternative:
 Constantly update Info Panel with every command executed.
 Pros: Easy to update, ensures that Ui is constantly updated.
 Cons: Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
+
+### Leave Balance
+
+#### Current Implementation
+
+Currently, leaves are represented by two attributes of `Person`: `LeaveBalance`, which represents the amount of leaves the employee has remaining, 
+and `LeavesTaken`, which represents the leaves that the employee has taken on a given date.
+
+`LeaveBalance` is internally represented as an integer value, and must have a value of at least 0 and at most 365.
+The add to/deduct from leave balance features are implemented by the classes 
+`AddLeaveBalanceCommand` and `DeductLeaveBalanceCommand` respectively.
+Both classes extend `Command` with the following added method to get the updated person:
+- `getUpdatedPerson(Person personToEdit)` - Returns a new `Person` object that is a copy of the input `personToEdit` object,
+except with an updated `LeaveBalance` value.
+
+Given below is an example of how `AddLeaveBalanceCommand` works.
+
+Step 1. The user enters the command 'addLeaveBalance 2 l/1'. The `AddLeaveBalanceCommandParser` parses the input, creates a `AddLeaveBalanceCommand` object and executes it.
+The command object contains two attributes: `index`, which corresponds to the input index of 2, and `leaveBalance` which corresponds to the input number of leaves, in this case 1.
+
+Step 2. Inside `AddLeaveBalanceCommand#execute`, the list of all employees is retrieved by calling `Model#getFilteredPersonList()`.
+
+Step 3. Using the input `Index` value, the second person from the filtered list is retrieved as the `personToEdit` object.
+
+Step 4. `AddLeaveBalanceCommand#getUpdatedPerson` is called, with `personToEdit` as an input.
+
+Step 5. Inside `getUpdatedPerson`, `LeaveBalance#addLeaves` is called with the input `LeaveBalance` value as a parameter.
+
+Step 6. `getUpdatedPerson` returns a copy of the `personToEdit` object with an updated `LeaveBalance`.
+
+Step 7. The old `Person` object in the `Model` is then replaced with its updated copy using `Model#setPerson()`.
+
+Step 8. `AddLeaveBalanceCommand#execute` returns a `CommandResult` to signal a successful execution.
+
+The following sequence diagram shows how `AddLeaveBalanceCommand` works:
+
+![AddLeaveBalanceSequenceDiagram](images/AddLeaveBalanceSequenceDiagram.png)
+
+`DeductLeaveBalanceCommand` works similarly, except instead of calling `LeaveBalance#addLeaves` in step 5, `LeaveBalance#removeLeaves` is called.
+
+### Assigned Leaves
+
+#### Current Implementation
+
+`LeavesTaken` is internally represented as a `PriorityQueue` of `LocalDate` values. A `PriorityQueue` was chosen as it would 
+automatically sort the `LocalDate` values from least to most recent after each add/remove date operation. 
+There may be multiple `LocalDate` objects representing the same date. For example, if two employees have a leave on 2021-11-10,
+each of them will have a different `LocalDate` object corresponding to 2021-11-10 inside their `LeavesTaken` attribute object.
+
+The assign leave feature is implemented by the class `AssignLeaveCommand`.
+This class extends `Command` with the following added method to get the updated person:
+- `getUpdatedPerson(Person personToEdit)` - Returns a new `Person` object that is a copy of the input `personToEdit` object,
+  except with updated `LeavesTaken` and `LeaveBalance` values.
+  
+`AssignLeaveCommand` works similarly to `AddLeaveBalanceCommand`, 
+except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#addDate` is called. In addition,
+`LeaveBalance#removeLeaves` is called with a `LeaveBalance` object containing the value 1. 
+(In other words, assigning a leave deducts 1 leave from the leave balance.)
+
+The remove outdated leaves feature is implemented by the class `RemoveLeavesBeforeCommand`.
+This class extends `Command` with the following added method to get the updated person:
+- `getUpdatedPerson(Person personToEdit)` - Returns a new `Person` object that is a copy of the input `personToEdit` object,
+  except with an updated `LeavesTaken` value.
+
+`RemoveLeavesBeforeCommand` works similarly to `AddLeaveBalanceCommand`,
+except instead of calling `LeaveBalance#addLeaves` , `LeavesTaken#removeDatesBefore` is called.
+In addition, `LeavesTaken#removeDatesBefore` is called for all `Person` objects in the filtered list.
+
+The following sequence diagram shows how `RemoveLeavesBeforeCommand` works:
+
+![RemoveLeavesBeforeSequenceDiagram](images/RemoveLeavesBeforeSequenceDiagram.png)
+
+#### Design considerations:
+
+**Aspect: How assigned leaves are represented**
+
+* **Alternative 1 (current choice):** Each `Person` object has a `LeavesTaken` object that contains a set of `LocalDate` values that 
+  corresponds to the employee's assigned leaves.
+    * Pros: Easier to implement, able to delete individual `LocalDate` objects without needing to check other `Person` objects.
+    * Cons: May have issues in regard to memory usage, as each unique date can potentially have many `LocalDate` objects that correspond to it.
+
+* **Alternative 2:** Each unique date is represented by a `Leave` object.
+    * Pros: Potentially more object-oriented, reduced memory usage as only one object is required for each date.
+    * Cons: Need to keep track of how many `Person` objects are associated with each `Leave`, which might lead to increased coupling between `Leave` and `Person`.
+
+**Aspect: How outdated assigned leaves are removed:**
+
+* **Alternative 1 (current choice):** Manually clear outdated leaves via a command (`removeLeavesBefore`).
+    * Pros: Easier to implement and test than an automated solution, gives more control to the user in which leaves they want to clear.
+    * Cons: Less convenience for the user, could lead to accidental deletion of certain leaves if the user makes a typo with the input date.
+
+* **Alternative 2:** Assigned leaves will automatically clear themselves once the date has passed.
+    * Pros: More convenient for the user.
+    * Cons: Harder to test, and it could lead to unexpected behaviour. (e.g. What happens if the user changes their timezone, or if the user's system clock fails)
+      Also, the user might want to keep a full record of all assigned leaves.
 
 ### Start Payroll feature
 
@@ -467,14 +565,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: Add leaves to an employee**
+**Use case: Add leaves to an employee's leave balance**
 
 **MSS**
 
 1.  User requests to list employees
 2.  HeRon shows a list of employees
 3.  User requests to add a certain number of leaves to a specific employee in the list
-4.  HeRon adds the leaves to the employee
+4.  HeRon adds the leaves to the employee's leave balance
 
     Use case ends.
 
@@ -496,7 +594,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: Remove leaves from an employee**
+**Use case: Remove leaves from an employee's leave balance**
 
 Guarantees:
 * The number of leaves of the employee after the operation will never be negative.
@@ -506,7 +604,7 @@ Guarantees:
 1.  User requests to list employees
 2.  HeRon shows a list of employees
 3.  User requests to remove a certain number of leaves from a specific employee in the list
-4.  HeRon removes the leaves from the employee
+4.  HeRon removes the leaves from the employee's leave balance
 
     Use case ends.
 
@@ -571,6 +669,25 @@ Guarantees:
     * 3c1. HeRon shows an error message.
 
       Use case resumes at step 2.
+
+**Use case: Remove outdated assigned leaves from a list of employees**
+
+**MSS**
+
+1.  User requests to list employees
+2.  HeRon shows a list of employees
+3.  User requests to clear all leaves before a given date from all employees in the list 
+4.  HeRon gets a list of leave dates from an employee
+5.  HeRon removes all leave dates that occur before the given input date, and updates the employee's list accordingly
+    Steps 4-5 are repeated for all employees in the list.
+    
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
 
 **Use case: Add hours worked/overtime to an employee**
 
@@ -844,7 +961,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Editing an employee
 
-1. Editing an employee while list of employees are shown
+1. Editing an employee while a list of employees is shown
 
     1. Prerequisites: List all persons using the `list` command. Multiple employees in the list.
 
@@ -862,6 +979,114 @@ testers are expected to do more *exploratory* testing.
 
 2. _{ possibly more test cases? …​ }_
 
+### Adding to/Deducting from an employee's leave balance
+
+1. Adding to/Deducting from an employee's leave balance while a list of employees is shown
+
+    1. Prerequisites: List all persons using the `list` command. At least 1 employee in the list. First employee must have a `LeaveBalance` of 0.
+       (Set with `edit 1 l/0`) All test cases are meant to be tested in order.
+
+    2. Test case: `addLeaveBalance 1 l/1`<br>
+       Expected: First employee's leave balance is now 1. Details of the new leave balance are shown in the status message.
+
+    3. Test case: `addLeaveBalance`<br>
+       Expected: No leaves are added. Error details shown in the status message indicate that the command format is invalid.
+
+    4. Test case: `addLeaveBalance 1 l/365`<br>
+       Expected: No leaves are added. Error details shown in the status message indicate that only 364 leaves can be added.
+
+    5. Test case: `addLeaveBalance 1 l/364`<br>
+       Expected: First employee's leave balance is now 365. Details of the new leave balance are shown in the status message.
+
+    6. Test case: `deductLeaveBalance 1 l/366`<br>
+       Expected: No leaves are deducted. Error details shown in the status message indicate that only integers between 1-365 are valid.
+
+    7. Test case: `deductLeaveBalance 1 l/365`<br>
+       Expected: 365 leaves are deducted. Details of the new leave balance are shown in the status message.
+
+    8. Test case: `deductLeaveBalance 1 l/1`<br>
+       Expected: No leaves are deducted. Error details shown in the status message indicate that the employee has 0 leaves remaining.
+
+### Assigning leaves to/Removing outdated leaves from an employee
+
+1. Assigning leaves/Removing outdated leaves while a list of employees is shown
+
+    1. Prerequisites: List all persons using the `list` command. At least 1 employee in the list. First employee must have a `LeaveBalance` of 0.
+       (Set with `edit 1 l/0`) All test cases are meant to be tested in order.
+
+    2. Test case: `assignLeave 1 d/2021-08-10`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that the employee has no more leaves.
+
+    3. Test case: `assignLeave`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that the command format is invalid.
+
+    4. Test case: `addLeaveBalance 2 l/2`, followed by `assignLeave 1 d/2021-8-10`<br>
+       Expected: 2 leaves are added to the leave balance successfully, but no leaves are assigned.
+       Error details shown in the status message indicate that the date format or value is invalid. (In this case the date format is invalid)
+
+    5. Test case: `assignLeave 1 d/2021-13-10`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that the date format or value is invalid. (In this case the date value is invalid)
+
+    6. Test case: `assignLeave 1 d/2021-08-10`<br>
+       Expected: The leave is assigned. Details of the new assigned leave are shown in the status message.
+
+    7. Test case: `assignLeave 1 d/2021-08-10`<br>
+       Expected: No leave is assigned. Error details shown in the status message indicate that a leave with date is already assigned.
+
+    8. Test case: `assignLeave 1 d/2021-08-11`, followed by `removeLeavesBefore 1 d/2021-08-10`<br>
+       Expected: The leave with date 2021-08-11 is assigned, and then the leave on 2021-08-10 is removed.
+
+### Adding/Deducting from an employee's hours worked
+
+1. Adding to/Deducting from an employee's hours worked while a list of employees is shown
+
+    1. Prerequisites: List all persons using the `list` command. At least 1 employee in the list. First employee must have `HoursWorked` and `Overtime` set to 0.
+       (Set with `edit 1 hw/0 o/0`) All test cases are meant to be tested in order.
+
+    2. Test case: `addHoursWorked 1 hw/1`<br>
+       Expected: First employee's hours worked is now 1. Details of the new hours worked are shown in the status message.
+
+    3. Test case: `addHoursWorked`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that the command format is invalid.
+
+    4. Test case: `addHoursWorked 1 hw/0 o/1`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that the input for hours worked must be a value between 1 and 744.
+
+    5. Test case: `addHoursWorked 1 hw/1 o/745`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that the input for overtime must be a value between 1 and 744.
+
+    6. Test case: `addHoursWorked 1 hw/744`<br>
+       Expected: No hours worked are added. Error details shown in the status message indicate that at most 743 hours worked can be added to the employee.
+      
+    7. Test case: `deductHoursWorked 1 o/1`<br>
+       Expected: No hours worked are deducted. Error details shown in the status message indicate that the employee has 0 overtime hours worked.
+
+    8. Test case: `deductHoursWorked 1 hw/1`<br>
+       Expected: 1 work hour is deducted. Details of the new hours worked are shown in the status message.
+
+### Calculating payroll and paying employees
+
+1. Starting payroll while in a filtered list
+
+    1. Prerequisites: Ensure all employees are already paid using `pay` command. Ensure at least some employees have
+       non-zero salary and hoursWorked/overtime values.
+    2. Test case: `find n/Bernice`<br>
+       Expected: Employee list is filtered to only employees with 'Bernice' in their names.
+    3. Test case: `startPayroll`
+       Expected: Employee list is set back to full list. All employees should have their calculated pay and have a red
+       'NOT PAID' label displayed under their data if their pay owed is not 0. The first person in the list is being
+       viewed in the InfoPanel.
+    4. Test case: `startPayroll`
+       Expected: An error should be thrown if there are still employees with pay owed.
+    5. Test case: `pay 1`
+       Expected: The first person in the list should be paid and any red 'NOT PAID' label disappears.
+    6. Test case: `find n/Bernice` followed by `pay all` followed by `list`
+       Expected: Only employees with 'Bernice' in their names will be paid. Other employees that were not in the
+       filtered list should still have their red 'NOT PAID' labels if they had them.
+    7. Test case: `pay all`
+       Expected: All employees should be paid. Any employees that were not being owed payment should have their names
+       printed in the bottom section of the command panel as being skipped.
+       
 ### Calculating payroll and paying employees
 
 1. Starting payroll while in a filtered list
