@@ -343,23 +343,30 @@ Below is an example of how `InfoPanel` updates with a view command:
 
 ![ViewSequenceDiagram](images/ViewSequenceDiagram.png)
 
-1. User executes `view 2` to view the 2nd employee in the list, and after the command is parsed, `v:ViewCommand` is being created.
+**Step 1.** User executes `view 2` to view the 2nd employee in the list, and after the command is parsed, `v:ViewCommand` is being created.
 
-2. On execution of `ViewCommand`, `getPersonToView(index)` is called to get the personToView, and then passed to call `setViewingPerson(personToView)` on `Model`.
+**Step 2.** On execution of `ViewCommand`, `getPersonToView(index)` is called to get the personToView, and then passed to call `setViewingPerson(personToView)` on `Model`.
 
-3. Model calls `setPerson(personToView)` on `ObservablePerson`, causing it to update the viewing person. In the process of updating,
+**Step 3.** Model calls `setPerson(personToView)` on `ObservablePerson`, causing it to update the viewing person. In the process of updating,
 it informs the other `InfoPanel` in the `uiObserverList` to update, passing the new updated personToView to `InfoPanel`.
 
-4. With the new data passed to `InfoPanel`, it can then update the content to be displayed in however its `update()` method is implemented.
+**Step 4.** With the new data passed to `InfoPanel`, it can then update the content to be displayed in however its `update()` method is implemented.
 
-Design Considerations:
-Pros: `InfoPanel` can update by itself without `Model` having a dependency on the UI.
-Cons: Might be harder to figure out what is "observing" the observable just by looking at the source code since there is no direct dependency.
+**Design Considerations:**
 
-Alternative:
+Use Observer pattern to track when to update InfoPanel (Current Implementation)
+
+**Pros:** `InfoPanel` can update by itself without `Model` having a dependency on the UI.
+
+**Cons:** Might be harder to figure out what is "observing" the observable just by looking at the source code since there is no direct dependency.
+
+**Alternative:**
+
 Constantly update Info Panel with every command executed.
-Pros: Easy to update, ensures that Ui is constantly updated.
-Cons: Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
+
+**Pros:** Easy to update, ensures that Ui is constantly updated.
+
+**Cons:** Unnecessarily updates even when there is no change to data to be viewed, increases runtime.
 
 ### Leave Balance
 
@@ -473,12 +480,12 @@ It extends `Command` with the following added methods to calculate the payroll f
 
 Given below is an example of how `StartPayrollCommand` works.
 
+**Step 1.** The user enters the command word 'startPayroll'. The `addressBookParser` parses the input,
+creates a `StartPayrollCommand` and executes it.
+
 The following sequence diagram describes the operations in executing a `StartPayrollCommand`.
 
 ![StartPayrollSequenceDiagram](images/StartPayrollSequenceDiagram.png)
-
-**Step 1.** The user enters the command word 'startPayroll'. The `addressBookParser` parses the input,
-creates a `StartPayrollCommand` and executes it.
 
 **Step 2.** In the new instance of `StartPayrollCommand`, upon starting execution,
 the list of employees to be viewed in `Model` is set to be unfiltered using `Model#updateFilteredPersonList()`.
@@ -490,6 +497,12 @@ been paid yet by calling `Person#isPaid()` on the employee. If an employee is un
 a `CommandException` will be thrown.
 
 **Step 4.** If there are no employees who are unpaid, calculations of payroll will proceed through the following substeps:
+
+--Start of Calculating Payroll--
+
+The following sequence diagram describes how the payroll is calculated.
+
+![StartPayrollSequenceDiagram](images/PayrollCalculationSequenceDiagram.png)
 
 **Step 4.1.** Retrieve the current `overtimePayRate` in the application from the `Model`
 using `Model#getOvertimePayRate()`.
@@ -514,14 +527,12 @@ Steps 4.2 and 4.3 are repeated for all employees in the `personList`.
 **Step 4.4.** For every employee in `personList`, its corresponding `Person` object in the `Model` is then replaced 
 with its updated copy in `calculatedPersonsList` using `Model#setPerson()`.
 
-The following sequence diagram describes how the payroll is calculated.
+--End of Calculating Payroll--
 
-![StartPayrollSequenceDiagram](images/PayrollCalculationSequenceDiagram.png)
-
-Step 5. After every employee in the list has had their payroll calculated, HeRon is set to view the first employee 
+**Step 5.** After every employee in the list has had their payroll calculated, HeRon is set to view the first employee 
 in the list.
 
-Step 6. Lastly, the `StartPayrollCommand` returns a `CommandResult` to signal successful execution.
+**Step 6.** Lastly, the `StartPayrollCommand` returns a `CommandResult` to signal successful execution.
 
 #### Design considerations:
 
@@ -998,7 +1009,6 @@ Guarantees:
 5. Should be usable offline.
 6. Should respond within 2 seconds within the users’ command.
 7. Should only allow authorized personnel to have access to the application’s data.
-8. Should secure any files it produces.
 
 ### Glossary
 
@@ -1035,6 +1045,18 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Finding a person
+
+1. Finding a person with their name
+
+    1. Prerequisites: Have at least one person in the list. Note down their name. For this example, we assume their name is `Alex Yeoh`. 
+    
+    1. Test case: `find n/Alex`<br>
+       Expected: Alex appears in the list on the left side, while the rest of the people whose names do not contain `Alex` are not shown.
+
+    1. Test case: `find n/Yeoh`<br>
+       Expected: The same should happen as before, with the rest of the list containing all people with `Yeoh` in their name, if any.
+       
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown

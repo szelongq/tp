@@ -48,15 +48,16 @@ Model -> ObservablePerson : setPerson(personToView)
 activate ObservablePerson
 
 ObservablePerson -> ObservablePerson : updateUi()
+activate ObservablePerson
 ObservablePerson -> UiObserver : update(personToView)
 activate UiObserver
 
 UiObserver --> ObservablePerson
 deactivate UiObserver
 
-
 ObservablePerson --> Model
 
+deactivate ObservablePerson
 deactivate ObservablePerson
 
 Model --> ViewCommand

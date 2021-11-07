@@ -1,5 +1,6 @@
 @startuml
-scale 1024 width
+scale 720 width
+scale 540 height
 
 !include style.puml
 !define PersonClass "             Person             "
@@ -8,6 +9,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 skinparam minClassWidth 100
+
 
 Package "Person attribute classes" <<Rectangle>>{
 
@@ -48,8 +50,8 @@ Phone -[hidden]right-> Email
 Email -[hidden]right> Address
 Address -[hidden]right> Role
 Role -[hidden]right> LeaveBalance
-LeaveBalance -[hidden]right> LeavesTaken
-LeavesTaken -[hidden]right> HourlySalary
+LeaveBalance -[hidden]right-> LeavesTaken
+LeavesTaken -[hidden]right-> HourlySalary
 HourlySalary -[hidden]right> HoursWorked
 HoursWorked -[hidden]right> Overtime
 Overtime -[hidden]right> CalculatedPay

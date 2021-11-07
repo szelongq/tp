@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
-scale 1024 width
-scale 768 height
+scale 512 width
+scale 384 height
 
 skinparam arrowThickness 1.1
 
