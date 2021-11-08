@@ -110,6 +110,36 @@ public class PayCommandTest {
     }
 
     @Test
+    public void execute_payAll_success() {
+        // Adds calculatedPay to all employees
+        for (int i = 0; i < model.getFilteredPersonList().size(); i++) {
+            Person person = model.getFilteredPersonList().get(i);
+            Person personWithCalcPay = createPersonWithCalculatedPay(person, new CalculatedPay("500"));
+            model.setPerson(person, personWithCalcPay);
+        }
+
+        // Sets all employees as paid
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        for (int i = 0; i < expectedModel.getFilteredPersonList().size(); i++) {
+            Person person = expectedModel.getFilteredPersonList().get(i);
+            Person paidPerson = createPaidPerson(person);
+            expectedModel.setPerson(person, paidPerson);
+        }
+
+        PayCommand payAllCommand = new PayCommand();
+        String expectedString = PayCommand.MESSAGE_PAY_ALL_SUCCESS;
+
+        assertCommandSuccess(payAllCommand, model, expectedString, expectedModel);
+    }
+
+    @Test
+    public void execute_payAllOnAlreadyPaidEmployees_throwsException() {
+        PayCommand payAllCommand = new PayCommand();
+        // Model initializes with everyone already paid
+        assertCommandFailure(payAllCommand, model, PayCommand.MESSAGE_NO_ONE_TO_BE_PAID);
+    }
+
+    @Test
     public void equals() {
         PayCommand payFirstCommand = new PayCommand(INDEX_FIRST_PERSON);
         PayCommand paySecondCommand = new PayCommand(INDEX_SECOND_PERSON);
