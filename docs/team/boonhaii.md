@@ -21,7 +21,7 @@ Given below are my contributions to the project.
       2. To cater for the validity checks brought about by the updated `add` feature, where duplicate names, emails and phone numbers were not allowed.
 
 * **Enhancements to existing features**: Update `add` feature. ([#41](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/41), [#52](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/52), [#63](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/63), [#186](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/186))
-  * `add` now required new fields, including Role, LeaveBalance, HourlySalary and HoursWorked, properties of an employee.
+  * `add` now requires new fields, including Role, LeaveBalance, HourlySalary and HoursWorked, as properties of an employee.
   * `add` checks for similar names, or duplicate phone numbers and emails. This is to mimic real world context where employees are unlikely to have the same full name, phone numbers or emails.
   * `add` now processes the names of employees being added, removing additional whitespace typos and making it title case.
 
