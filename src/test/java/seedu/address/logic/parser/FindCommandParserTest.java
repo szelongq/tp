@@ -4,12 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FINDDATE_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HOURLYSALARY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HOURSWORKED_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVES_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_OVERTIME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURLYSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURSWORKED;
@@ -23,19 +25,29 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.util.Pair;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.HoursEqualPredicate;
+import seedu.address.model.person.predicates.HoursLessThanPredicate;
+import seedu.address.model.person.predicates.HoursMoreThanEqualPredicate;
 import seedu.address.model.person.predicates.LeaveEqualPredicate;
+import seedu.address.model.person.predicates.LeaveLessThanPredicate;
+import seedu.address.model.person.predicates.LeaveMoreThanEqualPredicate;
+import seedu.address.model.person.predicates.LeavesTakenContainsDatesPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.OvertimeEqualPredicate;
+import seedu.address.model.person.predicates.OvertimeLessThanEqualPredicate;
+import seedu.address.model.person.predicates.OvertimeMoreThanPredicate;
 import seedu.address.model.person.predicates.PersonIsPaidPredicate;
 import seedu.address.model.person.predicates.PhoneNumberMatchesPredicate;
 import seedu.address.model.person.predicates.RoleContainsKeywordsPredicate;
@@ -85,6 +97,48 @@ public class FindCommandParserTest {
     public void parse_invalidSalaryTooManyArgs_throwsParseException() {
         assertParseFailure(parser, " " + PREFIX_HOURLYSALARY + ">5 <10",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidSingleDate_throwsParseException() {
+        assertParseFailure(parser, " " + PREFIX_DATE + "0",
+                String.format(MESSAGE_INVALID_FINDDATE_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidStartDates_throwsParseException() {
+        assertParseFailure(parser, " " + PREFIX_DATE + "0:2021-09-12",
+                String.format(MESSAGE_INVALID_FINDDATE_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidEndDates_throwsParseException() {
+        assertParseFailure(parser, " " + PREFIX_DATE + "2021-09-12:0",
+                String.format(MESSAGE_INVALID_FINDDATE_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidDateMonth_throwsParseException() {
+        assertParseFailure(parser, " " + PREFIX_DATE + "2021-04-12:2021-21-12",
+                String.format(MESSAGE_INVALID_FINDDATE_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidDateDay_throwsParseException() {
+        assertParseFailure(parser, " " + PREFIX_DATE + "2021-04-12:2021-05-32",
+                String.format(MESSAGE_INVALID_FINDDATE_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidDateRangeFormat_throwsParseException() {
+        assertParseFailure(parser, " " + PREFIX_DATE + "2021-04-12-2021-21-12",
+                String.format(MESSAGE_INVALID_FINDDATE_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_tooManyDates_throwsParseException() {
+        assertParseFailure(parser, " " + PREFIX_DATE + "2021-01-01:2022-01-01:2022-01-01",
+                String.format(MESSAGE_INVALID_FINDDATE_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     /**
@@ -268,11 +322,30 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand =
                 new FindCommand(new HoursEqualPredicate(Integer.parseInt(VALID_HOURSWORKED_AMY)));
         try {
+            // Test equals comparison
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_HOURSWORKED + "=" + VALID_HOURSWORKED_AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
             assertTrue(parsedFindCommand.getPredicate().test(AMY));
             assertFalse(parsedFindCommand.getPredicate().test(BOB));
+
+            // Test more than equal comparison
+            parsedFindCommand = parser.parse(" " + PREFIX_HOURSWORKED + ">=" + VALID_HOURSWORKED_AMY);
+            expectedFindCommand =
+                    new FindCommand(new HoursMoreThanEqualPredicate(Integer.parseInt(VALID_HOURSWORKED_AMY)));
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
+
+            // Test less than comparison
+            parsedFindCommand = parser.parse(" " + PREFIX_HOURSWORKED + "<" + VALID_HOURSWORKED_AMY);
+            expectedFindCommand =
+                    new FindCommand(new HoursLessThanPredicate(Integer.parseInt(VALID_HOURSWORKED_AMY)));
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertFalse(parsedFindCommand.getPredicate().test(AMY));
+            assertTrue(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -283,11 +356,30 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand =
                 new FindCommand(new LeaveEqualPredicate(Integer.parseInt(VALID_LEAVES_AMY)));
         try {
+            // Test equals comparison
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_LEAVE + "=" + VALID_LEAVES_AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
             assertTrue(parsedFindCommand.getPredicate().test(AMY));
             assertFalse(parsedFindCommand.getPredicate().test(BOB));
+
+            // Test more than equal comparison
+            parsedFindCommand = parser.parse(" " + PREFIX_LEAVE + ">=" + VALID_LEAVES_AMY);
+            expectedFindCommand =
+                    new FindCommand(new LeaveMoreThanEqualPredicate(Integer.parseInt(VALID_LEAVES_AMY)));
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
+
+            // Test less than comparison
+            parsedFindCommand = parser.parse(" " + PREFIX_LEAVE + "<" + VALID_LEAVES_AMY);
+            expectedFindCommand =
+                    new FindCommand(new LeaveLessThanPredicate(Integer.parseInt(VALID_LEAVES_AMY)));
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertFalse(parsedFindCommand.getPredicate().test(AMY));
+            assertTrue(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
@@ -298,10 +390,29 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand =
                 new FindCommand(new OvertimeEqualPredicate(Integer.parseInt(VALID_OVERTIME_AMY)));
         try {
+            // Test equals comparison
             FindCommand parsedFindCommand = parser.parse(" " + PREFIX_OVERTIME + "=" + VALID_OVERTIME_AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
             assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertFalse(parsedFindCommand.getPredicate().test(BOB));
+
+            // Test less than equal comparison
+            parsedFindCommand = parser.parse(" " + PREFIX_OVERTIME + "<=" + VALID_OVERTIME_AMY);
+            expectedFindCommand =
+                    new FindCommand(new OvertimeLessThanEqualPredicate(Integer.parseInt(VALID_OVERTIME_AMY)));
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertTrue(parsedFindCommand.getPredicate().test(AMY));
+            assertTrue(parsedFindCommand.getPredicate().test(BOB));
+
+            // Test more than comparison
+            parsedFindCommand = parser.parse(" " + PREFIX_OVERTIME + ">" + VALID_OVERTIME_AMY);
+            expectedFindCommand =
+                    new FindCommand(new OvertimeMoreThanPredicate(Integer.parseInt(VALID_OVERTIME_AMY)));
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, AMY);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
+            assertFalse(parsedFindCommand.getPredicate().test(AMY));
             assertFalse(parsedFindCommand.getPredicate().test(BOB));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
@@ -335,6 +446,73 @@ public class FindCommandParserTest {
             assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, BOB);
             assertFalse(parsedFindCommand.getPredicate().test(AMY));
             assertTrue(parsedFindCommand.getPredicate().test(BOB));
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
+
+    @Test
+    public void parse_validSingleDateLeave_returnsFindCommand() {
+        String validDateString = "2021-02-28";
+
+        ArrayList<LocalDate> testLeaveDates = new ArrayList<>();
+        testLeaveDates.add(LocalDate.parse(validDateString));
+
+        ArrayList<LocalDate> personLeaveDates = new ArrayList<>();
+        personLeaveDates.add(LocalDate.parse(validDateString));
+
+        FindCommand expectedFindCommand =
+                new FindCommand(new LeavesTakenContainsDatesPredicate(testLeaveDates, new ArrayList<>()));
+        Person personWithNoLeave = new PersonBuilder().build();
+        Person personWithLeaveOnDate = new PersonBuilder().withLeavesTaken(personLeaveDates).build();
+        try {
+            FindCommand parsedFindCommand = parser.parse(" " + PREFIX_DATE + "2021-02-28");
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, personWithNoLeave);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, personWithLeaveOnDate);
+            assertTrue(parsedFindCommand.getPredicate().test(personWithLeaveOnDate));
+            assertFalse(parsedFindCommand.getPredicate().test(personWithNoLeave));
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
+
+    @Test
+    public void parse_validDateRangeLeave_returnsFindCommand() {
+        String validDateInRange = "2021-03-19";
+        String validDateOutsideRange = "2021-05-20";
+        String validDateRangeString = "2021-02-28:2021-03-28";
+
+        // Create expected find command
+        ArrayList<Pair<LocalDate, LocalDate>> testLeaveDateRange = new ArrayList<>();
+        testLeaveDateRange.add(new Pair<>(LocalDate.parse("2021-02-28"), LocalDate.parse("2021-03-28")));
+
+        FindCommand expectedFindCommand =
+                new FindCommand(new LeavesTakenContainsDatesPredicate(new ArrayList<>(), testLeaveDateRange));
+
+        // Create test people
+        ArrayList<LocalDate> personLeaveInRangeDates = new ArrayList<>();
+        personLeaveInRangeDates.add(LocalDate.parse(validDateInRange));
+
+        ArrayList<LocalDate> personLeaveOutsideRangeDates = new ArrayList<>();
+        personLeaveOutsideRangeDates.add(LocalDate.parse(validDateOutsideRange));
+
+        Person personWithNoLeave = new PersonBuilder().build();
+        Person personWithLeaveInRange = new PersonBuilder().withLeavesTaken(personLeaveInRangeDates).build();
+        Person personWithLeaveOutsideRange = new PersonBuilder().withLeavesTaken(personLeaveOutsideRangeDates).build();
+        try {
+            FindCommand parsedFindCommand = parser.parse(" " + PREFIX_DATE + validDateRangeString);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, personWithNoLeave);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, personWithLeaveInRange);
+            assertPredicatesAreEqual(expectedFindCommand, parsedFindCommand, personWithLeaveOutsideRange);
+
+            // no leave at all => false
+            assertFalse(parsedFindCommand.getPredicate().test(personWithNoLeave));
+
+            // leave in range => true
+            assertTrue(parsedFindCommand.getPredicate().test(personWithLeaveInRange));
+
+            // leave outside range => false
+            assertFalse(parsedFindCommand.getPredicate().test(personWithLeaveOutsideRange));
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
