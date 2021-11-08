@@ -66,6 +66,7 @@ _Display Panel_ <br>
     If the employee list is empty, no employee information would be shown in this panel.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 ## Features
 <div markdown="block" class="alert alert-info">
 
