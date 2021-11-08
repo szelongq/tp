@@ -18,6 +18,7 @@ public class AssignLeaveCommandParserTest {
     private static AssignLeaveCommandParser parser = new AssignLeaveCommandParser();
 
     private static final String FIRST_INDEX = "1";
+    private static final String INVALID_INDEX = "-1";
 
     private static final String INVALID_LEAP_YEAR_DATE = "2021-02-29"; // 2021 is not a leap year.
     private static final String INVALID_MONTH_DATE = "2020-50-29"; // 50 is not a valid month for a date
@@ -30,6 +31,8 @@ public class AssignLeaveCommandParserTest {
 
     private static final String INPUT_DATE_NOT_GIVEN = " " + FIRST_INDEX + " " + PREFIX_DATE;
     private static final String INPUT_INDEX_NOT_GIVEN = " " + PREFIX_DATE + VALID_TYPICAL_DATE;
+
+    private static final String INPUT_INVALID_INDEX = " " + INVALID_INDEX + " " + PREFIX_DATE + VALID_TYPICAL_DATE;
 
     private static final String INPUT_INVALID_DAY = " " + FIRST_INDEX + " " + PREFIX_DATE + INVALID_DAY_DATE;
     private static final String INPUT_INVALID_LEAP_YEAR = " " + FIRST_INDEX + " " + PREFIX_DATE
@@ -55,6 +58,14 @@ public class AssignLeaveCommandParserTest {
     @Test
     public void parse_dateNotGiven_invalidCommandError() {
         String input = INPUT_DATE_NOT_GIVEN;
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignLeaveCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, input, expectedMessage);
+    }
+
+    // Invalid Index -> Failure
+    @Test
+    public void parse_invalidIndexGiven_invalidCommandError() {
+        String input = INPUT_INVALID_INDEX;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignLeaveCommand.MESSAGE_USAGE);
         assertParseFailure(parser, input, expectedMessage);
     }
