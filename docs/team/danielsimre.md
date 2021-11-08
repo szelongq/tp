@@ -80,8 +80,6 @@ Given below are my contributions to the project.
     [#200](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/200)
 
 * **Contributions to the Developer Guide (Extracts)**
-  * Class diagram for `Person` attribute classes
-    ![PersonClassDiagram](../images/PersonClassDiagram.png)
   * Sequence diagram for `AddLeaveBalanceCommand`
     ![AddLeaveBalanceSequenceDiagram](../images/AddLeaveBalanceSequenceDiagram.png)
   * Sequence diagram for `RemoveLeavesBeforeCommand`
