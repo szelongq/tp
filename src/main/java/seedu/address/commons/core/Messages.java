@@ -34,6 +34,7 @@ public class Messages {
             "Invalid date format/value! (Correct format: YYYY-MM-DD, and given date must be valid) \n%1$s";
     public static final String MESSAGE_INVALID_FINDDATE_FORMAT =
             "Dates should be of the form YYYY-MM-DD or YYYY-MM-DD:YYYY-MM-DD (for ranges)! \n%1$s";
+    public static final String MESSAGE_EMPTY_FILTERED_LIST = "There are no employees currently listed! \n";
     public static final String MESSAGE_DATE_ALREADY_ASSIGNED =
             "Employee %1$s already has a leave assigned to the date %2$s! \n";
 }

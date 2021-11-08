@@ -192,7 +192,7 @@ public class AssignLeaveCommandTest {
         assertFalse(standardCommand.equals(new AssignLeaveCommand(INDEX_SECOND_PERSON,
                 LocalDate.parse(VALID_DATE_AMY))));
 
-        // Different number of leaves -> returns false
+        // Different date -> returns false
         assertFalse(standardCommand.equals(new AssignLeaveCommand(INDEX_FIRST_PERSON,
                 LocalDate.parse(VALID_DATE_BOB))));
     }

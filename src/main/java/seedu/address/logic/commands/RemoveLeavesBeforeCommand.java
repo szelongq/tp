@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import java.time.LocalDate;
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -44,6 +45,10 @@ public class RemoveLeavesBeforeCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
+        if (model.getFilteredPersonList().size() == 0) {
+            throw new CommandException(Messages.MESSAGE_EMPTY_FILTERED_LIST);
+        }
+
         // Remove dates from all persons in the filtered list
         for (Person personToEdit : lastShownList) {
             Person personWithDatesRemoved = getUpdatedPerson(personToEdit);
@@ -65,7 +70,7 @@ public class RemoveLeavesBeforeCommand extends Command {
      * @param personToEdit The person object that is to be edited.
      * @return An updated Person object.
      */
-    private Person getUpdatedPerson(Person personToEdit) throws CommandException {
+    private Person getUpdatedPerson(Person personToEdit) {
         return new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
                 personToEdit.getRole(), personToEdit.getLeaveBalance(),
