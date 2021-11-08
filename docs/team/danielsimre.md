@@ -25,7 +25,7 @@ Given below are my contributions to the project.
       * Highlights: The implementation of `addHoursWorked` and `deductHoursWorked` was challenging as
         it could take in either `HoursWorked` and/or `Overtime`, so all of these valid cases needed to be handled.
         Also, for the case where one of the inputs is valid while the other is invalid, the command throws an error that specifies
-        which input is causing the error. (If both inputs are invalid, an error is thrown for `HoursWorked`)
+        which input is causing the error.
         
     * Implemented `LeavesTaken` attribute for `Person`, as well as `assignLeave` and `removeLeavesBefore` commands.
       * What it does: `assignLeave` assigns a leave associated with a date to an employee.
@@ -41,7 +41,7 @@ Given below are my contributions to the project.
       * Justification: This allows users to more easily find employees that have taken leaves on certain dates, in case they need to 
         determine who is not working on a given date or period.
       * Highlights: The find command is able to take a combination of date ranges and individual dates.
-        For example, `find d/2021-10-11:2021-10-20 2021-11-11 2021-12-12` gets all employees that have at least 1 date
+        For example, `find d/2021-10-11:2021-10-20 2021-11-11 2021-12-12` gets all employees that have at least 1 assigned leave
         from 2021-10-11 to 2021-10-20, or on 2021-11-11 or 2021-12-12.
 * **Documentation Contributions**:
   * User Guide:
@@ -82,7 +82,7 @@ Given below are my contributions to the project.
 * **Contributions to the Developer Guide (Extracts)**
   * Class diagram for `Person` attribute classes
     ![PersonClassDiagram](../images/PersonClassDiagram.png)
-  * Sequence diagram for `AddLeaveBalancCommand`
+  * Sequence diagram for `AddLeaveBalanceCommand`
     ![AddLeaveBalanceSequenceDiagram](../images/AddLeaveBalanceSequenceDiagram.png)
   * Sequence diagram for `RemoveLeavesBeforeCommand`
     ![RemoveLeavesBeforeSequenceDiagram](../images/RemoveLeavesBeforeSequenceDiagram.png)
