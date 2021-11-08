@@ -33,14 +33,14 @@ public class PayCommand extends Command {
 
     public static final String COMMAND_WORD = "pay";
 
-    public static final String SPECIAL_COMMAND_PHRASE = "all";
+    public static final String PAY_ALL_COMMAND_PHRASE = "all";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Pays the employee identified by the index number used "
             + "OR all employees in the displayed employee list.\n"
             + "Parameters: INDEX (must be a positive integer) OR \"all\"\n"
             + "Example 1: " + COMMAND_WORD + " 1\n"
-            + "Example 2: " + COMMAND_WORD + " " + SPECIAL_COMMAND_PHRASE;
+            + "Example 2: " + COMMAND_WORD + " " + PAY_ALL_COMMAND_PHRASE;
 
     public static final String MESSAGE_PAY_PERSON_SUCCESS = "Successfully paid $%1$s to employee: %2$s";
 
