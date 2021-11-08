@@ -63,7 +63,7 @@ _List Panel_ <br>
 _Display Panel_ <br>
 - Displays all of a specified employee's information.
 - On start-up of the application, it displays the first employee in the list.
-    If the employee list is empty, it displays an example person with example attributes. The example is purely visual, and does not exist in the employee list.
+    If the employee list is empty, no employee information would be shown in this panel.
 
 --------------------------------------------------------------------------------------------------------------------
 ## Features
@@ -496,7 +496,7 @@ Format: `import FILEPATH`
 * For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value.
 * If a value for a field is provided for at least one entry, then all other entries must also have their respective values for the field provided.
 
-#### Field Naming Requirements and Default Values
+**Field Naming Requirements and Default Values**
 
 Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Value
 --------------|---------------|------------------------ | --------
@@ -565,7 +565,7 @@ Action | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Clear** | `clear`
 **Exit** | `exit`
-**Add to Leave Balance** | `addLeaveBalance INDEX l/NUMBER_OF_LEAVES` <br> e.g., `addLeaves 1 l/2`
+**Add to Leave Balance** | `addLeaveBalance INDEX l/NUMBER_OF_LEAVES` <br> e.g., `addLeaveBalance 1 l/2`
 **Deduct from Leave Balance** | `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES` <br> e.g., `deductLeaveBalance 4 l/1`
 **Assign Leave** |  `assignLeave INDEX d/DATE` <br> e.g., `assignLeave 1 d/2021-10-30`
 **Filter and Remove Leaves before a Date** |  `removeLeavesBefore d/DATE` <br> e.g., `removeLeavesBefore d/2021-10-30`
