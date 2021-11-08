@@ -265,7 +265,7 @@ Given below is an example usage scenario and how the import mechanism behaves at
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
 
-**Step 3.** Program processes the .csv file. The first row is identified as the header row, which is used to determine which field of the PersonInput class the column represents. The remaining rows are parsed and PersonInput Objects are created and added into a List. Once done, the List of PersonInput Objects will be used to create a separate list of Person objects used to update the address book.
+**Step 3.** Program processes the .csv file. The first row is identified as the header row, which is used to determine which field of the PersonInput class the column represents. The remaining rows are parsed and PersonInput objects are created and added into a List. Once done, the List of PersonInput objects will be used to create a separate List of Person objects used to update the address book.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current AddressBook.</div>
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Data present in the imported file must adhere to respective requirements for each field. `Name`, `Email` and `Phone` fields cannot be the same as other entries. If duplicate values exist, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
@@ -278,7 +278,7 @@ The following sequence diagram shows how the import feature works:
    <div style="page-break-after: always;"></div>
 ![ImportProcessData](images/ImportProcessData.png)
 
-The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display".
+The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display", which can be found [here](#updating-info-panel-display).
 
 The following activity diagram summarizes what happens when a user uses the `import` command:
 ![ImportActivityDiagram](images/ImportActivityDiagram.png)
