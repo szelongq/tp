@@ -99,7 +99,7 @@ public class AddressBookParser {
             return new DeductHoursWorkedCommandParser().parse(arguments);
 
         case StartPayrollCommand.COMMAND_WORD:
-            return new StartPayrollCommandParser().parse(arguments);
+            return new StartPayrollCommand();
 
         case PayCommand.COMMAND_WORD:
             return new PayCommandParser().parse(arguments);

@@ -61,6 +61,44 @@ public class AddHoursWorkedCommandTest {
                 salary, newHours, newOvertime, calculatedPay, tags);
     }
 
+    private Person createPersonWithMaxHoursWorked(Person personToAddHoursTo) {
+        Name name = personToAddHoursTo.getName();
+        Phone phone = personToAddHoursTo.getPhone();
+        Email email = personToAddHoursTo.getEmail();
+        Address address = personToAddHoursTo.getAddress();
+        Role role = personToAddHoursTo.getRole();
+        LeaveBalance leaves = personToAddHoursTo.getLeaveBalance();
+        LeavesTaken leavesTaken = personToAddHoursTo.getLeavesTaken();
+        HourlySalary salary = personToAddHoursTo.getSalary();
+        CalculatedPay calculatedPay = personToAddHoursTo.getCalculatedPay();
+        Set<Tag> tags = personToAddHoursTo.getTags();
+
+        HoursWorked newHours = new HoursWorked(String.valueOf(HoursWorked.MAX_HOURS_WORKED));
+        Overtime overtime = personToAddHoursTo.getOvertime();
+
+        return new Person(name, phone, email, address, role, leaves, leavesTaken,
+                salary, newHours, overtime, calculatedPay, tags);
+    }
+
+    private Person createPersonWithMaxOvertime(Person personToAddHoursTo) {
+        Name name = personToAddHoursTo.getName();
+        Phone phone = personToAddHoursTo.getPhone();
+        Email email = personToAddHoursTo.getEmail();
+        Address address = personToAddHoursTo.getAddress();
+        Role role = personToAddHoursTo.getRole();
+        LeaveBalance leaves = personToAddHoursTo.getLeaveBalance();
+        LeavesTaken leavesTaken = personToAddHoursTo.getLeavesTaken();
+        HourlySalary salary = personToAddHoursTo.getSalary();
+        CalculatedPay calculatedPay = personToAddHoursTo.getCalculatedPay();
+        Set<Tag> tags = personToAddHoursTo.getTags();
+
+        HoursWorked hours = personToAddHoursTo.getHoursWorked();
+        Overtime newOvertime = new Overtime(String.valueOf(Overtime.MAX_OVERTIME));
+
+        return new Person(name, phone, email, address, role, leaves, leavesTaken,
+                salary, hours, newOvertime, calculatedPay, tags);
+    }
+
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToAddHoursTo = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -127,6 +165,44 @@ public class AddHoursWorkedCommandTest {
                 new AddHoursWorkedCommand(outOfBoundIndex, addedHoursWorked, addedOvertime);
 
         assertCommandFailure(addHoursWorkedCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_exceedsMaxHoursWorked_throwsCommandException() {
+        Person personToAddHoursWorkedTo = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personWithMaxHoursWorked = createPersonWithMaxHoursWorked(personToAddHoursWorkedTo);
+        model.setPerson(personToAddHoursWorkedTo, personWithMaxHoursWorked);
+
+        AddHoursWorkedCommand addHoursWorkedCommand =
+                new AddHoursWorkedCommand(INDEX_FIRST_PERSON, addedHoursWorked, addedOvertime);
+
+        String hoursWorkedCapacityString = personWithMaxHoursWorked.getHoursWorked()
+                        .getRemainingHoursWorkedCapacity().toString();
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_ADD_INPUT,
+                HoursWorked.MAX_HOURS_WORKED,
+                "hours worked", hoursWorkedCapacityString,
+                hoursWorkedCapacityString.equals("1") ? "hour worked" : "hours worked");
+
+        assertCommandFailure(addHoursWorkedCommand, model, expectedMessage);
+    }
+
+    @Test
+    public void execute_exceedsMaxOvertime_throwsCommandException() {
+        Person personToAddHoursWorkedTo = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personWithMaxOvertime = createPersonWithMaxOvertime(personToAddHoursWorkedTo);
+        model.setPerson(personToAddHoursWorkedTo, personWithMaxOvertime);
+
+        AddHoursWorkedCommand addHoursWorkedCommand =
+                new AddHoursWorkedCommand(INDEX_FIRST_PERSON, addedHoursWorked, addedOvertime);
+
+        String overtimeCapacityString = personWithMaxOvertime.getOvertime()
+                .getRemainingOvertimeCapacity().toString();
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_ADD_INPUT,
+                Overtime.MAX_OVERTIME,
+                "overtime hours worked", overtimeCapacityString,
+                overtimeCapacityString.equals("1") ? "overtime hour worked" : "overtime hours worked");
+
+        assertCommandFailure(addHoursWorkedCommand, model, expectedMessage);
     }
 
     @Test
