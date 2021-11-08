@@ -1021,7 +1021,7 @@ Guarantees:
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Salary**: Monthly hourlySalary payout to employees
+* **Salary**: Hourly Salary payout to employees
 * **Leave**: Refers to a day when an employee has permission to be absent from work
 
 --------------------------------------------------------------------------------------------------------------------
