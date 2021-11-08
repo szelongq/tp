@@ -107,7 +107,7 @@ Format: `help`
 
 Adds an employee to HeRon.
 
-Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLYSALARY hw/HOURSWORKED o/OVERTIME [t/TAG]…​`
+Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLYSALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
 
 * Follow the requirements for the respective fields listed in the table below:
 
@@ -120,7 +120,7 @@ Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES 
     `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
     `NUMBER_OF_LEAVES`| Non-negative integers less than or equal to 365. |`12`,`0`
     `HOURLYSALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
-    `HOURSWORKED`| Positive integers less than or equal to 744.| `12`,`1`
+    `HOURS_WORKED`| Positive integers less than or equal to 744.| `12`,`1`
     `OVERTIME`| Non-negative integers less than or equal to 744. | `12`,`0`
     `TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
 
@@ -388,7 +388,7 @@ Examples:
 
 Calculates the payroll of all employees and mark them as awaiting the payment.
 
-The payroll formula is: `HOURSWORKED * HOURLYSALARY + OVERTIME * HOURLYSALARY * OVERTIMEPAYRATE`,<br>
+The payroll formula is: `HOURS_WORKED * HOURLYSALARY + OVERTIME * HOURLYSALARY * OVERTIMEPAYRATE`,<br>
 where `OVERTIMEPAYRATE` is the added pay rate for overtime as compared to normal work hours.<br>
 It can be viewed through the `viewOvertimePayRate` command or changed through the `setOvertimePayRate` command.
 
@@ -507,7 +507,7 @@ Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Valu
 `ROLE` |Role|**Yes**| N.A.
 `NUMBER_OF_LEAVES` |Leave Balance|No | 0
 `HOURLYSALARY` |Salary|No | 0.00
-`HOURSWORKED` |Hours Worked|No | 0
+`HOURS_WORKED` |Hours Worked|No | 0
 `OVERTIME` |Overtime|No | 0
 `TAGS`|Tags|No| Empty Set of Tags
 
@@ -557,11 +557,11 @@ List of available commands with their respective format and example usages for q
 Action | Format, Examples
 --------|------------------
 **Help** | `help`
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLYSALARY hw/HOURSWORKED o/OVERTIME[t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLYSALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
 **List** | `list`
 **View** | `view INDEX`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
-**Find** | `find [STATUS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
+**Find** | `find [STATUS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Clear** | `clear`
 **Exit** | `exit`
