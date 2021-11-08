@@ -97,27 +97,39 @@ public class FindCommandParser implements Parser<FindCommand> {
             filters.add(new PersonIsPaidPredicate());
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
+            String nameKeywordValue = argMultimap.getValue(PREFIX_NAME).get();
+            checkNotBlankValue(nameKeywordValue);
+            String[] nameKeywords = nameKeywordValue.split("\\s+");
             filters.add(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            String[] phoneKeyNumbers = argMultimap.getValue(PREFIX_PHONE).get().split("\\s+");
+            String phoneKeywordValue = argMultimap.getValue(PREFIX_PHONE).get();
+            checkNotBlankValue(phoneKeywordValue);
+            String[] phoneKeyNumbers = phoneKeywordValue.split("\\s+");
             filters.add(new PhoneNumberMatchesPredicate(Arrays.asList(phoneKeyNumbers)));
         }
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
-            String[] tagKeywords = argMultimap.getValue(PREFIX_TAG).get().split("\\s+");
+            String tagKeywordValue = argMultimap.getValue(PREFIX_TAG).get();
+            checkNotBlankValue(tagKeywordValue);
+            String[] tagKeywords = tagKeywordValue.split("\\s+");
             filters.add(new TagContainsKeywordsPredicate(Arrays.asList(tagKeywords)));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            String[] emailKeywords = argMultimap.getValue(PREFIX_EMAIL).get().split("\\s+");
+            String emailKeywordValue = argMultimap.getValue(PREFIX_EMAIL).get();
+            checkNotBlankValue(emailKeywordValue);
+            String[] emailKeywords = emailKeywordValue.split("\\s+");
             filters.add(new EmailContainsKeywordsPredicate(Arrays.asList(emailKeywords)));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            String[] addressKeywords = argMultimap.getValue(PREFIX_ADDRESS).get().split("\\s+");
+            String addressKeywordValue = argMultimap.getValue(PREFIX_ADDRESS).get();
+            checkNotBlankValue(addressKeywordValue);
+            String[] addressKeywords = addressKeywordValue.split("\\s+");
             filters.add(new AddressContainsKeywordsPredicate(Arrays.asList(addressKeywords)));
         }
         if (argMultimap.getValue(PREFIX_ROLE).isPresent()) {
-            String[] roleKeywords = argMultimap.getValue(PREFIX_ROLE).get().split("\\s+");
+            String roleKeywordValue = argMultimap.getValue(PREFIX_ROLE).get();
+            checkNotBlankValue(roleKeywordValue);
+            String[] roleKeywords = roleKeywordValue.split("\\s+");
             filters.add(new RoleContainsKeywordsPredicate(Arrays.asList(roleKeywords)));
         }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
@@ -385,5 +397,15 @@ public class FindCommandParser implements Parser<FindCommand> {
             break;
         }
         return stringValue;
+    }
+
+    /**
+     * Checks if the user input provided into the Find Command is not blank.
+     */
+    public static void checkNotBlankValue(String value) throws ParseException {
+        if (value.isBlank()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
     }
 }
