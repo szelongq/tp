@@ -14,7 +14,7 @@ public class PayCommandParser implements Parser<PayCommand> {
      */
     public PayCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.equals(PayCommand.SPECIAL_COMMAND_PHRASE)) {
+        if (trimmedArgs.equals(PayCommand.PAY_ALL_COMMAND_PHRASE)) {
             return new PayCommand();
         } else {
             try {

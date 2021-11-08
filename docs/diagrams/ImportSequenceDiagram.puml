@@ -1,0 +1,59 @@
+@startuml
+!include style.puml
+title Sequence Diagram of ImportCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ImportCommandParser" as ImportCommandParser LOGIC_COLOR
+participant ":ImportCommand" as ImportCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("import filepath")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("import filepath")
+activate AddressBookParser
+
+create ImportCommandParser
+AddressBookParser -> ImportCommandParser : ImportCommandParser("import filepath")
+activate ImportCommandParser
+
+ImportCommandParser --> AddressBookParser
+deactivate ImportCommandParser
+
+AddressBookParser -> ImportCommandParser : parse(filepath)
+activate ImportCommandParser
+
+create ImportCommand
+ImportCommandParser -> ImportCommand : ImportCommand(filepath)
+activate ImportCommand
+
+ImportCommand --> ImportCommandParser :
+deactivate ImportCommand
+
+ImportCommandParser --> AddressBookParser :
+deactivate ImportCommandParser
+ImportCommandParser -[hidden]-> AddressBookParser
+destroy ImportCommandParser
+
+AddressBookParser --> LogicManager :
+deactivate AddressBookParser
+AddressBookParser -[hidden]-> LogicManager
+destroy AddressBookParser
+
+LogicManager -> ImportCommand : execute(model)
+activate ImportCommand
+
+ref over ImportCommand: Import Data
+
+ref over ImportCommand: Update GUI
+
+ImportCommand --> LogicManager
+deactivate ImportCommand
+ImportCommand -[hidden]-> LogicManager
+destroy ImportCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

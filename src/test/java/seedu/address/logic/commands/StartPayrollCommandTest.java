@@ -145,6 +145,16 @@ public class StartPayrollCommandTest {
     }
 
     @Test
+    public void execute_noOneToPay_throwsCommandException() {
+        Model emptyModel = new ModelManager();
+        StartPayrollCommand startPayrollCommand = new StartPayrollCommand();
+
+        String expectedMessage = StartPayrollCommand.MESSAGE_NO_ONE_TO_PAY;
+
+        assertCommandFailure(startPayrollCommand, emptyModel, expectedMessage);
+    }
+
+    @Test
     public void execute_personIsNotPaid_throwsCommandException() {
         Person personToCalculatePay = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         StartPayrollCommand startPayrollCommand = new StartPayrollCommand();
@@ -155,7 +165,7 @@ public class StartPayrollCommandTest {
         model.setPerson(personToCalculatePay, personWithCalculatedPay);
 
         String expectedMessage =
-                String.format(StartPayrollCommand.MESSAGE_NOT_PAID, personToCalculatePay);
+                String.format(StartPayrollCommand.MESSAGE_NOT_PAID, personToCalculatePay.getName());
 
         assertCommandFailure(startPayrollCommand, model, expectedMessage);
     }

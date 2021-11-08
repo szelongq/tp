@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -40,20 +41,30 @@ public class StartPayrollCommand extends Command {
 
     public static final String MESSAGE_START_PAYROLL_SUCCESS = "Payroll done.";
 
+    public static final String MESSAGE_NO_ONE_TO_PAY = "There are no employees to be paid. Maybe try adding employees?";
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        List<Person> personList = model.getFilteredPersonList();
+        // Create a deep copy of the filtered list for viewing
+        List<Person> personList = new ArrayList<>(model.getFilteredPersonList());
+        // Create a second list for storing changed persons
+        List<Person> calculatedPersonsList = new ArrayList<>();
 
-        // First, check if there are any unpaid employees
+        // First, check if the employee list is empty
+        if (personList.isEmpty()) {
+            throw new CommandException(MESSAGE_NO_ONE_TO_PAY);
+        }
+
+        // Secondly, check if there are any unpaid employees
         for (Person personToCalculatePay: personList) {
             /*
              * An exception is thrown if the employee to be calculated for still
              * has a previous calculated pay that has not been paid yet.
              */
             if (!personToCalculatePay.isPaid()) {
-                throw new CommandException(String.format(MESSAGE_NOT_PAID, personToCalculatePay));
+                throw new CommandException(String.format(MESSAGE_NOT_PAID, personToCalculatePay.getName()));
             }
         }
 
@@ -72,10 +83,23 @@ public class StartPayrollCommand extends Command {
             Person personWithCalculatedPay = createPersonWithCalculatedPay(personToCalculatePay, calculatedPay);
             // and reset their hours worked and overtime to zero
             Person personWithPayrollDone = createPersonWithZeroHoursWorkedAndOvertime(personWithCalculatedPay);
+            // Store the changed person in a deep copy list first rather than
+            // immediately replacing into the model
+            calculatedPersonsList.add(personWithPayrollDone);
+        }
+
+        assert personList.size() == calculatedPersonsList.size();
+
+        // After all calculations have been successfully done,
+        // replace the persons with calculated payroll into the model
+        for (int i = 0; i < personList.size(); i++) {
+            Person personToCalculatePay = personList.get(i);
+            Person personWithPayrollDone = calculatedPersonsList.get(i);
             model.setPerson(personToCalculatePay, personWithPayrollDone);
         }
 
-        model.setViewingPerson(personList.get(0));
+        // View the first person in the whole list of employees
+        model.setViewingPerson(model.getFilteredPersonList().get(0));
 
         return new CommandResult(String.format(MESSAGE_START_PAYROLL_SUCCESS));
     }

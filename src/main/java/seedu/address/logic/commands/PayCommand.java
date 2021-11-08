@@ -33,14 +33,14 @@ public class PayCommand extends Command {
 
     public static final String COMMAND_WORD = "pay";
 
-    public static final String SPECIAL_COMMAND_PHRASE = "all";
+    public static final String PAY_ALL_COMMAND_PHRASE = "all";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Pays the employee identified by the index number used "
             + "OR all employees in the displayed employee list.\n"
             + "Parameters: INDEX (must be a positive integer) OR \"all\"\n"
             + "Example 1: " + COMMAND_WORD + " 1\n"
-            + "Example 2: " + COMMAND_WORD + " " + SPECIAL_COMMAND_PHRASE;
+            + "Example 2: " + COMMAND_WORD + " " + PAY_ALL_COMMAND_PHRASE;
 
     public static final String MESSAGE_PAY_PERSON_SUCCESS = "Successfully paid $%1$s to employee: %2$s";
 
@@ -117,38 +117,45 @@ public class PayCommand extends Command {
 
     private CommandResult executePayAll(Model model) throws CommandException {
         assert nonNull(model);
-        // Create a deep copy of the filtered list
+        // Create a deep copy of the filtered list for viewing
         List<Person> lastShownList = new ArrayList<>(model.getFilteredPersonList());
+        List<Person> personsToBePaidList = new ArrayList<>();
+        List<Person> paidPersonsList = new ArrayList<>();
         List<Person> personsSkippedList = new ArrayList<>();
-        Person firstPersonToBePaid = null;
 
         // If all employees in the list are already paid, throw a CommandException
-        for (Person personToPay: lastShownList) {
-            if (!personToPay.isPaid()) {
-                firstPersonToBePaid = personToPay;
-                break;
+        for (Person person: lastShownList) {
+            if (!person.isPaid()) {
+                personsToBePaidList.add(person);
+            } else {
+                personsSkippedList.add(person);
             }
         }
 
-        if (firstPersonToBePaid == null) {
+        if (personsToBePaidList.isEmpty()) {
             throw new CommandException(MESSAGE_NO_ONE_TO_BE_PAID);
         }
 
         // Pay all persons in the list only if they have not been paid
-        for (Person personToPay: lastShownList) {
-            if (!personToPay.isPaid()) {
-                Person paidPerson = createPaidPerson(personToPay);
-                model.setPerson(personToPay, paidPerson);
-                if (personToPay.isSamePerson(firstPersonToBePaid)) {
-                    firstPersonToBePaid = paidPerson;
-                }
-            } else {
-                personsSkippedList.add(personToPay);
-            }
+        for (Person personToPay: personsToBePaidList) {
+            Person paidPerson = createPaidPerson(personToPay);
+            // Add changed persons to separate list first instead of
+            // immediately replacing into the model
+            paidPersonsList.add(paidPerson);
+        }
+
+        assert personsToBePaidList.size() == paidPersonsList.size();
+
+        // After all payment is done successfully, replace the
+        // changed persons into the model
+        for (int i = 0; i < personsToBePaidList.size(); i++) {
+            Person personToPay = personsToBePaidList.get(i);
+            Person paidPerson = paidPersonsList.get(i);
+            model.setPerson(personToPay, paidPerson);
         }
 
         // View the first person in the list that has been paid
-        model.setViewingPerson(firstPersonToBePaid);
+        model.setViewingPerson(paidPersonsList.get(0));
 
         // If there were persons who were already paid and was skipped,
         // add notifications on the persons skipped in the command result message

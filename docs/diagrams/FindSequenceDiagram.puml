@@ -1,0 +1,55 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant "<<class>> \n ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant "f:FindCommand" as FindCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("find 1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("find unpaid n/John s/<10")
+activate AddressBookParser
+
+create FindCommandParser
+AddressBookParser -> FindCommandParser
+activate FindCommandParser
+
+FindCommandParser --> AddressBookParser
+deactivate FindCommandParser
+
+AddressBookParser -> FindCommandParser : parse("unpaid n/John s/<10")
+activate FindCommandParser
+
+FindCommandParser -> ArgumentTokenizer : tokenize()
+activate ArgumentTokenizer
+
+ArgumentTokenizer --> FindCommandParser : ArgumentMultimap
+deactivate ArgumentTokenizer
+
+ref over FindCommandParser: get predicates
+
+create FindCommand
+FindCommandParser -> FindCommand : new FindCommand(combinePredicates(filters))
+activate FindCommand
+
+
+FindCommand --> FindCommandParser : f
+deactivate FindCommand
+
+FindCommandParser --> AddressBookParser : f
+deactivate FindCommandParser
+
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FindCommandParser -[hidden]-> AddressBookParser
+destroy FindCommandParser
+
+AddressBookParser --> LogicManager : f
+deactivate AddressBookParser
+
+@enduml
