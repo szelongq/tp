@@ -367,7 +367,7 @@ Examples:
 
 #### Deduct number of hours worked/overtime from an employee : `deductHoursWorked`
 
-deducts the specified number of hours worked or overtime from a chosen employee.
+Deducts the specified number of hours worked or overtime from a chosen employee.
 
 Format: `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 
@@ -443,7 +443,7 @@ Example:
   _After executing `pay 1`, Alex (being the 1st person in this list) is marked as paid_ <br>
 
 Format 2: `pay all` - for paying all employees in the current list
-* Simulates paying of employees in the same way as above, but for all employees instead.
+* Simulates paying of employees in the same way as above, but for all employees in the current list instead.
 * If there are employees already paid in the list, they will be skipped and will not be paid again.
 * There must be at least 1 employee in the list that has not been paid.
 
