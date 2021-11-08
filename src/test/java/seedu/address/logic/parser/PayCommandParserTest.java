@@ -19,7 +19,7 @@ public class PayCommandParserTest {
 
     @Test
     public void parsePayAll_validArgs_returnsPayCommand() {
-        assertParseSuccess(parser, PayCommand.SPECIAL_COMMAND_PHRASE, new PayCommand());
+        assertParseSuccess(parser, PayCommand.PAY_ALL_COMMAND_PHRASE, new PayCommand());
     }
 
     @Test
