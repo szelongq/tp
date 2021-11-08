@@ -45,9 +45,12 @@ Given below are my contributions to the project.
 * **Documentation**:
   
   * User Guide:
-    * Added documentation for the some of the payroll-related features, 
-      including `startPayroll`, `pay` and `setOvertimePayRate`
+    * Added documentation for the following payroll-related features:
       ([\#104](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/104/commits/1dfceed7fbcd2b01add2a89677b2c12f1cd73ec8))
+      * `startPayroll`
+      * `pay`
+      * `viewOvertimePayRate`
+      * `setOvertimePayRate`
     * Organized documented features into subcategories for easier referencing 
       ([\#104](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/104/commits/57ba9b399df24f384a747f04e17a3a274cb8e0eb))
       
