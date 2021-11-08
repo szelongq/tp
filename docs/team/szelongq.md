@@ -33,12 +33,11 @@ Given below are my contributions to the project.
     convenience.
   * Highlights: It was slightly challenging to decide how to store the overtime pay rate attribute. After deciding on
     adding it as an attribute to the user preferences, a number of refactoring also had to be done to various child 
-    classes.
+    classes. <br><br>
     
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=szelong&sort=groupTitle&sortWithin=title&since=2021-09-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=szelongq&tabRepo=AY2122S1-CS2103T-F11-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=&authorshipIsBinaryFileTypeChecked=false) <br><br>
 
-
-* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=szelong&sort=groupTitle&sortWithin=title&since=2021-09-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=szelongq&tabRepo=AY2122S1-CS2103T-F11-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=&authorshipIsBinaryFileTypeChecked=false)
-
+<div style="page-break-after: always;"></div>
 
 * **Contribution to Documentation**:
   * **User Guide**:
