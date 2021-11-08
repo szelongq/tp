@@ -84,3 +84,31 @@ Given below are my contributions to the project.
     ![AddLeaveBalanceSequenceDiagram](../images/AddLeaveBalanceSequenceDiagram.png)
   * Sequence diagram for `RemoveLeavesBeforeCommand`
     ![RemoveLeavesBeforeSequenceDiagram](../images/RemoveLeavesBeforeSequenceDiagram.png)
+    
+* **Contributions to the User Guide (Extracts)**
+  * **Type 4 Query: Date Based Comparison**
+    * Fields: `d/DATE`
+      * This field will find all people who have taken a leave on a given date or within a range of dates. (start and end dates inclusive)
+      * There are two ways to search using dates: individual dates or date ranges.
+        * For individual dates, simply type in a date of the form YYYY-MM-DD.
+        * For date ranges, simply type in two dates in the form YYYY-MM-DD:YYYY-MM-DD.
+      * Both individual dates and date ranges can be combined into one query.
+    * For example, `find d/2021-10-10 2021-11-01:2021-11-05` will find anyone who satisfies **either** of the following 2 criteria:
+      1. has taken a leave on October 10th 2021, or
+      2. has taken a leave between the dates November 1st 2021 and November 5th 2021, start and end dates inclusive.
+
+#### Add number of leaves for an employee : `addLeaveBalance`
+
+Adds the specified number of leaves to the current leave balance (number of days of leave left) of a chosen employee.
+
+Format: `addLeaveBalance INDEX l/NUMBER_OF_LEAVES`
+
+* Adds the specified number to the number of leaves of the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, …
+* The number of leaves **must be a positive integer between 1 and 365** 1, 2, 3, …, 365
+* The number of leaves to be added **cannot cause the employee's total leave balance to exceed 365 leaves.**
+
+Examples:
+* `list` followed by `addLeaveBalance 3 l/4` adds 4 days of leave to the 3rd employee in HeRon.
+* `find n/Sam` followed by `addLeaveBalance 1 l/1` adds 1 day of leave to the 1st employee in the results of the `find` command.
