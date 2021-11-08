@@ -20,10 +20,13 @@ Given below are my contributions to the project.
       1. To specify the exact places were an error has been found to make importing more user-friendly.
       2. To cater for the validity checks brought about by the updated `add` feature, where duplicate names, emails and phone numbers were not allowed.
 
-* **Enhancements to existing features**: Update `add` feature. ([#41](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/41), [#52](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/52), [#63](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/63), [#186](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/186))
-  * `add` now requires new fields, including Role, LeaveBalance, HourlySalary and HoursWorked, as properties of an employee.
-  * `add` checks for similar names, or duplicate phone numbers and emails. This is to mimic real world context where employees are unlikely to have the same full name, phone numbers or emails.
-  * `add` now processes the names of employees being added, removing additional whitespace typos and making it title case.
+* **Enhancements to existing features**: 
+  * Update `add` feature. ([#41](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/41), [#52](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/52), [#63](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/63), [#186](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/186))
+    * `add` now requires new fields, including Role, LeaveBalance, HourlySalary and HoursWorked, as properties of an employee.
+    * `add` checks for similar names, or duplicate phone numbers and emails. This is to mimic real world context where employees are unlikely to have the same full name, phone numbers or emails.
+    * `add` now processes the names of employees being added, removing additional whitespace typos and making it title case.
+    * Add new test cases adapted to suit the new functionality of `add`.
+  * Add test cases for `AssignLeaveCommandParser` and `RemoveLeavesBeforeCommandParser`. ([#237](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/237))
 
 * **Documentation**:
   * User Guide:
@@ -41,5 +44,5 @@ Given below are my contributions to the project.
     * Update AboutUs.md ([#31](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/31))
     * Format Developer Guide PDF file ([#231](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/231))
   * Review/Mentoring Contributions
-    * Reviewed a total of 13 PRs: [#37](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/37), [#45](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/45), [#54](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/54), [#67](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/67), [#83](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/83), [#92](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/92), [#108](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/108), [#109](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/109), [#192](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/192), [#194](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/194), [#195](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/195), [#209](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/209), [#225](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/225)
+    * Reviewed a total of 13 PRs: [#37](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/37), [#45](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/45), [#54](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/54), [#67](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/67), [#83](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/83), [#92](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/92), [#108](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/108), [#109](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/109), [#192](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/192), [#194](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/194), [#195](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/195), [#209](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/209), [#225](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/225), [#240](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/240))
 
