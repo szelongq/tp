@@ -105,7 +105,7 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
-
+<div style="page-break-after: always;"></div>
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:<br>
 <img src="images/ParserClasses.png" width="600"/>
 
