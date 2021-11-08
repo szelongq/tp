@@ -79,13 +79,13 @@ Given below are my contributions to the project.
     [#102](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/102),
     [#200](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/200)
 
-* **Contributions to the Developer Guide (Extracts)**
+**Contributions to the Developer Guide (Extracts)**
   * Sequence diagram for `AddLeaveBalanceCommand`
     ![AddLeaveBalanceSequenceDiagram](../images/AddLeaveBalanceSequenceDiagram.png)
   * Sequence diagram for `RemoveLeavesBeforeCommand`
     ![RemoveLeavesBeforeSequenceDiagram](../images/RemoveLeavesBeforeSequenceDiagram.png)
     
-* **Contributions to the User Guide (Extracts)**
+**Contributions to the User Guide (Extracts)**
   * **Type 4 Query: Date Based Comparison**
     * Fields: `d/DATE`
       * This field will find all people who have taken a leave on a given date or within a range of dates. (start and end dates inclusive)
