@@ -43,6 +43,8 @@ public class CommandTestUtil {
     public static final String VALID_ROLE_BOB = "Front End Developer";
     public static final String VALID_LEAVES_AMY = "20";
     public static final String VALID_LEAVES_BOB = "15";
+    public static final String VALID_DATE_AMY = "2021-10-10";
+    public static final String VALID_DATE_BOB = "2021-09-09";
     public static final String VALID_HOURLYSALARY_AMY = "33.33";
     public static final String VALID_HOURLYSALARY_BOB = "9.33";
     public static final String VALID_HOURSWORKED_AMY = "80";
