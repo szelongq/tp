@@ -57,6 +57,25 @@ public class AddLeaveBalanceCommandTest {
                 salary, hours, overtime, calculatedPay, tags);
     }
 
+    private Person createPersonWithMaxLeaveBalance(Person personToAddLeavesTo) {
+        Name name = personToAddLeavesTo.getName();
+        Phone phone = personToAddLeavesTo.getPhone();
+        Email email = personToAddLeavesTo.getEmail();
+        Address address = personToAddLeavesTo.getAddress();
+        Role role = personToAddLeavesTo.getRole();
+        LeavesTaken leavesTaken = personToAddLeavesTo.getLeavesTaken();
+        HourlySalary salary = personToAddLeavesTo.getSalary();
+        HoursWorked hours = personToAddLeavesTo.getHoursWorked();
+        Overtime overtime = personToAddLeavesTo.getOvertime();
+        CalculatedPay calculatedPay = personToAddLeavesTo.getCalculatedPay();
+        Set<Tag> tags = personToAddLeavesTo.getTags();
+
+        LeaveBalance newLeaves = new LeaveBalance(String.valueOf(LeaveBalance.MAX_LEAVES));
+
+        return new Person(name, phone, email, address, role, newLeaves, leavesTaken,
+                salary, hours, overtime, calculatedPay, tags);
+    }
+
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToAddLeavesTo = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -115,6 +134,25 @@ public class AddLeaveBalanceCommandTest {
         AddLeaveBalanceCommand addLeaveBalanceCommand = new AddLeaveBalanceCommand(outOfBoundIndex, addedLeaves);
 
         assertCommandFailure(addLeaveBalanceCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_exceedsMaxLeaveBalance_throwsCommandException() {
+        Person personToAddLeavesTo = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personWithMaxLeaveBalance = createPersonWithMaxLeaveBalance(personToAddLeavesTo);
+        model.setPerson(personToAddLeavesTo, personWithMaxLeaveBalance);
+
+        AddLeaveBalanceCommand addLeaveBalanceCommand =
+                new AddLeaveBalanceCommand(INDEX_FIRST_PERSON, addedLeaves);
+
+        String leaveCapacityString = personWithMaxLeaveBalance.getLeaveBalance()
+                .getRemainingLeaveCapacity().toString();
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_ADD_INPUT,
+                LeaveBalance.MAX_LEAVES,
+                "leaves", leaveCapacityString,
+                leaveCapacityString.equals("1") ? "leave" : "leaves");
+
+        assertCommandFailure(addLeaveBalanceCommand, model, expectedMessage);
     }
 
     @Test
