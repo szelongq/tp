@@ -16,7 +16,7 @@ Given below are my contributions to the project.
 * **New Feature**: Implemented `import` feature. ([#71](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/71), [#82](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/82), [#97](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/97), [#186](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/186))
     * What it does: Parses through csv files and import the data into HeRon, and indicates the error locations if issues are present in the file (e.g. Wrong formatting, Invalid/Duplicate/Missing Data).
     * Justification: To start out using HeRon, users have to individually add in employees. While HeRon is optimised for CLI users, it still takes a significant amount of time to input all the data. In most organizations not using HR applications, personnel information are commonly stored in Excel, which can be exported into a csv file. The produced csv file can be easily imported into HeRon, reducing the effort required to transition into HeRon.
-    * Highlights: The implementation was challenging as there was a need to learn and understand a new library. Two of the main challenges in implementation were: 
+    * Highlights: The implementation was challenging as there was a need to learn and understand a new library. In addition, two of the main challenges during implementation were: 
       1. To specify the exact places were an error has been found to make importing more user-friendly.
       2. To cater for the validity checks brought about by the updated `add` feature, where duplicate names, emails and phone numbers were not allowed.
 
@@ -31,12 +31,15 @@ Given below are my contributions to the project.
     * Added documentation for feature `import`.([#91](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/91))
     * Update all command example screenshots to fit the latest version of HeRon.([#197](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/197))
   * Developer Guide:
-    * Add implementation details, created UML Diagrams, explain design considerations for `import` feature. ([#103](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/103))
+    * Add implementation details for `import` feature. ([#103](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/103))
+    * Explained design considerations for `import` feature.([#103](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/103))
+    * Added UML Diagrams: ImportProcessData and ImportSeqeuenceDiagram. ([#103](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/103))
 
 * **Community**:
   * Team-Based Tasks
     * Added User Stories for HeRon ([#29](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/29)).
     * Update AboutUs.md ([#31](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/31))
+    * Format Developer Guide PDF file ([#231](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/231))
   * Review/Mentoring Contributions
-    * Reviewed a total of 10 PRs: [#37](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/37), [#45](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/45), [#54](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/54), [#67](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/67), [#83](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/83), [#92](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/92), [#108](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/108), [#109](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/109), [#192](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/192), [#194](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/194)
+    * Reviewed a total of 13 PRs: [#37](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/37), [#45](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/45), [#54](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/54), [#67](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/67), [#83](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/83), [#92](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/92), [#108](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/108), [#109](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/109), [#192](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/192), [#194](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/194), [#195](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/195), [#209](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/209), [#225](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/225)
 
