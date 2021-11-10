@@ -389,9 +389,20 @@ Examples:
 
 Calculates the payroll of all employees and mark them as awaiting the payment.
 
-The payroll formula is: `HOURS_WORKED * HOURLYSALARY + OVERTIME * HOURLYSALARY * OVERTIMEPAYRATE`,<br>
-where `OVERTIMEPAYRATE` is the added pay rate for overtime as compared to normal work hours.<br>
-It can be viewed through the `viewOvertimePayRate` command or changed through the `setOvertimePayRate` command.
+The payroll formula is: <br>
+<p align="center" markdown="1">
+
+    `(HOURLYSALARY x HOURS_WORKED) + (HOURLYSALARY x OVERTIME x OVERTIMEPAYRATE)`,
+
+</p>
+
+where `OVERTIMEPAYRATE` is the added pay rate for overtime worked.<br>
+It can be viewed through the [`viewOvertimePayRate`](#view-the-overtime-pay-rate-:-`viewOvertimePayRate`) command 
+or changed through the [`setOvertimePayRate`](#set-a-new-overtime-pay-rate-:-`setOvertimePayRate`) command.
+
+For example, given an hourly salary of $12/hr, 60 hours worked, 5 hours of overtime worked and an overtime pay rate of
+1.5x, we have:<br>
+<p align="center"> ($12/hr x 60hrs) + ($12/hr x 5hrs x 1.5) = $720 + $90 = $810 </p>
 
 Format: `startPayroll`
 * Calculates the payroll of **all employees regardless of current viewing list** based on the formula above.
