@@ -387,9 +387,17 @@ Examples:
 
 #### Start Payroll : `startPayroll`
 
-Calculates the payroll of all employees and mark them as awaiting the payment.
+This command calculates the payroll of all employees and labels them as unpaid.
 
-The payroll formula is: <br>
+<div markdown="block" class="alert alert-info">
+**:information_source: Take note before using the command:**
+
+* You should not have any unpaid employees (in other words, no red 'NOT PAID' labels). Otherwise, an error will be thrown
+  and no action will be taken.
+* If you wish to start a new payroll, make sure to pay all employees using the [`pay`](#paying-employees--pay) command.
+</div>
+
+The formula for the pay of an employee is: <br>
 <p align="center" markdown="1">
 
     `(HOURLYSALARY x HOURS_WORKED) + (HOURLYSALARY x OVERTIME x OVERTIMEPAYRATE)`,
@@ -397,38 +405,31 @@ The payroll formula is: <br>
 </p>
 
 where `OVERTIMEPAYRATE` is the added pay rate for overtime worked.<br>
-It can be viewed through the [`viewOvertimePayRate`](#view-the-overtime-pay-rate-:-`viewOvertimePayRate`) command 
-or changed through the [`setOvertimePayRate`](#set-a-new-overtime-pay-rate-:-`setOvertimePayRate`) command.
+It can be viewed through the [`viewOvertimePayRate`](#view-the-overtime-pay-rate--viewovertimepayrate) command 
+or changed through the [`setOvertimePayRate`](#set-a-new-overtime-pay-rate--setovertimepayrate) command.
 
-For example, given an hourly salary of $12/hr, 60 hours worked, 5 hours of overtime worked and an overtime pay rate of
-1.5x, we have:<br>
+For example, if an employee has an hourly salary of $12/hr, 60 hours worked, 5 hours of overtime worked and 
+the overtime pay rate is 1.5x, their pay would be:<br>
 <p align="center"> ($12/hr x 60hrs) + ($12/hr x 5hrs x 1.5) = $720 + $90 = $810 </p>
 
 Format: `startPayroll`
-* Calculates the payroll of **all employees regardless of current viewing list** based on the formula above.
-* After that, marks all employees as awaiting payment of the calculated amount.
-<br>This will produce red labels under each employee data stating 'NOT PAID' and the amount they are owed.
-* The number of hours worked and overtime hours worked for the employee will be reset to 0 as well
+* This command will calculate the payroll and then show the list of **all employees in HeRon, 
+  regardless of current viewing list**.
+* After that, for every employee who is owed pay, they will have red labels saying 'NOT PAID' and how much they are owed.
+* The number of hours worked and overtime hours worked for the employee will also be reset to 0
   so that hours counting towards the next payroll can continue to be added.
-* Finally, display the list of all employees.
-* This command is typically followed up by `pay` commands to mark employees as paid,
+* After calculating payroll, you can use the [`pay`](#paying-employees--pay) command to mark employees as paid,
   after their salaries are given in real life.
 
 Example:
-* Before `startPayroll` command, currently viewing a filtered list.
+* Before you use the `startPayroll` command, you might be viewing a filtered list.
   ![before starting payroll](images/user-guide/startPayroll_before.png)
 
 
-* After `startPayroll` command, payroll have been calculated and currently viewing the full list of employees.
+* After you enter the `startPayroll` command, payroll have been calculated and you then be viewing the full list of 
+  employees. Each employee will have a red 'NOT PAID' label as well.
   ![after starting payroll](images/user-guide/startPayroll_after.png)
 
-<div markdown="block" class="alert alert-info">
-**:information_source: Notes:**
-
-* All employees must not have any pay pending from the previous payroll (i.e. no red 'NOT PAID' label). Otherwise, an error will be thrown
-  and no action will be taken.
-* To start a new payroll, first make sure to pay all employees using the `pay` command.
-</div>
 
 <div style="page-break-after: always;"></div>
 
