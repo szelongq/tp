@@ -40,7 +40,7 @@ If you are... | What to do next
 
    Some example commands you can try:
 
-   * `import ./toBeImported.csv` : Imports the .csv file named `toBeImported.csv` the same directory as the application into HeRon. This removes the current existing data and replaces it with the data in the `.csv` file.
+   * `import ./toBeImported.csv` : Imports the .csv file named `toBeImported.csv` in the same directory as the application into HeRon. This removes the current existing data and replaces it with the data in the `.csv` file.
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0` : Adds an employee named `John Doe` with the above details to HeRon.
 
