@@ -73,10 +73,14 @@ If you are... | What to do next
 - You can enter your commands into the Command Box
 - The Result Display shows the result of the command that has been executed. If the command was unsuccessful, it displays an error instead.
 
+<div style="page-break-after: always;"></div>
+
 ### List Panel <br>
 ![ListPanel](images/user-guide/ListPanel.png) <br>
 - Displays the employee list together with its relevant particulars.
 - Employees are listed as cards that contain the name, role, email and tags of the employee.
+
+<div style="page-break-after: always;"></div>
 
 ### Display Panel <br>
 ![DisplayPanel](images/user-guide/DisplayPanel.png) <br>
@@ -131,7 +135,7 @@ Field | Requirements | Examples
 `NAME` | Contain alphanumeric characters and spaces only. | `Alice Pauline`, `Benson Meier`
 `PHONE_NUMBER` | Contain numbers only, at least 3 digits long. | `98102832`, `123`
 `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens. | `alice_pauline@example.com`, `benson-miller@gg.com`
-`ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
+`ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice Tan #01-124`
 `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
 `NUMBER_OF_LEAVES`| Non-negative whole numbers less than or equal to 365. |`12`,`0`
 `DATE` | A valid date in the form YYYY-MM-DD. | `2020-03-10`,`2021-11-02`
