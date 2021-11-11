@@ -9,7 +9,7 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 
 * Table of Contents
-- {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
