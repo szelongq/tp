@@ -58,22 +58,23 @@ If you are... | What to do next
 
 --------------------------------------------------------------------------------------------------------------------
 ## Interface Layout
+![InterfaceLayout](images/user-guide/InterfaceLayout.png) <br>
+
+### Command Panel <br>
 ![CommandPanel](images/user-guide/CommandPanel.png) <br>
-_Command Panel_ <br>
-- User commands can be entered in the top section labeled `Enter command here...`
-- Bottom section displays the result of the command. If command was unsuccessful, displays an error instead.
+- You can enter your commands into the Command Box
+- The Result Display shows the result of the command that has been executed. If the command was unsuccessful, it displays an error instead.
 
+### List Panel <br>
 ![ListPanel](images/user-guide/ListPanel.png) <br>
-_List Panel_ <br>
 - Displays the employee list together with its relevant particulars.
+- Employees are listed as cards that contain the name, role, email and tags of the employee.
 
+### Display Panel <br>
 ![DisplayPanel](images/user-guide/DisplayPanel.png) <br>
-_Display Panel_ <br>
 - Displays all of a specified employee's information.
 - On start-up of the application, it displays the first employee in the list.
-
-  If the employee list is empty, no employee information would be shown in this panel.
-
+    If the employee list is empty, no employee information would be shown in this panel.
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
