@@ -68,7 +68,9 @@ _Display Panel_ <br>
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
+
 ## Features
+
 <div markdown="block" class="alert alert-info">
 
 **Please read this information panel for more information on commands before proceeding.**
@@ -99,7 +101,7 @@ _Display Panel_ <br>
 
 #### Import Data from CSV files: `import`
 
-HeRon helps support a easy start for users migrating from other software, such as Excel. To transfer your existing data, convert it into a Comma Seperated Value (.csv) file. If you require help in exporting your spreadsheet in Excel to a .csv file, you can refer to this [guide](https://support.microsoft.com/en-us/office/save-a-workbook-to-text-format-txt-or-csv-3e9a9d6c-70da-4255-aa28-fcacf1f081e6_) by Microsoft.
+HeRon helps support an easy start for users migrating from other software, such as Excel. To transfer your existing data, convert it into a Comma Separated Value (.csv) file. If you require help in exporting your spreadsheet in Excel to a .csv file, you can refer to this [guide](https://support.microsoft.com/en-us/office/save-a-workbook-to-text-format-txt-or-csv-3e9a9d6c-70da-4255-aa28-fcacf1f081e6_) by Microsoft.
 
 Format: `import FILEPATH`
 * Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
@@ -139,7 +141,6 @@ Example: You should see the following behaviours for the command, `import ./toBe
 * Multiple entries missing compulsory fields.
   ![Picture of CSV file missing compulsory field](images/user-guide/missingFieldCsv.png)
   ![Result for missing field import](images/user-guide/missingFieldImport.png)
-
 
 * Multiple Tags present in entry.
   ![Picture of CSV file with multiple tags](images/user-guide/multipleTagsCsv.png)
@@ -208,6 +209,21 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_
 Examples:
 * `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
 * `edit 2 n/Betsy Crower t/` Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
+
+#### Deleting an employee : `delete`
+
+Deletes the specified employee from the application.
+
+Format: `delete INDEX`
+
+* Deletes the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The index cannot exceed the length of the employee list.
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd employee in HeRon.
+* `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
 
 #### Deleting an employee : `delete`
 
@@ -462,7 +478,7 @@ This command calculates the payroll for all employees and marks them as unpaid.
 The formula for the pay of an employee is: <br>
 <p align="center" markdown="1">
 
-    `(HOURLYSALARY x HOURS_WORKED) + (HOURLYSALARY x OVERTIME x OVERTIMEPAYRATE)`,
+    `(HOURLY_SALARY x HOURS_WORKED) + (HOURLY_SALARY x OVERTIME x OVERTIMEPAYRATE)`,
 
 </p>
 
