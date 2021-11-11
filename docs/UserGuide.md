@@ -57,7 +57,7 @@ If you are... | What to do next
    * `list` : Lists all contacts.
 
    * `exit` : Exits the app.
-
+  
 7. Refer to the [Entering Commands](#entering-commands) section for more information on the input commands used in HeRon, and the [Command](#command) section for more information on what each command does.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ If you are... | What to do next
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
-## Commands
+## Entering Commands
 Commands can be inputted into the Command Box to get HeRon to perform an operation.
 Commands can be divided into separate components, each serving different purposes. Depending on the format of the command,
 they may or may not use all components. Below shows an example of a command with its various components:
@@ -142,9 +142,9 @@ An employee can have any number of tags (including 0)
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+## Commands
 
-### General Admin Features
+### General Admin Commands
 
 #### Import Data from CSV files: `import`
 
@@ -352,7 +352,7 @@ This command clears all employees from the employee list. Upon clearing, it shou
 
 **Format:** `clear`
 
-### Leave-related Features
+### Leave-related Commands
 
 The following table describes the input format of each field as well as any requirements
 for all Leave-related commands in HeRon.
@@ -429,7 +429,7 @@ on and before a specified date from all employees in the list.
 * `find n/Anthony` followed by `removeLeavesBefore 1 d/2021-01-08` removes all leaves occurring on and before 2021-01-08
   for all employees that have 'Anthony' in their names.
 
-### Payroll-related Features
+### Payroll-related Commands
 
 The following table describes the input format of each field as well as any requirements
 for all Payroll-related commands in HeRon.
@@ -586,7 +586,7 @@ This command has two formats:
   the feedback panel.
   
 
-### Miscellaneous Features
+### Miscellaneous Commands
 
 
 #### Viewing help : `help`
