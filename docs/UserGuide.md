@@ -91,8 +91,8 @@ they may or may not use all components. Below shows an example of a command with
 
 **:information_source: Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the fields to be supplied by the user.<br>
+  e.g. in `add n/NAME`, `NAME` is a field which can be used as `add n/John Doe`.
 
 * Items in square brackets `i.e. []` are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -106,7 +106,7 @@ they may or may not use all components. Below shows an example of a command with
 * If a field is expected only once in the command but is specified multiple times, only the last occurrence of the field will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous fields for commands that do not take in field (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous fields for commands that do not take in fields (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 </div>
