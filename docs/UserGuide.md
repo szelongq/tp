@@ -7,9 +7,13 @@ HeRon is a desktop application for HR managers of Small-Medium Enterprises (SMEs
 
 This User Guide will bring you through the features that HeRon has to offer, as well as the commands to make use of them.
 
+If you are... | What to do next
+--------|------------------
+**a new user** | You can follow the [Quick Start Guide](#quick-start) to set up HeRon and get to work right away.
+**a returning user** | You can take a look at the [Command Summary](#command-summary) if you need to jog your memory, or use the table of contents below if you want to take a look at a specific command.
 
 * Table of Contents
-  {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -17,13 +21,17 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 1. Ensure you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
 
-2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases).
+2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). <br>
+
+   ![Screenshot of download page](images/user-guide/downloadHeRon.png)
 
 3. Copy the file to the folder you want to use as the _home folder_ for your HeRon.
 
 4. Start the app. 
    1. If you are using Windows, you can double-click on HeRon.jar in the folder you used in Step 3. 
-   2. If you are using MacOS or Linux, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app.
+   2. If you are using MacOS or Linux, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app. In the following example, HeRon is located in `Users` -> `MyDirectory`. <br>
+   ![Changing into the example directory](images/user-guide/ChangeDirectoryBefore.png)
+   ![Starting up HeRon](images/user-guide/ChangeDirectoryAfter.png)
 
 5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
@@ -98,6 +106,30 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 </div>
 
+### Command Format Table
+
+The following table describes the input format of each field as well as any requirements
+for all commands in HeRon.
+
+Field | Requirements | Examples
+      --------------|---------------|---------
+`INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
+`NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
+`PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
+`EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
+`ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
+`ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
+`NUMBER_OF_LEAVES`| Non-negative whole numbers less than or equal to 365. |`12`,`0`
+`DATE` | A valid date in the form YYYY-MM-DD. | `2020-03-10`,`2021-11-02`
+`HOURLY_SALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
+`HOURS_WORKED`| Non-negative whole numbers less than or equal to 744.| `12`,`1`
+`OVERTIME`| Non-negative whole numbers less than or equal to 744. | `12`,`0`
+`TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+An employee can have any number of tags (including 0)
+</div>
+
 ### General Admin Features
 
 #### Import Data from CSV files: `import`
@@ -166,24 +198,7 @@ Need to add a new employee into HeRon? The `add` command allows you to do so, as
 
 Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
 
-* Follow the requirements for the respective fields listed in the table below:
-
-  Field | Requirements | Examples
-      --------------|---------------|---------
-  `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
-  `PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
-  `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
-  `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
-  `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
-  `NUMBER_OF_LEAVES`| Non-negative integers less than or equal to 365. |`12`,`0`
-  `HOURLY_SALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
-  `HOURS_WORKED`| Positive integers less than or equal to 744.| `12`,`1`
-  `OVERTIME`| Non-negative integers less than or equal to 744. | `12`,`0`
-  `TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-An employee can have any number of tags (including 0)
-</div>
+* Follow the requirements for the respective fields listed in the [Command Format Table](#command-format-table) above.
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0`
@@ -210,21 +225,6 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_
 Examples:
 * `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
 * `edit 2 n/Betsy Crower t/` Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
-
-#### Deleting an employee : `delete`
-
-Deletes the specified employee from the application.
-
-Format: `delete INDEX`
-
-* Deletes the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The index cannot exceed the length of the employee list.
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd employee in HeRon.
-* `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
 
 #### Deleting an employee : `delete`
 
@@ -328,6 +328,15 @@ Format: `clear`
 
 ### Leave-related Features
 
+The following table describes the input format of each field as well as any requirements
+for all Leave-related commands in HeRon.
+
+Field | Requirements | Examples
+      --------------|---------------|---------
+`INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
+`NUMBER_OF_LEAVES`| Positive whole numbers from 1 to 365. |`12`,`1`,`365`
+`DATE` | A valid date in the form YYYY-MM-DD. | `2020-03-10`,`2021-11-02`
+
 #### Add number of leaves for an employee : `addLeaveBalance`
 
 This command allows you to increase an employee's leave balance (number of days of leave the employee has left).
@@ -395,6 +404,16 @@ Examples:
   for all employees that have 'Anthony' in their names.
 
 ### Payroll-related Features
+
+The following table describes the input format of each field as well as any requirements
+for all Payroll-related commands in HeRon.
+
+Field | Requirements | Examples
+      --------------|---------------|---------
+`INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
+`HOURLY_SALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
+`HOURS_WORKED`| Positive whole numbers from 1 to 744.| `52`,`1`,`744`
+`OVERTIME`| Positive whole numbers from 1 to 744. | `11`,`1`,`744`
 
 #### Add number of hours worked/overtime to an employee : `addHoursWorked`
 
@@ -585,23 +604,25 @@ List of available commands with their respective format and example usages for q
 
 Action | Format, Examples
 --------|------------------
-**Help** | `help`
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
-**List** | `list`
-**View** | `view INDEX`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
-**Find** | `find [STATUS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Clear** | `clear`
-**Exit** | `exit`
+**Import a CSV file of employee data** | `import FILEPATH` e.g., `import ./myData.csv`
+**View the details of a single employee** | `view INDEX`
+**Add an employee to the employee list** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
+**Edit the details of a single employee** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
+**Delete an employee from the employee list** | `delete INDEX`<br> e.g., `delete 3`
+**Find employees that match given criteria** | `find [STATUS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
+**View the full list of employees** | `list`
+**Clear the entire employee list** | `clear`
 **Add to Leave Balance** | `addLeaveBalance INDEX l/NUMBER_OF_LEAVES` <br> e.g., `addLeaveBalance 1 l/2`
 **Deduct from Leave Balance** | `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES` <br> e.g., `deductLeaveBalance 4 l/1`
 **Assign Leave** |  `assignLeave INDEX d/DATE` <br> e.g., `assignLeave 1 d/2021-10-30`
 **Filter and Remove Leaves before a Date** |  `removeLeavesBefore d/DATE` <br> e.g., `removeLeavesBefore d/2021-10-30`
 **Add Hours Worked/Overtime** | `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `addHoursWorked 1 hw/2 o/3`
 **Deduct Hours Worked/Overtime** | `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `deductHoursWorked 4 hw/1 o/2`
-**Start Payroll** | `startPayroll`
-**Pay Employee(s)** | `pay INDEX` <br> e.g., `pay 3` <br> OR <br>`pay all`
 **View Overtime Pay Rate** | `viewOvertimePayRate`
 **Set a new Overtime Pay Rate** | `setOvertimePayRate OVERTIMEPAYRATE`<br> e.g., `setOvertimePayRate 2.0`
-**Import** | `import FILEPATH` e.g., `import ./myData.csv`
+**Start Payroll** | `startPayroll`
+**Pay Employee(s)** | `pay INDEX` <br> e.g., `pay 3` <br> OR <br>`pay all`
+**Exit HeRon** | `exit`
+**Open the help menu** | `help`
+
+
