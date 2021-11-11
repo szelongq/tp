@@ -105,7 +105,7 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
-
+<div style="page-break-after: always;"></div>
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:<br>
 <img src="images/ParserClasses.png" width="600"/>
 
@@ -117,14 +117,13 @@ How the parsing works:
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F11-3/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
-<img src="images/PersonClassDiagram.png" />
 
 The `Model` component,
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-
+<div style="page-break-after: always;"></div>
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. 
 It has a `Tag` and `Leave` list in the `AddressBook`, which `Person` references.
 This allows `AddressBook` to only require one `Tag` object per unique tag, and one `Leave` object per unique date, 
@@ -266,7 +265,7 @@ Given below is an example usage scenario and how the import mechanism behaves at
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the specified directory is not valid, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
 
-**Step 3.** Program processes the .csv file. The first row is identified as the header row, which is used to determine which field of the PersonInput class the column represents. The remaining rows are parsed and PersonInput Objects are created and added into a List. Once done, the List of PersonInput Objects will be used to create a separate list of Person objects used to update the address book.
+**Step 3.** Program processes the .csv file. The first row is identified as the header row, which is used to determine which field of the PersonInput class the column represents. The remaining rows are parsed and PersonInput objects are created and added into a List. Once done, the List of PersonInput objects will be used to create a separate List of Person objects used to update the address book.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If there are entries with missing values in the required fields, the command fails to complete and an error message indicating the location of the error is returned. There will be no changes made to the current AddressBook.</div>
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Data present in the imported file must adhere to respective requirements for each field. `Name`, `Email` and `Phone` fields cannot be the same as other entries. If duplicate values exist, the command fails to complete and an error message is returned. There will be no changes made to the current AddressBook.</div>
@@ -279,7 +278,7 @@ The following sequence diagram shows how the import feature works:
    <div style="page-break-after: always;"></div>
 ![ImportProcessData](images/ImportProcessData.png)
 
-The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display".
+The reference frame for "Update GUI" is similar to the sequence diagram given in the section "Updating Info Panel Display", which can be found [here](#updating-info-panel-display).
 
 The following activity diagram summarizes what happens when a user uses the `import` command:
 ![ImportActivityDiagram](images/ImportActivityDiagram.png)
@@ -600,7 +599,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *  `  | user in a company that does shift work     | see the schedule for the week                                                                                         | have a rough idea of how to assign people to shifts.                                                                      |
 | `* *  `  | user                                       | generate a work schedule according to certain specified rules                                                         | do not have to make one manually while ensuring it abides by the rules.                                                   |
 | `* *  `  | user                                       | keep track of any documents relating to my employees.                                                                 |                                                                                                                           |
-| `* *  `  | user                                       | keep tack of any complaints lodged against employees                                                                  | address the employees accordingly.                                                                                        |
+| `* *  `  | user                                       | keep track of any complaints lodged against employees                                                                  | address the employees accordingly.                                                                                        |
 | `* *  `  | user                                       | have short and readable summaries of day-to-day statuses in the company                                               | access it at anytime for any potential tracking in the future.                                                            |
 | `* *  `  | user                                       | get a summary of certain information of employees                                                                     | include it easily in monthly reports.                                                                                     |
 | `* *  `  | organized user                             | group up employees into specified groups                                                                              | update information for the specific group without manually updating each member one by one.                               |
@@ -1022,7 +1021,7 @@ Guarantees:
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Salary**: Monthly hourlySalary payout to employees
+* **Salary**: Hourly Salary payout to employees
 * **Leave**: Refers to a day when an employee has permission to be absent from work
 
 --------------------------------------------------------------------------------------------------------------------
@@ -1042,14 +1041,15 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file <br> 
+      Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+      Expected: The most recent window size and location is retained.
 
 ### Finding a person
 
@@ -1148,7 +1148,7 @@ testers are expected to do more *exploratory* testing.
        Expected: The leave is assigned. Details of the new assigned leave are shown in the status message.
 
     7. Test case: `assignLeave 1 d/2021-08-10`<br>
-       Expected: No leave is assigned. Error details shown in the status message indicate that a leave with date is already assigned.
+       Expected: No leave is assigned. Error details shown in the status message indicate that a leave with the input date is already assigned to the employee.
 
     8. Test case: `assignLeave 1 d/2021-08-11`, followed by `removeLeavesBefore 1 d/2021-08-10`<br>
        Expected: The leave with date 2021-08-11 is assigned, and then the leave on 2021-08-10 is removed.
@@ -1191,53 +1191,24 @@ testers are expected to do more *exploratory* testing.
     2. Test case: `find n/Bernice`<br>
        Expected: Employee list is filtered to only employees with 'Bernice' in their names.
    
-    3. Test case: `startPayroll`
+    3. Test case: `startPayroll`<br>
        Expected: Employee list is set back to full list. All employees should have their calculated pay and have a red
        'NOT PAID' label displayed under their data if their pay owed is not 0. The first person in the list is being
        viewed in the InfoPanel.
    
-    4. Test case: `startPayroll`
+    4. Test case: `startPayroll`<br>
        Expected: An error should be thrown if there are still employees with pay owed.
    
-    5. Test case: `pay 1`
+    5. Test case: `pay 1`<br>
        Expected: The first person in the list should be paid and any red 'NOT PAID' label disappears.
    
-    6. Test case: `find n/Bernice` followed by `pay all` followed by `list`
+    6. Test case: `find n/Bernice` followed by `pay all` followed by `list`<br>
        Expected: Only employees with 'Bernice' in their names will be paid. Other employees that were not in the
        filtered list should still have their red 'NOT PAID' labels if they had them.
    
-    7. Test case: `pay all`
+    7. Test case: `pay all`<br>
        Expected: All employees should be paid. Any employees that were not being owed payment should have their names
        printed in the bottom section of the command panel as being skipped.
-       
-### Calculating payroll and paying employees
-
-1. Starting payroll while in a filtered list
-    
-    1. Prerequisites: Ensure all employees are already paid using `pay` command. Ensure at least some employees have
-        non-zero salary and hoursWorked/overtime values.
-   
-    2. Test case: `find n/Bernice`<br>
-        Expected: Employee list is filtered to only employees with 'Bernice' in their names.
-   
-    3. Test case: `startPayroll`
-        Expected: Employee list is set back to full list. All employees should have their calculated pay and have a red
-       'NOT PAID' label displayed under their data if their pay owed is not 0. The first person in the list is being 
-        viewed in the InfoPanel.
-   
-    4. Test case: `startPayroll`
-        Expected: An error should be thrown if there are still employees with pay owed.
-   
-    5. Test case: `pay 1`
-        Expected: The first person in the list should be paid and any red 'NOT PAID' label disappears.
-   
-    6. Test case: `find n/Bernice` followed by `pay all` followed by `list`
-        Expected: Only employees with 'Bernice' in their names will be paid. Other employees that were not in the 
-        filtered list should still have their red 'NOT PAID' labels if they had them.
-   
-    7. Test case: `pay all`
-        Expected: All employees should be paid. Any employees that were not being owed payment should have their names
-        printed in the bottom section of the command panel as being skipped.
 
 ### Importing from an external .csv file
 
@@ -1248,5 +1219,5 @@ testers are expected to do more *exploratory* testing.
     2. Test case: `import /fileNotExist.csv`<br>
         Expected: An error message is returned.
    
-    3. Test case: `import /toBeImported.csv`
+    3. Test case: `import /toBeImported.csv`<br>
         Expected: A message indicating a successful import is returned.

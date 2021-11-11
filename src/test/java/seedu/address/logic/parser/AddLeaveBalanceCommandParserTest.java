@@ -55,5 +55,9 @@ public class AddLeaveBalanceCommandParserTest {
         // Not a positive integer
         assertParseFailure(parser, userInput + "0", expectedMessage);
         assertParseFailure(parser, userInput + "-1", expectedMessage);
+
+        // Exceeds max leave bounds
+        assertParseFailure(parser, userInput + "366", expectedMessage);
+        assertParseFailure(parser, userInput + "1000", expectedMessage);
     }
 }

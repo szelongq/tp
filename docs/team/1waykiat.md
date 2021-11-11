@@ -46,8 +46,9 @@ together with a view command to select what content to display.
         * Added documentation for the feature `edit`, `view` and `pay`, as well as the UI layout - [#93](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/93)
     * Developer Guide:
         * Added documentation for the feature `edit` 
-        * Updated UML class diagrams of `Model` and `UI` - 
-        * Added implementation of InfoPanel, together with its UML class and sequence diagram - 
+        * Updated UML class diagrams of `Model` and `UI` - (Pull Request [#206](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/206))
+        * Added implementation of InfoPanel, together with its UML class and sequence diagram - (Pull Request [#206](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/206))
+        * Increase test coverage (Pull Request [#225](https://github.com/AY2122S1-CS2103T-F11-3/tp/pull/225))
 
 * **Community**:
     * Reviewed PRs

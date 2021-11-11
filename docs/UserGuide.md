@@ -36,11 +36,11 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0` : Adds an employee named `John Doe` with the above details to HeRon.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete 3` : Deletes the 3rd employee shown in the current list.
 
    * `find n/John`: Finds all employees with `John` in their name.
    
-   * `view 2`: View the 2nd contact shown in the current list.
+   * `view 2`: View the 2nd employee shown in the current list.
    
    * `list` : Lists all contacts.
 
@@ -63,9 +63,11 @@ _List Panel_ <br>
 _Display Panel_ <br>
 - Displays all of a specified employee's information.
 - On start-up of the application, it displays the first employee in the list.
+
   If the employee list is empty, no employee information would be shown in this panel.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 ## Features
 <div markdown="block" class="alert alert-info">
 
@@ -176,7 +178,6 @@ Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES 
   `HOURS_WORKED`| Positive integers less than or equal to 744.| `12`,`1`
   `OVERTIME`| Non-negative integers less than or equal to 744. | `12`,`0`
   `TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
-
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 An employee can have any number of tags (including 0)
@@ -410,6 +411,8 @@ Examples:
 * `list` followed by `deductHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in HeRon.
 * `find n/Sam` followed by `deductHoursWorked 1 o/2` removes 2 hours of overtime from the 1st employee in the results of the `find` command.
 
+<div style="page-break-after: always;"></div>
+
 #### View the Overtime Pay Rate : `viewOvertimePayRate`
 
 This command tells you the current overtime pay rate set in the application.
@@ -453,22 +456,22 @@ This command calculates the payroll for all employees and marks them as unpaid.
 The formula for the pay of an employee is: <br>
 <p align="center" markdown="1">
 
-    `(HOURLY_SALARY x HOURS_WORKED) + (HOURLY_SALARY x OVERTIME x OVERTIMEPAYRATE)`,
+    `(HOURLYSALARY x HOURS_WORKED) + (HOURLYSALARY x OVERTIME x OVERTIMEPAYRATE)`,
 
 </p>
 
 where `OVERTIMEPAYRATE` is the added pay rate for overtime worked.<br>
-It can be viewed through the [`viewOvertimePayRate`](#view-the-overtime-pay-rate--viewovertimepayrate) command
+It can be viewed through the [`viewOvertimePayRate`](#view-the-overtime-pay-rate--viewovertimepayrate) command 
 or changed through the [`setOvertimePayRate`](#set-a-new-overtime-pay-rate--setovertimepayrate) command.
 
-For example, if an employee has an hourly salary of $12/hr, 60 hours worked, 5 hours of overtime worked and
+For example, if an employee has an hourly salary of $12/hr, 60 hours worked, 5 hours of overtime worked and 
 the overtime pay rate is 1.5x, their pay would be:<br>
 <p align="center"> ($12/hr x 60hrs) + ($12/hr x 5hrs x 1.5) = $720 + $90 = $810 </p>
 
 Format: `startPayroll`
-* This command will calculate the payroll and then show you the list of **all employees in HeRon,
+* This command will calculate the payroll and then show you the list of **all employees in HeRon, 
   regardless of the list you are currently viewing**.
-* After that, for every employee who is owed some pay, they will have red labels saying `NOT PAID` and
+* After that, for every employee who is owed some pay, they will have red labels saying `NOT PAID` and 
   how much they are owed.
 * The number of Hours Worked and Overtime Hours Worked for the employee will also be **reset to 0**,
   so that you can continue to add hours towards the next payroll.
@@ -478,11 +481,11 @@ Format: `startPayroll`
 Example:
 * Before you use the `startPayroll` command, you might be viewing a filtered list.
   ![before starting payroll](images/user-guide/startPayroll_before.png)
-
-
-* After entering the `startPayroll` command, the payroll will be calculated and you will then be viewing
+  
+  * After entering the `startPayroll` command, the payroll will be calculated and you will then be viewing 
   the full list of employees. Each employee will have a red `NOT PAID` label.
   ![after starting payroll](images/user-guide/startPayroll_after.png)
+
 
 #### Paying employee(s) : `pay`
 
@@ -492,7 +495,7 @@ This command has two formats:
 
 Format 1: `pay INDEX` - for marking a specific employee as paid
 * This command marks the employee at `INDEX` as paid by removing the red `NOT PAID` label under the employee's data.
-* You can use this command after the [`startPayroll`](#start-payroll--startpayroll) command,
+* You can use this command after the [`startPayroll`](#start-payroll--startpayroll) command, 
   which calculates the payroll and marks all employees as unpaid.
 
 Example:
@@ -501,18 +504,20 @@ Example:
   _Alex is marked as unpaid in HeRon after a `startPayroll` command_ <br>
   <br>
   ![after paying the employee](images/user-guide/pay_afterPaying.png)
-  _After executing `pay 1`, Alex (being the 1st employee in this list) is marked as paid,
+  _After executing `pay 1`, Alex (being the 1st employee in this list) is marked as paid, 
   and the red `NOT PAID` label is removed_ <br>
 
 Format 2: `pay all` - for marking all employees in the current list as paid
-* This command marks all unpaid employees in the current list as paid by removing the red `NOT PAID` labels under
+* This command marks all unpaid employees in the current list as paid by removing the red `NOT PAID` labels under 
   the employees' data.
 * You can use this command after the [`startPayroll`](#start-payroll--startpayroll) command,
   which calculates the payroll and marks all employees as unpaid.
-* If there are employees that are already paid in the list, they will be skipped and will be listed in
+* If there are employees that are already paid in the list, they will be skipped and will be listed in 
   the feedback panel.
+  
 
 ### Miscellaneous Features
+
 
 #### Viewing help : `help`
 
