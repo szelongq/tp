@@ -19,7 +19,7 @@ If you are... | What to do next
 
 ## Quick start
 
-1. Ensure you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
+1. Ensure that you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
 
 2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). The picture below shows a portion of the download page which you can download HeRon. <br>
 
@@ -149,13 +149,13 @@ Format: `import FILEPATH`
 * Filepath Requirements
   * You should only specify **ONE** `FILEPATH`, which can be absolute or relative.
   * Write the filepath following your devices' Operating System. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
-<br>
+<br><br>
 * Formatting Requirements
-  * Use the first row in the `.csv` file as the header row to indicate the purpose of the various fields.
+  * Use the first row in the .csv file as the header row to indicate the purpose of the various fields.
   * Ensure that the header rows of the respective fields are labelled according to the naming convention in the table below.
   * There is no specific requirement for ordering of the columns.
   * Ensure that the number of fields in each entry matches the number of headers.
-<br>
+<br><br>
 * Data Requirements
   * Ensure all entries have data in the compulsory fields, listed in the table below.
   * Ensure that each field follows the specifications required, which you can find in the [Command Format Table](UserGuide.md#command-format-table).
@@ -164,7 +164,7 @@ Format: `import FILEPATH`
   * If you provide a value for a non-compulsory field for at least one entry, you must also provide the respective values for all other entries. On the other hand, if you do not provide data for the field, it would be set to the default value for all entries.
 
 <div markdown="block" class="alert alert-info">
-:information_source: Take note: If there are multiple instances of duplicated/missing/incorrect data, HeRon will only notify you the first row has errors present.
+:information_source: Take note: If there are multiple instances of duplicated/missing/incorrect data, HeRon will only notify you of the first row has errors present.
 </div>
 
 **Field Naming Requirements and Default Values**
