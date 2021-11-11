@@ -17,13 +17,17 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 1. Ensure you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
 
-2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases).
+2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). <br>
+
+   ![Screenshot of download page](images/user-guide/downloadHeRon.png)
 
 3. Copy the file to the folder you want to use as the _home folder_ for your HeRon.
 
 4. Start the app. 
    1. If you are using Windows, you can double-click on HeRon.jar in the folder you used in Step 3. 
-   2. If you are using MacOS or Linux, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app.
+   2. If you are using MacOS or Linux, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app. In the following example, HeRon is located in `Users` -> `MyDirectory`. <br>
+   ![Changing into the example directory](images/user-guide/ChangeDirectoryBefore.png)
+   ![Starting up HeRon](images/user-guide/ChangeDirectoryAfter.png)
 
 5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
