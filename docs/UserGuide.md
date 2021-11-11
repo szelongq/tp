@@ -9,10 +9,9 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
 
 ## Quick start
 
@@ -22,27 +21,28 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 
 3. Copy the file to the folder you want to use as the _home folder_ for your HeRon.
 
-4. Start the app.
-   1. If you are using Windows, you can double-click on HeRon.jar in the folder you used in Step 3.
+4. Start the app. 
+   1. If you are using Windows, you can double-click on HeRon.jar in the folder you used in Step 3. 
    2. If you are using MacOS or Linux, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app.
 
 5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
-   
-    <div style="page-break-after: always;"></div>
-   
+
 6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+
    Some example commands you can try:
 
+   * `import ./toBeImported.csv` : Imports the .csv file named `toBeImported.csv` the same directory as the application into HeRon. This removes the current existing data and replaces it with the data in the `.csv` file.
+
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0` : Adds an employee named `John Doe` with the above details to HeRon.
+
+   * `delete 3` : Deletes the 3rd employee shown in the current list.
+
+   * `find n/John`: Finds all employees with `John` in their name.
+   
+   * `view 2`: View the 2nd employee shown in the current list.
+   
    * `list` : Lists all contacts.
-
-   * `import ./toBeImported.csv` : Imports the .csv file named `toBeImported.csv` the same directory as the application into HeRon.
-
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0` : Adds a contact named `John Doe` with the above details to HeRon.
-
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
-
-   * `clear` : Deletes all contacts.
 
    * `exit` : Exits the app.
 
@@ -63,11 +63,14 @@ _List Panel_ <br>
 _Display Panel_ <br>
 - Displays all of a specified employee's information.
 - On start-up of the application, it displays the first employee in the list.
-    If the employee list is empty, no employee information would be shown in this panel.
+
+  If the employee list is empty, no employee information would be shown in this panel.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
+
 ## Features
+
 <div markdown="block" class="alert alert-info">
 
 **Please read this information panel for more information on commands before proceeding.**
@@ -81,7 +84,7 @@ _Display Panel_ <br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -96,35 +99,86 @@ _Display Panel_ <br>
 
 ### General Admin Features
 
-#### Viewing help : `help`
+#### Import Data from CSV files: `import`
 
-Shows a message explaining how to access the help page.
+HeRon helps support an easy start for users migrating from other software, such as Excel. To transfer your existing data, convert it into a Comma Separated Value (.csv) file. If you require help in exporting your spreadsheet in Excel to a .csv file, you can refer to this [guide](https://support.microsoft.com/en-us/office/save-a-workbook-to-text-format-txt-or-csv-3e9a9d6c-70da-4255-aa28-fcacf1f081e6_) by Microsoft.
 
-![help message](images/user-guide/helpMessage.png)
+Format: `import FILEPATH`
+* Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
+* You should only specify **ONE** `FILEPATH`.
+* Write the filepaths following your devices' Operating System. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
+* Write filepaths with spaces present in directory as per usual (e.g. `./My Folder/toBeImported.csv`).
+* Use the first row in the `.csv` file as the header row, and indicate the purpose of the various fields.
+* Ensure that the header rows of the respective fields are labelled according to the naming convention in the table below, and are present, if indicated as compulsory.
+* There is no specific requirement for ordering of the columns.
+* If multiple compulsory fields are missing, the app only alerts you of the first instance of a missing field which is compulsory.
+* Ensure that each field follows the specifications required, which you can find in the section for [`add` command](UserGuide.md#adding-an-employee-add).
+* HeRon prevents you from importing data if an entry has the same `Name`, `Email` or `Contact Number` as another entry.
+* Ensure that the number of fields in each entry matches the number of headers.
+* Separate your data's tag field with `/` if multiple tags are present.
+* If you do not provide a value for non-compulsory fields, HeRon will set that field for that entry to the default value, listed in the table below.
+* If you provide a value for a field for at least one entry, you must also provide the respective values for all other entries.
 
-Format: `help`
-<div style="page-break-after: always;"></div>
+**Field Naming Requirements and Default Values**
+
+Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Value
+--------------|---------------|------------------------ | --------
+`NAME`|Name|**Yes**| N.A.
+`PHONE_NUMBER` |Contact Number|**Yes**| N.A.
+`ADDRESS` |Residential Address|**Yes**| N.A.
+`EMAIL` |Email|**Yes**| N.A.
+`ROLE` |Role|**Yes**| N.A.
+`NUMBER_OF_LEAVES` |Leave Balance|No | 0
+`HOURLY_SALARY` |Salary|No | 0.00
+`HOURS_WORKED` |Hours Worked|No | 0
+`OVERTIME` |Overtime|No | 0
+`TAGS`|Tags|No| Empty Set of Tags
+
+Example: You should see the following behaviours for the command, `import ./toBeImported`.
+* Successful Import
+  ![Result for successful import](images/user-guide/multipleTagImport.png)
+
+* Multiple entries missing compulsory fields.
+  ![Picture of CSV file missing compulsory field](images/user-guide/missingFieldCsv.png)
+  ![Result for missing field import](images/user-guide/missingFieldImport.png)
+
+* Multiple Tags present in entry.
+  ![Picture of CSV file with multiple tags](images/user-guide/multipleTagsCsv.png)
+  ![Result for multiple tag import](images/user-guide/multipleTagImport.png)
+
+#### Viewing employee data: `view`
+
+View the data of the specified employee at the InfoPanel.
+
+Format: `view INDEX`
+* Displays the data of the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, ...​
+
+Example:
+* `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
+* `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
+
 #### Adding an employee: `add`
 
-Adds an employee to HeRon.
+Need to add a new employee into HeRon? The `add` command allows you to do so, as long as the all details of the employee is given and follows the requirements. Note that you cannot add an employee with the same `Name`, `Email` or `Contact Number` used by another existing employee in HeRon.
 
-Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLYSALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
+Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
 
 * Follow the requirements for the respective fields listed in the table below:
 
-    Field | Requirements | Examples
-    --------------|---------------|---------
-    `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
-    `PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
-    `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
-    `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
-    `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
-    `NUMBER_OF_LEAVES`| Non-negative integers less than or equal to 365. |`12`,`0`
-    `HOURLYSALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
-    `HOURS_WORKED`| Positive integers less than or equal to 744.| `12`,`1`
-    `OVERTIME`| Non-negative integers less than or equal to 744. | `12`,`0`
-    `TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
-
+  Field | Requirements | Examples
+      --------------|---------------|---------
+  `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
+  `PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
+  `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
+  `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
+  `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
+  `NUMBER_OF_LEAVES`| Non-negative integers less than or equal to 365. |`12`,`0`
+  `HOURLY_SALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
+  `HOURS_WORKED`| Positive integers less than or equal to 744.| `12`,`1`
+  `OVERTIME`| Non-negative integers less than or equal to 744. | `12`,`0`
+  `TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 An employee can have any number of tags (including 0)
@@ -133,42 +187,64 @@ An employee can have any number of tags (including 0)
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0`
 * `add n/Betsy Crowe r/Designer s/25 hw/60  l/21  e/betsycrowe@example.com a/Newgate Prison p/1234567 o/0 t/criminal t/friend`
-![Result of successful add](images/user-guide/addExample.png)
+  ![Result of successful add](images/user-guide/addExample.png)
   _Result of adding a new employee Betsy successfully to HeRon_ <br>
-
-#### Listing all employees : `list`
-
-Shows a list of all employees in HeRon.
-
-Format: `list`
-<div style="page-break-after: always;"></div>
 
 #### Editing an employee : `edit`
 
 Edits an existing employee in HeRon.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`
 
 * Edits the employee at the specified `INDEX`. The index refers to the index number shown in the displayed employee list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the employee will be removed i.e adding of tags is not cumulative.
 * You can remove all the employee’s tags by typing `t/` without
-    specifying any tags after it.
+  specifying any tags after it.
 * The values you provide to the command must be valid. For information on which values are valid, you may refer to the table under the [`add` command](UserGuide.md#adding-an-employee-add) for more information.
 * **NOTE:** The edit command is unable to directly edit the dates of leaves taken by employees.
-Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to edit the dates.
+  Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to edit the dates.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
-<div style="page-break-after: always;"></div>
+* `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
+* `edit 2 n/Betsy Crower t/` Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
+
+#### Deleting an employee : `delete`
+
+Deletes the specified employee from the application.
+
+Format: `delete INDEX`
+
+* Deletes the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The index cannot exceed the length of the employee list.
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd employee in HeRon.
+* `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
+
+#### Deleting an employee : `delete`
+
+Deletes the specified employee from the application.
+
+Format: `delete INDEX`
+
+* Deletes the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The index cannot exceed the length of the employee list.
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd employee in HeRon.
+* `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
 
 #### Locating specific employees: `find`
 
 Find employees using specified fields, checking if their information field contains any of the given keywords / queries.
 
-Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
+Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
 
 * At least one field should be specified.
 * The order of the fields do not matter except for the `[STATUS]` field, which must come right after `find`.
@@ -177,17 +253,17 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
 * The filters work differently for each field and can be generalised to 4 types of queries, described below. A single find command can contain all 4 types of queries at once.
   * **Type 1 Query: Keyword Matching**
     * Fields: `n/NAME`, `p/PHONE`, `e/EMAIL`, `a/ADDRESS`, `r/ROLE`, `t/TAG`
-      * These fields will find all people who contain the given keywords in their respective fields. They are not case-sensitive.
+      * These fields will find all employees who contain the given keywords in their respective fields. They are not case-sensitive.
       * The exceptions are:
-         * `p/PHONE` field, which only find exact matches.
-         * `n/NAME` field, which can find matches when a complete part (first/middle/last) of a name is given. (e.g. For name "Charlotte Oliverio", both `n/Charlotte` and `n/Oliverio` works, but `n/Char` or `n/Oliver` will not)
+        * `p/PHONE` field, which only find exact matches.
+        * `n/NAME` field, which can find matches when a complete part (first/middle/last) of a name is given. (e.g. For name "Charlotte Oliverio", both `n/Charlotte` and `n/Oliverio` works, but `n/Char` or `n/Oliver` will not)
     * For example, `find p/91234567 e/alice bob r/Admin` will find anyone who satisfies all the following 3 criteria:
       1. has the phone number 91234567,
       2. whose email contains `alice` or `bob`, and
       3. whose role contains `Admin`.
 
   * **Type 2 Query: Value Based Comparison**
-    * Fields: `hw/HOURS_WORKED`, `l/NUMBER_OF_LEAVES`, `s/HOURLYSALARY`, `o/OVERTIME`
+    * Fields: `hw/HOURS_WORKED`, `l/NUMBER_OF_LEAVES`, `s/HOURLY_SALARY`, `o/OVERTIME`
       * These fields must be specified with a comparison and a value to compare the respective field to. Valid comparisons are
         * `>`: more than
         * `>=`: more than or equal to
@@ -200,8 +276,7 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
       2. has less than 7 days of leave left (e.g. 6 and below)
 
     * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.
-  
-    <div style="page-break-after: always;"></div>
+    
 
   * **Type 3 Query: Status Based Filter**
     * There are no fields attached to this query. Instead, specific keywords are available for use.
@@ -225,7 +300,6 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
 * For each field, you can search using multiple keywords by separating each keyword with a space, in the same field.
   * For example, `find n/John Mike` will return all employees whose name contains either John or Mike.
   
-<div style="page-break-after: always;"></div>
 
 Examples:
 * `find unpaid n/John Mike r/admin l/<=5 o/>3` finds all employees who satisfy all the following criteria:
@@ -237,33 +311,11 @@ Examples:
 * `find unpaid n/carl Elle l/<3` returns `Carl Kurz`, `Elle Meyer` as long as they have less than 3 leaves left and are still unpaid.<br>
   ![result for 'find alex david'](images/user-guide/findCarlElleResult.png)
 
-#### Deleting an employee : `delete`
+#### Listing all employees : `list`
 
-Deletes the specified employee from the application.
+Shows a list of all employees in HeRon.
 
-Format: `delete INDEX`
-
-* Deletes the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The index cannot exceed the length of the employee list.
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd employee in HeRon.
-* `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
-
-#### Viewing employee data: `view`
-
-View the data of the specified employee at the InfoPanel.
-
-Format: `view INDEX`
-* Displays the data of the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, ...​
-
-Example:
-* `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
-* `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
+Format: `list`
 
 #### Clearing all employees : `clear`
 
@@ -273,25 +325,18 @@ Clears all employees from the employee list. Upon clearing, it should display th
 
 Format: `clear`
 
-#### Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
-
 ### Leave-related Features
 
 #### Add number of leaves for an employee : `addLeaveBalance`
 
-Adds the specified number of leaves to the current leave balance (number of days of leave left) of a chosen employee.
+This command allows you to increase an employee's leave balance (number of days of leave the employee has left).
 
 Format: `addLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 
-* Adds the specified number to the number of leaves of the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …
-* The number of leaves **must be a positive integer between 1 and 365** 1, 2, 3, …, 365
-* The number of leaves to be added **cannot cause the employee's total leave balance to exceed 365 leaves.**
+* You can specify a number of leaves to add to the employee's leave balance at the specified `INDEX` number.
+* The index refers to the number next to an employee's name in the displayed list.
+* The number of leaves to be added **must be between 1 and 365**: 1, 2, 3, …, 365
+* The number of leaves to be added also **cannot cause the employee's total leave balance to exceed 365 leaves.**
 
 Examples:
 * `list` followed by `addLeaveBalance 3 l/4` adds 4 days of leave to the 3rd employee in HeRon.
@@ -299,32 +344,33 @@ Examples:
 
 #### Deduct number of leaves from an employee : `deductLeaveBalance`
 
-Deducts the specified number of leaves from the current leave balance (number of days of leave left) of a chosen employee.
+This command allows you to decrease an employee's
+leave balance (number of days of leave the employee has left).
 
 Format: `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 
-* Deducts the specified number from the number of leaves of the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …
-* The number of leaves **must be a positive integer between 1 and 365** 1, 2, 3, …, 365
-* The number of leaves to be deducted **cannot be greater than the amount of leaves in the employee's leave balance.**
+* You can specify a number of leaves to deduct from the employee's leave balance at the specified `INDEX` number.
+* The index refers to the number next to an employee's name in the displayed list.
+* The number of leaves to be deducted **must be between 1 and 365**: 1, 2, 3, …, 365
+* You **cannot deduct more leaves than what the employee has in their leave balance.**
 
 Examples:
 * `list` followed by `deductLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in HeRon.
 * `find n/Anthony` followed by `deductLeaveBalance 4 l/2` removes 2 days of leave from the 4th employee in the results of the `find` command.
-<div style="page-break-after: always;"></div>
 
 #### Assign a leave with a date to an employee : `assignLeave`
 
-Assigns a leave that is associated with a date to a chosen employee.
+If an employee has applied for a leave on a given date,
+this command allows you to assign a leave with a date to that employee
+to allow you to keep track of it.
 
 Format: `assignLeave INDEX d/DATE`
 
-* Assigns a leave to the employee at the specified `INDEX`, while deducting 1 leave from the employee's leave balance.
+* You can assign a leave to the employee at the specified `INDEX`, which automatically deducts 1 leave from the employee's leave balance.
+* The index refers to the number next to an employee's name in the displayed list.
 * The employee must have **at least 1 leave** in their leave balance.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …
-* The date **must be valid** and of the form **YYYY-MM-DD**.
+  <br>(To add leaves to an employee, [use the `addLeaveBalance` command.](UserGuide.md#add-number-of-leaves-for-an-employee--addleavebalance))
+* The given date **must be valid** and of the form **YYYY-MM-DD**.
 
 Examples:
 * `list` followed by `assignLeave 2 d/2021-11-10` assigns a leave with the date 10th November 2021 to the 2nd employee in HeRon.
@@ -332,35 +378,38 @@ Examples:
 
 #### Remove all leaves occurring before a given date from employees : `removeLeavesBefore`
 
-Removes all leaves from all employees in the list occurring before a given input date (inclusive).
+If you need to remove outdated leave information from your employees,
+this command allows you to remove all assigned leave dates
+on and before a specified date from all employees in the list.
 
 Format: `removeLeavesBefore d/DATE`
 
-* Removes all leaves from all employees in the list occurring before a given input date (inclusive).
+* You can remove all assigned leaves occurring on and before a specified date from all employees in the displayed list.
 * The date **must be valid** and of the form **YYYY-MM-DD**.
 * This operation will only act on employees in the current filtered list.
 
 Examples:
 * `list` followed by `removeLeavesBefore d/2021-11-10` removes all leaves occurring on and before 2021-11-10 for all employees.
 * `find n/Anthony` followed by `removeLeavesBefore 1 d/2021-01-08` removes all leaves occurring on and before 2021-01-08
-   for all employees that have 'Anthony' in their names.
-<div style="page-break-after: always;"></div>
+  for all employees that have 'Anthony' in their names.
 
 ### Payroll-related Features
 
 #### Add number of hours worked/overtime to an employee : `addHoursWorked`
 
-Adds the specified number of hours worked or overtime to a chosen employee.
+This command allows you to increase an employee's
+work hours or overtime hours.
 
 Format: `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 
-* At least one field (HOURS_WORKED or OVERTIME) should be specified.
-* Adds the specified number of hours worked/overtime to the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …
-* The number of hours worked/overtime **must be a positive integer between 1 and 744** 1, 2, 3, …, 744
-* The number of hours worked/overtime to be added **cannot cause the employee's total hours worked/overtime to exceed 744.** 
-  <br> (Note: Limit of 744 is applied separately to hours worked and overtime, e.g hours worked and overtime can both be set to 744)
+* You can specify a number of work/overtime hours to add to the employee at the specified `INDEX` number.
+* You must include at least one field (HOURS_WORKED or OVERTIME) when using the command.
+* You can add work hours as well as overtime hours in the same command.
+* The index refers to the number next to an employee's name in the displayed list.
+* The number of work/overtime hours to be added **must be between 1 and 744**: 1, 2, 3, …, 744
+* The number of work/overtime hours to be added also **cannot cause the employee's total hours worked/overtime to exceed 744.** 
+  <br> (Note: The limit of 744 is applied separately to hours worked and overtime,
+  for example an employee's hours worked and overtime can both be set to 744)
 
 Examples:
 * `list` followed by `addHoursWorked 5 hw/5 o/5` adds 5 hours worked and 5 hours of overtime to the 5th employee in HeRon.
@@ -368,16 +417,17 @@ Examples:
 
 #### Deduct number of hours worked/overtime from an employee : `deductHoursWorked`
 
-Deducts the specified number of hours worked or overtime from a chosen employee.
+This command allows you to decrease an employee's
+work hours or overtime hours.
 
 Format: `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 
-* At least one field (HOURS_WORKED or OVERTIME) should be specified.
-* Deducts the specified number of hours worked/overtime from the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …
-* The number of hours worked/overtime **must be a positive integer between 1 and 744** 1, 2, 3, …, 744
-* The number of hours worked/overtime to be removed **cannot be greater than the employee's current number of hours worked/overtime.**
+* You can specify a number of work/overtime hours to deduct from the employee at the specified `INDEX`.
+* You must include at least one field (HOURS_WORKED or OVERTIME) when using the command.
+* You can deduct work hours as well as overtime hours in the same command.  
+* The index refers to the number next to an employee's name in the displayed list.
+* The number of work/overtime hours to be deducted **must be between 1 and 744**: 1, 2, 3, …, 744
+* You **cannot deduct more work/overtime hours than what the employee has.**
 
 Examples:
 * `list` followed by `deductHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in HeRon.
@@ -385,74 +435,9 @@ Examples:
 
 <div style="page-break-after: always;"></div>
 
-#### Start Payroll : `startPayroll`
-
-Calculates the payroll of all employees and mark them as awaiting the payment.
-
-The payroll formula is: `HOURS_WORKED * HOURLYSALARY + OVERTIME * HOURLYSALARY * OVERTIMEPAYRATE`,<br>
-where `OVERTIMEPAYRATE` is the added pay rate for overtime as compared to normal work hours.<br>
-It can be viewed through the `viewOvertimePayRate` command or changed through the `setOvertimePayRate` command.
-
-Format: `startPayroll`
-* Calculates the payroll of **all employees regardless of current viewing list** based on the formula above.
-* After that, marks all employees as awaiting payment of the calculated amount.
-<br>This will produce red labels under each employee data stating 'NOT PAID' and the amount they are owed.
-* The number of hours worked and overtime hours worked for the employee will be reset to 0 as well
-  so that hours counting towards the next payroll can continue to be added.
-* Finally, display the list of all employees.
-* This command is typically followed up by `pay` commands to mark employees as paid,
-  after their salaries are given in real life.
-
-Example:
-* Before `startPayroll` command, currently viewing a filtered list.
-  ![before starting payroll](images/user-guide/startPayroll_before.png)
-
-
-* After `startPayroll` command, payroll have been calculated and currently viewing the full list of employees.
-  ![after starting payroll](images/user-guide/startPayroll_after.png)
-
-<div markdown="block" class="alert alert-info">
-**:information_source: Notes:**
-
-* All employees must not have any pay pending from the previous payroll (i.e. no red 'NOT PAID' label). Otherwise, an error will be thrown
-  and no action will be taken.
-* To start a new payroll, first make sure to pay all employees using the `pay` command.
-</div>
-
-<div style="page-break-after: always;"></div>
-
-#### Paying employee(s) : `pay`
-
-Marks the specified employee, or all employees in the current list, as paid.
-
-Format 1: `pay INDEX` - for paying a specific employee
-* Simulates the paying of an employee by clearing the salary owed to the employee by setting it back to 0. This clears the red
-  `NOT PAID` label under the employee's data.
-* This command is typically used after the `startPayroll` command, which sets the pay owed to the respective employees.
-  The pay command can then be followed after to clear the pay owed.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The employee must have payment pending from a `startPayroll` command.
-
-Example:
-* `pay 1` marks the 1st employee in the Employee list as paid, clearing the pay owed to the employee and removing
-  the red 'NOT PAID' label.
-  ![before paying the employee](images/user-guide/pay_beforePaying.png)
-  _Alex is marked as unpaid in HeRon_ <br>
-  <br>
-  ![after paying the employee](images/user-guide/pay_afterPaying.png)
-  _After executing `pay 1`, Alex (being the 1st person in this list) is marked as paid_ <br>
-
-Format 2: `pay all` - for paying all employees in the current list
-* Simulates paying of employees in the same way as above, but for all employees in the current list instead.
-* If there are employees already paid in the list, they will be skipped and will not be paid again.
-* There must be at least 1 employee in the list that has not been paid.
-
-<div style="page-break-after: always;"></div>
-
 #### View the Overtime Pay Rate : `viewOvertimePayRate`
 
-Displays the current overtime pay rate set in the application.
+This command tells you the current overtime pay rate set in the application.
 
 Format: `viewOvertimePayRate`
 
@@ -460,73 +445,117 @@ Format: `viewOvertimePayRate`
 
 #### Set a new Overtime Pay Rate : `setOvertimePayRate`
 
-Sets a new overtime pay rate to be used in payroll calculations.
+This command sets a new overtime pay rate to be used in payroll calculations.
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Note:**
+
+* You can only set the overtime pay rate to be a rate from 1 to 10.
+* You can only enter up to 5 decimal places for the overtime pay rate.
+</div>
 
 Format: `setOvertimePayRate OVERTIMEPAYRATE`
 
-* Sets the overtime pay rate in the application to `OVERTIMEPAYRATE`.
-* `OVERTIMEPAYRATE` should have a value between 1 to 10, and have at most 5 decimal places.
+* This command sets the overtime pay rate in HeRon to `OVERTIMEPAYRATE`.
 
 Examples:
-* `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2x.
+* `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2.
+* `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1.
+* `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places.
 
-* `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
-* `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places. An error message would be shown.
+#### Start Payroll : `startPayroll`
 
-<div style="page-break-after: always;"></div>
+This command calculates the payroll for all employees and marks them as unpaid.
 
-### Data-related Features
+<div markdown="block" class="alert alert-info">
+**:information_source: Take note before using the command:**
 
-#### Import Data from CSV files: `import`
+* You should not have any unpaid employees (in other words, no red 'NOT PAID' labels). Otherwise, an error will be thrown
+  and no action will be taken.
+* If you wish to start a new payroll, make sure to pay all employees using the [`pay`](#paying-employees--pay) command.
+</div>
 
-Imports the data from a specified `.csv` file.
+The formula for the pay of an employee is: <br>
+<p align="center" markdown="1">
 
-Format: `import FILEPATH`
-* Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
-* Only one `FILEPATH` should be specified.
-* Filepaths should be written following the current Operating System being used. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
-* Filepaths with spaces present in directory can be written as per usual (e.g. `./My Folder/toBeImported.csv`).
-* A header row is required to indicate the purpose of the various fields, and it must be the first row in the `.csv` file.
-* No specific ordering of the columns is required.
-* Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below, and are present in the data if compulsory.
-* If multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
-* If there are duplicate `Person` entries, `Email` or `Contact Number`, the import will not be allowed.
-* Ensure that each field follows the specifications required, which can be found in the section for [`add` command](UserGuide.md#adding-an-employee-add).
-* Ensure that the number of fields in each entry matches the number of headers.
-* If multiple tags are present for an entry, they should be separated by `/`.
-* For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value.
-* If a value for a field is provided for at least one entry, then all other entries must also have their respective values for the field provided.
+    `(HOURLY_SALARY x HOURS_WORKED) + (HOURLY_SALARY x OVERTIME x OVERTIMEPAYRATE)`,
 
-**Field Naming Requirements and Default Values**
+</p>
 
-Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Value
---------------|---------------|------------------------ | --------
-`NAME`|Name|**Yes**| N.A.
-`PHONE_NUMBER` |Contact Number|**Yes**| N.A.
-`ADDRESS` |Residential Address|**Yes**| N.A.
-`EMAIL` |Email|**Yes**| N.A.
-`ROLE` |Role|**Yes**| N.A.
-`NUMBER_OF_LEAVES` |Leave Balance|No | 0
-`HOURLYSALARY` |Salary|No | 0.00
-`HOURS_WORKED` |Hours Worked|No | 0
-`OVERTIME` |Overtime|No | 0
-`TAGS`|Tags|No| Empty Set of Tags
+where `OVERTIMEPAYRATE` is the added pay rate for overtime worked.<br>
+It can be viewed through the [`viewOvertimePayRate`](#view-the-overtime-pay-rate--viewovertimepayrate) command 
+or changed through the [`setOvertimePayRate`](#set-a-new-overtime-pay-rate--setovertimepayrate) command.
 
-Example:`import ./toBeImported` should have the following behaviours under the following situations.
-* Successful Import
-  ![Result for successful import](images/user-guide/multipleTagImport.png)
+For example, if an employee has an hourly salary of $12/hr, 60 hours worked, 5 hours of overtime worked and 
+the overtime pay rate is 1.5x, their pay would be:<br>
+<p align="center"> ($12/hr x 60hrs) + ($12/hr x 5hrs x 1.5) = $720 + $90 = $810 </p>
 
-    <div style="page-break-after: always;"></div>
+Format: `startPayroll`
+* This command will calculate the payroll and then show you the list of **all employees in HeRon, 
+  regardless of the list you are currently viewing**.
+* After that, for every employee who is owed some pay, they will have red labels saying `NOT PAID` and 
+  how much they are owed.
+* The number of Hours Worked and Overtime Hours Worked for the employee will also be **reset to 0**,
+  so that you can continue to add hours towards the next payroll.
+* After calculating the payroll, you can use the [`pay`](#paying-employees--pay) command to mark employees as paid,
+  after their pay are given in real life.
+
+Example:
+* Before you use the `startPayroll` command, you might be viewing a filtered list.
+  ![before starting payroll](images/user-guide/startPayroll_before.png)
   
-* Multiple entries missing compulsory fields.
-  ![Picture of CSV file missing compulsory field](images/user-guide/missingFieldCsv.png)
-  ![Result for missing field import](images/user-guide/missingFieldImport.png)
-  
-    <div style="page-break-after: always;"></div>
+  * After entering the `startPayroll` command, the payroll will be calculated and you will then be viewing 
+  the full list of employees. Each employee will have a red `NOT PAID` label.
+  ![after starting payroll](images/user-guide/startPayroll_after.png)
 
-* Multiple Tags present in entry.
-  ![Picture of CSV file with multiple tags](images/user-guide/multipleTagsCsv.png)
-  ![Result for multiple tag import](images/user-guide/multipleTagImport.png)
+
+#### Paying employee(s) : `pay`
+
+This command has two formats:
+* Format 1: `pay INDEX` - marks the employee at `INDEX` as paid.
+* Format 2: `pay all` - marks all employees in the current list as paid
+
+Format 1: `pay INDEX` - for marking a specific employee as paid
+* This command marks the employee at `INDEX` as paid by removing the red `NOT PAID` label under the employee's data.
+* You can use this command after the [`startPayroll`](#start-payroll--startpayroll) command, 
+  which calculates the payroll and marks all employees as unpaid.
+
+Example:
+* `pay 1` marks the 1st employee in the list as paid, removing the red `NOT PAID` label.
+  ![before paying the employee](images/user-guide/pay_beforePaying.png)
+  _Alex is marked as unpaid in HeRon after a `startPayroll` command_ <br>
+  <br>
+  ![after paying the employee](images/user-guide/pay_afterPaying.png)
+  _After executing `pay 1`, Alex (being the 1st employee in this list) is marked as paid, 
+  and the red `NOT PAID` label is removed_ <br>
+
+Format 2: `pay all` - for marking all employees in the current list as paid
+* This command marks all unpaid employees in the current list as paid by removing the red `NOT PAID` labels under 
+  the employees' data.
+* You can use this command after the [`startPayroll`](#start-payroll--startpayroll) command,
+  which calculates the payroll and marks all employees as unpaid.
+* If there are employees that are already paid in the list, they will be skipped and will be listed in 
+  the feedback panel.
+  
+
+### Miscellaneous Features
+
+
+#### Viewing help : `help`
+
+Shows a message explaining how to access the help page.
+
+![help message](images/user-guide/helpMessage.png)
+
+Format: `help`
+
+#### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+### Data Management
 
 #### Saving the data
 
@@ -542,8 +571,6 @@ If your changes to the data file makes its format invalid, HeRon will discard al
 
 --------------------------------------------------------------------------------------------------------------------
 
-<div style="page-break-after: always;"></div>
-
 ## FAQ - Frequently Asked Questions
 
 **Q**: How do I transfer my data to another computer?<br>
@@ -558,11 +585,11 @@ List of available commands with their respective format and example usages for q
 Action | Format, Examples
 --------|------------------
 **Help** | `help`
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLYSALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
 **List** | `list`
 **View** | `view INDEX`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
-**Find** | `find [STATUS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLYSALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
+**Find** | `find [STATUS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Clear** | `clear`
 **Exit** | `exit`
