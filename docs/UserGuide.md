@@ -7,6 +7,10 @@ HeRon is a desktop application for HR managers of Small-Medium Enterprises (SMEs
 
 This User Guide will bring you through the features that HeRon has to offer, as well as the commands to make use of them.
 
+If you are... | What to do next
+--------|------------------
+**a new user** | You can follow the [Quick Start Guide](#quick-start) to set up HeRon and get to work right away.
+**a returning user** | You can take a look at the [Command Summary](#command-summary) if you need to jog your memory, or use the table of contents below if you want to take a look at a specific command.
 
 * Table of Contents
   {:toc}
