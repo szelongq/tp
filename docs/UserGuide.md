@@ -21,7 +21,7 @@ If you are... | What to do next
 
 1. Ensure you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
 
-2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). <br>
+2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). The picture below shows a portion of the download page which you can download HeRon. <br>
 
    ![Screenshot of download page](images/user-guide/downloadHeRon.png)
 
@@ -119,9 +119,9 @@ for all commands in HeRon.
 Field | Requirements | Examples
 --------------|---------------|---------
 `INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
-`NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
-`PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
-`EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
+`NAME` | Contain alphanumeric characters and spaces only. | `Alice Pauline`, `Benson Meier`
+`PHONE_NUMBER` | Contain numbers only, at least 3 digits long. | `98102832`, `123`
+`EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens. | `alice_pauline@example.com`, `benson-miller@gg.com`
 `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
 `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
 `NUMBER_OF_LEAVES`| Non-negative whole numbers less than or equal to 365. |`12`,`0`
@@ -141,23 +141,31 @@ An employee can have any number of tags (including 0)
 
 #### Import Data from CSV files: `import`
 
-HeRon helps support an easy start for users migrating from other software, such as Excel. To transfer your existing data, convert it into a Comma Separated Value (.csv) file. If you require help in exporting your spreadsheet in Excel to a .csv file, you can refer to this [guide](https://support.microsoft.com/en-us/office/save-a-workbook-to-text-format-txt-or-csv-3e9a9d6c-70da-4255-aa28-fcacf1f081e6_) by Microsoft.
+HeRon assists you in starting by making it easy to migrate from other software, such as Excel. To transfer your existing data, convert it into a Comma Separated Value (.csv) file. If you require help in exporting your spreadsheet in Excel to a .csv file, you can refer to this [guide](https://support.microsoft.com/en-us/office/save-a-workbook-to-text-format-txt-or-csv-3e9a9d6c-70da-4255-aa28-fcacf1f081e6_) by Microsoft.
+
+This command then allows you to migrate the data in the csv file that you have, replacing the existing data in HeRon.
 
 Format: `import FILEPATH`
-* Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
-* You should only specify **ONE** `FILEPATH`.
-* Write the filepaths following your devices' Operating System. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
-* Write filepaths with spaces present in directory as per usual (e.g. `./My Folder/toBeImported.csv`).
-* Use the first row in the `.csv` file as the header row, and indicate the purpose of the various fields.
-* Ensure that the header rows of the respective fields are labelled according to the naming convention in the table below, and are present, if indicated as compulsory.
-* There is no specific requirement for ordering of the columns.
-* If multiple compulsory fields are missing, the app only alerts you of the first instance of a missing field which is compulsory.
-* Ensure that each field follows the specifications required, which you can find in the section for [`add` command](UserGuide.md#adding-an-employee-add).
-* HeRon prevents you from importing data if an entry has the same `Name`, `Email` or `Contact Number` as another entry.
-* Ensure that the number of fields in each entry matches the number of headers.
-* Separate your data's tag field with `/` if multiple tags are present.
-* If you do not provide a value for non-compulsory fields, HeRon will set that field for that entry to the default value, listed in the table below.
-* If you provide a value for a field for at least one entry, you must also provide the respective values for all other entries.
+* Filepath Requirements
+  * You should only specify **ONE** `FILEPATH`, which can be absolute or relative.
+  * Write the filepath following your devices' Operating System. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
+<br>
+* Formatting Requirements
+  * Use the first row in the `.csv` file as the header row to indicate the purpose of the various fields.
+  * Ensure that the header rows of the respective fields are labelled according to the naming convention in the table below.
+  * There is no specific requirement for ordering of the columns.
+  * Ensure that the number of fields in each entry matches the number of headers.
+<br>
+* Data Requirements
+  * Ensure all entries have data in the compulsory fields, listed in the table below.
+  * Ensure that each field follows the specifications required, which you can find in the [Command Format Table](UserGuide.md#command-format-table).
+  * HeRon prevents you from importing data if an entry has the same `Name`, `Email` or `Contact Number` as another entry.
+  * Separate your data's tag field with `/` if multiple tags are present.
+  * If you provide a value for a non-compulsory field for at least one entry, you must also provide the respective values for all other entries. On the other hand, if you do not provide data for the field, it would be set to the default value for all entries.
+
+<div markdown="block" class="alert alert-info">
+:information_source: Take note: If there are multiple instances of duplicated/missing/incorrect data, HeRon will only notify you the first row has errors present.
+</div>
 
 **Field Naming Requirements and Default Values**
 
@@ -188,7 +196,7 @@ Example: You should see the following behaviours for the command, `import ./toBe
 
 #### Viewing employee data: `view`
 
-View the data of the specified employee at the InfoPanel.
+This command allows you to view the data of the specified employee at the InfoPanel.
 
 Format: `view INDEX`
 * Displays the data of the employee at the specified `INDEX`.
@@ -201,7 +209,7 @@ Example:
 
 #### Adding an employee: `add`
 
-Need to add a new employee into HeRon? The `add` command allows you to do so, as long as the all details of the employee is given and follows the requirements. Note that you cannot add an employee with the same `Name`, `Email` or `Contact Number` used by another existing employee in HeRon.
+This command allows you to add a new employee into HeRon, as long as the all details of the employee is given and follow the requirements. Note that you cannot add an employee with the same Name, Email or Phone Number used by another existing employee in HeRon.
 
 Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
 
@@ -225,7 +233,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_
 * When editing tags, the existing tags of the employee will be removed i.e adding of tags is not cumulative.
 * You can remove all the employee’s tags by typing `t/` without
   specifying any tags after it.
-* The values you provide to the command must be valid. For information on which values are valid, you may refer to the table under the [`add` command](UserGuide.md#adding-an-employee-add) for more information.
+* The values you provide to the command must be valid. For information on which values are valid, you may refer to the [Command Table Format](UserGuide.md#command-format-table) for more information.
 * **NOTE:** The edit command is unable to directly edit the dates of leaves taken by employees.
   Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to edit the dates.
 
@@ -235,7 +243,8 @@ Examples:
 
 #### Deleting an employee : `delete`
 
-Deletes the specified employee from the application.
+This command allows you to delete a specific employee from the application.
+
 
 Format: `delete INDEX`
 
@@ -258,7 +267,8 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
 * The order of the fields do not matter except for the `[STATUS]` field, which must come right after `find`.
 * To search a field with multiple values, separate each value with a space after their respective tag.
   * Example: Use `find n/Alice Charlotte` to search for `Alice` or `Charlotte` in the `name` field.
-* The filters work differently for each field and can be generalised to 4 types of queries, described below. A single find command can contain all 4 types of queries at once.
+* The filters work differently for each field and can be generalised to 4 types of queries, described below. A single find command can contain all 4 types of queries at once.<br>
+  <br>
   * **Type 1 Query: Keyword Matching**
     * Fields: `n/NAME`, `p/PHONE`, `e/EMAIL`, `a/ADDRESS`, `r/ROLE`, `t/TAG`
       * These fields will find all employees who contain the given keywords in their respective fields. They are not case-sensitive.
@@ -268,8 +278,8 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
     * For example, `find p/91234567 e/alice bob r/Admin` will find anyone who satisfies all the following 3 criteria:
       1. has the phone number 91234567,
       2. whose email contains `alice` or `bob`, and
-      3. whose role contains `Admin`.
-
+      3. whose role contains `Admin`.<br>
+  <br>
   * **Type 2 Query: Value Based Comparison**
     * Fields: `hw/HOURS_WORKED`, `l/NUMBER_OF_LEAVES`, `s/HOURLY_SALARY`, `o/OVERTIME`
       * These fields must be specified with a comparison and a value to compare the respective field to. Valid comparisons are
@@ -283,17 +293,16 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
       1. has worked more than or exactly 10 hours, and
       2. has less than 7 days of leave left (e.g. 6 and below)
 
-    * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.
-    
-
+    * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.<br>
+  <br>
   * **Type 3 Query: Status Based Filter**
     * There are no fields attached to this query. Instead, specific keywords are available for use.
       * These status keywords must be used right after `find` and cannot be used after a field is specified (for example `n/`).
       * Keywords available include:
         * `unpaid`
         * More to be added.
-    * For example, `find unpaid` will find all employees who are considered unpaid.
-
+    * For example, `find unpaid` will find all employees who are considered unpaid.<br>
+  <br>
   * **Type 4 Query: Date Based Comparison**
     * Fields: `d/DATE`
       * This field will find all people who have taken a leave on a given date or within a range of dates. (start and end dates inclusive)
@@ -304,9 +313,7 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
     * For example, `find d/2021-10-10 2021-11-01:2021-11-05` will find anyone who satisfies **either** of the following 2 criteria:
       1. has taken a leave on October 10th 2021, or
       2. has taken a leave between the dates November 1st 2021 and November 5th 2021, start and end dates inclusive.
-
-* For each field, you can search using multiple keywords by separating each keyword with a space, in the same field.
-  * For example, `find n/John Mike` will return all employees whose name contains either John or Mike.
+      
   
 
 Examples:
