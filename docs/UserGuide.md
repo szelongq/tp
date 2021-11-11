@@ -18,6 +18,7 @@ This User Guide will bring you through the features that HeRon has to offer, as 
 1. Ensure you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
 
 2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). <br>
+
    ![Screenshot of download page](images/user-guide/downloadHeRon.png)
 
 3. Copy the file to the folder you want to use as the _home folder_ for your HeRon.
