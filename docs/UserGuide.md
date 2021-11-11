@@ -387,7 +387,7 @@ Examples:
 
 #### Start Payroll : `startPayroll`
 
-This command calculates the payroll of all employees and labels them as unpaid.
+This command calculates the payroll for all employees and marks them as unpaid.
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Take note before using the command:**
@@ -413,21 +413,22 @@ the overtime pay rate is 1.5x, their pay would be:<br>
 <p align="center"> ($12/hr x 60hrs) + ($12/hr x 5hrs x 1.5) = $720 + $90 = $810 </p>
 
 Format: `startPayroll`
-* This command will calculate the payroll and then show the list of **all employees in HeRon, 
-  regardless of current viewing list**.
-* After that, for every employee who is owed pay, they will have red labels saying 'NOT PAID' and how much they are owed.
-* The number of hours worked and overtime hours worked for the employee will also be reset to 0
-  so that hours counting towards the next payroll can continue to be added.
-* After calculating payroll, you can use the [`pay`](#paying-employees--pay) command to mark employees as paid,
-  after their salaries are given in real life.
+* This command will calculate the payroll and then show you the list of **all employees in HeRon, 
+  regardless of the list you are currently viewing**.
+* After that, for every employee who is owed some pay, they will have red labels saying `NOT PAID` and 
+  how much they are owed.
+* The number of Hours Worked and Overtime Hours Worked for the employee will also be **reset to 0**,
+  so that you can continue to add hours towards the next payroll.
+* After calculating the payroll, you can use the [`pay`](#paying-employees--pay) command to mark employees as paid,
+  after their pay are given in real life.
 
 Example:
 * Before you use the `startPayroll` command, you might be viewing a filtered list.
   ![before starting payroll](images/user-guide/startPayroll_before.png)
 
 
-* After you enter the `startPayroll` command, payroll have been calculated and you then be viewing the full list of 
-  employees. Each employee will have a red 'NOT PAID' label as well.
+* After entering the `startPayroll` command, the payroll will be calculated and you will then be viewing 
+  the full list of employees. Each employee will have a red `NOT PAID` label.
   ![after starting payroll](images/user-guide/startPayroll_after.png)
 
 
@@ -435,36 +436,37 @@ Example:
 
 #### Paying employee(s) : `pay`
 
-Marks the specified employee, or all employees in the current list, as paid.
+This command has two formats:
+* Format 1: `pay INDEX` - marks the employee at `INDEX` as paid.
+* Format 2: `pay all` - marks all employees in the current list as paid
 
-Format 1: `pay INDEX` - for paying a specific employee
-* Simulates the paying of an employee by clearing the salary owed to the employee by setting it back to 0. This clears the red
-  `NOT PAID` label under the employee's data.
-* This command is typically used after the `startPayroll` command, which sets the pay owed to the respective employees.
-  The pay command can then be followed after to clear the pay owed.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The employee must have payment pending from a `startPayroll` command.
+Format 1: `pay INDEX` - for marking a specific employee as paid
+* This command marks the employee at `INDEX` as paid by removing the red `NOT PAID` label under the employee's data.
+* You can use this command after the [`startPayroll`](#start-payroll--startpayroll) command, 
+  which calculates the payroll and marks all employees as unpaid.
 
 Example:
-* `pay 1` marks the 1st employee in the Employee list as paid, clearing the pay owed to the employee and removing
-  the red 'NOT PAID' label.
+* `pay 1` marks the 1st employee in the list as paid, removing the red `NOT PAID` label.
   ![before paying the employee](images/user-guide/pay_beforePaying.png)
-  _Alex is marked as unpaid in HeRon_ <br>
+  _Alex is marked as unpaid in HeRon after a `startPayroll` command_ <br>
   <br>
   ![after paying the employee](images/user-guide/pay_afterPaying.png)
-  _After executing `pay 1`, Alex (being the 1st person in this list) is marked as paid_ <br>
+  _After executing `pay 1`, Alex (being the 1st employee in this list) is marked as paid, 
+  and the red `NOT PAID` label is removed_ <br>
 
-Format 2: `pay all` - for paying all employees in the current list
-* Simulates paying of employees in the same way as above, but for all employees in the current list instead.
-* If there are employees already paid in the list, they will be skipped and will not be paid again.
-* There must be at least 1 employee in the list that has not been paid.
+Format 2: `pay all` - for marking all employees in the current list as paid
+* This command marks all unpaid employees in the current list as paid by removing the red `NOT PAID` labels under 
+  the employees' data.
+* You can use this command after the [`startPayroll`](#start-payroll--startpayroll) command,
+  which calculates the payroll and marks all employees as unpaid.
+* If there are employees that are already paid in the list, they will be skipped and will be listed in 
+  the feedback panel.
 
 <div style="page-break-after: always;"></div>
 
 #### View the Overtime Pay Rate : `viewOvertimePayRate`
 
-Displays the current overtime pay rate set in the application.
+This command tells you the current overtime pay rate set in the application.
 
 Format: `viewOvertimePayRate`
 
@@ -472,18 +474,23 @@ Format: `viewOvertimePayRate`
 
 #### Set a new Overtime Pay Rate : `setOvertimePayRate`
 
-Sets a new overtime pay rate to be used in payroll calculations.
+This command sets a new overtime pay rate to be used in payroll calculations.
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Note:**
+
+* You can only set the overtime pay rate to be a rate from 1 to 10.
+* You can only enter up to 5 decimal places for the overtime pay rate.
+</div>
 
 Format: `setOvertimePayRate OVERTIMEPAYRATE`
 
-* Sets the overtime pay rate in the application to `OVERTIMEPAYRATE`.
-* `OVERTIMEPAYRATE` should have a value between 1 to 10, and have at most 5 decimal places.
+* This command sets the overtime pay rate in HeRon to `OVERTIMEPAYRATE`.
 
 Examples:
-* `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2x.
-
-* `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
-* `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places. An error message would be shown.
+* `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2.
+* `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1.
+* `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places.
 
 <div style="page-break-after: always;"></div>
 
