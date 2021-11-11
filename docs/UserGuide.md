@@ -21,7 +21,7 @@ If you are... | What to do next
 
 1. Ensure you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
 
-2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). <br>
+2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). The picture below shows a portion of the download page which you can download HeRon. <br>
 
    ![Screenshot of download page](images/user-guide/downloadHeRon.png)
 
