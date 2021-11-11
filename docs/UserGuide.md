@@ -156,7 +156,7 @@ Format: `import FILEPATH`
   * If you provide a value for a non-compulsory field for at least one entry, you must also provide the respective values for all other entries. On the other hand, if you do not provide data for the field, it would be set to the default value for all entries.
 
 <div markdown="block" class="alert alert-info">
-:information_source: Take note: If there are multiple instances of duplicated/missing/incorrect data, HeRon will only notify you the first row that is found with issues.
+:information_source: Take note: If there are multiple instances of duplicated/missing/incorrect data, HeRon will only notify you the first row has errors present.
 </div>
 
 **Field Naming Requirements and Default Values**
@@ -225,7 +225,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_
 * When editing tags, the existing tags of the employee will be removed i.e adding of tags is not cumulative.
 * You can remove all the employee’s tags by typing `t/` without
   specifying any tags after it.
-* The values you provide to the command must be valid. For information on which values are valid, you may refer to the table under the [`add` command](UserGuide.md#adding-an-employee-add) for more information.
+* The values you provide to the command must be valid. For information on which values are valid, you may refer to the [Command Table Format](UserGuide.md#command-format-table) for more information.
 * **NOTE:** The edit command is unable to directly edit the dates of leaves taken by employees.
   Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to edit the dates.
 
