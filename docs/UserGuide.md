@@ -68,6 +68,7 @@ _Display Panel_ <br>
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 ## Features
+
 <div markdown="block" class="alert alert-info">
 
 **Please read this information panel for more information on commands before proceeding.**
@@ -104,6 +105,7 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 <div style="page-break-after: always;"></div>
+
 #### Adding an employee: `add`
 
 Adds an employee to HeRon.
