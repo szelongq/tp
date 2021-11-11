@@ -117,7 +117,7 @@ The following table describes the input format of each field as well as any requ
 for all commands in HeRon.
 
 Field | Requirements | Examples
-      --------------|---------------|---------
+--------------|---------------|---------
 `INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
 `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
 `PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
