@@ -113,9 +113,9 @@ for all commands in HeRon.
 Field | Requirements | Examples
       --------------|---------------|---------
 `INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
-`NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
-`PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
-`EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
+`NAME` | Contain alphanumeric characters and spaces only. | `Alice Pauline`, `Benson Meier`
+`PHONE_NUMBER` | Contain numbers only, at least 3 digits long. | `98102832`, `123`
+`EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens. | `alice_pauline@example.com`, `benson-miller@gg.com`
 `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
 `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
 `NUMBER_OF_LEAVES`| Non-negative whole numbers less than or equal to 365. |`12`,`0`
@@ -156,7 +156,7 @@ Format: `import FILEPATH`
   * If you provide a value for a non-compulsory field for at least one entry, you must also provide the respective values for all other entries. On the other hand, if you do not provide data for the field, it would be set to the default value for all entries.
 
 <div markdown="block" class="alert alert-info">
-**:information_source: Take note: If there are multiple instances of duplicated/missing/incorrect data, HeRon will only notify you the first row that is found with issues.**
+:information_source: Take note: If there are multiple instances of duplicated/missing/incorrect data, HeRon will only notify you the first row that is found with issues.
 </div>
 
 **Field Naming Requirements and Default Values**
@@ -201,7 +201,7 @@ Example:
 
 #### Adding an employee: `add`
 
-This command allows you to add a new employee into HeRon, as long as the all details of the employee is given and follow the requirements. Note that you cannot add an employee with the same `Name`, `Email` or `Contact Number` used by another existing employee in HeRon.
+This command allows you to add a new employee into HeRon, as long as the all details of the employee is given and follow the requirements. Note that you cannot add an employee with the same Name, Email or Phone Number used by another existing employee in HeRon.
 
 Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
 
