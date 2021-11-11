@@ -58,7 +58,7 @@ If you are... | What to do next
 
    * `exit` : Exits the app.
 
-7. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Entering Commands](#entering-commands) section for more information on the input commands used in HeRon, and the [Command](#command) section for more information on what each command does.
 
 --------------------------------------------------------------------------------------------------------------------
 ## Interface Layout
