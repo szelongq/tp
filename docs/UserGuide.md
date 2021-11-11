@@ -7,6 +7,10 @@ HeRon is a desktop application for HR managers of Small-Medium Enterprises (SMEs
 
 This User Guide will bring you through the features that HeRon has to offer, as well as the commands to make use of them.
 
+If you are... | What to do next
+--------|------------------
+**a new user** | You can follow the [Quick Start Guide](#quick-start) to set up HeRon and get to work right away.
+**a returning user** | You can take a look at the [Command Summary](#command-summary) if you need to jog your memory, or use the table of contents below if you want to take a look at a specific command.
 
 * Table of Contents
 {:toc}
@@ -101,6 +105,30 @@ _Display Panel_ <br>
 
 </div>
 
+### Command Format Table
+
+The following table describes the input format of each field as well as any requirements
+for all commands in HeRon.
+
+Field | Requirements | Examples
+      --------------|---------------|---------
+`INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
+`NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
+`PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
+`EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
+`ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
+`ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
+`NUMBER_OF_LEAVES`| Non-negative whole numbers less than or equal to 365. |`12`,`0`
+`DATE` | A valid date in the form YYYY-MM-DD. | `2020-03-10`,`2021-11-02`
+`HOURLY_SALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
+`HOURS_WORKED`| Non-negative whole numbers less than or equal to 744.| `12`,`1`
+`OVERTIME`| Non-negative whole numbers less than or equal to 744. | `12`,`0`
+`TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+An employee can have any number of tags (including 0)
+</div>
+
 ### General Admin Features
 
 #### Import Data from CSV files: `import`
@@ -169,24 +197,7 @@ This command allows you to add a new employee into HeRon, as long as the all det
 
 Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
 
-* Follow the requirements for the respective fields listed in the table below:
-
-  Field | Requirements | Examples
-      --------------|---------------|---------
-  `NAME` | Contain alphanumeric characters and spaces only.| `Alice Pauline`, `Benson Meier`
-  `PHONE_NUMBER` | Contain numbers only, at least 3 digits long.| `98102832`, `123`
-  `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens.| `alice_pauline@example.com`, `benson-miller@gg.com`
-  `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice & Peter Tan #01-124`
-  `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
-  `NUMBER_OF_LEAVES`| Non-negative integers less than or equal to 365. |`12`,`0`
-  `HOURLY_SALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
-  `HOURS_WORKED`| Positive integers less than or equal to 744.| `12`,`1`
-  `OVERTIME`| Non-negative integers less than or equal to 744. | `12`,`0`
-  `TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-An employee can have any number of tags (including 0)
-</div>
+* Follow the requirements for the respective fields listed in the [Command Format Table](#command-format-table) above.
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0`
@@ -317,6 +328,15 @@ Format: `clear`
 
 ### Leave-related Features
 
+The following table describes the input format of each field as well as any requirements
+for all Leave-related commands in HeRon.
+
+Field | Requirements | Examples
+      --------------|---------------|---------
+`INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
+`NUMBER_OF_LEAVES`| Positive whole numbers from 1 to 365. |`12`,`1`,`365`
+`DATE` | A valid date in the form YYYY-MM-DD. | `2020-03-10`,`2021-11-02`
+
 #### Add number of leaves for an employee : `addLeaveBalance`
 
 This command allows you to increase an employee's leave balance (number of days of leave the employee has left).
@@ -384,6 +404,16 @@ Examples:
   for all employees that have 'Anthony' in their names.
 
 ### Payroll-related Features
+
+The following table describes the input format of each field as well as any requirements
+for all Payroll-related commands in HeRon.
+
+Field | Requirements | Examples
+      --------------|---------------|---------
+`INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
+`HOURLY_SALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
+`HOURS_WORKED`| Positive whole numbers from 1 to 744.| `52`,`1`,`744`
+`OVERTIME`| Positive whole numbers from 1 to 744. | `11`,`1`,`744`
 
 #### Add number of hours worked/overtime to an employee : `addHoursWorked`
 
