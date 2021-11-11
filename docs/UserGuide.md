@@ -313,15 +313,14 @@ Format: `clear`
 
 #### Add number of leaves for an employee : `addLeaveBalance`
 
-Adds the specified number of leaves to the current leave balance (number of days of leave left) of a chosen employee.
+This command allows you to increase an employee's leave balance (number of days of leave the employee has left).
 
 Format: `addLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 
-* Adds the specified number to the number of leaves of the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …
-* The number of leaves **must be a positive integer between 1 and 365** 1, 2, 3, …, 365
-* The number of leaves to be added **cannot cause the employee's total leave balance to exceed 365 leaves.**
+* You can specify a number of leaves to add to the employee's leave balance at the specified `INDEX` number.
+* The index refers to the number next to an employee's name in the displayed list.
+* The number of leaves to be added **must be between 1 and 365**: 1, 2, 3, …, 365
+* The number of leaves to be added also **cannot cause the employee's total leave balance to exceed 365 leaves.**
 
 Examples:
 * `list` followed by `addLeaveBalance 3 l/4` adds 4 days of leave to the 3rd employee in HeRon.
@@ -329,15 +328,15 @@ Examples:
 
 #### Deduct number of leaves from an employee : `deductLeaveBalance`
 
-Deducts the specified number of leaves from the current leave balance (number of days of leave left) of a chosen employee.
+This command allows you to decrease an employee's
+leave balance (number of days of leave the employee has left).
 
 Format: `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 
-* Deducts the specified number from the number of leaves of the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …
-* The number of leaves **must be a positive integer between 1 and 365** 1, 2, 3, …, 365
-* The number of leaves to be deducted **cannot be greater than the amount of leaves in the employee's leave balance.**
+* You can specify a number of leaves to deduct from the employee's leave balance at the specified `INDEX` number.
+* The index refers to the number next to an employee's name in the displayed list.
+* The number of leaves to be deducted **must be between 1 and 365**: 1, 2, 3, …, 365
+* You **cannot deduct more leaves than what the employee has in their leave balance.**
 
 Examples:
 * `list` followed by `deductLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in HeRon.
@@ -345,15 +344,17 @@ Examples:
 
 #### Assign a leave with a date to an employee : `assignLeave`
 
-Assigns a leave that is associated with a date to a chosen employee.
+If an employee has applied for a leave on a given date,
+this command allows you to assign a leave with a date to that employee
+to allow you to keep track of it.
 
 Format: `assignLeave INDEX d/DATE`
 
-* Assigns a leave to the employee at the specified `INDEX`, while deducting 1 leave from the employee's leave balance.
+* You can assign a leave to the employee at the specified `INDEX`, which automatically deducts 1 leave from the employee's leave balance.
+* The index refers to the number next to an employee's name in the displayed list.
 * The employee must have **at least 1 leave** in their leave balance.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …
-* The date **must be valid** and of the form **YYYY-MM-DD**.
+  <br>(To add leaves to an employee, [use the `addLeaveBalance` command.](UserGuide.md#add-number-of-leaves-for-an-employee--addleavebalance))
+* The given date **must be valid** and of the form **YYYY-MM-DD**.
 
 Examples:
 * `list` followed by `assignLeave 2 d/2021-11-10` assigns a leave with the date 10th November 2021 to the 2nd employee in HeRon.
@@ -361,11 +362,13 @@ Examples:
 
 #### Remove all leaves occurring before a given date from employees : `removeLeavesBefore`
 
-Removes all leaves from all employees in the list occurring before a given input date (inclusive).
+If you need to remove outdated leave information from your employees,
+this command allows you to remove all assigned leave dates
+on and before a specified date from all employees in the list.
 
 Format: `removeLeavesBefore d/DATE`
 
-* Removes all leaves from all employees in the list occurring before a given input date (inclusive).
+* You can remove all assigned leaves occurring on and before a specified date from all employees in the displayed list.
 * The date **must be valid** and of the form **YYYY-MM-DD**.
 * This operation will only act on employees in the current filtered list.
 
@@ -378,17 +381,19 @@ Examples:
 
 #### Add number of hours worked/overtime to an employee : `addHoursWorked`
 
-Adds the specified number of hours worked or overtime to a chosen employee.
+This command allows you to increase an employee's
+work hours or overtime hours.
 
 Format: `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 
-* At least one field (HOURS_WORKED or OVERTIME) should be specified.
-* Adds the specified number of hours worked/overtime to the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …
-* The number of hours worked/overtime **must be a positive integer between 1 and 744** 1, 2, 3, …, 744
-* The number of hours worked/overtime to be added **cannot cause the employee's total hours worked/overtime to exceed 744.**
-  <br> (Note: Limit of 744 is applied separately to hours worked and overtime, e.g hours worked and overtime can both be set to 744)
+* You can specify a number of work/overtime hours to add to the employee at the specified `INDEX` number.
+* You must include at least one field (HOURS_WORKED or OVERTIME) when using the command.
+* You can add work hours as well as overtime hours in the same command.
+* The index refers to the number next to an employee's name in the displayed list.
+* The number of work/overtime hours to be added **must be between 1 and 744**: 1, 2, 3, …, 744
+* The number of work/overtime hours to be added also **cannot cause the employee's total hours worked/overtime to exceed 744.** 
+  <br> (Note: The limit of 744 is applied separately to hours worked and overtime,
+  for example an employee's hours worked and overtime can both be set to 744)
 
 Examples:
 * `list` followed by `addHoursWorked 5 hw/5 o/5` adds 5 hours worked and 5 hours of overtime to the 5th employee in HeRon.
@@ -396,16 +401,17 @@ Examples:
 
 #### Deduct number of hours worked/overtime from an employee : `deductHoursWorked`
 
-Deducts the specified number of hours worked or overtime from a chosen employee.
+This command allows you to decrease an employee's
+work hours or overtime hours.
 
 Format: `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 
-* At least one field (HOURS_WORKED or OVERTIME) should be specified.
-* Deducts the specified number of hours worked/overtime from the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …
-* The number of hours worked/overtime **must be a positive integer between 1 and 744** 1, 2, 3, …, 744
-* The number of hours worked/overtime to be removed **cannot be greater than the employee's current number of hours worked/overtime.**
+* You can specify a number of work/overtime hours to deduct from the employee at the specified `INDEX`.
+* You must include at least one field (HOURS_WORKED or OVERTIME) when using the command.
+* You can deduct work hours as well as overtime hours in the same command.  
+* The index refers to the number next to an employee's name in the displayed list.
+* The number of work/overtime hours to be deducted **must be between 1 and 744**: 1, 2, 3, …, 744
+* You **cannot deduct more work/overtime hours than what the employee has.**
 
 Examples:
 * `list` followed by `deductHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in HeRon.
