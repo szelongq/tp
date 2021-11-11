@@ -12,8 +12,6 @@ If you are... | What to do next
 **a new user** | You can follow the [Quick Start Guide](#quick-start) to set up HeRon and get to work right away.
 **a returning user** | You can take a look at the [Command Summary](#command-summary) if you need to jog your memory, or use the table of contents below if you want to take a look at a specific command.
 
-<div style="page-break-after: always;"></div>
-
 * Table of Contents
 {:toc}
 
@@ -36,7 +34,7 @@ If you are... | What to do next
    ![Starting up HeRon](images/user-guide/ChangeDirectoryAfter.png)
 
 5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![InterfaceLayout](images/user-guide/InterfaceLayout.png)
+   ![Ui](images/Ui.png)
 
 6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
 
