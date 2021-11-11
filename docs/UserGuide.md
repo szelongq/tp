@@ -67,6 +67,7 @@ _Display Panel_ <br>
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
+
 ## Features
 
 <div markdown="block" class="alert alert-info">
@@ -97,14 +98,69 @@ _Display Panel_ <br>
 
 ### General Admin Features
 
-#### Viewing help : `help`
+#### Import Data from CSV files: `import`
 
-Shows a message explaining how to access the help page.
+Imports the data from a specified `.csv` file.
 
-![help message](images/user-guide/helpMessage.png)
+Format: `import FILEPATH`
+* Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
+* Only one `FILEPATH` should be specified.
+* Filepaths should be written following the current Operating System being used. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
+* Filepaths with spaces present in directory can be written as per usual (e.g. `./My Folder/toBeImported.csv`).
+* A header row is required to indicate the purpose of the various fields, and it must be the first row in the `.csv` file.
+* No specific ordering of the columns is required.
+* Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below, and are present in the data if compulsory.
+* If multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
+* If there are duplicate `Person` entries, `Email` or `Contact Number`, the import will not be allowed.
+* Ensure that each field follows the specifications required, which can be found in the section for [`add` command](UserGuide.md#adding-an-employee-add).
+* Ensure that the number of fields in each entry matches the number of headers.
+* If multiple tags are present for an entry, they should be separated by `/`.
+* For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value.
+* If a value for a field is provided for at least one entry, then all other entries must also have their respective values for the field provided.
 
-Format: `help`
-<div style="page-break-after: always;"></div>
+**Field Naming Requirements and Default Values**
+
+Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Value
+--------------|---------------|------------------------ | --------
+`NAME`|Name|**Yes**| N.A.
+`PHONE_NUMBER` |Contact Number|**Yes**| N.A.
+`ADDRESS` |Residential Address|**Yes**| N.A.
+`EMAIL` |Email|**Yes**| N.A.
+`ROLE` |Role|**Yes**| N.A.
+`NUMBER_OF_LEAVES` |Leave Balance|No | 0
+`HOURLYSALARY` |Salary|No | 0.00
+`HOURS_WORKED` |Hours Worked|No | 0
+`OVERTIME` |Overtime|No | 0
+`TAGS`|Tags|No| Empty Set of Tags
+
+Example:`import ./toBeImported` should have the following behaviours under the following situations.
+* Successful Import
+  ![Result for successful import](images/user-guide/multipleTagImport.png)
+
+    <div style="page-break-after: always;"></div>
+  
+* Multiple entries missing compulsory fields.
+  ![Picture of CSV file missing compulsory field](images/user-guide/missingFieldCsv.png)
+  ![Result for missing field import](images/user-guide/missingFieldImport.png)
+  
+    <div style="page-break-after: always;"></div>
+
+* Multiple Tags present in entry.
+  ![Picture of CSV file with multiple tags](images/user-guide/multipleTagsCsv.png)
+  ![Result for multiple tag import](images/user-guide/multipleTagImport.png)
+
+#### Viewing employee data: `view`
+
+View the data of the specified employee at the InfoPanel.
+
+Format: `view INDEX`
+* Displays the data of the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, ...​
+
+Example:
+* `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
+* `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
 
 #### Adding an employee: `add`
 
@@ -138,13 +194,6 @@ Examples:
 ![Result of successful add](images/user-guide/addExample.png)
   _Result of adding a new employee Betsy successfully to HeRon_ <br>
 
-#### Listing all employees : `list`
-
-Shows a list of all employees in HeRon.
-
-Format: `list`
-<div style="page-break-after: always;"></div>
-
 #### Editing an employee : `edit`
 
 Edits an existing employee in HeRon.
@@ -165,6 +214,21 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
 <div style="page-break-after: always;"></div>
+
+#### Deleting an employee : `delete`
+
+Deletes the specified employee from the application.
+
+Format: `delete INDEX`
+
+* Deletes the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The index cannot exceed the length of the employee list.
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd employee in HeRon.
+* `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
 
 #### Locating specific employees: `find`
 
@@ -239,33 +303,13 @@ Examples:
 * `find unpaid n/carl Elle l/<3` returns `Carl Kurz`, `Elle Meyer` as long as they have less than 3 leaves left and are still unpaid.<br>
   ![result for 'find alex david'](images/user-guide/findCarlElleResult.png)
 
-#### Deleting an employee : `delete`
+#### Listing all employees : `list`
 
-Deletes the specified employee from the application.
+Shows a list of all employees in HeRon.
 
-Format: `delete INDEX`
+Format: `list`
+<div style="page-break-after: always;"></div>
 
-* Deletes the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The index cannot exceed the length of the employee list.
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd employee in HeRon.
-* `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
-
-#### Viewing employee data: `view`
-
-View the data of the specified employee at the InfoPanel.
-
-Format: `view INDEX`
-* Displays the data of the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, ...​
-
-Example:
-* `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
-* `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
 
 #### Clearing all employees : `clear`
 
@@ -274,12 +318,6 @@ Clears all employees from the employee list. Upon clearing, it should display th
 ![ClearScreen](images/user-guide/clear.png)
 
 Format: `clear`
-
-#### Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
 
 ### Leave-related Features
 
@@ -387,6 +425,31 @@ Examples:
 
 <div style="page-break-after: always;"></div>
 
+#### View the Overtime Pay Rate : `viewOvertimePayRate`
+
+Displays the current overtime pay rate set in the application.
+
+Format: `viewOvertimePayRate`
+
+* Displays the current overtime pay rate in the feedback panel.
+
+#### Set a new Overtime Pay Rate : `setOvertimePayRate`
+
+Sets a new overtime pay rate to be used in payroll calculations.
+
+Format: `setOvertimePayRate OVERTIMEPAYRATE`
+
+* Sets the overtime pay rate in the application to `OVERTIMEPAYRATE`.
+* `OVERTIMEPAYRATE` should have a value between 1 to 10, and have at most 5 decimal places.
+
+Examples:
+* `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2x.
+
+* `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
+* `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places. An error message would be shown.
+
+<div style="page-break-after: always;"></div>
+
 #### Start Payroll : `startPayroll`
 
 Calculates the payroll of all employees and mark them as awaiting the payment.
@@ -452,83 +515,24 @@ Format 2: `pay all` - for paying all employees in the current list
 
 <div style="page-break-after: always;"></div>
 
-#### View the Overtime Pay Rate : `viewOvertimePayRate`
+### Miscellenous Features
 
-Displays the current overtime pay rate set in the application.
+#### Viewing help : `help`
 
-Format: `viewOvertimePayRate`
+Shows a message explaining how to access the help page.
 
-* Displays the current overtime pay rate in the feedback panel.
+![help message](images/user-guide/helpMessage.png)
 
-#### Set a new Overtime Pay Rate : `setOvertimePayRate`
-
-Sets a new overtime pay rate to be used in payroll calculations.
-
-Format: `setOvertimePayRate OVERTIMEPAYRATE`
-
-* Sets the overtime pay rate in the application to `OVERTIMEPAYRATE`.
-* `OVERTIMEPAYRATE` should have a value between 1 to 10, and have at most 5 decimal places.
-
-Examples:
-* `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2x.
-
-* `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1. An error message would be shown.
-* `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places. An error message would be shown.
-
+Format: `help`
 <div style="page-break-after: always;"></div>
 
-### Data-related Features
+#### Exiting the program : `exit`
 
-#### Import Data from CSV files: `import`
+Exits the program.
 
-Imports the data from a specified `.csv` file.
+Format: `exit`
 
-Format: `import FILEPATH`
-* Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
-* Only one `FILEPATH` should be specified.
-* Filepaths should be written following the current Operating System being used. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
-* Filepaths with spaces present in directory can be written as per usual (e.g. `./My Folder/toBeImported.csv`).
-* A header row is required to indicate the purpose of the various fields, and it must be the first row in the `.csv` file.
-* No specific ordering of the columns is required.
-* Ensure that the header rows of the respective fields in the `.csv` file are labelled according to the naming convention in the table below, and are present in the data if compulsory.
-* If multiple compulsory fields are missing, the app only alerts the user of the first instance of a missing field which is compulsory.
-* If there are duplicate `Person` entries, `Email` or `Contact Number`, the import will not be allowed.
-* Ensure that each field follows the specifications required, which can be found in the section for [`add` command](UserGuide.md#adding-an-employee-add).
-* Ensure that the number of fields in each entry matches the number of headers.
-* If multiple tags are present for an entry, they should be separated by `/`.
-* For non-compulsory fields, if no value is provided, the field for the entry in HeRon would be set to the default value.
-* If a value for a field is provided for at least one entry, then all other entries must also have their respective values for the field provided.
-
-**Field Naming Requirements and Default Values**
-
-Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Value
---------------|---------------|------------------------ | --------
-`NAME`|Name|**Yes**| N.A.
-`PHONE_NUMBER` |Contact Number|**Yes**| N.A.
-`ADDRESS` |Residential Address|**Yes**| N.A.
-`EMAIL` |Email|**Yes**| N.A.
-`ROLE` |Role|**Yes**| N.A.
-`NUMBER_OF_LEAVES` |Leave Balance|No | 0
-`HOURLYSALARY` |Salary|No | 0.00
-`HOURS_WORKED` |Hours Worked|No | 0
-`OVERTIME` |Overtime|No | 0
-`TAGS`|Tags|No| Empty Set of Tags
-
-Example:`import ./toBeImported` should have the following behaviours under the following situations.
-* Successful Import
-  ![Result for successful import](images/user-guide/multipleTagImport.png)
-
-    <div style="page-break-after: always;"></div>
-  
-* Multiple entries missing compulsory fields.
-  ![Picture of CSV file missing compulsory field](images/user-guide/missingFieldCsv.png)
-  ![Result for missing field import](images/user-guide/missingFieldImport.png)
-  
-    <div style="page-break-after: always;"></div>
-
-* Multiple Tags present in entry.
-  ![Picture of CSV file with multiple tags](images/user-guide/multipleTagsCsv.png)
-  ![Result for multiple tag import](images/user-guide/multipleTagImport.png)
+### Data Management
 
 #### Saving the data
 
