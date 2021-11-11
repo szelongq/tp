@@ -7,25 +7,6 @@ HeRon is a desktop application for HR managers of Small-Medium Enterprises (SMEs
 
 This User Guide will bring you through the features that HeRon has to offer, as well as the commands to make use of them.
 
-Here are the different sections in this User Guide:
-* [Quick Start](#quick-start) - This is a guide to help you quickly set up and get started with using HeRon.
-* [Interface Layout](#interface-layout) - This section explains the different parts of the GUI.
-* [Commands](#commands) - This section explains how to use the CLI in HeRon and some of the common formats of commands you can use.
-* [Features](#features) - This section contains explanations for all the possible commands you can use in HeRon.
-  They are divided into 4 categories:
-  * [General Admin Features](#general-admin-features)
-  * [Leave-related Features](#leave-related-features)
-  * [Payroll-related Features](#payroll-related-features)
-  * [Miscellaneous Features](#miscellaneous-features)
-  
-  For each command, there are:
-  * A description of the command and what it is used for
-  * The format of the command and how it is to be used
-  * Some examples to show how the command is used
-* [Data Management](#data-management) - This section describes how HeRon stores and manages your data.
-* [Frequently Asked Questions(FAQ)](#faq---frequently-asked-questions) - This section contains answers to some common questions you might have.
-* [Command Summary](#command-summary) - This is a table summary of all the commands in HeRon, with their use and formats.
-
 If you are... | What to do next
 --------|------------------
 **a new user** | You can follow the [Quick Start Guide](#quick-start) to set up HeRon and get to work right away.
@@ -55,7 +36,7 @@ If you are... | What to do next
    ![Starting up HeRon](images/user-guide/ChangeDirectoryAfter.png)
 
 5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![InterfaceLayout](images/user-guide/InterfaceLayout.png)
 
 6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
 
