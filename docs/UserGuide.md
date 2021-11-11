@@ -205,6 +205,8 @@ Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Valu
   ![Picture of CSV file missing compulsory field](images/user-guide/missingFieldCsv.png)
   ![Result for missing field import](images/user-guide/missingFieldImport.png)
 
+<div style="page-break-after: always;"></div>
+
 * Multiple Tags present in entry.
   ![Picture of CSV file with multiple tags](images/user-guide/multipleTagsCsv.png)
   ![Result for multiple tag import](images/user-guide/multipleTagImport.png)
@@ -220,6 +222,8 @@ This command allows you to view the data of the specified employee at the InfoPa
 **Example:**
 * `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
 * `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
+
+<div style="page-break-after: always;"></div>
 
 #### Adding an employee: `add`
 
