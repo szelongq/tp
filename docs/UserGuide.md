@@ -141,13 +141,13 @@ Format: `import FILEPATH`
 * Filepath Requirements
   * You should only specify **ONE** `FILEPATH`, which can be absolute or relative.
   * Write the filepath following your devices' Operating System. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
-
+<br>
 * Formatting Requirements
   * Use the first row in the `.csv` file as the header row to indicate the purpose of the various fields.
   * Ensure that the header rows of the respective fields are labelled according to the naming convention in the table below.
   * There is no specific requirement for ordering of the columns.
   * Ensure that the number of fields in each entry matches the number of headers.
-
+<br>
 * Data Requirements
   * Ensure all entries have data in the compulsory fields, listed in the table below.
   * Ensure that each field follows the specifications required, which you can find in the [Command Format Table](UserGuide.md#command-format-table).
@@ -259,8 +259,8 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
 * The order of the fields do not matter except for the `[STATUS]` field, which must come right after `find`.
 * To search a field with multiple values, separate each value with a space after their respective tag.
   * Example: Use `find n/Alice Charlotte` to search for `Alice` or `Charlotte` in the `name` field.
-* The filters work differently for each field and can be generalised to 4 types of queries, described below. A single find command can contain all 4 types of queries at once.
-  <br><br>
+* The filters work differently for each field and can be generalised to 4 types of queries, described below. A single find command can contain all 4 types of queries at once.<br>
+  <br>
   * **Type 1 Query: Keyword Matching**
     * Fields: `n/NAME`, `p/PHONE`, `e/EMAIL`, `a/ADDRESS`, `r/ROLE`, `t/TAG`
       * These fields will find all employees who contain the given keywords in their respective fields. They are not case-sensitive.
@@ -270,8 +270,8 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
     * For example, `find p/91234567 e/alice bob r/Admin` will find anyone who satisfies all the following 3 criteria:
       1. has the phone number 91234567,
       2. whose email contains `alice` or `bob`, and
-      3. whose role contains `Admin`.
-  <br><br>
+      3. whose role contains `Admin`.<br>
+  <br>
   * **Type 2 Query: Value Based Comparison**
     * Fields: `hw/HOURS_WORKED`, `l/NUMBER_OF_LEAVES`, `s/HOURLY_SALARY`, `o/OVERTIME`
       * These fields must be specified with a comparison and a value to compare the respective field to. Valid comparisons are
@@ -285,18 +285,16 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
       1. has worked more than or exactly 10 hours, and
       2. has less than 7 days of leave left (e.g. 6 and below)
 
-    * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.
-  
-  <br><br>
+    * You cannot enter more than 1 comparison or value to compare to. For example, `find hw/<10 >5` is not valid.<br>
+  <br>
   * **Type 3 Query: Status Based Filter**
     * There are no fields attached to this query. Instead, specific keywords are available for use.
       * These status keywords must be used right after `find` and cannot be used after a field is specified (for example `n/`).
       * Keywords available include:
         * `unpaid`
         * More to be added.
-    * For example, `find unpaid` will find all employees who are considered unpaid.
-  
-  <br><br>
+    * For example, `find unpaid` will find all employees who are considered unpaid.<br>
+  <br>
   * **Type 4 Query: Date Based Comparison**
     * Fields: `d/DATE`
       * This field will find all people who have taken a leave on a given date or within a range of dates. (start and end dates inclusive)
@@ -307,9 +305,7 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
     * For example, `find d/2021-10-10 2021-11-01:2021-11-05` will find anyone who satisfies **either** of the following 2 criteria:
       1. has taken a leave on October 10th 2021, or
       2. has taken a leave between the dates November 1st 2021 and November 5th 2021, start and end dates inclusive.
-
-* For each field, you can search using multiple keywords by separating each keyword with a space, in the same field.
-  * For example, `find n/John Mike` will return all employees whose name contains either John or Mike.
+      
   
 
 Examples:
