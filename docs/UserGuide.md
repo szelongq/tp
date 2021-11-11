@@ -7,10 +7,31 @@ HeRon is a desktop application for HR managers of Small-Medium Enterprises (SMEs
 
 This User Guide will bring you through the features that HeRon has to offer, as well as the commands to make use of them.
 
+Here are the different sections in this User Guide:
+* [Quick Start](#quick-start) - This is a guide to help you quickly set up and get started with using HeRon.
+* [Interface Layout](#interface-layout) - This section explains the different parts of the GUI.
+* [Commands](#commands) - This section explains how to use the CLI in HeRon and some of the common formats of commands you can use.
+* [Features](#features) - This section contains explanations for all the possible commands you can use in HeRon.
+  They are divided into 4 categories:
+  * [General Admin Features](#general-admin-features)
+  * [Leave-related Features](#leave-related-features)
+  * [Payroll-related Features](#payroll-related-features)
+  * [Miscellaneous Features](#miscellaneous-features)
+  
+  For each command, there are:
+  * A description of the command and what it is used for
+  * The format of the command and how it is to be used
+  * Some examples to show how the command is used
+* [Data Management](#data-management) - This section describes how HeRon stores and manages your data.
+* [Frequently Asked Questions(FAQ)](#faq---frequently-asked-questions) - This section contains answers to some common questions you might have.
+* [Command Summary](#command-summary) - This is a table summary of all the commands in HeRon, with their use and formats.
+
 If you are... | What to do next
 --------|------------------
 **a new user** | You can follow the [Quick Start Guide](#quick-start) to set up HeRon and get to work right away.
 **a returning user** | You can take a look at the [Command Summary](#command-summary) if you need to jog your memory, or use the table of contents below if you want to take a look at a specific command.
+
+<div style="page-break-after: always;"></div>
 
 * Table of Contents
 {:toc}
@@ -145,7 +166,7 @@ HeRon assists you in starting by making it easy to migrate from other software, 
 
 This command then allows you to migrate the data in the csv file that you have, replacing the existing data in HeRon.
 
-Format: `import FILEPATH`
+**Format:** `import FILEPATH`
 * Filepath Requirements
   * You should only specify **ONE** `FILEPATH`, which can be absolute or relative.
   * Write the filepath following your devices' Operating System. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
@@ -182,7 +203,7 @@ Field | Rename to ... (Case-Insensitive) | Compulsory for Import? | Default Valu
 `OVERTIME` |Overtime|No | 0
 `TAGS`|Tags|No| Empty Set of Tags
 
-Example: You should see the following behaviours for the command, `import ./toBeImported`.
+**Example:** You should see the following behaviours for the command, `import ./toBeImported`.
 * Successful Import
   ![Result for successful import](images/user-guide/multipleTagImport.png)
 
@@ -198,12 +219,12 @@ Example: You should see the following behaviours for the command, `import ./toBe
 
 This command allows you to view the data of the specified employee at the InfoPanel.
 
-Format: `view INDEX`
+**Format:** `view INDEX`
 * Displays the data of the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, ...​
 
-Example:
+**Example:**
 * `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
 * `find r/Financial Manager` followed by `view 1` displays the information of the 1st employee in the list of employees that have the Financial Manager role.
 
@@ -211,11 +232,11 @@ Example:
 
 This command allows you to add a new employee into HeRon, as long as the all details of the employee is given and follow the requirements. Note that you cannot add an employee with the same Name, Email or Phone Number used by another existing employee in HeRon.
 
-Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
+**Format:** `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
 
 * Follow the requirements for the respective fields listed in the [Command Format Table](#command-format-table) above.
 
-Examples:
+**Examples:**
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0`
 * `add n/Betsy Crowe r/Designer s/25 hw/60  l/21  e/betsycrowe@example.com a/Newgate Prison p/1234567 o/0 t/criminal t/friend`
   ![Result of successful add](images/user-guide/addExample.png)
@@ -225,7 +246,7 @@ Examples:
 
 Edits an existing employee in HeRon.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`
 
 * Edits the employee at the specified `INDEX`. The index refers to the index number shown in the displayed employee list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -237,7 +258,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_
 * **NOTE:** The edit command is unable to directly edit the dates of leaves taken by employees.
   Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to edit the dates.
 
-Examples:
+**Examples:**
 * `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
 * `edit 2 n/Betsy Crower t/` Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
 
@@ -246,14 +267,14 @@ Examples:
 This command allows you to delete a specific employee from the application.
 
 
-Format: `delete INDEX`
+**Format:** `delete INDEX`
 
 * Deletes the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * The index cannot exceed the length of the employee list.
 
-Examples:
+**Examples:**
 * `list` followed by `delete 2` deletes the 2nd employee in HeRon.
 * `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
 
@@ -261,7 +282,7 @@ Examples:
 
 Find employees using specified fields, checking if their information field contains any of the given keywords / queries.
 
-Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
+**Format:** `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`
 
 * At least one field should be specified.
 * The order of the fields do not matter except for the `[STATUS]` field, which must come right after `find`.
@@ -316,7 +337,7 @@ Format: `find [STATUS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMB
       
   
 
-Examples:
+**Examples:**
 * `find unpaid n/John Mike r/admin l/<=5 o/>3` finds all employees who satisfy all the following criteria:
   1. is considered unpaid in the system,
   2. whose name is either John or Mike,
@@ -330,7 +351,7 @@ Examples:
 
 Shows a list of all employees in HeRon.
 
-Format: `list`
+**Format:** `list`
 
 #### Clearing all employees : `clear`
 
@@ -338,7 +359,7 @@ Clears all employees from the employee list. Upon clearing, it should display th
 
 ![ClearScreen](images/user-guide/clear.png)
 
-Format: `clear`
+**Format:** `clear`
 
 ### Leave-related Features
 
@@ -355,7 +376,7 @@ Field | Requirements | Examples
 
 This command allows you to increase an employee's leave balance (number of days of leave the employee has left).
 
-Format: `addLeaveBalance INDEX l/NUMBER_OF_LEAVES`
+**Format:** `addLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 
 * You can specify a number of leaves to add to the employee's leave balance at the specified `INDEX` number.
 * The index refers to the number next to an employee's name in the displayed list.
@@ -371,14 +392,14 @@ Examples:
 This command allows you to decrease an employee's
 leave balance (number of days of leave the employee has left).
 
-Format: `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES`
+**Format:** `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 
 * You can specify a number of leaves to deduct from the employee's leave balance at the specified `INDEX` number.
 * The index refers to the number next to an employee's name in the displayed list.
 * The number of leaves to be deducted **must be between 1 and 365**: 1, 2, 3, …, 365
 * You **cannot deduct more leaves than what the employee has in their leave balance.**
 
-Examples:
+**Examples:**
 * `list` followed by `deductLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in HeRon.
 * `find n/Anthony` followed by `deductLeaveBalance 4 l/2` removes 2 days of leave from the 4th employee in the results of the `find` command.
 
@@ -388,7 +409,7 @@ If an employee has applied for a leave on a given date,
 this command allows you to assign a leave with a date to that employee
 to allow you to keep track of it.
 
-Format: `assignLeave INDEX d/DATE`
+**Format:** `assignLeave INDEX d/DATE`
 
 * You can assign a leave to the employee at the specified `INDEX`, which automatically deducts 1 leave from the employee's leave balance.
 * The index refers to the number next to an employee's name in the displayed list.
@@ -396,7 +417,7 @@ Format: `assignLeave INDEX d/DATE`
   <br>(To add leaves to an employee, [use the `addLeaveBalance` command.](UserGuide.md#add-number-of-leaves-for-an-employee--addleavebalance))
 * The given date **must be valid** and of the form **YYYY-MM-DD**.
 
-Examples:
+**Examples:**
 * `list` followed by `assignLeave 2 d/2021-11-10` assigns a leave with the date 10th November 2021 to the 2nd employee in HeRon.
 * `find n/Anthony` followed by `assignLeave 1 d/2021-01-08` assigns a leave with the date 8th January 2021 to the 1st employee in the results of the `find` command.
 
@@ -406,13 +427,13 @@ If you need to remove outdated leave information from your employees,
 this command allows you to remove all assigned leave dates
 on and before a specified date from all employees in the list.
 
-Format: `removeLeavesBefore d/DATE`
+**Format:** `removeLeavesBefore d/DATE`
 
 * You can remove all assigned leaves occurring on and before a specified date from all employees in the displayed list.
 * The date **must be valid** and of the form **YYYY-MM-DD**.
 * This operation will only act on employees in the current filtered list.
 
-Examples:
+**Examples:**
 * `list` followed by `removeLeavesBefore d/2021-11-10` removes all leaves occurring on and before 2021-11-10 for all employees.
 * `find n/Anthony` followed by `removeLeavesBefore 1 d/2021-01-08` removes all leaves occurring on and before 2021-01-08
   for all employees that have 'Anthony' in their names.
@@ -434,7 +455,7 @@ Field | Requirements | Examples
 This command allows you to increase an employee's
 work hours or overtime hours.
 
-Format: `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
+**Format:** `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 
 * You can specify a number of work/overtime hours to add to the employee at the specified `INDEX` number.
 * You must include at least one field (HOURS_WORKED or OVERTIME) when using the command.
@@ -445,7 +466,7 @@ Format: `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
   <br> (Note: The limit of 744 is applied separately to hours worked and overtime,
   for example an employee's hours worked and overtime can both be set to 744)
 
-Examples:
+**Examples:**
 * `list` followed by `addHoursWorked 5 hw/5 o/5` adds 5 hours worked and 5 hours of overtime to the 5th employee in HeRon.
 * `find n/Sam` followed by `addHoursWorked 2 o/5` adds 5 hours of overtime to the 2nd employee in the results of the `find` command.
 
@@ -454,7 +475,7 @@ Examples:
 This command allows you to decrease an employee's
 work hours or overtime hours.
 
-Format: `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
+**Format:** `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 
 * You can specify a number of work/overtime hours to deduct from the employee at the specified `INDEX`.
 * You must include at least one field (HOURS_WORKED or OVERTIME) when using the command.
@@ -463,7 +484,7 @@ Format: `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]`
 * The number of work/overtime hours to be deducted **must be between 1 and 744**: 1, 2, 3, …, 744
 * You **cannot deduct more work/overtime hours than what the employee has.**
 
-Examples:
+**Examples:**
 * `list` followed by `deductHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in HeRon.
 * `find n/Sam` followed by `deductHoursWorked 1 o/2` removes 2 hours of overtime from the 1st employee in the results of the `find` command.
 
@@ -473,7 +494,7 @@ Examples:
 
 This command tells you the current overtime pay rate set in the application.
 
-Format: `viewOvertimePayRate`
+**Format:** `viewOvertimePayRate`
 
 * Displays the current overtime pay rate in the feedback panel.
 
@@ -488,11 +509,11 @@ This command sets a new overtime pay rate to be used in payroll calculations.
 * You can only enter up to 5 decimal places for the overtime pay rate.
 </div>
 
-Format: `setOvertimePayRate OVERTIMEPAYRATE`
+**Format:** `setOvertimePayRate OVERTIMEPAYRATE`
 
 * This command sets the overtime pay rate in HeRon to `OVERTIMEPAYRATE`.
 
-Examples:
+**Examples:**
 * `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2.
 * `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1.
 * `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places.
@@ -524,7 +545,7 @@ For example, if an employee has an hourly salary of $12/hr, 60 hours worked, 5 h
 the overtime pay rate is 1.5x, their pay would be:<br>
 <p align="center"> ($12/hr x 60hrs) + ($12/hr x 5hrs x 1.5) = $720 + $90 = $810 </p>
 
-Format: `startPayroll`
+**Format:** `startPayroll`
 * This command will calculate the payroll and then show you the list of **all employees in HeRon, 
   regardless of the list you are currently viewing**.
 * After that, for every employee who is owed some pay, they will have red labels saying `NOT PAID` and 
@@ -534,11 +555,11 @@ Format: `startPayroll`
 * After calculating the payroll, you can use the [`pay`](#paying-employees--pay) command to mark employees as paid,
   after their pay are given in real life.
 
-Example:
+**Example:**
 * Before you use the `startPayroll` command, you might be viewing a filtered list.
   ![before starting payroll](images/user-guide/startPayroll_before.png)
   
-  * After entering the `startPayroll` command, the payroll will be calculated and you will then be viewing 
+* After entering the `startPayroll` command, the payroll will be calculated and you will then be viewing 
   the full list of employees. Each employee will have a red `NOT PAID` label.
   ![after starting payroll](images/user-guide/startPayroll_after.png)
 
@@ -549,12 +570,12 @@ This command has two formats:
 * Format 1: `pay INDEX` - marks the employee at `INDEX` as paid.
 * Format 2: `pay all` - marks all employees in the current list as paid
 
-Format 1: `pay INDEX` - for marking a specific employee as paid
+**Format 1:** `pay INDEX` - for marking a specific employee as paid
 * This command marks the employee at `INDEX` as paid by removing the red `NOT PAID` label under the employee's data.
 * You can use this command after the [`startPayroll`](#start-payroll--startpayroll) command, 
   which calculates the payroll and marks all employees as unpaid.
 
-Example:
+**Example:**
 * `pay 1` marks the 1st employee in the list as paid, removing the red `NOT PAID` label.
   ![before paying the employee](images/user-guide/pay_beforePaying.png)
   _Alex is marked as unpaid in HeRon after a `startPayroll` command_ <br>
@@ -563,7 +584,7 @@ Example:
   _After executing `pay 1`, Alex (being the 1st employee in this list) is marked as paid, 
   and the red `NOT PAID` label is removed_ <br>
 
-Format 2: `pay all` - for marking all employees in the current list as paid
+**Format 2:** `pay all` - for marking all employees in the current list as paid
 * This command marks all unpaid employees in the current list as paid by removing the red `NOT PAID` labels under 
   the employees' data.
 * You can use this command after the [`startPayroll`](#start-payroll--startpayroll) command,
@@ -581,21 +602,21 @@ Shows a message explaining how to access the help page.
 
 ![help message](images/user-guide/helpMessage.png)
 
-Format: `help`
+**Format:** `help`
 
 #### Exiting the program : `exit`
 
 Exits the program.
 
-Format: `exit`
+**Format:** `exit`
 
-### Data Management
+## Data Management
 
-#### Saving the data
+### Saving the data
 
 HeRon data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-#### Editing the data file
+### Editing the data file
 
 HeRon data are saved as a JSON file `[JAR file location]/data/HeRon.json`. Advanced users are welcome to update data directly by editing the data file.
 
