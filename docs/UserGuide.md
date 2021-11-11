@@ -14,7 +14,7 @@ If you are... | What to do next
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Table of Contents
+<h2>Table of Contents</h2>
 
 * Table of Contents
 {:toc}
@@ -25,7 +25,7 @@ If you are... | What to do next
 
 1. Ensure that you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
 
-2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). The picture below shows a portion of the download page which you can download HeRon. <br>
+2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). You should see the following on the download page. <br>
 
    ![Screenshot of download page](images/user-guide/downloadHeRon.png)
 
@@ -58,7 +58,7 @@ If you are... | What to do next
 
    * `exit` : Exits the app.
 
-7. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Entering Commands](#entering-commands) section for more information on the input commands used in HeRon, and the [Command](#command) section for more information on what each command does.
 
 --------------------------------------------------------------------------------------------------------------------
 ## Interface Layout
