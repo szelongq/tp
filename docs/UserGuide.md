@@ -105,14 +105,14 @@ _Display Panel_ <br>
 
 #### Import Data from CSV files: `import`
 
-HeRon helps support an easy start for users migrating from other software, such as Excel. To transfer your existing data, convert it into a Comma Separated Value (.csv) file. If you require help in exporting your spreadsheet in Excel to a .csv file, you can refer to this [guide](https://support.microsoft.com/en-us/office/save-a-workbook-to-text-format-txt-or-csv-3e9a9d6c-70da-4255-aa28-fcacf1f081e6_) by Microsoft.
+HeRon assists you in starting by making it easy to migrate from other software, such as Excel. To transfer your existing data, convert it into a Comma Separated Value (.csv) file. If you require help in exporting your spreadsheet in Excel to a .csv file, you can refer to this [guide](https://support.microsoft.com/en-us/office/save-a-workbook-to-text-format-txt-or-csv-3e9a9d6c-70da-4255-aa28-fcacf1f081e6_) by Microsoft.
+
+This command then allows you to migrate the data in the csv file that you have, replacing the existing data in HeRon.
 
 Format: `import FILEPATH`
-* Imports data from the specified filepath, which can be absolute or relative (to the `.jar` application).
-* You should only specify **ONE** `FILEPATH`.
-* Write the filepaths following your devices' Operating System. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
-* Write filepaths with spaces present in directory as per usual (e.g. `./My Folder/toBeImported.csv`).
-* Use the first row in the `.csv` file as the header row, and indicate the purpose of the various fields.
+* You should only specify **ONE** `FILEPATH`, which can be absolute or relative.
+* Write the filepath following your devices' Operating System. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
+* Use the first row in the `.csv` file as the header row to indicate the purpose of the various fields.
 * Ensure that the header rows of the respective fields are labelled according to the naming convention in the table below, and are present, if indicated as compulsory.
 * There is no specific requirement for ordering of the columns.
 * If multiple compulsory fields are missing, the app only alerts you of the first instance of a missing field which is compulsory.
@@ -152,7 +152,7 @@ Example: You should see the following behaviours for the command, `import ./toBe
 
 #### Viewing employee data: `view`
 
-View the data of the specified employee at the InfoPanel.
+This command allows you to view the data of the specified employee at the InfoPanel.
 
 Format: `view INDEX`
 * Displays the data of the employee at the specified `INDEX`.
@@ -165,7 +165,7 @@ Example:
 
 #### Adding an employee: `add`
 
-Need to add a new employee into HeRon? The `add` command allows you to do so, as long as the all details of the employee is given and follows the requirements. Note that you cannot add an employee with the same `Name`, `Email` or `Contact Number` used by another existing employee in HeRon.
+This command allows you to add a new employee into HeRon, as long as the all details of the employee is given and follow the requirements. Note that you cannot add an employee with the same `Name`, `Email` or `Contact Number` used by another existing employee in HeRon.
 
 Format: `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
 
@@ -216,22 +216,7 @@ Examples:
 
 #### Deleting an employee : `delete`
 
-Deletes the specified employee from the application.
-
-Format: `delete INDEX`
-
-* Deletes the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The index cannot exceed the length of the employee list.
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd employee in HeRon.
-* `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
-
-#### Deleting an employee : `delete`
-
-Deletes the specified employee from the application.
+This command allows you to delete a specific employee from the application.
 
 Format: `delete INDEX`
 
