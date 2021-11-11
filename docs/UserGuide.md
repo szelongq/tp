@@ -12,6 +12,10 @@ If you are... | What to do next
 **a new user** | You can follow the [Quick Start Guide](#quick-start) to set up HeRon and get to work right away.
 **a returning user** | You can take a look at the [Command Summary](#command-summary) if you need to jog your memory, or use the table of contents below if you want to take a look at a specific command.
 
+--------------------------------------------------------------------------------------------------------------------
+
+## Table of Contents
+
 * Table of Contents
 {:toc}
 
@@ -75,6 +79,7 @@ If you are... | What to do next
 - Displays all of a specified employee's information.
 - On start-up of the application, it displays the first employee in the list.
     If the employee list is empty, no employee information would be shown in this panel.
+
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
@@ -134,6 +139,8 @@ Field | Requirements | Examples
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 An employee can have any number of tags (including 0)
 </div>
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
@@ -588,6 +595,8 @@ Shows a message explaining how to access the help page.
 Exits the program.
 
 **Format:** `exit`
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Data Management
 
