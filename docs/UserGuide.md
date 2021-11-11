@@ -19,7 +19,7 @@ If you are... | What to do next
 
 ## Quick start
 
-1. Ensure you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
+1. Ensure that you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
 
 2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). The picture below shows a portion of the download page which you can download HeRon. <br>
 
@@ -40,7 +40,7 @@ If you are... | What to do next
 
    Some example commands you can try:
 
-   * `import ./toBeImported.csv` : Imports the .csv file named `toBeImported.csv` in the same directory as the application into HeRon. This removes the current existing data and replaces it with the data in the `.csv` file.
+   * `import ./toBeImported.csv` : Imports the .csv file named `toBeImported.csv` in the same directory as the application into HeRon. This removes the current existing data and replaces it with the data in the .csv file.
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0` : Adds an employee named `John Doe` with the above details to HeRon.
 
@@ -91,8 +91,8 @@ they may or may not use all components. Below shows an example of a command with
 
 **:information_source: Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the fields to be supplied by the user.<br>
+  e.g. in `add n/NAME`, `NAME` is a field which can be used as `add n/John Doe`.
 
 * Items in square brackets `i.e. []` are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -106,7 +106,7 @@ they may or may not use all components. Below shows an example of a command with
 * If a field is expected only once in the command but is specified multiple times, only the last occurrence of the field will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous fields for commands that do not take in field (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous fields for commands that do not take in fields (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 </div>
@@ -149,13 +149,13 @@ Format: `import FILEPATH`
 * Filepath Requirements
   * You should only specify **ONE** `FILEPATH`, which can be absolute or relative.
   * Write the filepath following your devices' Operating System. (e.g. `\My Folder\myData.csv` for Windows; `/My Folder/myData.csv` for MacOS/Linux).
-<br>
+<br><br>
 * Formatting Requirements
-  * Use the first row in the `.csv` file as the header row to indicate the purpose of the various fields.
+  * Use the first row in the .csv file as the header row to indicate the purpose of the various fields.
   * Ensure that the header rows of the respective fields are labelled according to the naming convention in the table below.
   * There is no specific requirement for ordering of the columns.
   * Ensure that the number of fields in each entry matches the number of headers.
-<br>
+<br><br>
 * Data Requirements
   * Ensure all entries have data in the compulsory fields, listed in the table below.
   * Ensure that each field follows the specifications required, which you can find in the [Command Format Table](UserGuide.md#command-format-table).
@@ -164,7 +164,7 @@ Format: `import FILEPATH`
   * If you provide a value for a non-compulsory field for at least one entry, you must also provide the respective values for all other entries. On the other hand, if you do not provide data for the field, it would be set to the default value for all entries.
 
 <div markdown="block" class="alert alert-info">
-:information_source: Take note: If there are multiple instances of duplicated/missing/incorrect data, HeRon will only notify you the first row has errors present.
+:information_source: Take note: If there are multiple instances of duplicated/missing/incorrect data, HeRon will only notify you of the first row has errors present.
 </div>
 
 **Field Naming Requirements and Default Values**
