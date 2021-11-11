@@ -107,6 +107,9 @@ _Display Panel_ <br>
 
 ### Command Format Table
 
+The following table describes the input format of each field as well as any requirements
+for all commands in HeRon.
+
 Field | Requirements | Examples
       --------------|---------------|---------
 `INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
@@ -324,6 +327,9 @@ Format: `clear`
 
 ### Leave-related Features
 
+The following table describes the input format of each field as well as any requirements
+for all Leave-related commands in HeRon.
+
 Field | Requirements | Examples
       --------------|---------------|---------
 `INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
@@ -397,6 +403,9 @@ Examples:
   for all employees that have 'Anthony' in their names.
 
 ### Payroll-related Features
+
+The following table describes the input format of each field as well as any requirements
+for all Payroll-related commands in HeRon.
 
 Field | Requirements | Examples
       --------------|---------------|---------
