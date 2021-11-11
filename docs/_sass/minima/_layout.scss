@@ -177,9 +177,9 @@
   margin-bottom: $spacing-unit;
 
   h1, h2, h3 { margin-top: 0,
-                padding: 0 }
+                padding: 0 !important; }
   h4, h5, h6 { margin-top: 0,
-                padding: 0  }
+                padding: 0 !important; }
 
   h2 {
     @include relative-font-size(1.75);
