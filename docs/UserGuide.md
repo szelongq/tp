@@ -13,7 +13,7 @@ If you are... | What to do next
 **a returning user** | You can take a look at the [Command Summary](#command-summary) if you need to jog your memory, or use the table of contents below if you want to take a look at a specific command.
 
 * Table of Contents
-  {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -21,13 +21,17 @@ If you are... | What to do next
 
 1. Ensure you have Java 11 or above installed in your computer. If you do not have Java 11, you can install it [here](https://www.oracle.com/java/technologies/downloads/).
 
-2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases).
+2. Download the latest `HeRon.jar` from [here](https://github.com/AY2122S1-CS2103T-F11-3/tp/releases). <br>
+
+   ![Screenshot of download page](images/user-guide/downloadHeRon.png)
 
 3. Copy the file to the folder you want to use as the _home folder_ for your HeRon.
 
 4. Start the app. 
    1. If you are using Windows, you can double-click on HeRon.jar in the folder you used in Step 3. 
-   2. If you are using MacOS or Linux, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app.
+   2. If you are using MacOS or Linux, open up your terminal and navigate to the folder containing HeRon. Use the command ```java -jar HeRon.jar``` to start up the app. In the following example, HeRon is located in `Users` -> `MyDirectory`. <br>
+   ![Changing into the example directory](images/user-guide/ChangeDirectoryBefore.png)
+   ![Starting up HeRon](images/user-guide/ChangeDirectoryAfter.png)
 
 5. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
@@ -605,15 +609,15 @@ List of available commands with their respective format and example usages for q
 
 Action | Format, Examples
 --------|------------------
-**Help** | `help`
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
-**List** | `list`
-**View** | `view INDEX`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
-**Find** | `find [STATUS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Clear** | `clear`
-**Exit** | `exit`
+**Open the help menu** | `help`
+**Add an employee to the employee list** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
+**View the full list of employees** | `list`
+**View the details of a single employee** | `view INDEX`
+**Edit the details of a single employee** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
+**Find employees that match given criteria** | `find [STATUS]... [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [d/DATE] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]...`<br> e.g., `find n/Alex r/Admin Assistant`
+**Delete an employee from the employee list** | `delete INDEX`<br> e.g., `delete 3`
+**Clear the entire employee list** | `clear`
+**Exit HeRon** | `exit`
 **Add to Leave Balance** | `addLeaveBalance INDEX l/NUMBER_OF_LEAVES` <br> e.g., `addLeaveBalance 1 l/2`
 **Deduct from Leave Balance** | `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES` <br> e.g., `deductLeaveBalance 4 l/1`
 **Assign Leave** |  `assignLeave INDEX d/DATE` <br> e.g., `assignLeave 1 d/2021-10-30`
@@ -624,4 +628,6 @@ Action | Format, Examples
 **Pay Employee(s)** | `pay INDEX` <br> e.g., `pay 3` <br> OR <br>`pay all`
 **View Overtime Pay Rate** | `viewOvertimePayRate`
 **Set a new Overtime Pay Rate** | `setOvertimePayRate OVERTIMEPAYRATE`<br> e.g., `setOvertimePayRate 2.0`
-**Import** | `import FILEPATH` e.g., `import ./myData.csv`
+**Import a CSV file of employee data** | `import FILEPATH` e.g., `import ./myData.csv`
+
+
