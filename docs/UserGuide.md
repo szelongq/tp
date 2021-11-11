@@ -652,7 +652,7 @@ Action | Format, Examples
 **Set a new Overtime Pay Rate** | `setOvertimePayRate OVERTIMEPAYRATE`<br> e.g., `setOvertimePayRate 2.0`
 **Start Payroll** | `startPayroll`
 **Pay Employee(s)** | `pay INDEX` <br> e.g., `pay 3` <br> OR <br>`pay all`
-**Exit HeRon** | `exit`
 **Open the help menu** | `help`
+**Exit HeRon** | `exit`
 
 
