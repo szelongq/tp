@@ -218,9 +218,7 @@ This command allows you to view the data of the specified employee at the InfoPa
 This command allows you to add a new employee into HeRon, as long as the all details of the employee is given and follow the requirements.
 
 <div markdown="block" class="alert alert-info">
-**:information_source: Note:**
-
-* You cannot add an employee with the same Name, Email or Phone Number used by another existing employee in HeRon.
+:information_source: Take note: You cannot add an employee with the same Name, Email or Phone Number used by another existing employee in HeRon.
 </div>
 
 **Format:** `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
@@ -249,9 +247,8 @@ Edits an existing employee in HeRon.
 * The values you provide to the command must be valid. For information on which values are valid, you may refer to the [Command Table Format](UserGuide.md#command-format-table) for more information.
 
 <div markdown="block" class="alert alert-info">
-**:information_source: Note:**
-* The edit command is unable to directly edit the dates of leaves taken by employees.
-  Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to edit the dates.
+:information_source: Take note: The edit command is unable to directly edit the dates of leaves taken by employees.
+Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to edit the dates.
 </div>
 
 **Examples:**
@@ -456,12 +453,10 @@ work hours or overtime hours.
 * You can add work hours as well as overtime hours in the same command.
 * The index refers to the number next to an employee's name in the displayed employee list.
 * The number of work/overtime hours to be added **must be between 1 and 744**: 1, 2, 3, …, 744
-* The number of work/overtime hours to be added also **cannot cause the employee's total hours worked/overtime to exceed 744.** 
-  <br> (Note: )
+* The number of work/overtime hours to be added also **cannot cause the employee's total hours worked/overtime to exceed 744.**
 
 <div markdown="block" class="alert alert-info">
-**:information_source: Note:**
-* The limit of 744 is applied separately to hours worked and overtime,
+:information_source: Take note: The limit of 744 is applied separately to hours worked and overtime,
   for example an employee's hours worked and overtime can both be set to 744.
 </div>
 
@@ -502,9 +497,8 @@ This command tells you the current overtime pay rate set in the application.
 This command sets a new overtime pay rate to be used in payroll calculations.
 
 <div markdown="block" class="alert alert-info">
-**:information_source: Note:**
-
-* You can only set the overtime pay rate to be a rate from 1 to 10.
+:information_source: Take note:
+* You can only set the overtime pay rate to be a number from 1 to 10, and
 * You can only enter up to 5 decimal places for the overtime pay rate.
 </div>
 
@@ -522,8 +516,7 @@ This command sets a new overtime pay rate to be used in payroll calculations.
 This command calculates the payroll for all employees and marks them as unpaid.
 
 <div markdown="block" class="alert alert-info">
-**:information_source: Take note before using the command:**
-
+:information_source: Take note: Before using the command:
 * You should not have any unpaid employees (in other words, no red 'NOT PAID' labels). Otherwise, an error will be thrown
   and no action will be taken.
 * If you wish to start a new payroll, make sure to pay all employees using the [`pay`](#paying-employees--pay) command.
