@@ -207,8 +207,7 @@ This command allows you to view the data of the specified employee at the InfoPa
 
 **Format:** `view INDEX`
 * Displays the data of the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, ...​
+* The index refers to the number next to an employee's name in the displayed employee list.
 
 **Example:**
 * `list` followed by `view 3` displays the information of the 3rd employee in the employee list.
@@ -216,7 +215,13 @@ This command allows you to view the data of the specified employee at the InfoPa
 
 #### Adding an employee: `add`
 
-This command allows you to add a new employee into HeRon, as long as the all details of the employee is given and follow the requirements. Note that you cannot add an employee with the same Name, Email or Phone Number used by another existing employee in HeRon.
+This command allows you to add a new employee into HeRon, as long as the all details of the employee is given and follow the requirements.
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Note:**
+
+* You cannot add an employee with the same Name, Email or Phone Number used by another existing employee in HeRon.
+</div>
 
 **Format:** `add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​`
 
@@ -234,15 +239,20 @@ Edits an existing employee in HeRon.
 
 **Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`
 
-* Edits the employee at the specified `INDEX`. The index refers to the index number shown in the displayed employee list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the employee at the specified `INDEX`.
+  The index refers to the number next to an employee's name in the displayed employee list.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the employee will be removed i.e adding of tags is not cumulative.
 * You can remove all the employee’s tags by typing `t/` without
   specifying any tags after it.
 * The values you provide to the command must be valid. For information on which values are valid, you may refer to the [Command Table Format](UserGuide.md#command-format-table) for more information.
-* **NOTE:** The edit command is unable to directly edit the dates of leaves taken by employees.
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Note:**
+* The edit command is unable to directly edit the dates of leaves taken by employees.
   Refer to the `assignLeave` and `removeLeavesBefore` commands below instead to edit the dates.
+</div>
 
 **Examples:**
 * `edit 1 p/91234567 e/johndoe@example.com l/15` Edits the phone number, email address and leaves of the 1st employee to be `91234567`, `johndoe@example.com` and `15` respectively.
@@ -256,9 +266,7 @@ This command allows you to delete a specific employee from the application.
 **Format:** `delete INDEX`
 
 * Deletes the employee at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The index cannot exceed the length of the employee list.
+* The index refers to the number next to an employee's name in the displayed employee list.
 
 **Examples:**
 * `list` followed by `delete 2` deletes the 2nd employee in HeRon.
@@ -335,13 +343,13 @@ Find employees using specified fields, checking if their information field conta
 
 #### Listing all employees : `list`
 
-Shows a list of all employees in HeRon.
+This command shows the list of all employees in HeRon.
 
 **Format:** `list`
 
 #### Clearing all employees : `clear`
 
-Clears all employees from the employee list. Upon clearing, it should display the screen shown below.
+This command clears all employees from the employee list. Upon clearing, it should display the screen shown below.
 
 ![ClearScreen](images/user-guide/clear.png)
 
@@ -365,7 +373,7 @@ This command allows you to increase an employee's leave balance (number of days 
 **Format:** `addLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 
 * You can specify a number of leaves to add to the employee's leave balance at the specified `INDEX` number.
-* The index refers to the number next to an employee's name in the displayed list.
+* The index refers to the number next to an employee's name in the displayed employee list.
 * The number of leaves to be added **must be between 1 and 365**: 1, 2, 3, …, 365
 * The number of leaves to be added also **cannot cause the employee's total leave balance to exceed 365 leaves.**
 
@@ -381,7 +389,7 @@ leave balance (number of days of leave the employee has left).
 **Format:** `deductLeaveBalance INDEX l/NUMBER_OF_LEAVES`
 
 * You can specify a number of leaves to deduct from the employee's leave balance at the specified `INDEX` number.
-* The index refers to the number next to an employee's name in the displayed list.
+* The index refers to the number next to an employee's name in the displayed employee list.
 * The number of leaves to be deducted **must be between 1 and 365**: 1, 2, 3, …, 365
 * You **cannot deduct more leaves than what the employee has in their leave balance.**
 
@@ -398,7 +406,7 @@ to allow you to keep track of it.
 **Format:** `assignLeave INDEX d/DATE`
 
 * You can assign a leave to the employee at the specified `INDEX`, which automatically deducts 1 leave from the employee's leave balance.
-* The index refers to the number next to an employee's name in the displayed list.
+* The index refers to the number next to an employee's name in the displayed employee list.
 * The employee must have **at least 1 leave** in their leave balance.
   <br>(To add leaves to an employee, [use the `addLeaveBalance` command.](UserGuide.md#add-number-of-leaves-for-an-employee--addleavebalance))
 * The given date **must be valid** and of the form **YYYY-MM-DD**.
@@ -446,11 +454,16 @@ work hours or overtime hours.
 * You can specify a number of work/overtime hours to add to the employee at the specified `INDEX` number.
 * You must include at least one field (HOURS_WORKED or OVERTIME) when using the command.
 * You can add work hours as well as overtime hours in the same command.
-* The index refers to the number next to an employee's name in the displayed list.
+* The index refers to the number next to an employee's name in the displayed employee list.
 * The number of work/overtime hours to be added **must be between 1 and 744**: 1, 2, 3, …, 744
 * The number of work/overtime hours to be added also **cannot cause the employee's total hours worked/overtime to exceed 744.** 
-  <br> (Note: The limit of 744 is applied separately to hours worked and overtime,
-  for example an employee's hours worked and overtime can both be set to 744)
+  <br> (Note: )
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Note:**
+* The limit of 744 is applied separately to hours worked and overtime,
+  for example an employee's hours worked and overtime can both be set to 744.
+</div>
 
 **Examples:**
 * `list` followed by `addHoursWorked 5 hw/5 o/5` adds 5 hours worked and 5 hours of overtime to the 5th employee in HeRon.
@@ -466,7 +479,7 @@ work hours or overtime hours.
 * You can specify a number of work/overtime hours to deduct from the employee at the specified `INDEX`.
 * You must include at least one field (HOURS_WORKED or OVERTIME) when using the command.
 * You can deduct work hours as well as overtime hours in the same command.  
-* The index refers to the number next to an employee's name in the displayed list.
+* The index refers to the number next to an employee's name in the displayed employee list.
 * The number of work/overtime hours to be deducted **must be between 1 and 744**: 1, 2, 3, …, 744
 * You **cannot deduct more work/overtime hours than what the employee has.**
 
@@ -558,6 +571,7 @@ This command has two formats:
 
 **Format 1:** `pay INDEX` - for marking a specific employee as paid
 * This command marks the employee at `INDEX` as paid by removing the red `NOT PAID` label under the employee's data.
+* The index refers to the number next to an employee's name in the displayed employee list.
 * You can use this command after the [`startPayroll`](#start-payroll--startpayroll) command, 
   which calculates the payroll and marks all employees as unpaid.
 
