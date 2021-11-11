@@ -78,7 +78,12 @@ If you are... | What to do next
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
-## Features
+## Commands
+Commands can be inputted into the Command Box to get HeRon to perform an operation.
+Commands can be divided into separate components, each serving different purposes. Depending on the format of the command,
+they may or may not use all components. Below shows an example of a command with its various components:
+
+![CommandFormat](images/user-guide/CommandFormat.png)
 
 <div markdown="block" class="alert alert-info">
 
@@ -95,13 +100,13 @@ If you are... | What to do next
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
-* Parameters can be in any order.<br>
+* Fields can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* If a parameter is expected only once in the command but is specified multiple times, only the last occurrence of the parameter will be taken.<br>
+* If a field is expected only once in the command but is specified multiple times, only the last occurrence of the field will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous fields for commands that do not take in field (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 </div>
@@ -129,6 +134,8 @@ Field | Requirements | Examples
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 An employee can have any number of tags (including 0)
 </div>
+
+## Features
 
 ### General Admin Features
 
@@ -604,7 +611,7 @@ List of available commands with their respective format and example usages for q
 
 Action | Format, Examples
 --------|------------------
-**Import a CSV file of employee data** | `import FILEPATH` e.g., `import ./myData.csv`
+**Import a CSV file of employee data** | `import FILEPATH` <br> e.g., `import ./myData.csv`
 **View the details of a single employee** | `view INDEX`
 **Add an employee to the employee list** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE l/NUMBER_OF_LEAVES s/HOURLY_SALARY hw/HOURS_WORKED o/OVERTIME [t/TAG]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Admin Assistant l/14 s/9.50 hw/40 o/0 t/friend t/colleague`
 **Edit the details of a single employee** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [l/NUMBER_OF_LEAVES] [s/HOURLY_SALARY] [hw/HOURS_WORKED] [o/OVERTIME] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com l/15`
