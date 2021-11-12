@@ -341,8 +341,8 @@ Find employees using specified fields, checking if their information field conta
     * For example, `find d/2021-10-10 2021-11-01:2021-11-05` will find anyone who satisfies **either** of the following 2 criteria:
       1. has taken a leave on October 10th 2021, or
       2. has taken a leave between the dates November 1st 2021 and November 5th 2021, start and end dates inclusive.
-      
-  
+
+<div style="page-break-after: always;"></div>
 
 **Examples:**
 * `find unpaid n/John Mike r/admin l/<=5 o/>3` finds all employees who satisfy all the following criteria:
@@ -359,6 +359,8 @@ Find employees using specified fields, checking if their information field conta
 This command shows the list of all employees in HeRon.
 
 **Format:** `list`
+
+<div style="page-break-after: always;"></div>
 
 #### Clearing all employees : `clear`
 
@@ -407,6 +409,8 @@ leave balance (number of days of leave the employee has left).
 * The index refers to the number next to an employee's name in the displayed employee list.
 * The number of leaves to be deducted **must be between 1 and 365**: 1, 2, 3, …, 365
 * You **cannot deduct more leaves than what the employee has in their leave balance.**
+
+<div style="page-break-after: always;"></div>
 
 **Examples:**
 * `list` followed by `deductLeaveBalance 2 l/1` removes 1 day of leave from the 2nd employee in HeRon.
@@ -460,6 +464,7 @@ Field | Requirements | Examples
 `HOURLY_SALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
 `HOURS_WORKED`| Positive whole numbers from 1 to 744.| `52`,`1`,`744`
 `OVERTIME`| Positive whole numbers from 1 to 744. | `11`,`1`,`744`
+`OVERTIME_PAY_RATE`| Numbers from 1 to 10 with five or less decimal places only. | `1.5`,`2.0`,`3.45678`
 
 #### Add number of hours worked/overtime to an employee : `addHoursWorked`
 
@@ -484,6 +489,8 @@ work hours or overtime hours.
 * `list` followed by `addHoursWorked 5 hw/5 o/5` adds 5 hours worked and 5 hours of overtime to the 5th employee in HeRon.
 * `find n/Sam` followed by `addHoursWorked 2 o/5` adds 5 hours of overtime to the 2nd employee in the results of the `find` command.
 
+<div style="page-break-after: always;"></div>
+
 #### Deduct number of hours worked/overtime from an employee : `deductHoursWorked`
 
 This command allows you to decrease an employee's
@@ -501,8 +508,6 @@ work hours or overtime hours.
 **Examples:**
 * `list` followed by `deductHoursWorked 2 hw/5 o/3` removes 5 hours worked and 3 hours of overtime from the 2nd employee in HeRon.
 * `find n/Sam` followed by `deductHoursWorked 1 o/2` removes 2 hours of overtime from the 1st employee in the results of the `find` command.
-
-<div style="page-break-after: always;"></div>
 
 #### View the Overtime Pay Rate : `viewOvertimePayRate`
 
@@ -522,14 +527,16 @@ This command sets a new overtime pay rate to be used in payroll calculations.
 * You can only enter up to 5 decimal places for the overtime pay rate.
 </div>
 
-**Format:** `setOvertimePayRate OVERTIMEPAYRATE`
+**Format:** `setOvertimePayRate OVERTIME_PAY_RATE`
 
-* This command sets the overtime pay rate in HeRon to `OVERTIMEPAYRATE`.
+* This command sets the overtime pay rate in HeRon to `OVERTIME_PAY_RATE`.
 
 **Examples:**
 * `setOvertimePayRate 2.0` sets the new overtime pay rate to be 2.
-* `setOvertimePayRate 0.5` would be invalid as `OVERTIMEPAYRATE` must be at least 1.
+* `setOvertimePayRate 0.5` would be invalid as `OVERTIME_PAY_RATE` must be at least 1.
 * `setOvertimePayRate 1.000000` would also be invalid as there are more than 5 decimal places.
+
+<div style="page-break-after: always;"></div>
 
 #### Start Payroll : `startPayroll`
 
@@ -545,11 +552,11 @@ This command calculates the payroll for all employees and marks them as unpaid.
 The formula for the pay of an employee is: <br>
 <p align="center" markdown="1">
 
-    `(HOURLY_SALARY x HOURS_WORKED) + (HOURLY_SALARY x OVERTIME x OVERTIMEPAYRATE)`,
+    `(HOURLY_SALARY x HOURS_WORKED) + (HOURLY_SALARY x OVERTIME x OVERTIME_PAY_RATE)`,
 
 </p>
 
-where `OVERTIMEPAYRATE` is the added pay rate for overtime worked.<br>
+where `OVERTIME_PAY_RATE` is the added pay rate for overtime worked.<br>
 It can be viewed through the [`viewOvertimePayRate`](#view-the-overtime-pay-rate--viewovertimepayrate) command 
 or changed through the [`setOvertimePayRate`](#set-a-new-overtime-pay-rate--setovertimepayrate) command.
 
@@ -671,7 +678,7 @@ Action | Format, Examples
 **Add Hours Worked/Overtime** | `addHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `addHoursWorked 1 hw/2 o/3`
 **Deduct Hours Worked/Overtime** | `deductHoursWorked INDEX [hw/HOURS_WORKED] [o/OVERTIME]` <br> e.g., `deductHoursWorked 4 hw/1 o/2`
 **View Overtime Pay Rate** | `viewOvertimePayRate`
-**Set a new Overtime Pay Rate** | `setOvertimePayRate OVERTIMEPAYRATE`<br> e.g., `setOvertimePayRate 2.0`
+**Set a new Overtime Pay Rate** | `setOvertimePayRate OVERTIME_PAY_RATE`<br> e.g., `setOvertimePayRate 2.0`
 **Start Payroll** | `startPayroll`
 **Pay Employee(s)** | `pay INDEX` <br> e.g., `pay 3` <br> OR <br>`pay all`
 **Open the help menu** | `help`
