@@ -577,6 +577,7 @@ the overtime pay rate is 1.5x, their pay would be:<br>
 
 **Example:**
 * Before you use the `startPayroll` command, you might be viewing a filtered list.
+  [[images/user-guide/startPayroll_before.png|width=400px]]
   ![before starting payroll](images/user-guide/startPayroll_before.png)
   
 * After entering the `startPayroll` command, the payroll will be calculated and you will then be viewing 
