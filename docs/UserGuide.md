@@ -137,12 +137,13 @@ Field | Requirements | Examples
 `EMAIL` | Be in the format of *local-part@domain*. *local-part* should contain only alphanumeric characters and/or certain special characters (`+_.-`), and cannot start or end with any special characters. *domain* should start and end with alphanumeric characters, must be at least 2 characters long, and can contain hyphens. | `alice_pauline@example.com`, `benson-miller@gg.com`
 `ADDRESS`| Can take any value.| `123 Alice Street`, `College of Alice Tan #01-124`
 `ROLE`| Start with alphabet, followed by alphanumeric characters or certain special characters (`-&/()[]`). Only 2 sets of brackets are allowed in total. | `Team Lead (UI/UX Design)`, `R&D Manager`
-`NUMBER_OF_LEAVES`| Non-negative whole numbers less than or equal to 365. |`12`,`0`
+`NUMBER_OF_LEAVES`| Whole numbers from 0 to 365. |`12`,`0`
 `DATE` | A valid date in the form YYYY-MM-DD. | `2020-03-10`,`2021-11-02`
-`HOURLY_SALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
-`HOURS_WORKED`| Non-negative whole numbers less than or equal to 744.| `12`,`1`
-`OVERTIME`| Non-negative whole numbers less than or equal to 744. | `12`,`0`
+`HOURLY_SALARY`| Numbers from 0 to 1000 with two or less decimal places only.| `12.98`,`0.33`
+`HOURS_WORKED`| Whole numbers from 1 to 744.| `12`,`1`
+`OVERTIME`| Whole numbers from 0 to 744. | `12`,`0`
 `TAG`| Contain alphanumeric characters only. | `friend`, `supervisor`
+`OVERTIME_PAY_RATE`| Numbers from 1 to 10 with five or less decimal places only. | `1.5`,`2.0`,`3.45678`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 An employee can have any number of tags (including 0)
@@ -380,7 +381,7 @@ for all Leave-related commands in HeRon.
 Field | Requirements | Examples
       --------------|---------------|---------
 `INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
-`NUMBER_OF_LEAVES`| Positive whole numbers from 1 to 365. |`12`,`1`,`365`
+`NUMBER_OF_LEAVES`| Whole numbers from 1 to 365. |`12`,`1`,`365`
 `DATE` | A valid date in the form YYYY-MM-DD. | `2020-03-10`,`2021-11-02`
 
 #### Add number of leaves for an employee : `addLeaveBalance`
@@ -461,9 +462,9 @@ for all Payroll-related commands in HeRon.
 Field | Requirements | Examples
       --------------|---------------|---------
 `INDEX` | Refers to the number next to an employee's name in the displayed employee list.| `1`,`3`
-`HOURLY_SALARY`| Non-negative numbers with two or less decimal places only.| `12.98`,`0.33`
-`HOURS_WORKED`| Positive whole numbers from 1 to 744.| `52`,`1`,`744`
-`OVERTIME`| Positive whole numbers from 1 to 744. | `11`,`1`,`744`
+`HOURLY_SALARY`| Numbers from 0 to 1000 with two or less decimal places only.| `12.98`,`0.33`
+`HOURS_WORKED`| Whole numbers from 1 to 744.| `12`,`1`
+`OVERTIME`| Whole numbers from 0 to 744. | `12`,`0`
 `OVERTIME_PAY_RATE`| Numbers from 1 to 10 with five or less decimal places only. | `1.5`,`2.0`,`3.45678`
 
 #### Add number of hours worked/overtime to an employee : `addHoursWorked`
