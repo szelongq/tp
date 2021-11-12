@@ -355,13 +355,13 @@ Find employees using specified fields, checking if their information field conta
 * `find unpaid n/carl Elle l/<3` returns `Carl Kurz`, `Elle Meyer` as long as they have less than 3 leaves left and are still unpaid.<br>
   ![result for 'find alex david'](images/user-guide/findCarlElleResult.png)
 
+<div style="page-break-after: always;"></div>
+
 #### Listing all employees : `list`
 
 This command shows the list of all employees in HeRon.
 
 **Format:** `list`
-
-<div style="page-break-after: always;"></div>
 
 #### Clearing all employees : `clear`
 
@@ -575,14 +575,19 @@ the overtime pay rate is 1.5x, their pay would be:<br>
 * After calculating the payroll, you can use the [`pay`](#paying-employees--pay) command to mark employees as paid,
   after their pay are given in real life.
 
+<div style="page-break-after: always;"></div>
+
 **Example:**
 * Before you use the `startPayroll` command, you might be viewing a filtered list.
   ![before starting payroll](images/user-guide/startPayroll_before.png)
+
+<div style="page-break-after: always;"></div>
   
 * After entering the `startPayroll` command, the payroll will be calculated and you will then be viewing 
   the full list of employees. Each employee will have a red `NOT PAID` label.
   ![after starting payroll](images/user-guide/startPayroll_after.png)
 
+<div style="page-break-after: always;"></div>
 
 #### Paying employee(s) : `pay`
 
@@ -600,7 +605,9 @@ This command has two formats:
 * `pay 1` marks the 1st employee in the list as paid, removing the red `NOT PAID` label.
   ![before paying the employee](images/user-guide/pay_beforePaying.png)
   _Alex is marked as unpaid in HeRon after a `startPayroll` command_ <br>
-  <br>
+
+<div style="page-break-after: always;"></div>
+
   ![after paying the employee](images/user-guide/pay_afterPaying.png)
   _After executing `pay 1`, Alex (being the 1st employee in this list) is marked as paid, 
   and the red `NOT PAID` label is removed_ <br>
