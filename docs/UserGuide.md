@@ -243,6 +243,8 @@ This command allows you to add a new employee into HeRon, as long as the all det
   ![Result of successful add](images/user-guide/addExample.png)
   _Result of adding a new employee Betsy successfully to HeRon_ <br>
 
+<div style="page-break-after: always;"></div>
+
 #### Editing an employee : `edit`
 
 Edits an existing employee in HeRon.
@@ -280,6 +282,8 @@ This command allows you to delete a specific employee from the application.
 **Examples:**
 * `list` followed by `delete 2` deletes the 2nd employee in HeRon.
 * `find n/Betsy` followed by `delete 1` deletes the 1st employee in the results of the `find` command.
+
+<div style="page-break-after: always;"></div>
 
 #### Locating specific employees: `find`
 
@@ -364,6 +368,8 @@ This command clears all employees from the employee list. Upon clearing, it shou
 
 **Format:** `clear`
 
+<div style="page-break-after: always;"></div>
+
 ### Leave-related Commands
 
 The following table describes the input format of each field as well as any requirements
@@ -440,6 +446,8 @@ on and before a specified date from all employees in the list.
 * `list` followed by `removeLeavesBefore d/2021-11-10` removes all leaves occurring on and before 2021-11-10 for all employees.
 * `find n/Anthony` followed by `removeLeavesBefore 1 d/2021-01-08` removes all leaves occurring on and before 2021-01-08
   for all employees that have 'Anthony' in their names.
+
+<div style="page-break-after: always;"></div>
 
 ### Payroll-related Commands
 
@@ -596,7 +604,9 @@ This command has two formats:
   which calculates the payroll and marks all employees as unpaid.
 * If there are employees that are already paid in the list, they will be skipped and will be listed in 
   the feedback panel.
-  
+
+
+<div style="page-break-after: always;"></div>
 
 ### Miscellaneous Commands
 
