@@ -516,7 +516,7 @@ This command tells you the current overtime pay rate set in the application.
 
 **Format:** `viewOvertimePayRate`
 
-* Displays the current overtime pay rate in the feedback panel.
+* Shows the current overtime pay rate in the Result Display.
 
 #### Set a new Overtime Pay Rate : `setOvertimePayRate`
 
